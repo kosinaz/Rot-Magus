@@ -25,14 +25,15 @@ Adventurer.prototype.drawFOV = function() {
     }
     return true;
   }.bind(this));
-  ps.compute(this.x, this.y, 40, function(x, y) {
+  var offset = Math.floor(this.game.display.getOptions().height / 2);
+  ps.compute(this.x, this.y, offset, function(x, y) {
     var c = '.';
     if (this.game.actors[x + ',' + y]) {
       c = this.game.actors[x + ',' + y].char;
     } else if (this.game.terrain[x + ',' + y]) {
       c = this.game.terrain[x + ',' + y].char;
     }
-    this.game.display.draw(x - this.x + 40, y - this.y + 12, c);
+    this.game.display.draw(x - this.x + offset, y - this.y + offset, c);
   }.bind(this));
 }
 

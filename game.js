@@ -2,11 +2,14 @@ function Game() {
 
   'use strict';
 
-  this.display = new ROT.Display();
+  this.display = new ROT.Display({
+    width: 21,
+    height: 21
+  });
   document.body.appendChild(this.display.getContainer());
 
   this.terrain = {};
-  var cellular = new ROT.Map.Cellular(ROT.DEFAULT_WIDTH, ROT.DEFAULT_HEIGHT, {
+  var cellular = new ROT.Map.Cellular(100, 100, {
     born: [],
     survive: [0, 1, 2]
   });
