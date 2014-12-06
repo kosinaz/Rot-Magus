@@ -2,9 +2,21 @@ function Game() {
 
   'use strict';
 
+  var tileSet = document.createElement('img');
+  tileSet.src = 'tileset.png';
   this.display = new ROT.Display({
     width: 21,
-    height: 21
+    height: 21,
+    layout: 'tile',
+    tileWidth: 24,
+    tileHeight: 21,
+    tileSet: tileSet,
+    tileMap: {
+        "@": [0, 0],
+        ".": [0, 21],
+        "#": [0, 42],
+        "M": [0, 63]
+    },
   });
   document.body.appendChild(this.display.getContainer());
 
