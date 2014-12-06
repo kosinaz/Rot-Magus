@@ -15,11 +15,13 @@ function Game() {
         "@": [0, 0],
         ".": [0, 21],
         "#": [0, 42],
-        "M": [0, 63]
+        "M": [0, 63],
+        "*": [0, 84]
     },
   });
   document.body.appendChild(this.display.getContainer());
 
+  this.cursor = [0, 0];
   this.terrain = {};
   var cellular = new ROT.Map.Cellular(100, 100, {
     born: [],

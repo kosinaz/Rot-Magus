@@ -10,6 +10,7 @@ Adventurer.prototype.act = function() {
   this.drawFOV();
   this.game.engine.lock();
   window.addEventListener('click', this);
+  window.addEventListener('mousemove', this);
 }
 
 Adventurer.prototype.drawFOV = function() {
@@ -27,12 +28,14 @@ Adventurer.prototype.drawFOV = function() {
   }.bind(this));
   var offset = Math.floor(this.game.display.getOptions().height / 2);
   ps.compute(this.x, this.y, offset, function(x, y) {
-    var c = '.';
+    var t = '.';
     if (this.game.actors[x + ',' + y]) {
-      c = this.game.actors[x + ',' + y].char;
+      t = this.game.actors[x + ',' + y].char;
     } else if (this.game.terrain[x + ',' + y]) {
-      c = this.game.terrain[x + ',' + y].char;
+      t = this.game.terrain[x + ',' + y].char;
     }
+    var c = (x === this.game.cursor[0] - offset + this.x
+             && y === this.game.cursor[1] - offset + this.y) ? [t, '*'] : t;
     this.game.display.draw(x - this.x + offset, y - this.y + offset, c);
   }.bind(this));
 }
@@ -41,17 +44,23 @@ Adventurer.prototype.handleEvent = function(e) {
   var offset = Math.floor(this.game.display.getOptions().height / 2);
   var targetX = this.game.display.eventToPosition(e)[0] - offset + this.x;
   var targetY = this.game.display.eventToPosition(e)[1] - offset + this.y;
-  var x = this.x + (targetX > this.x ? 1 : (targetX < this.x ? -1 : 0));
-  var y = this.y + (targetY > this.y ? 1 : (targetY < this.y ? -1 : 0));
-  if (!this.game.actors[x + ',' + y] &&
-    (!this.game.terrain[x + ',' + y] ||
-    (this.game.terrain[x + ',' + y] &&
-    this.game.terrain[x + ',' + y].passable))) {
-    this.game.actors[this.x + ',' + this.y] = null;
-    this.x = x;
-    this.y = y;
-    this.game.actors[this.x + ',' + this.y] = this;
-    window.removeEventListener("keydown", this);
-    this.game.engine.unlock();
+  if (e.type === 'click') {
+    var x = this.x + (targetX > this.x ? 1 : (targetX < this.x ? -1 : 0));
+    var y = this.y + (targetY > this.y ? 1 : (targetY < this.y ? -1 : 0));
+    if (!this.game.actors[x + ',' + y] &&
+      (!this.game.terrain[x + ',' + y] ||
+      (this.game.terrain[x + ',' + y] &&
+      this.game.terrain[x + ',' + y].passable))) {
+      this.game.actors[this.x + ',' + this.y] = null;
+      this.x = x;
+      this.y = y;
+      this.game.actors[this.x + ',' + this.y] = this;
+      window.removeEventListener('click', this);
+      window.removeEventListener('mousemove', this);
+      this.game.engine.unlock();
+    }
+  } else {
+    this.game.cursor = this.game.display.eventToPosition(e);
+    this.drawFOV();
   }
 }
