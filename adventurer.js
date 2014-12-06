@@ -9,7 +9,7 @@ function Adventurer(game) {
 Adventurer.prototype.act = function() {
   this.drawFOV();
   this.game.engine.lock();
-  window.addEventListener('keydown', this);
+  window.addEventListener('click', this);
 }
 
 Adventurer.prototype.drawFOV = function() {
@@ -38,31 +38,20 @@ Adventurer.prototype.drawFOV = function() {
 }
 
 Adventurer.prototype.handleEvent = function(e) {
-  var x = this.x;
-  var y = this.y;
-  switch (e.keyCode) {
-    case 37:
-      x -= 1;
-      break;
-    case 38:
-      y -= 1;
-      break;
-    case 39:
-      x += 1;
-      break;
-    case 40:
-      y += 1;
-      break;
-  }
+  var offset = Math.floor(this.game.display.getOptions().height / 2);
+  var targetX = this.game.display.eventToPosition(e)[0] - offset + this.x;
+  var targetY = this.game.display.eventToPosition(e)[1] - offset + this.y;
+  var x = this.x + (targetX > this.x ? 1 : (targetX < this.x ? -1 : 0));
+  var y = this.y + (targetY > this.y ? 1 : (targetY < this.y ? -1 : 0));
   if (!this.game.actors[x + ',' + y] &&
     (!this.game.terrain[x + ',' + y] ||
     (this.game.terrain[x + ',' + y] &&
     this.game.terrain[x + ',' + y].passable))) {
-      this.game.actors[this.x + ',' + this.y] = null;
-      this.x = x;
-      this.y = y;
-      this.game.actors[this.x + ',' + this.y] = this;
+    this.game.actors[this.x + ',' + this.y] = null;
+    this.x = x;
+    this.y = y;
+    this.game.actors[this.x + ',' + this.y] = this;
+    window.removeEventListener("keydown", this);
+    this.game.engine.unlock();
   }
-  window.removeEventListener("keydown", this);
-  this.game.engine.unlock();
 }
