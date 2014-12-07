@@ -1,18 +1,24 @@
-function Adventurer(game) {
-  this.game = game;
-  this.x = ROT.RNG.getUniformInt(0, ROT.DEFAULT_WIDTH);
-  this.y = ROT.RNG.getUniformInt(0, ROT.DEFAULT_HEIGHT);
-  this.char = '@';
-  this.drawFOV();
-}
+/*global ROT, ROTMAGUS*/
+ROTMAGUS.prototype.Actor = function (type) {
+  'use strict';
+  this.type = type;
+};
+ROTMAGUS.Adventurer.prototype = new ROTMAGUS.Subject();
 
-Adventurer.prototype.act = function() {
-  this.drawFOV();
-  this.game.engine.lock();
-  window.addEventListener('click', this);
-  window.addEventListener('mousemove', this);
-}
+ROTMAGUS.Adventurer.prototype.act = function () {
+  'use strict';
+  this.notify('active', this);
+};
 
+ROTMAGUS.Adventurer.prototype.handleEvent = function (e) {
+  'use strict';
+  this.notify('clicked', {
+    actor: this,
+    event: e
+  });
+};
+
+/*
 Adventurer.prototype.drawFOV = function() {
   var x, y;
   for (x = 0; x < ROT.DEFAULT_WIDTH; x += 1) {
@@ -64,3 +70,4 @@ Adventurer.prototype.handleEvent = function(e) {
     this.drawFOV();
   }
 }
+*/
