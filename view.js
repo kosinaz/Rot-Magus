@@ -2,8 +2,13 @@
 ROTMAGUS.prototype.View = function () {
   'use strict';
 
-  var tileSet = document.createElement('img');
+  var tileSet, tileMap, terrain;
+  tileSet = document.createElement('img');
   tileSet.src = 'tileset.png';
+  tileMap = {};
+  for (terrain in ROTMAGUS.TERRAINS) {
+    tileMap[terrain.char] = [terrain.x, terrain.y];
+  }
 
   /** @private */
   this.display = new ROT.Display({
@@ -13,13 +18,7 @@ ROTMAGUS.prototype.View = function () {
     tileWidth: 24,
     tileHeight: 21,
     tileSet: tileSet,
-    tileMap: {
-      "@": [0, 0],
-      ".": [0, 21],
-      "#": [0, 42],
-      "M": [0, 63],
-      "*": [0, 84]
-    }
+    tileMap: tileMap
   });
 
   document.body.appendChild(this.display.getContainer());
@@ -50,3 +49,23 @@ ROTMAGUS.View.prototype.handleEvent = function (e) {
     break;
   }
 };
+
+ROTMAGUS.View.prototype.setCenter = function (position) {
+  'use strict';
+  this.x = position.split(',')[0] - 10;
+  this.y = position.split(',')[1] - 10;
+};
+
+ROTMAGUS.View.prototype.show = function (cells) {
+  'use strict';
+  var i;
+  for (i = 0; i < cells.length; i += 1) {
+    this.display.draw(
+      cells[i].x - this.x,
+      cells[i].y - this.y,
+      cells[i].char
+    );
+  }
+};
+
+

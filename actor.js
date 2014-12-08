@@ -1,7 +1,8 @@
 /*global ROT, ROTMAGUS*/
-ROTMAGUS.prototype.Actor = function (type) {
+ROTMAGUS.prototype.Actor = function (type, ai) {
   'use strict';
   this.type = type;
+  this.ai = ai;
 };
 ROTMAGUS.Adventurer.prototype = new ROTMAGUS.Subject();
 
@@ -10,6 +11,7 @@ ROTMAGUS.Adventurer.prototype.act = function () {
   this.notify('active', this);
 };
 
+/*
 ROTMAGUS.Adventurer.prototype.handleEvent = function (e) {
   'use strict';
   this.notify('clicked', {
@@ -18,7 +20,7 @@ ROTMAGUS.Adventurer.prototype.handleEvent = function (e) {
   });
 };
 
-/*
+
 Adventurer.prototype.drawFOV = function() {
   var x, y;
   for (x = 0; x < ROT.DEFAULT_WIDTH; x += 1) {
