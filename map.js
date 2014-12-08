@@ -26,7 +26,7 @@ ROTMAGUS.Map.prototype.generateCell = function () {
   var r, monster;
   r = ROT.RNG.getPercentage();
   if (r < 1) {
-    monster = new ROTMAGUS.Actor('skeleton','guard');
+    monster = new ROTMAGUS.Actor('skeleton', 'guard');
     monster.addObserver(this);
     this.scheduler.add(monster, true);
     return {
@@ -80,10 +80,10 @@ ROTMAGUS.Map.prototype.onNotify = function (note, subject) {
     yn = subject.to[1];
     x1 = x0 + (xn > x0 ? 1 : (x0 > xn ? -1 : 0));
     y1 = y0 + (yn > y0 ? 1 : (y0 > yn ? -1 : 0));
-    if (!this.cells[x1 + ',' +y1].actor &&
-        this.cells[x1 + ',' +y1].terrain.passable) {
-      this.cells[x1 + ',' +y1].actor = this.cells[x0 + ',' +y0].actor;
-      this.cells[x0 + ',' +y0].actor = null;
+    if (!this.cells[x1 + ',' + y1].actor &&
+        this.cells[x1 + ',' + y1].terrain.passable) {
+      this.cells[x1 + ',' + y1].actor = this.cells[x0 + ',' + y0].actor;
+      this.cells[x0 + ',' + y0].actor = null;
       this.engine.unlock();
     }
     break;
@@ -104,7 +104,7 @@ ROTMAGUS.Map.prototype.getFOV = function (position) {
   'use strict';
   var ps, x, y, char;
   ps = new ROT.FOV.PreciseShadowcasting(function (x, y) {
-    if(this.cells[position].terrain) {
+    if (this.cells[position].terrain) {
       return this.cells[position].terrain.transparent;
     }
     return true;
@@ -112,7 +112,7 @@ ROTMAGUS.Map.prototype.getFOV = function (position) {
   x = position.split(',')[0];
   y = position.split(',')[1];
   this.fov = [];
-  ps.compute(x, y, 10, function(x, y) {
+  ps.compute(x, y, 10, function (x, y) {
     if (this.cells[x + ',' + y].terrain.transparent) {
       if (this.cells[x + ',' + y].actor) {
         char = this.cells[x + ',' + y].actor.char;
