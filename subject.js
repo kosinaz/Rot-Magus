@@ -1,5 +1,6 @@
 /*global ROT, ROTMAGUS*/
-ROTMAGUS.prototype.Subject = function () {
+ROTMAGUS = {};
+ROTMAGUS.Subject = function () {
   'use strict';
 
   /** @private */

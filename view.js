@@ -1,13 +1,24 @@
 /*global ROT, ROTMAGUS*/
-ROTMAGUS.prototype.View = function () {
+ROTMAGUS.View = function () {
   'use strict';
 
-  var tileSet, tileMap, terrain;
+  var tileSet, tileMap, terrain, actor;
   tileSet = document.createElement('img');
   tileSet.src = 'tileset.png';
   tileMap = {};
   for (terrain in ROTMAGUS.TERRAINS) {
-    tileMap[terrain.char] = [terrain.x, terrain.y];
+    if (ROTMAGUS.TERRAINS.hasOwnProperty(terrain)) {
+      tileMap[ROTMAGUS.TERRAINS[terrain].char] = [
+        ROTMAGUS.TERRAINS[terrain].x,
+        ROTMAGUS.TERRAINS[terrain].y];
+    }
+  }
+  for (actor in ROTMAGUS.ACTORS) {
+    if (ROTMAGUS.ACTORS.hasOwnProperty(actor)) {
+      tileMap[ROTMAGUS.ACTORS[actor].char] = [
+        ROTMAGUS.ACTORS[actor].x,
+        ROTMAGUS.ACTORS[actor].y];
+    }
   }
 
   /** @private */
@@ -24,9 +35,9 @@ ROTMAGUS.prototype.View = function () {
   document.body.appendChild(this.display.getContainer());
 
 };
-ROTMAGUS.View.prototype = ROTMAGUS.Subject();
+ROTMAGUS.View.prototype = new ROTMAGUS.Subject();
 
-ROTMAGUS.View.prototype.onNotify = function (subject, note) {
+ROTMAGUS.View.prototype.onNotify = function (note, subject) {
   'use strict';
   switch (note) {
   case 'show':
@@ -40,11 +51,14 @@ ROTMAGUS.View.prototype.onNotify = function (subject, note) {
 
 ROTMAGUS.View.prototype.handleEvent = function (e) {
   'use strict';
+  var x, y;
   switch (e.type) {
   case 'click':
+    x = this.display.eventToPosition(e)[0] + this.x;
+    y = this.display.eventToPosition(e)[1] + this.y;
     this.notify('order', {
       from: this.getCenter(),
-      to: this.display.eventToPosition(e)
+      to: x + ',' + y
     });
     break;
   }
@@ -52,13 +66,23 @@ ROTMAGUS.View.prototype.handleEvent = function (e) {
 
 ROTMAGUS.View.prototype.setCenter = function (position) {
   'use strict';
-  this.x = position.split(',')[0] - 10;
-  this.y = position.split(',')[1] - 10;
+  this.x = parseInt(position.split(',')[0], 10) - 10;
+  this.y = parseInt(position.split(',')[1], 10) - 10;
+};
+
+ROTMAGUS.View.prototype.getCenter = function () {
+  'use strict';
+  return (this.x + 10) + ',' + (this.y + 10);
 };
 
 ROTMAGUS.View.prototype.show = function (cells) {
   'use strict';
-  var i;
+  var x, y, i;
+  for (x = 0; x < 21; x += 1) {
+    for (y = 0; y < 21; y += 1) {
+      this.display.draw(x, y, '');
+    }
+  }
   for (i = 0; i < cells.length; i += 1) {
     this.display.draw(
       cells[i].x - this.x,
