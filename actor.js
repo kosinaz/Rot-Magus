@@ -1,13 +1,19 @@
 /*global ROT, ROTMAGUS*/
-ROTMAGUS.Actor = function (type, ai) {
+RM.Actor = function (type, ai) {
   'use strict';
+  RM.scheduler.add(this, true);
   this.type = ROTMAGUS.ACTORS[type];
   this.ai = ai;
   this.target = null;
+  this.fov = [];
 };
-ROTMAGUS.Actor.prototype = new ROTMAGUS.Subject();
 
-ROTMAGUS.Actor.prototype.act = function () {
+RM.Actor.prototype.act = function () {
   'use strict';
-  this.notify('active', this);
+};
+
+RM.Actor.prototype.setXY = function(xy) {
+  'use strict';
+  this.x = xy[0];
+  this.y = xy[1];
 };
