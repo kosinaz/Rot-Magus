@@ -17,3 +17,18 @@ RM.Actor.prototype.setXY = function(xy) {
   this.x = xy[0];
   this.y = xy[1];
 };
+
+RM.Actor.prototype.computeFOV = function () {
+  'use strict';
+  var ps = new ROT.FOV.PreciseShadowcasting(function (x, y) {
+    if (RM.isTransparent(x, y)) {
+      return RM.map[x][y].terrain.transparent;
+    }
+    return false;
+  }.bind(this));
+  this.fov = [];
+  ps.compute(this.x, this.y, 10, function (x, y) {
+    this.fov.push([x, y]);
+  }.bind(this));
+};
+

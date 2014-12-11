@@ -64,6 +64,15 @@ RM.start = function () {
   RM.engine.start();
 };
 
+RM.isTransparent = function (x, y) {
+  if (RM.map[x]) {
+    if (RM.map[x][y]) {
+      return RM.map[x][y].terrain.transparent;
+    }
+  }
+  return false;
+};
+
 ROTMAGUS.Game.prototype.onNotify = function (note, subject) {
   'use strict';
   var position, fov, i, x0, y0, x1, y1, xn, yn;
