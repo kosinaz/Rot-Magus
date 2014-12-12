@@ -54,21 +54,33 @@ RM.start = function () {
     }
   }
   for (i = 0; i < RM.pcs.length; i += 1) {
-    RM.pcs[0].setXY([i, 0]);
+    RM.pcs[i].setXY(i, 0);
     RM.map[i][0] = {
       terrain: RM.terrains.grass,
-      actor: RM.pcs[0]
+      actor: RM.pcs[i]
     };
   }
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
 };
 
-RM.isTransparent = function (x, y) {
+RM.mapHas = function (x, y) {
   if (RM.map[x]) {
-    if (RM.map[x][y]) {
-      return RM.map[x][y].terrain.transparent;
-    }
+    return RM.map[x][y];
+  }
+  return false;
+};
+
+RM.isTransparent = function (x, y) {
+  if (RM.mapHas(x, y)) {
+    return RM.map[x][y].terrain.transparent;
+  }
+  return false;
+};
+
+RM.getActor = function (x, y) {
+  if (RM.mapHas(x, y)) {
+    return RM.map[x][y].actor;
   }
   return false;
 };

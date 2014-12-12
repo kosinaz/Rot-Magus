@@ -12,10 +12,12 @@ RM.Actor.prototype.act = function () {
   'use strict';
 };
 
-RM.Actor.prototype.setXY = function(xy) {
+RM.Actor.prototype.setXY = function(x, y) {
   'use strict';
+  RM.map[this.x][this.y].actor = null;
   this.x = xy[0];
   this.y = xy[1];
+  RM.map[this.x][this.y].actor = this;
 };
 
 RM.Actor.prototype.computeFOV = function () {
@@ -31,4 +33,3 @@ RM.Actor.prototype.computeFOV = function () {
     this.fov.push([x, y]);
   }.bind(this));
 };
-
