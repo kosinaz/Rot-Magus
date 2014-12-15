@@ -8,7 +8,7 @@ RM.Actor = function (type, x, y, ai) {
   this.y = y;
   this.ai = ai;
   this.fov = [];
-  this.neighbors = [];
+  this.targets = [];
   this.paths = [];
   this.currentPath = [];
 };
@@ -20,9 +20,9 @@ RM.Actor.prototype.act = function () {
   this.computeFOV();
   if (this.ai) {
     /* if there isn't any enemy, hold position */
-    if (this.neighbors.length > 0) {
-      for (i = 0; i < this.neighbors.length; i += 1) {
-        this.computePath(this.neighbors[i].x, this.neighbors[i].y);
+    if (this.targets.length > 0) {
+      for (i = 0; i < this.targets.length; i += 1) {
+        this.computePath(this.targets[i].x, this.targets[i].y);
       }
       path = this.getShortest(this.paths);
       if (path[1]) {
@@ -38,10 +38,14 @@ RM.Actor.prototype.act = function () {
 
 RM.Actor.prototype.moveTo = function (x, y) {
   'use strict';
-  RM.map[this.x][this.y].actor = null;
-  this.x = x;
-  this.y = y;
-  RM.map[this.x][this.y].actor = this;
+  if (RM.getActor(x, y)) {
+    console.log('touched');
+  } else {
+    RM.map[this.x][this.y].actor = null;
+    this.x = x;
+    this.y = y;
+    RM.map[this.x][this.y].actor = this;
+  }
 };
 
 RM.Actor.prototype.computeFOV = function () {
@@ -50,10 +54,12 @@ RM.Actor.prototype.computeFOV = function () {
     return RM.isTransparent(x, y);
   }.bind(this));
   this.fov = [];
+  this.targets = [];
   ps.compute(this.x, this.y, 10, function (x, y) {
+    var actor = RM.getActor(x, y);
     this.fov.push([x, y]);
-    if (RM.getActor(x, y)) {
-      this.neighbors.push(RM.getActor(x, y));
+    if (actor && (actor.ai !== this.ai)) {
+      this.targets.push(actor);
     }
   }.bind(this));
 };
