@@ -90,11 +90,13 @@ RM.Actor.prototype.handleEvent = function (e) {
   'use strict';
   var x, y;
   if (e.type === 'click') {
-    window.removeEventListener('click', this);
     x = RM.display.eventToPosition(e)[0] + this.x - 10;
     y = RM.display.eventToPosition(e)[1] + this.y - 10;
-    this.computePath(x, y);
-    this.moveTo(this.paths[0][1][0], this.paths[0][1][1]);
-    RM.engine.unlock();
+    if (RM.isPassable(x, y)) {
+      window.removeEventListener('click', this);
+      this.computePath(x, y);
+      this.moveTo(this.paths[0][1][0], this.paths[0][1][1]);
+      RM.engine.unlock();
+    }
   }
 };
