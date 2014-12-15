@@ -2,14 +2,14 @@
 RM.actors = {
   'elf': {
     'chance': 0,
-    'x': 0,
-    'y': 147,
-    'char': '8'
+    'tileX': 0,
+    'tileY': 147,
+    'tile': '8'
   },
   'skeleton': {
     'chance': 1,
-    'x': 0,
-    'y': 168,
-    'char': 'S'
+    'tileX': 0,
+    'tileY': 168,
+    'tile': 'S'
   }
 };
