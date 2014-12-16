@@ -78,9 +78,9 @@ RM.start = function () {
   var x, y, actor, i;
   window.removeEventListener('click', RM.start);
   RM.map = [];
-  for (x = -50; x < 51; x += 1) {
+  for (x = -10; x < 11; x += 1) {
     RM.map[x] = [];
-    for (y = -50; y < 51; y += 1) {
+    for (y = -10; y < 11; y += 1) {
       RM.map[x][y] = {};
       RM.map[x][y].terrain = RM.terrainSet.random();
       if (ROT.RNG.getPercentage() === 1) {
@@ -130,11 +130,13 @@ RM.draw = function (x, y, points) {
   for (i = 0; i < points.length; i += 1) {
     dx = points[i][0];
     dy = points[i][1];
-    actor = RM.getActor(dx, dy);
-    if (actor) {
-      RM.display.draw(x + dx, y + dy, actor.tile);
-    } else {
-      RM.display.draw(x + dx, y + dy, RM.map[dx][dy].terrain.tile);
+    if (RM.getPoint(dx, dy)) {
+      actor = RM.getActor(dx, dy);
+      if (actor) {
+        RM.display.draw(x + dx, y + dy, actor.tile);
+      } else {
+        RM.display.draw(x + dx, y + dy, RM.map[dx][dy].terrain.tile);
+      }
     }
   }
 
