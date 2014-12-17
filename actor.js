@@ -67,7 +67,17 @@ RM.Actor.prototype.computeFOV = function () {
 RM.Actor.prototype.computePath = function (x, y) {
   'use strict';
   var a = new ROT.Path.AStar(x, y, function (x, y) {
-    return RM.isPassable(x, y);
+    var actor = RM.getActor(x, y);
+    if (RM.isPassable(x, y)) {
+      if (actor) {
+        if (actor === this) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+    return false;
   }.bind(this));
   this.currentPath = [];
   a.compute(this.x, this.y, function (x, y) {
