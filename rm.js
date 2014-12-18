@@ -20,6 +20,7 @@ RM.init = function () {
   });
   document.body.appendChild(RM.display.getContainer());
   window.addEventListener('click', RM.start);
+  window.addEventListener('keypress', this);
 };
 
 RM.getTerrainSet = function () {
@@ -96,6 +97,23 @@ RM.start = function () {
   }
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
+};
+
+RM.handleEvent = function (e) {
+  'use strict';
+  if (e.charCode === 99) {
+    if (RM.charView) {
+      RM.display.setOptions({
+        layout: 'tile'
+      });
+      RM.charView = false;
+    } else {
+      RM.display.setOptions({
+        layout: 'rect'
+      });
+      RM.charView = true;
+    }
+  }
 };
 
 RM.getPoint = function (x, y) {
