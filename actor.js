@@ -7,7 +7,7 @@ RM.Actor = function (type, x, y, ai) {
   this.x = x;
   this.y = y;
   this.ai = ai;
-  this.fov = [];
+  this.fov = {};
   this.targets = [];
   this.paths = [];
   this.currentPath = [];
@@ -33,6 +33,7 @@ RM.Actor.prototype.act = function () {
     RM.draw(this.x, this.y, this.fov);
     RM.engine.lock();
     window.addEventListener('click', this);
+    window.addEventListener('mousemove', this);
   }
 };
 
@@ -53,11 +54,11 @@ RM.Actor.prototype.computeFOV = function () {
   var ps = new ROT.FOV.PreciseShadowcasting(function (x, y) {
     return RM.isTransparent(x, y);
   }.bind(this));
-  this.fov = [];
+  this.fov = {};
   this.targets = [];
   ps.compute(this.x, this.y, 10, function (x, y) {
     var actor = RM.getActor(x, y);
-    this.fov.push([x, y]);
+    this.fov[x + ',' + y] = [x, y];
     if (actor && (actor.ai !== this.ai)) {
       this.targets.push(actor);
     }
@@ -98,10 +99,11 @@ RM.Actor.prototype.getShortest = function (paths) {
 
 RM.Actor.prototype.handleEvent = function (e) {
   'use strict';
-  var x, y;
+  var p, x, y, cx, cy;
+  p = RM.display.eventToPosition(e);
+  x = p[0] + this.x - 10;
+  y = p[1] + this.y - 10;
   if (e.type === 'click') {
-    x = RM.display.eventToPosition(e)[0] + this.x - 10;
-    y = RM.display.eventToPosition(e)[1] + this.y - 10;
     if (RM.getActor(x, y) !== this) {
       if (RM.isPassable(x, y)) {
         window.removeEventListener('click', this);
@@ -114,5 +116,19 @@ RM.Actor.prototype.handleEvent = function (e) {
       window.removeEventListener('click', this);
       RM.engine.unlock();
     }
+  } else {
+    cx = RM.cursor[0] + this.x - 10;
+    cy = RM.cursor[1] + this.y - 10;
+    if (this.fov.hasOwnProperty(cx + ',' + cy)) {
+      RM.display.draw(RM.cursor[0], RM.cursor[1], RM.getTile(cx, cy));
+    } else {
+      RM.display.draw(RM.cursor[0], RM.cursor[1], '');
+    }
+    if (this.fov.hasOwnProperty(x + ',' + y)) {
+      RM.display.draw(p[0], p[1], [RM.getTile(x, y), '*']);
+    } else {
+      RM.display.draw(p[0], p[1], '*');
+    }
+    RM.cursor = p;
   }
 };

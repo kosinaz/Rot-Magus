@@ -18,6 +18,7 @@ RM.init = function () {
     tileSet: tileSet,
     tileMap: RM.getTileMap()
   });
+  RM.cursor = [0, 0];
   document.body.appendChild(RM.display.getContainer());
   window.addEventListener('click', RM.start);
   window.addEventListener('keypress', this);
@@ -54,7 +55,10 @@ RM.getActorSet = function () {
 RM.getTileMap = function () {
   'use strict';
   var i, tileMap;
-  tileMap = [];
+  tileMap = {
+    '': [0, 0],
+    '*': [24, 0]
+  };
   for (i in RM.terrains) {
     if (RM.terrains.hasOwnProperty(i)) {
       tileMap[RM.terrains[i].tile] = [
@@ -127,6 +131,20 @@ RM.getActor = function (x, y) {
   return point ? point.actor : null;
 };
 
+RM.getTile = function (x, y) {
+  'use strict';
+  var actor;
+  if (RM.getPoint(x, y)) {
+    actor = RM.getActor(x, y);
+    if (actor) {
+      return actor.tile;
+    } else {
+      return RM.map[x][y].terrain.tile;
+    }
+  }
+  return '';
+};
+
 RM.isTransparent = function (x, y) {
   'use strict';
   var point = RM.getPoint(x, y);
@@ -141,23 +159,17 @@ RM.isPassable = function (x, y) {
 
 RM.draw = function (x, y, points) {
   'use strict';
-  var i, dx, dy, actor, terrain;
+  var p, dx, dy, actor, terrain;
   x = 10 - x;
   y = 10 - y;
   RM.clear();
-  for (i = 0; i < points.length; i += 1) {
-    dx = points[i][0];
-    dy = points[i][1];
-    if (RM.getPoint(dx, dy)) {
-      actor = RM.getActor(dx, dy);
-      if (actor) {
-        RM.display.draw(x + dx, y + dy, actor.tile);
-      } else {
-        RM.display.draw(x + dx, y + dy, RM.map[dx][dy].terrain.tile);
-      }
+  for (p in points) {
+    if (points.hasOwnProperty(p)) {
+      dx = points[p][0];
+      dy = points[p][1];
+      RM.display.draw(x + dx, y + dy, RM.getTile(dx, dy));
     }
   }
-
 };
 
 RM.clear = function () {
