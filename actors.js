@@ -4,24 +4,24 @@ RM.actors = {
     'chance': 0,
     'tileX': 0,
     'tileY': 147,
-    'tile': '8'
+    'tile': 'e'
   },
   'skeleton': {
     'chance': 6,
     'tileX': 0,
     'tileY': 168,
-    'tile': 'S'
+    'tile': 's'
   },
   'hobgoblin': {
     'chance': 3,
     'tileX': 24,
     'tileY': 168,
-    'tile': 'H'
+    'tile': 'h'
   },
   'troll': {
     'chance': 1,
     'tileX': 48,
     'tileY': 168,
-    'tile': 'T'
+    'tile': 't'
   }
 };

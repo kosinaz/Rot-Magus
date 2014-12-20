@@ -11,6 +11,15 @@ RM.Actor = function (type, x, y, ai) {
   this.targets = [];
   this.paths = [];
   this.currentPath = [];
+  this.level = 0;
+  this.xp = 0;
+  this.health = type.health;
+  this.mana = type.mana;
+  this.burden = 0;
+  this.strength = type.strength;
+  this.wisdom = type.wisdom;
+  this.agility = type.agility;
+  this.precision = type.precision;
 };
 
 RM.Actor.prototype.act = function () {
@@ -30,7 +39,8 @@ RM.Actor.prototype.act = function () {
       }
     }
   } else {
-    RM.draw(this.x, this.y, this.fov);
+    RM.drawMap(this.x, this.y, this.fov);
+    RM.drawHUD();
     RM.engine.lock();
     window.addEventListener('click', this);
     window.addEventListener('mousemove', this);
@@ -56,7 +66,7 @@ RM.Actor.prototype.computeFOV = function () {
   }.bind(this));
   this.fov = {};
   this.targets = [];
-  ps.compute(this.x, this.y, 11, function (x, y) {
+  ps.compute(this.x, this.y, 10, function (x, y) {
     var actor = RM.getActor(x, y);
     this.fov[x + ',' + y] = [x, y];
     if (actor && (actor.ai !== this.ai)) {
@@ -101,34 +111,36 @@ RM.Actor.prototype.handleEvent = function (e) {
   'use strict';
   var p, x, y, cx, cy;
   p = RM.display.eventToPosition(e);
-  x = p[0] + this.x - 11;
-  y = p[1] + this.y - 11;
-  if (e.type === 'click') {
-    if (RM.getActor(x, y) !== this) {
-      if (RM.isPassable(x, y)) {
+  x = p[0] + this.x - 15;
+  y = p[1] + this.y - 10;
+  if (p[0] > 4 && p[1] < 21) {
+    if (e.type === 'click') {
+      if (RM.getActor(x, y) !== this) {
+        if (RM.isPassable(x, y)) {
+          window.removeEventListener('click', this);
+          this.computePath(x, y);
+          this.moveTo(this.paths[0][1][0], this.paths[0][1][1]);
+          RM.engine.unlock();
+        }
+      } else {
+        /* rest */
         window.removeEventListener('click', this);
-        this.computePath(x, y);
-        this.moveTo(this.paths[0][1][0], this.paths[0][1][1]);
         RM.engine.unlock();
       }
     } else {
-      /* rest */
-      window.removeEventListener('click', this);
-      RM.engine.unlock();
+      cx = RM.cursor[0] + this.x - 15;
+      cy = RM.cursor[1] + this.y - 10;
+      if (this.fov.hasOwnProperty(cx + ',' + cy)) {
+        RM.display.draw(RM.cursor[0], RM.cursor[1], RM.getTile(cx, cy));
+      } else {
+        RM.display.draw(RM.cursor[0], RM.cursor[1], '');
+      }
+      if (this.fov.hasOwnProperty(x + ',' + y)) {
+        RM.display.draw(p[0], p[1], [RM.getTile(x, y), '*']);
+      } else {
+        RM.display.draw(p[0], p[1], '*');
+      }
+      RM.cursor = p;
     }
-  } else {
-    cx = RM.cursor[0] + this.x - 11;
-    cy = RM.cursor[1] + this.y - 11;
-    if (this.fov.hasOwnProperty(cx + ',' + cy)) {
-      RM.display.draw(RM.cursor[0], RM.cursor[1], RM.getTile(cx, cy));
-    } else {
-      RM.display.draw(RM.cursor[0], RM.cursor[1], '');
-    }
-    if (this.fov.hasOwnProperty(x + ',' + y)) {
-      RM.display.draw(p[0], p[1], [RM.getTile(x, y), '*']);
-    } else {
-      RM.display.draw(p[0], p[1], '*');
-    }
-    RM.cursor = p;
   }
 };
