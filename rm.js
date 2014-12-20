@@ -10,8 +10,8 @@ RM.init = function () {
   RM.scheduler = new ROT.Scheduler.Action();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.display = new ROT.Display({
-    width: 21,
-    height: 21,
+    width: 23,
+    height: 23,
     layout: 'tile',
     tileWidth: 24,
     tileHeight: 21,
@@ -160,8 +160,8 @@ RM.isPassable = function (x, y) {
 RM.draw = function (x, y, points) {
   'use strict';
   var p, dx, dy, actor, terrain;
-  x = 10 - x;
-  y = 10 - y;
+  x = 11 - x;
+  y = 11 - y;
   RM.clear();
   for (p in points) {
     if (points.hasOwnProperty(p)) {
@@ -175,8 +175,8 @@ RM.draw = function (x, y, points) {
 RM.clear = function () {
   'use strict';
   var x, y;
-  for (x = 0; x < 21; x += 1) {
-    for (y = 0; y < 21; y += 1) {
+  for (x = 0; x < 23; x += 1) {
+    for (y = 0; y < 23; y += 1) {
       RM.display.draw(x, y, '');
     }
   }

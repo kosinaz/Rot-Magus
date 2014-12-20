@@ -56,7 +56,7 @@ RM.Actor.prototype.computeFOV = function () {
   }.bind(this));
   this.fov = {};
   this.targets = [];
-  ps.compute(this.x, this.y, 10, function (x, y) {
+  ps.compute(this.x, this.y, 11, function (x, y) {
     var actor = RM.getActor(x, y);
     this.fov[x + ',' + y] = [x, y];
     if (actor && (actor.ai !== this.ai)) {
@@ -101,8 +101,8 @@ RM.Actor.prototype.handleEvent = function (e) {
   'use strict';
   var p, x, y, cx, cy;
   p = RM.display.eventToPosition(e);
-  x = p[0] + this.x - 10;
-  y = p[1] + this.y - 10;
+  x = p[0] + this.x - 11;
+  y = p[1] + this.y - 11;
   if (e.type === 'click') {
     if (RM.getActor(x, y) !== this) {
       if (RM.isPassable(x, y)) {
@@ -117,8 +117,8 @@ RM.Actor.prototype.handleEvent = function (e) {
       RM.engine.unlock();
     }
   } else {
-    cx = RM.cursor[0] + this.x - 10;
-    cy = RM.cursor[1] + this.y - 10;
+    cx = RM.cursor[0] + this.x - 11;
+    cy = RM.cursor[1] + this.y - 11;
     if (this.fov.hasOwnProperty(cx + ',' + cy)) {
       RM.display.draw(RM.cursor[0], RM.cursor[1], RM.getTile(cx, cy));
     } else {
