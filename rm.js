@@ -16,7 +16,7 @@ RM.init = function () {
     tileWidth: 24,
     tileHeight: 21,
     tileSet: tileSet,
-    tileMap: RM.getTileMap()
+    tileMap: RM.tiles
   });
   RM.cursor = [16, 11];
   document.body.appendChild(RM.display.getContainer());
@@ -50,53 +50,6 @@ RM.getActorSet = function () {
     }
   }
   return set;
-};
-
-RM.getTileMap = function () {
-  'use strict';
-  var i, tileMap;
-  tileMap = {
-    '': [0, 0],
-    '*': [24, 0],
-    ' ': [2 * 24, 0],
-    'L': [3 * 24, 0],
-    'X': [4 * 24, 0],
-    'H': [5 * 24, 0],
-    'M': [6 * 24, 0],
-    'B': [7 * 24, 0],
-    'S': [8 * 24, 0],
-    'W': [9 * 24, 0],
-    'A': [10 * 24, 0],
-    'P': [11 * 24, 0],
-    '_': [12 * 24, 0],
-    '0': [13 * 24, 0],
-    '1': [14 * 24, 0],
-    '2': [15 * 24, 0],
-    '3': [16 * 24, 0],
-    '4': [17 * 24, 0],
-    '5': [18 * 24, 0],
-    '6': [19 * 24, 0],
-    '7': [20 * 24, 0],
-    '8': [21 * 24, 0],
-    '9': [22 * 24, 0]
-  };
-  for (i in RM.terrains) {
-    if (RM.terrains.hasOwnProperty(i)) {
-      tileMap[RM.terrains[i].tile] = [
-        RM.terrains[i].tileX,
-        RM.terrains[i].tileY
-      ];
-    }
-  }
-  for (i in RM.actors) {
-    if (RM.actors.hasOwnProperty(i)) {
-      tileMap[RM.actors[i].tile] = [
-        RM.actors[i].tileX,
-        RM.actors[i].tileY
-      ];
-    }
-  }
-  return tileMap;
 };
 
 RM.start = function () {
