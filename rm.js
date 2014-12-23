@@ -148,7 +148,7 @@ RM.drawMap = function (x, y, points) {
 
 RM.drawHUD = function (player) {
   'use strict';
-  var x, y;
+  var x, y, p;
   for (x = 0; x < 5; x += 1) {
     for (y = 0; y < 15; y += 1) {
       RM.display.draw(x, y, ' ');
@@ -164,13 +164,17 @@ RM.drawHUD = function (player) {
   RM.display.draw(0, 0, 'L');
   RM.display.drawText(1, 0, player.level.toString());
   RM.display.draw(0, 1, 'X');
-  RM.display.drawText(1, 1, player.xp.toString());
+  p = Math.floor(player.xp / (50 * Math.pow(2, player.level)) * 100);
+  RM.display.drawText(1, 1, p + '%');
   RM.display.draw(0, 2, 'H');
-  RM.display.drawText(1, 2, player.health.toString());
+  p = Math.floor((player.health / player.maxHealth) * 100);
+  RM.display.drawText(1, 2, p + '%');
   RM.display.draw(0, 3, 'M');
-  RM.display.drawText(1, 3, player.mana.toString());
+  p = player.maxMana ? Math.floor((player.mana / player.maxMana) * 100) : 0;
+  RM.display.drawText(1, 3, p + '%');
   RM.display.draw(0, 4, 'B');
-  RM.display.drawText(1, 4, player.burden.toString());
+  p = Math.floor((player.burden / player.strength) * 100);
+  RM.display.drawText(1, 4, p + '%');
   RM.display.draw(0, 5, 'S');
   RM.display.drawText(1, 5, player.strength.toString());
   RM.display.draw(0, 6, 'W');
