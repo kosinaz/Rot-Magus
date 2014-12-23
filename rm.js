@@ -146,7 +146,7 @@ RM.drawMap = function (x, y, points) {
   }
 };
 
-RM.drawHUD = function () {
+RM.drawHUD = function (player) {
   'use strict';
   var x, y;
   for (x = 0; x < 5; x += 1) {
@@ -162,23 +162,23 @@ RM.drawHUD = function () {
     RM.display.draw(x, 21, ' ');
   }
   RM.display.draw(0, 0, 'L');
-  RM.display.drawText(1, 0, '1');
+  RM.display.drawText(1, 0, '' + player.level);
   RM.display.draw(0, 1, 'X');
-  RM.display.drawText(1, 1, '50');
+  RM.display.drawText(1, 1, '' + player.xp);
   RM.display.draw(0, 2, 'H');
-  RM.display.drawText(1, 2, '100');
+  RM.display.drawText(1, 2, '' + player.health);
   RM.display.draw(0, 3, 'M');
-  RM.display.drawText(1, 3, '0');
+  RM.display.drawText(1, 3, '' + player.mana);
   RM.display.draw(0, 4, 'B');
-  RM.display.drawText(1, 4, '0');
+  RM.display.drawText(1, 4, '' + player.burden);
   RM.display.draw(0, 5, 'S');
-  RM.display.drawText(1, 5, '10');
+  RM.display.drawText(1, 5, '' + player.strength);
   RM.display.draw(0, 6, 'W');
-  RM.display.drawText(1, 6, '0');
+  RM.display.drawText(1, 6, '' + player.wisdom);
   RM.display.draw(0, 7, 'A');
-  RM.display.drawText(1, 7, '4');
+  RM.display.drawText(1, 7, '' + player.agility);
   RM.display.draw(0, 8, 'P');
-  RM.display.drawText(1, 8, '10');
+  RM.display.drawText(1, 8, '' + player.precision);
   RM.display.draw(2, 10, '_');
   RM.display.draw(2, 11, '_');
   RM.display.draw(1, 12, '_');

@@ -12,7 +12,7 @@ RM.Actor = function (type, x, y, ai) {
   this.paths = [];
   this.currentPath = [];
   this.level = 0;
-  this.xp = 0;
+  this.xp = 50;
   this.health = type.health;
   this.mana = type.mana;
   this.burden = 0;
@@ -40,7 +40,7 @@ RM.Actor.prototype.act = function () {
     }
   } else {
     RM.drawMap(this.x, this.y, this.fov);
-    RM.drawHUD();
+    RM.drawHUD(this);
     RM.engine.lock();
     window.addEventListener('click', this);
     window.addEventListener('mousemove', this);
@@ -49,9 +49,23 @@ RM.Actor.prototype.act = function () {
 
 RM.Actor.prototype.moveTo = function (x, y) {
   'use strict';
+  var enemy, damage;
   RM.scheduler.setDuration(1.0 / this.agility);
-  if (RM.getActor(x, y)) {
-    console.log('touched');
+  enemy = RM.getActor(x, y);
+  if (enemy) {
+    damage = ROT.RNG.getUniformInt(5, 10);
+    damage += damage === 10 ? 6 : 0;
+    enemy.health -= damage;
+    if (enemy.health < 1) {
+      if (!enemy.ai) {
+        RM.engine.lock();
+        RM.clearMap();
+        RM.drawHUD(enemy);
+      }
+      RM.scheduler.remove(enemy);
+      RM.map[enemy.x][enemy.y].actor = null;
+      RM.enemy = null;
+    }
   } else {
     RM.map[this.x][this.y].actor = null;
     this.x = x;
@@ -119,13 +133,16 @@ RM.Actor.prototype.handleEvent = function (e) {
       if (RM.getActor(x, y) !== this) {
         if (RM.isPassable(x, y)) {
           window.removeEventListener('click', this);
+          window.removeEventListener('mousemove', this);
           this.computePath(x, y);
           this.moveTo(this.paths[0][1][0], this.paths[0][1][1]);
           RM.engine.unlock();
         }
       } else {
         /* rest */
+        RM.scheduler.setDuration(1.0 / this.agility);
         window.removeEventListener('click', this);
+        window.removeEventListener('mousemove', this);
         RM.engine.unlock();
       }
     } else {
