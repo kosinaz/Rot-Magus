@@ -58,6 +58,7 @@ RM.Actor.prototype.moveTo = function (x, y) {
     damage = ROT.RNG.getUniformInt(5, 10);
     damage += damage === 10 ? 6 : 0;
     enemy.health -= damage;
+    this.xp += 1;
     if (enemy.health < 1) {
       if (!enemy.ai) {
         RM.engine.lock();
@@ -67,6 +68,15 @@ RM.Actor.prototype.moveTo = function (x, y) {
       RM.scheduler.remove(enemy);
       RM.map[enemy.x][enemy.y].actor = null;
       RM.enemy = null;
+      this.xp += 2;
+    }
+    if (this.xp > 50 * Math.pow(2, this.level)) {
+      this.xp = 0;
+      this.level += 1;
+      this.maxHealth += 10;
+      this.maxMana += this.maxMana ? 10 : 0;
+      this.health += 10;
+      this.mana += this.maxMana ? 10 : 0;
     }
   } else {
     RM.map[this.x][this.y].actor = null;
@@ -143,6 +153,7 @@ RM.Actor.prototype.handleEvent = function (e) {
       } else {
         /* rest */
         RM.scheduler.setDuration(1.0 / this.agility);
+        this.health += this.health < this.maxHealth ? 1 : 0;
         window.removeEventListener('click', this);
         window.removeEventListener('mousemove', this);
         RM.engine.unlock();
