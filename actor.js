@@ -49,6 +49,7 @@ RM.Actor.prototype.act = function () {
 
 RM.Actor.prototype.moveTo = function (x, y) {
   'use strict';
+  RM.scheduler.setDuration(1.0 / this.agility);
   if (RM.getActor(x, y)) {
     console.log('touched');
   } else {
