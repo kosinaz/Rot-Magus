@@ -12,6 +12,8 @@ RM.init = function () {
   RM.display = new ROT.Display({
     width: 26,
     height: 22,
+    fontFamily: 'Universalia',
+    fontSize: 21,
     layout: 'tile',
     tileWidth: 24,
     tileHeight: 21,
