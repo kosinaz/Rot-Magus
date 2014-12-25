@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rot Magus</title>
-  <link rel="stylesheet" href="">
   <script src="rot.js"></script>
   <script src="rm.js"></script>
   <script src="actor.js"></script>
@@ -16,10 +15,24 @@
       font-family: "Universalia";
       src: url("Universalia.ttf") format("truetype");
     }
+    body {
+      background: black
+    }
+    div {
+      margin: 0 auto;
+      text-align: center;
+      width: 640px;
+      height: 480px;
+      background: url("title.png")
+    }
+    canvas {
+      padding-top: 9px;
+    }
   </style>
 </head>
 
 <body>
+  <div id="rm"></div>
   <script>RM.init()</script>
 </body>
 </html>

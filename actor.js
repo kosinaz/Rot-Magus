@@ -61,9 +61,9 @@ RM.Actor.prototype.moveTo = function (x, y) {
     this.xp += 1;
     if (enemy.health < 1) {
       if (!enemy.ai) {
-        RM.engine.lock();
-        RM.clearMap();
-        RM.drawHUD(enemy);
+        document.getElementById('rm').innerHTML = '';
+        document.getElementById('rm').style.background = 'url("end.png")';
+        window.addEventListener('click', RM.start);
       }
       RM.scheduler.remove(enemy);
       RM.map[enemy.x][enemy.y].actor = null;

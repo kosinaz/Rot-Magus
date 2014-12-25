@@ -7,8 +7,6 @@ RM.init = function () {
   tileSet.src = 'tileset.png';
   RM.terrainSet = RM.getTerrainSet();
   RM.actorSet = RM.getActorSet();
-  RM.scheduler = new ROT.Scheduler.Action();
-  RM.engine = new ROT.Engine(RM.scheduler);
   RM.display = new ROT.Display({
     width: 26,
     height: 22,
@@ -21,7 +19,6 @@ RM.init = function () {
     tileMap: RM.tiles
   });
   RM.cursor = [16, 11];
-  document.body.appendChild(RM.display.getContainer());
   window.addEventListener('click', RM.start);
   window.addEventListener('keypress', this);
 };
@@ -58,6 +55,9 @@ RM.start = function () {
   'use strict';
   var x, y, actor, i;
   window.removeEventListener('click', RM.start);
+  document.getElementById('rm').appendChild(RM.display.getContainer());
+  RM.scheduler = new ROT.Scheduler.Action();
+  RM.engine = new ROT.Engine(RM.scheduler);
   RM.map = [];
   for (x = -50; x < 51; x += 1) {
     RM.map[x] = [];
