@@ -1,30 +1,35 @@
 /*global RM, ROT*/
 RM.terrains = {
   'grass': {
+    'x': 0,
+    'y': 0,
     'chance': 75,
-    'tile': '🌁',
     'passable': true,
     'transparent': true
   },
   'redFlower': {
+    'x': 24,
+    'y': 0,
     'chance': 5,
-    'tile': '🌹',
     'passable': true,
     'transparent': true
   },
   'yellowFlower': {
+    'x': 24 * 2,
+    'y': 0,
     'chance': 5,
-    'tile': '🌷',
     'passable': true,
     'transparent': true
   },
   'bush': {
+    'x': 24 * 16,
+    'y': 0,
     'chance': 5,
-    'tile': '🌰',
     'naturePassable': true
   },
   'tree': {
-    'chance': 10,
-    'tile': '🌳'
+    'x': 24 * 17,
+    'y': 0,
+    'chance': 10
   }
 };

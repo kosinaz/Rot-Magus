@@ -3,22 +3,25 @@ var RM = {};
 
 RM.init = function () {
   'use strict';
-  var tileSet = document.createElement('img');
-  tileSet.src = 'tileset.png';
+  var bcr;
+  RM.tileSet = document.createElement('img');
+  RM.tileSet.src = 'tileset.png';
+  RM.hud = document.createElement('img');
+  RM.hud.src = 'hud.png';
   RM.terrainSet = RM.getTerrainSet();
   RM.actorSet = RM.getActorSet();
-  RM.display = new ROT.Display({
-    width: 26,
-    height: 22,
-    fontFamily: 'Universalia',
-    fontSize: 21,
-    layout: 'tile',
-    tileWidth: 24,
-    tileHeight: 21,
-    tileSet: tileSet,
-    tileMap: RM.tiles
-  });
-  RM.cursor = [16, 11];
+  RM.canvas = document.createElement('canvas');
+  RM.canvas.width = 640;
+  RM.canvas.height = 480;
+  document.getElementById('rm').appendChild(RM.canvas);
+  bcr = RM.canvas.getBoundingClientRect();
+  RM.clientXPX = bcr.left;
+  RM.clientYPX = bcr.top;
+  RM.mapClientXPX = RM.clientXPX + 128;
+  RM.mapClientYPX = RM.clientYPX + 9;
+  RM.mapWidthPX = 504;
+  RM.mapHeightPX = 441;
+  RM.ctx = RM.canvas.getContext('2d');
   window.addEventListener('click', RM.start);
   window.addEventListener('keypress', this);
 };
@@ -55,7 +58,7 @@ RM.start = function () {
   'use strict';
   var x, y, actor, i;
   window.removeEventListener('click', RM.start);
-  document.getElementById('rm').appendChild(RM.display.getContainer());
+  RM.ctx.drawImage(RM.hud, 0, 0);
   RM.scheduler = new ROT.Scheduler.Action();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.map = [];
@@ -80,23 +83,6 @@ RM.start = function () {
   RM.engine.start();
 };
 
-RM.handleEvent = function (e) {
-  'use strict';
-  if (e.charCode === 99) {
-    if (RM.charView) {
-      RM.display.setOptions({
-        layout: 'tile'
-      });
-      RM.charView = false;
-    } else {
-      RM.display.setOptions({
-        layout: 'rect'
-      });
-      RM.charView = true;
-    }
-  }
-};
-
 RM.getPoint = function (x, y) {
   'use strict';
   return RM.map[x] ? RM.map[x][y] : null;
@@ -106,20 +92,6 @@ RM.getActor = function (x, y) {
   'use strict';
   var point = RM.getPoint(x, y);
   return point ? point.actor : null;
-};
-
-RM.getTile = function (x, y) {
-  'use strict';
-  var actor;
-  if (RM.getPoint(x, y)) {
-    actor = RM.getActor(x, y);
-    if (actor) {
-      return actor.tile;
-    } else {
-      return RM.map[x][y].terrain.tile;
-    }
-  }
-  return '';
 };
 
 RM.isTransparent = function (x, y) {
@@ -136,22 +108,35 @@ RM.isPassable = function (x, y) {
 
 RM.drawMap = function (x, y, points) {
   'use strict';
-  var p, dx, dy, actor, terrain;
+  var p, dx, dy, tx, ty, actor, point;
   x = 15 - x;
   y = 10 - y;
-  RM.clearMap();
+  RM.ctx.fillRect(128, 9, 504, 441);
   for (p in points) {
     if (points.hasOwnProperty(p)) {
       dx = points[p][0];
       dy = points[p][1];
-      RM.display.draw(x + dx, y + dy, RM.getTile(dx, dy));
+      actor = RM.getActor(dx, dy);
+      if (actor) {
+        tx = actor.tx;
+        ty = actor.ty;
+      } else {
+        point = RM.getPoint(dx, dy);
+        if (point) {
+          tx = point.terrain.x;
+          ty = point.terrain.y;
+        }
+      }
+      RM.ctx.drawImage(RM.tileSet,
+                       tx, ty, 24, 21,
+                       (x + dx) * 24 + 8, (y + dy) * 21 + 9, 24, 21);
     }
   }
 };
 
 RM.drawHUD = function (player) {
   'use strict';
-  var x, y, p;
+  /*var x, y, p;
   for (x = 0; x < 5; x += 1) {
     for (y = 0; y < 15; y += 1) {
       RM.display.draw(x, y, ' ');
@@ -193,15 +178,5 @@ RM.drawHUD = function (player) {
   RM.display.draw(3, 12, '_');
   RM.display.draw(1, 13, '_');
   RM.display.draw(2, 13, '_');
-  RM.display.draw(3, 13, '_');
-};
-
-RM.clearMap = function () {
-  'use strict';
-  var x, y;
-  for (x = 5; x < 26; x += 1) {
-    for (y = 0; y < 21; y += 1) {
-      RM.display.draw(x, y, '');
-    }
-  }
+  RM.display.draw(3, 13, '_');*/
 };

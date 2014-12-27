@@ -1,8 +1,9 @@
 /*global RM, ROT*/
 RM.actors = {
   'elf': {
+    'x': 24 * 12,
+    'y': 21,
     'chance': 0,
-    'tile': 'e',
     'health': 90,
     'mana': 0,
     'strength': 14,
@@ -11,8 +12,9 @@ RM.actors = {
     'precision': 15
   },
   'zombie': {
+    'x': 0,
+    'y': 21 * 2,
     'chance': 6,
-    'tile': 'z',
     'health': 10,
     'mana': 0,
     'strength': 12,
@@ -21,8 +23,9 @@ RM.actors = {
     'precision': 10
   },
   'skeleton': {
+    'x': 24,
+    'y': 21 * 2,
     'chance': 5,
-    'tile': 's',
     'health': 30,
     'mana': 0,
     'strength': 7,
@@ -31,8 +34,9 @@ RM.actors = {
     'precision': 7
   },
   'goblin': {
+    'x': 24 * 2,
+    'y': 21 * 2,
     'chance': 4,
-    'tile': 'g',
     'health': 30,
     'mana': 0,
     'strength': 15,
@@ -41,8 +45,9 @@ RM.actors = {
     'precision': 12
   },
   'hobgoblin': {
+    'x': 24 * 3,
+    'y': 21 * 2,
     'chance': 3,
-    'tile': 'h',
     'health': 10,
     'mana': 0,
     'strength': 10,
@@ -51,8 +56,9 @@ RM.actors = {
     'precision': 15
   },
   'troll': {
+    'x': 24 * 4,
+    'y': 21 * 2,
     'chance': 2,
-    'tile': 't',
     'health': 100,
     'mana': 0,
     'strength': 20,

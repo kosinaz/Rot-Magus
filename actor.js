@@ -3,7 +3,8 @@
 RM.Actor = function (type, x, y, ai) {
   'use strict';
   RM.scheduler.add(this, true);
-  this.tile = type.tile;
+  this.tx = type.x;
+  this.ty = type.y;
   this.x = x;
   this.y = y;
   this.ai = ai;
@@ -44,8 +45,8 @@ RM.Actor.prototype.act = function () {
     RM.drawMap(this.x, this.y, this.fov);
     RM.drawHUD(this);
     RM.engine.lock();
-    window.addEventListener('click', this);
-    window.addEventListener('mousemove', this);
+    RM.canvas.addEventListener('click', this);
+    RM.canvas.addEventListener('mousemove', this);
   }
 };
 
@@ -63,7 +64,7 @@ RM.Actor.prototype.moveTo = function (x, y) {
       if (!enemy.ai) {
         document.getElementById('rm').innerHTML = '';
         document.getElementById('rm').style.background = 'url("end.png")';
-        window.addEventListener('click', RM.start);
+        RM.canvas.addEventListener('click', RM.start);
       }
       RM.scheduler.remove(enemy);
       RM.map[enemy.x][enemy.y].actor = null;
@@ -136,17 +137,21 @@ RM.Actor.prototype.getShortest = function (paths) {
 
 RM.Actor.prototype.handleEvent = function (e) {
   'use strict';
-  var p, x, y, cx, cy;
-  p = RM.display.eventToPosition(e);
-  x = p[0] + this.x - 15;
-  y = p[1] + this.y - 10;
-  if (p[0] > 4 && p[1] < 21) {
+  var eMapXPX, eMapYPX, eX, eY, eClientXPX, eClientYPX;
+  eMapXPX = e.clientX - RM.mapClientXPX;
+  eMapYPX = e.clientY - RM.mapClientYPX;
+  if (eMapXPX > 0 &&
+      eMapYPX > 0 &&
+      eMapXPX < RM.mapWidthPX &&
+      eMapYPX < RM.mapHeightPX) {
+    eX = Math.floor(eMapXPX / 24 + this.x - 10);
+    eY = Math.floor(eMapYPX / 21 + this.y - 10);
     if (e.type === 'click') {
-      if (RM.getActor(x, y) !== this) {
-        if (RM.isPassable(x, y)) {
-          window.removeEventListener('click', this);
-          window.removeEventListener('mousemove', this);
-          this.computePath(x, y);
+      if (RM.getActor(eX, eY) !== this) {
+        if (RM.isPassable(eX, eY)) {
+          RM.canvas.removeEventListener('click', this);
+          RM.canvas.removeEventListener('mousemove', this);
+          this.computePath(eX, eY);
           this.moveTo(this.paths[0][1][0], this.paths[0][1][1]);
           RM.engine.unlock();
         }
@@ -154,24 +159,17 @@ RM.Actor.prototype.handleEvent = function (e) {
         /* rest */
         RM.scheduler.setDuration(1.0 / this.agility);
         this.health += this.health < this.maxHealth ? 1 : 0;
-        window.removeEventListener('click', this);
-        window.removeEventListener('mousemove', this);
+        RM.canvas.removeEventListener('click', this);
+        RM.canvas.removeEventListener('mousemove', this);
         RM.engine.unlock();
       }
     } else {
-      cx = RM.cursor[0] + this.x - 15;
-      cy = RM.cursor[1] + this.y - 10;
-      if (this.fov.hasOwnProperty(cx + ',' + cy)) {
-        RM.display.draw(RM.cursor[0], RM.cursor[1], RM.getTile(cx, cy));
-      } else {
-        RM.display.draw(RM.cursor[0], RM.cursor[1], '');
-      }
-      if (this.fov.hasOwnProperty(x + ',' + y)) {
-        RM.display.draw(p[0], p[1], [RM.getTile(x, y), '*']);
-      } else {
-        RM.display.draw(p[0], p[1], '*');
-      }
-      RM.cursor = p;
+      RM.drawMap(this.x, this.y, this.fov);
+      eClientXPX = (eX + 10 - this.x) * 24 + 128;
+      eClientYPX = (eY + 10 - this.y) * 21 + 9;
+      RM.ctx.drawImage(RM.tileSet,
+                       17 * 24, 21, 24, 21,
+                       eClientXPX, eClientYPX, 24, 21);
     }
   }
 };
