@@ -23,6 +23,7 @@ RM.Actor = function (type, x, y, ai) {
   this.wisdom = type.wisdom;
   this.agility = type.agility;
   this.precision = type.precision;
+  this.items = type.items;
 };
 
 RM.Actor.prototype.act = function () {

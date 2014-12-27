@@ -187,4 +187,10 @@ RM.drawHUD = function (player) {
   RM.c.fillText(player.wisdom, 52, 97);
   RM.c.fillText(player.agility, 76, 97);
   RM.c.fillText(player.precision, 100, 97);
+  for (p = 0; p < player.items.length; p += 1) {
+    RM.c.drawImage(RM.tileSet,
+                   RM.items[player.items[p]].x,
+                   RM.items[player.items[p]].y, 24, 21,
+                   16 + (p % 4) * 24, 114 + Math.floor(p / 4) * 21, 24, 21);
+  }
 };
