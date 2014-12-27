@@ -9,24 +9,27 @@
   <script src="actor.js"></script>
   <script src="terrains.js"></script>
   <script src="actors.js"></script>
-  <script src="tiles.js"></script>
   <style>
+    @font-face {
+      font-family: "Immortal";
+      src: url("Immortal.ttf") format("truetype");
+    }
     body {
-      background: black;
       margin: 0;
+      background: #000;
     }
     div {
       margin: 0 auto;
-      text-align: center;
       width: 640px;
       height: 480px;
-      background: url("title.png")
     }
   </style>
 </head>
 
 <body>
-  <div id="rm"></div>
+  <div>
+    <canvas width="640" height="480" id="rm"></canvas>
+  </div>
   <script>RM.init()</script>
 </body>
 </html>

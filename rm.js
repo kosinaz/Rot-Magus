@@ -1,19 +1,20 @@
 /*global ROT*/
-var RM = {};
+var RM = {
+  VERSION: 'Version 0.2.0.43'
+};
 
 RM.init = function () {
   'use strict';
   var bcr;
-  RM.tileSet = document.createElement('img');
-  RM.tileSet.src = 'tileset.png';
-  RM.hud = document.createElement('img');
-  RM.hud.src = 'hud.png';
+  RM.resources = 0;
+  RM.loaded = 0;
+  RM.tileSet = RM.createImage('tileset.png');
+  RM.hud = RM.createImage('hud.png');
+  RM.title = RM.createImage('title.png');
+  RM.gameover = RM.createImage('gameover.png');
   RM.terrainSet = RM.getTerrainSet();
   RM.actorSet = RM.getActorSet();
-  RM.canvas = document.createElement('canvas');
-  RM.canvas.width = 640;
-  RM.canvas.height = 480;
-  document.getElementById('rm').appendChild(RM.canvas);
+  RM.canvas = document.getElementById('rm');
   bcr = RM.canvas.getBoundingClientRect();
   RM.clientXPX = bcr.left;
   RM.clientYPX = bcr.top;
@@ -21,12 +22,32 @@ RM.init = function () {
   RM.mapClientYPX = RM.clientYPX + 9;
   RM.mapWidthPX = 504;
   RM.mapHeightPX = 441;
-  RM.ctx = RM.canvas.getContext('2d');
-  RM.ctx.font = '12px Immortal';
-  RM.ctx.textAlign = 'center';
-  RM.ctx.textBaseline = 'top';
-  window.addEventListener('click', RM.start);
-  window.addEventListener('keypress', this);
+  RM.c = RM.canvas.getContext('2d');
+};
+
+RM.createImage = function (src) {
+  'use strict';
+  var img = document.createElement('img');
+  RM.resources += 1;
+  img.onload = function () {
+    RM.loaded += 1;
+    if (RM.loaded === RM.resources) {
+      RM.loadTitle();
+    }
+  };
+  img.src = src;
+  return img;
+};
+
+RM.loadTitle = function () {
+  'use strict';
+  RM.c.drawImage(RM.title, 0, 0);
+  RM.c.font = '16px Immortal';
+  RM.c.textAlign = 'center';
+  RM.c.textBaseline = 'top';
+  RM.c.fillStyle = '#808080';
+  RM.c.fillText(RM.VERSION, 320, 440);
+  RM.canvas.addEventListener('click', RM.start);
 };
 
 RM.getTerrainSet = function () {
@@ -60,8 +81,8 @@ RM.getActorSet = function () {
 RM.start = function () {
   'use strict';
   var x, y, actor, i;
-  window.removeEventListener('click', RM.start);
-  RM.ctx.drawImage(RM.hud, 0, 0);
+  RM.canvas.removeEventListener('click', RM.start);
+  RM.c.drawImage(RM.hud, 0, 0);
   RM.scheduler = new ROT.Scheduler.Action();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.map = [];
@@ -114,8 +135,8 @@ RM.drawMap = function (x, y, points) {
   var p, dx, dy, tx, ty, actor, point;
   x = 15 - x;
   y = 10 - y;
-  RM.ctx.fillStyle = '#000000';
-  RM.ctx.fillRect(128, 9, 504, 441);
+  RM.c.fillStyle = '#000000';
+  RM.c.fillRect(128, 9, 504, 441);
   for (p in points) {
     if (points.hasOwnProperty(p)) {
       dx = points[p][0];
@@ -131,7 +152,7 @@ RM.drawMap = function (x, y, points) {
           ty = point.terrain.y;
         }
       }
-      RM.ctx.drawImage(RM.tileSet,
+      RM.c.drawImage(RM.tileSet,
                        tx, ty, 24, 21,
                        (x + dx) * 24 + 8, (y + dy) * 21 + 9, 24, 21);
     }
@@ -141,55 +162,29 @@ RM.drawMap = function (x, y, points) {
 RM.drawHUD = function (player) {
   'use strict';
   var p;
+  RM.c.font = '12px Immortal';
+  RM.c.textAlign = 'center';
+  RM.c.textBaseline = 'top';
   p = Math.floor(player.xp / (50 * Math.pow(2, player.level)) * 70);
-  RM.ctx.fillStyle = '#616161';
-  RM.ctx.fillRect(41, 10, 70, 19);
-  RM.ctx.fillStyle = '#e3e300';
-  RM.ctx.fillRect(41, 10, p, 19);
+  RM.c.fillStyle = '#616161';
+  RM.c.fillRect(41, 10, 70, 19);
+  RM.c.fillStyle = '#e3e300';
+  RM.c.fillRect(41, 10, p, 19);
   p = Math.floor((player.health / player.maxHealth) * 70);
-  RM.ctx.fillStyle = '#616161';
-  RM.ctx.fillRect(41, 31, 70, 19);
-  RM.ctx.fillStyle = '#e30000';
-  RM.ctx.fillRect(41, 31, p, 19);
+  RM.c.fillStyle = '#616161';
+  RM.c.fillRect(41, 31, 70, 19);
+  RM.c.fillStyle = '#e30000';
+  RM.c.fillRect(41, 31, p, 19);
   p = player.maxMana ? Math.floor((player.mana / player.maxMana) * 70) : 0;
-  RM.ctx.fillStyle = '#616161';
-  RM.ctx.fillRect(41, 52, 70, 19);
-  RM.ctx.fillStyle = '#0020e3';
-  RM.ctx.fillRect(41, 52, p, 19);
-  RM.ctx.fillStyle = '#616161';
-  RM.ctx.fillRect(16, 93, 96, 21);
-  RM.ctx.fillStyle = '#000000';
-  RM.ctx.fillText(player.strength, 28, 97);
-  RM.ctx.fillText(player.wisdom, 52, 97);
-  RM.ctx.fillText(player.agility, 76, 97);
-  RM.ctx.fillText(player.precision, 100, 97);
-  /*RM.display.drawText(1, 0, player.level.toString());
-  RM.display.draw(0, 1, 'X');
-  p = Math.floor(player.xp / (50 * Math.pow(2, player.level)) * 100);
-  RM.display.drawText(1, 1, p + '%');
-  RM.display.draw(0, 2, 'H');
-  p = Math.floor((player.health / player.maxHealth) * 100);
-  RM.display.drawText(1, 2, p + '%');
-  RM.display.draw(0, 3, 'M');
-  p = player.maxMana ? Math.floor((player.mana / player.maxMana) * 100) : 0;
-  RM.display.drawText(1, 3, p + '%');
-  RM.display.draw(0, 4, 'B');
-  p = Math.floor((player.burden / player.strength) * 100);
-  RM.display.drawText(1, 4, p + '%');
-  RM.display.draw(0, 5, 'S');
-  RM.display.drawText(1, 5, player.strength.toString());
-  RM.display.draw(0, 6, 'W');
-  RM.display.drawText(1, 6, player.wisdom.toString());
-  RM.display.draw(0, 7, 'A');
-  RM.display.drawText(1, 7, player.agility.toString());
-  RM.display.draw(0, 8, 'P');
-  RM.display.drawText(1, 8, player.precision.toString());
-  RM.display.draw(2, 10, '_');
-  RM.display.draw(2, 11, '_');
-  RM.display.draw(1, 12, '_');
-  RM.display.draw(2, 12, '_');
-  RM.display.draw(3, 12, '_');
-  RM.display.draw(1, 13, '_');
-  RM.display.draw(2, 13, '_');
-  RM.display.draw(3, 13, '_');*/
+  RM.c.fillStyle = '#616161';
+  RM.c.fillRect(41, 52, 70, 19);
+  RM.c.fillStyle = '#0020e3';
+  RM.c.fillRect(41, 52, p, 19);
+  RM.c.fillStyle = '#616161';
+  RM.c.fillRect(16, 93, 96, 21);
+  RM.c.fillStyle = '#000000';
+  RM.c.fillText(player.strength, 28, 97);
+  RM.c.fillText(player.wisdom, 52, 97);
+  RM.c.fillText(player.agility, 76, 97);
+  RM.c.fillText(player.precision, 100, 97);
 };

@@ -62,8 +62,8 @@ RM.Actor.prototype.moveTo = function (x, y) {
     this.xp += 1;
     if (enemy.health < 1) {
       if (!enemy.ai) {
-        document.getElementById('rm').innerHTML = '';
-        document.getElementById('rm').style.background = 'url("end.png")';
+        RM.engine.lock();
+        RM.c.drawImage(RM.gameover, 0, 0);
         RM.canvas.addEventListener('click', RM.start);
       }
       RM.scheduler.remove(enemy);
@@ -167,9 +167,9 @@ RM.Actor.prototype.handleEvent = function (e) {
       RM.drawMap(this.x, this.y, this.fov);
       eClientXPX = (eX + 10 - this.x) * 24 + 128;
       eClientYPX = (eY + 10 - this.y) * 21 + 9;
-      RM.ctx.drawImage(RM.tileSet,
-                       17 * 24, 21, 24, 21,
-                       eClientXPX, eClientYPX, 24, 21);
+      RM.c.drawImage(RM.tileSet,
+                     17 * 24, 21, 24, 21,
+                     eClientXPX, eClientYPX, 24, 21);
     }
   }
 };
