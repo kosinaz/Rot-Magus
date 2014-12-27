@@ -5,7 +5,7 @@ RM.actors = {
     'y': 21,
     'chance': 0,
     'health': 90,
-    'mana': 0,
+    'mana': 100,
     'strength': 14,
     'wisdom': 0,
     'agility': 6,

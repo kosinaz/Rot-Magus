@@ -22,6 +22,9 @@ RM.init = function () {
   RM.mapWidthPX = 504;
   RM.mapHeightPX = 441;
   RM.ctx = RM.canvas.getContext('2d');
+  RM.ctx.font = '12px Immortal';
+  RM.ctx.textAlign = 'center';
+  RM.ctx.textBaseline = 'top';
   window.addEventListener('click', RM.start);
   window.addEventListener('keypress', this);
 };
@@ -111,6 +114,7 @@ RM.drawMap = function (x, y, points) {
   var p, dx, dy, tx, ty, actor, point;
   x = 15 - x;
   y = 10 - y;
+  RM.ctx.fillStyle = '#000000';
   RM.ctx.fillRect(128, 9, 504, 441);
   for (p in points) {
     if (points.hasOwnProperty(p)) {
@@ -136,21 +140,30 @@ RM.drawMap = function (x, y, points) {
 
 RM.drawHUD = function (player) {
   'use strict';
-  /*var x, y, p;
-  for (x = 0; x < 5; x += 1) {
-    for (y = 0; y < 15; y += 1) {
-      RM.display.draw(x, y, ' ');
-    }
-    for (y = 15; y < 20; y += 1) {
-      RM.display.draw(x, y, '_');
-    }
-    RM.display.draw(x, 20, ' ');
-  }
-  for (x = 0; x < 26; x += 1) {
-    RM.display.draw(x, 21, ' ');
-  }
-  RM.display.draw(0, 0, 'L');
-  RM.display.drawText(1, 0, player.level.toString());
+  var p;
+  p = Math.floor(player.xp / (50 * Math.pow(2, player.level)) * 70);
+  RM.ctx.fillStyle = '#616161';
+  RM.ctx.fillRect(41, 10, 70, 19);
+  RM.ctx.fillStyle = '#e3e300';
+  RM.ctx.fillRect(41, 10, p, 19);
+  p = Math.floor((player.health / player.maxHealth) * 70);
+  RM.ctx.fillStyle = '#616161';
+  RM.ctx.fillRect(41, 31, 70, 19);
+  RM.ctx.fillStyle = '#e30000';
+  RM.ctx.fillRect(41, 31, p, 19);
+  p = player.maxMana ? Math.floor((player.mana / player.maxMana) * 70) : 0;
+  RM.ctx.fillStyle = '#616161';
+  RM.ctx.fillRect(41, 52, 70, 19);
+  RM.ctx.fillStyle = '#0020e3';
+  RM.ctx.fillRect(41, 52, p, 19);
+  RM.ctx.fillStyle = '#616161';
+  RM.ctx.fillRect(16, 93, 96, 21);
+  RM.ctx.fillStyle = '#000000';
+  RM.ctx.fillText(player.strength, 28, 97);
+  RM.ctx.fillText(player.wisdom, 52, 97);
+  RM.ctx.fillText(player.agility, 76, 97);
+  RM.ctx.fillText(player.precision, 100, 97);
+  /*RM.display.drawText(1, 0, player.level.toString());
   RM.display.draw(0, 1, 'X');
   p = Math.floor(player.xp / (50 * Math.pow(2, player.level)) * 100);
   RM.display.drawText(1, 1, p + '%');
