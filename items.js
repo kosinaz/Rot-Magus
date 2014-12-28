@@ -3,17 +3,22 @@ RM.items = {
   'arrows': {
     'x': 24 * 2,
     'y': 21 * 4,
-    'passive': true
+    'passive': true,
+    'count': 50
   },
   'bow': {
     'x': 24 * 8,
     'y': 21 * 4,
-    'twoHanded': true
+    'twoHanded': true,
+    'ranged': true,
+    'usesArrows': true
   },
   'dagger': {
     'x': 24 * 16,
     'y': 21 * 4,
+    'damage': 3,
     'oneHanded': true,
+    'melee': true,
     'throwable': true
   },
   'elvenCloak': {

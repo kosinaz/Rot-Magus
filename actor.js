@@ -57,12 +57,17 @@ RM.Actor.prototype.act = function () {
 
 RM.Actor.prototype.moveTo = function (x, y) {
   'use strict';
-  var enemy, damage;
+  var enemy, damage, i;
   RM.scheduler.setDuration(1.0 / this.agility);
   enemy = RM.getActor(x, y);
   if (enemy) {
-    damage = ROT.RNG.getUniformInt(5, 10);
-    damage += damage === 10 ? 6 : 0;
+    damage = ROT.RNG.getUniformInt(1, 6);
+    damage += damage === 6 ? 6 : 0;
+    if (this.primary !== undefined &&
+        this.items !== undefined) {
+      i = RM.items[this.items[this.primary]];
+      damage += i.melee ? i.damage : 0;
+    }
     enemy.health -= damage;
     this.xp += 1;
     if (enemy.health < 1) {
