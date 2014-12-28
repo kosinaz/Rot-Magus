@@ -139,7 +139,7 @@ RM.isPassable = function (x, y) {
 RM.drawFOV = function (player) {
   'use strict';
   var x, y, p, dx, dy, tx, ty, actor, point;
-  x = 15 - player.x;
+  x = 10 - player.x;
   y = 10 - player.y;
   RM.c.fillStyle = '#000000';
   RM.c.fillRect(128, 9, 504, 441);
@@ -160,11 +160,11 @@ RM.drawFOV = function (player) {
       }
       RM.c.drawImage(RM.tileSet,
                        tx, ty, 24, 21,
-                       (x + dx) * 24 + 8, (y + dy) * 21 + 9, 24, 21);
+                       (x + dx) * 24 + 128, (y + dy) * 21 + 9, 24, 21);
       if (p === player.target) {
         RM.c.drawImage(RM.tileSet,
                        17 * 24, 21, 24, 21,
-                       (x + dx) * 24 + 8, (y + dy) * 21 + 9, 24, 21);
+                       (x + dx) * 24 + 128, (y + dy) * 21 + 9, 24, 21);
       }
     }
   }
@@ -204,19 +204,18 @@ RM.drawHUD = function (player) {
   RM.c.fillText(player.wisdom, 52, 97);
   RM.c.fillText(player.agility, 76, 97);
   RM.c.fillText(player.precision, 100, 97);
-  for (p in player.items) {
-    if (player.items.hasOwnProperty(p)) {
-      item = player.items[p];
+  for (p = 0; p < player.items.length; p += 1) {
+    item = player.items[p];
+    RM.c.drawImage(RM.tileSet,
+                   RM.items[item].x, RM.items[item].y, 24, 21,
+                   RM.invXPX + p % 4 * 24,
+                   RM.invYPX + Math.floor(p / 4) * 21, 24, 21);
+    if (player.primary === p ||
+        player.cloak === p) {
       RM.c.drawImage(RM.tileSet,
-                     RM.items[item.name].x, RM.items[item.name].y, 24, 21,
-                     RM.invXPX + item.x * 24,
-                     RM.invYPX + item.y * 21, 24, 21);
-      if (item.use) {
-        RM.c.drawImage(RM.tileSet,
-                       18 * 24, 21, 24, 21,
-                       RM.invXPX + item.x * 24,
-                       RM.invYPX + item.y * 21, 24, 21);
-      }
+                     18 * 24, 21, 24, 21,
+                     RM.invXPX + p % 4 * 24,
+                     RM.invYPX + Math.floor(p / 4) * 21, 24, 21);
     }
   }
 };

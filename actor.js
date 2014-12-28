@@ -25,6 +25,8 @@ RM.Actor = function (type, x, y, ai) {
   this.agility = type.agility;
   this.precision = type.precision;
   this.items = type.items;
+  this.primary = type.primary;
+  this.cloak = type.cloak;
 };
 
 RM.Actor.prototype.act = function () {
@@ -140,7 +142,7 @@ RM.Actor.prototype.getShortest = function (paths) {
 RM.Actor.prototype.handleEvent = function (e) {
   'use strict';
   var eMapXPX, eMapYPX, eInvXPX, eInvYPX, eX, eY, eIX, eIY,
-    eClientXPX, eClientYPX;
+    eClientXPX, eClientYPX, i, item;
   eMapXPX = e.clientX - RM.mapClientXPX;
   eMapYPX = e.clientY - RM.mapClientYPX;
   eInvXPX = e.clientX - RM.invClientXPX;
@@ -179,12 +181,19 @@ RM.Actor.prototype.handleEvent = function (e) {
     eIX = Math.floor(eInvXPX / 24);
     eIY = Math.floor(eInvYPX / 21);
     if (e.type === 'click') {
-      if (this.items[eIX + ',' + eIY]) {
-        this.items[eIX + ',' + eIY].use = !this.items[eIX + ',' + eIY].use;
-        RM.scheduler.setDuration(1.0 / this.agility);
-        RM.canvas.removeEventListener('click', this);
-        RM.canvas.removeEventListener('mousemove', this);
-        RM.engine.unlock();
+      i = eIX + eIY * 4;
+      item = RM.items[this.items[i]];
+      if (item) {
+        if (!item.passive) {
+          this.primary = this.primary === i ? null :
+                         (item.oneHanded || item.twoHanded ? i : this.primary);
+          this.cloak = this.cloak === i ? null :
+                       (this.cloak = item.cloak ? i : this.cloak);
+          RM.scheduler.setDuration(1.0 / this.agility);
+          RM.canvas.removeEventListener('click', this);
+          RM.canvas.removeEventListener('mousemove', this);
+          RM.engine.unlock();
+        }
       }
     }
   }
