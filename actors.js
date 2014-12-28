@@ -29,7 +29,7 @@ RM.actors = {
       '3,0': {
         x: 3,
         y: 0,
-        name: 'cloak'
+        name: 'elvenCloak'
       }
     }
   },

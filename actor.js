@@ -9,6 +9,7 @@ RM.Actor = function (type, x, y, ai) {
   this.y = y;
   this.ai = ai;
   this.fov = {};
+  this.target = '';
   this.targets = [];
   this.paths = [];
   this.currentPath = [];
@@ -43,7 +44,7 @@ RM.Actor.prototype.act = function () {
       }
     }
   } else {
-    RM.drawMap(this.x, this.y, this.fov);
+    RM.drawFOV(this);
     RM.drawHUD(this);
     RM.engine.lock();
     RM.canvas.addEventListener('click', this);
@@ -168,12 +169,8 @@ RM.Actor.prototype.handleEvent = function (e) {
         RM.engine.unlock();
       }
     } else {
-      RM.drawMap(this.x, this.y, this.fov);
-      eClientXPX = (eX + 10 - this.x) * 24 + 128;
-      eClientYPX = (eY + 10 - this.y) * 21 + 9;
-      RM.c.drawImage(RM.tileSet,
-                     17 * 24, 21, 24, 21,
-                     eClientXPX, eClientYPX, 24, 21);
+      this.target = eX + ',' + eY;
+      RM.drawFOV(this);
     }
   } else if (eInvXPX > 0 &&
              eInvYPX > 0 &&

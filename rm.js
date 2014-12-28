@@ -136,17 +136,17 @@ RM.isPassable = function (x, y) {
   return point ? point.terrain.passable : false;
 };
 
-RM.drawMap = function (x, y, points) {
+RM.drawFOV = function (player) {
   'use strict';
-  var p, dx, dy, tx, ty, actor, point;
-  x = 15 - x;
-  y = 10 - y;
+  var x, y, p, dx, dy, tx, ty, actor, point;
+  x = 15 - player.x;
+  y = 10 - player.y;
   RM.c.fillStyle = '#000000';
   RM.c.fillRect(128, 9, 504, 441);
-  for (p in points) {
-    if (points.hasOwnProperty(p)) {
-      dx = points[p][0];
-      dy = points[p][1];
+  for (p in player.fov) {
+    if (player.fov.hasOwnProperty(p)) {
+      dx = player.fov[p][0];
+      dy = player.fov[p][1];
       actor = RM.getActor(dx, dy);
       if (actor) {
         tx = actor.tx;
@@ -161,6 +161,11 @@ RM.drawMap = function (x, y, points) {
       RM.c.drawImage(RM.tileSet,
                        tx, ty, 24, 21,
                        (x + dx) * 24 + 8, (y + dy) * 21 + 9, 24, 21);
+      if (p === player.target) {
+        RM.c.drawImage(RM.tileSet,
+                       17 * 24, 21, 24, 21,
+                       (x + dx) * 24 + 8, (y + dy) * 21 + 9, 24, 21);
+      }
     }
   }
 };
