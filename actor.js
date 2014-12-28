@@ -34,6 +34,7 @@ RM.Actor.prototype.act = function () {
   var i, path;
   this.paths = [];
   this.computeFOV();
+  this.health = Math.min(this.maxHealth, this.health + 1 / this.agility);
   if (this.ai) {
     /* if there isn't any enemy, hold position */
     if (this.targets.length > 0) {
@@ -165,7 +166,7 @@ RM.Actor.prototype.handleEvent = function (e) {
       } else {
         /* rest */
         RM.scheduler.setDuration(1.0 / this.agility);
-        this.health += this.health < this.maxHealth ? 1 : 0;
+        this.health = Math.min(this.maxHealth, this.health + 1);
         RM.canvas.removeEventListener('click', this);
         RM.canvas.removeEventListener('mousemove', this);
         RM.engine.unlock();

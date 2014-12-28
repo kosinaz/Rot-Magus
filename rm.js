@@ -189,7 +189,7 @@ RM.drawHUD = function (player) {
   RM.c.fillStyle = '#e30000';
   RM.c.fillRect(41, 31, p, 19);
   RM.c.fillStyle = '#000000';
-  RM.c.fillText(player.health + '/' + player.maxHealth, 76, 33);
+  RM.c.fillText(Math.floor(player.health) + '/' + player.maxHealth, 76, 33);
   p = player.maxMana ? Math.floor((player.mana / player.maxMana) * 70) : 0;
   RM.c.fillStyle = '#616161';
   RM.c.fillRect(41, 52, 70, 19);
