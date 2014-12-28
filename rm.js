@@ -22,6 +22,12 @@ RM.init = function () {
   RM.mapClientYPX = RM.clientYPX + 9;
   RM.mapWidthPX = 504;
   RM.mapHeightPX = 441;
+  RM.invXPX = 16;
+  RM.invYPX = 114;
+  RM.invClientXPX = RM.clientXPX + RM.invXPX;
+  RM.invClientYPX = RM.clientYPX + RM.invYPX;
+  RM.invWidthPX = 96;
+  RM.invHeightPX = 336;
   RM.c = RM.canvas.getContext('2d');
 };
 
@@ -161,7 +167,7 @@ RM.drawMap = function (x, y, points) {
 
 RM.drawHUD = function (player) {
   'use strict';
-  var p;
+  var p, item;
   RM.c.font = '12px Immortal';
   RM.c.textAlign = 'center';
   RM.c.textBaseline = 'top';
@@ -193,10 +199,19 @@ RM.drawHUD = function (player) {
   RM.c.fillText(player.wisdom, 52, 97);
   RM.c.fillText(player.agility, 76, 97);
   RM.c.fillText(player.precision, 100, 97);
-  for (p = 0; p < player.items.length; p += 1) {
-    RM.c.drawImage(RM.tileSet,
-                   RM.items[player.items[p]].x,
-                   RM.items[player.items[p]].y, 24, 21,
-                   16 + (p % 4) * 24, 114 + Math.floor(p / 4) * 21, 24, 21);
+  for (p in player.items) {
+    if (player.items.hasOwnProperty(p)) {
+      item = player.items[p];
+      RM.c.drawImage(RM.tileSet,
+                     RM.items[item.name].x, RM.items[item.name].y, 24, 21,
+                     RM.invXPX + item.x * 24,
+                     RM.invYPX + item.y * 21, 24, 21);
+      if (item.use) {
+        RM.c.drawImage(RM.tileSet,
+                       18 * 24, 21, 24, 21,
+                       RM.invXPX + item.x * 24,
+                       RM.invYPX + item.y * 21, 24, 21);
+      }
+    }
   }
 };

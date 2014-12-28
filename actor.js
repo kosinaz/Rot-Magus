@@ -138,9 +138,12 @@ RM.Actor.prototype.getShortest = function (paths) {
 
 RM.Actor.prototype.handleEvent = function (e) {
   'use strict';
-  var eMapXPX, eMapYPX, eX, eY, eClientXPX, eClientYPX;
+  var eMapXPX, eMapYPX, eInvXPX, eInvYPX, eX, eY, eIX, eIY,
+    eClientXPX, eClientYPX;
   eMapXPX = e.clientX - RM.mapClientXPX;
   eMapYPX = e.clientY - RM.mapClientYPX;
+  eInvXPX = e.clientX - RM.invClientXPX;
+  eInvYPX = e.clientY - RM.invClientYPX;
   if (eMapXPX > 0 &&
       eMapYPX > 0 &&
       eMapXPX < RM.mapWidthPX &&
@@ -171,6 +174,21 @@ RM.Actor.prototype.handleEvent = function (e) {
       RM.c.drawImage(RM.tileSet,
                      17 * 24, 21, 24, 21,
                      eClientXPX, eClientYPX, 24, 21);
+    }
+  } else if (eInvXPX > 0 &&
+             eInvYPX > 0 &&
+             eInvXPX < RM.invWidthPX &&
+             eInvYPX < RM.invHeightPX) {
+    eIX = Math.floor(eInvXPX / 24);
+    eIY = Math.floor(eInvYPX / 21);
+    if (e.type === 'click') {
+      if (this.items[eIX + ',' + eIY]) {
+        this.items[eIX + ',' + eIY].use = !this.items[eIX + ',' + eIY].use;
+        RM.scheduler.setDuration(1.0 / this.agility);
+        RM.canvas.removeEventListener('click', this);
+        RM.canvas.removeEventListener('mousemove', this);
+        RM.engine.unlock();
+      }
     }
   }
 };

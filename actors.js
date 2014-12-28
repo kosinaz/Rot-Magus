@@ -10,12 +10,28 @@ RM.actors = {
     'wisdom': 0,
     'agility': 6,
     'precision': 15,
-    'items': [
-      'arrows',
-      'bow',
-      'dagger',
-      'cloak'
-    ]
+    'items': {
+      '0,0': {
+        x: 0,
+        y: 0,
+        name: 'arrows'
+      },
+      '1,0': {
+        x: 1,
+        y: 0,
+        name: 'bow'
+      },
+      '2,0': {
+        x: 2,
+        y: 0,
+        name: 'dagger'
+      },
+      '3,0': {
+        x: 3,
+        y: 0,
+        name: 'cloak'
+      }
+    }
   },
   'zombie': {
     'x': 0,
