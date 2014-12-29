@@ -2,6 +2,7 @@
 
 RM.Actor = function (type, x, y, ai) {
   'use strict';
+  var i;
   RM.scheduler.add(this, true);
   this.tx = type.x;
   this.ty = type.y;
@@ -19,14 +20,18 @@ RM.Actor = function (type, x, y, ai) {
   this.health = type.health;
   this.maxMana = type.mana;
   this.mana = type.mana;
-  this.burden = 0;
   this.strength = type.strength;
   this.wisdom = type.wisdom;
   this.agility = type.agility;
   this.precision = type.precision;
   this.items = type.items;
-  this.primary = type.primary;
-  this.cloak = type.cloak;
+  this.burden = 0;
+  if (this.items) {
+    for (i = 0; i < this.items.length; i += 1) {
+      this.burden += RM.items[this.items[i]].weight;
+    }
+  }
+  this.selected = null;
 };
 
 RM.Actor.prototype.act = function () {
@@ -147,8 +152,15 @@ RM.Actor.prototype.getShortest = function (paths) {
 
 RM.Actor.prototype.handleEvent = function (e) {
   'use strict';
-  var eMapXPX, eMapYPX, eInvXPX, eInvYPX, eX, eY, eIX, eIY,
+  var bcr, eMapXPX, eMapYPX, eInvXPX, eInvYPX, eX, eY, eIX, eIY,
     eClientXPX, eClientYPX, i, item;
+  bcr = RM.canvas.getBoundingClientRect();
+  RM.clientXPX = bcr.left;
+  RM.clientYPX = bcr.top;
+  RM.mapClientXPX = RM.clientXPX + RM.mapXPX;
+  RM.mapClientYPX = RM.clientYPX + RM.mapYPX;
+  RM.invClientXPX = RM.clientXPX + RM.invXPX;
+  RM.invClientYPX = RM.clientYPX + RM.invYPX;
   eMapXPX = e.clientX - RM.mapClientXPX;
   eMapYPX = e.clientY - RM.mapClientYPX;
   eInvXPX = e.clientX - RM.invClientXPX;
@@ -190,16 +202,28 @@ RM.Actor.prototype.handleEvent = function (e) {
       i = eIX + eIY * 4;
       item = RM.items[this.items[i]];
       if (item) {
-        if (!item.passive) {
-          this.primary = this.primary === i ? null :
-                         (item.oneHanded || item.twoHanded ? i : this.primary);
-          this.cloak = this.cloak === i ? null :
-                       (this.cloak = item.cloak ? i : this.cloak);
-          RM.scheduler.setDuration(1.0 / this.agility);
-          RM.canvas.removeEventListener('click', this);
-          RM.canvas.removeEventListener('mousemove', this);
-          RM.engine.unlock();
+        if (this.selected === i) {
+          this.selected = null;
+          if (!item.passive) {
+            this.primary = this.primary === i ? null :
+                           (item.oneHanded || item.twoHanded ? i :
+                           this.primary);
+            this.cloak = this.cloak === i ? null :
+                         (this.cloak = item.cloak ? i : this.cloak);
+            RM.scheduler.setDuration(1.0 / this.agility);
+            RM.canvas.removeEventListener('click', this);
+            RM.canvas.removeEventListener('mousemove', this);
+            RM.engine.unlock();
+          }
+        } else {
+          this.selected = i;
+          RM.drawHUD(this);
         }
+      } else if (this.selected !== null) {
+        this.items[i] = this.items[this.selected];
+        this.items[this.selected] = null;
+        this.selected = null;
+        RM.drawHUD(this);
       }
     }
   }
