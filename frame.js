@@ -2,8 +2,6 @@
 /**
  * A region of the game window to display parts of 2-dimensional graphical data
  * maps in different sizes, and pass on window events.
- * @param {String} name           The identifier of the frame that is passed on
- *                                when events occur.
  * @param {Number} x              The x coordinate of the left border.
  * @param {Number} y              The y coordinate of the top border.
  * @param {Number} width          The width of the frame.
@@ -16,32 +14,43 @@
  */
 RM.Frame = function (name, x, y, width, height, content) {
   'use strict';
-  this.name = name;
   this.x = x;
   this.y = y;
   this.width = width;
   this.height = height;
   this.content = content;
-  this.listener = null;
+  this.clickListeners = [];
   window.addEventListener('click', this);
   window.addEventListener('mousemove', this);
 };
 
+RM.Frame.prototype.addClickListener = function (clickListener) {
+  'use strict';
+};
+
+RM.Frame.prototype.notifyClickListeners = function (e) {
+  'use strict';
+  var i, clickListener;
+  for (i = 0; i < this.clickListeners.length; i += 1) {
+    clickListener = this.clickListeners[i];
+    clickListener(e);
+  }
+};
+
 RM.Frame.prototype.handleEvent = function (e) {
   'use strict';
-  var c, x, y;
-  if (!this.listener) {
-    return false;
-  }
-  c = RM.canvas.getBoundingClientRect();
-  x = e.clientX - c.left - this.x - this.cx;
-  y = e.clientY - c.top - this.y - this.cy;
+  var canvas, x, y;
+  canvas = RM.canvas.getBoundingClientRect();
+  x = Math.floor(e.clientX - canvas.left - this.x + this.content.x)
+    / this.content.width;
+  y = Math.floor(e.clientY - canvas.top - this.y + this.content.y)
+    / this.content.height;
   if (x > 0 && y > 0 && x < this.width && y < this.height) {
-    this.listener.handleEvent({
-      name: this.name,
-      type: e.type,
-      x: x,
-      y: y
-    });
+    if (e.type === 'click') {
+      this.notifyClickListeners({
+        x: x,
+        y: y
+      });
+    }
   }
 };

@@ -13,7 +13,7 @@ RM.Actor = function (type, x, y, ai) {
   this.target = '';
   this.targets = [];
   this.paths = [];
-  this.currentPath = [];
+  this.path = [];
   this.level = 0;
   this.xp = 0;
   this.maxHealth = type.health;
@@ -55,14 +55,26 @@ RM.Actor.prototype.act = function () {
     RM.drawFOV(this);
     RM.drawHUD(this);
     RM.engine.lock();
-    RM.canvas.addEventListener('click', this);
+    RM.map.addClickListener(this.moveTo);
     RM.canvas.addEventListener('mousemove', this);
   }
 };
 
-RM.Actor.prototype.moveTo = function (x, y) {
+RM.Actor.prototype.moveTo = function (targetX, targetY) {
   'use strict';
-  var enemy, damage, i;
+  var x, y, enemy, damage, i;
+  if (RM.getActor(targetX, targetY) === this) {
+    /* rest */
+    RM.scheduler.setDuration(1.0 / this.agility);
+    this.health = Math.min(this.maxHealth, this.health + 1);
+    return true;
+  }
+  if (!RM.isPassable(targetX, targetY)) {
+    return false;
+  }
+  this.computePath(targetX, targetY);
+  x = this.path[1][0];
+  y = this.path[1][1];
   RM.scheduler.setDuration(1.0 / this.agility);
   enemy = RM.getActor(x, y);
   if (enemy) {
@@ -133,11 +145,10 @@ RM.Actor.prototype.computePath = function (x, y) {
     }
     return false;
   }.bind(this));
-  this.currentPath = [];
+  this.path = [];
   a.compute(this.x, this.y, function (x, y) {
-    this.currentPath.push([x, y]);
+    this.path.push([x, y]);
   }.bind(this));
-  this.paths.push(this.currentPath);
 };
 
 RM.Actor.prototype.getShortest = function (paths) {
@@ -148,83 +159,4 @@ RM.Actor.prototype.getShortest = function (paths) {
     shortest = shortest.length < paths[i].length ? shortest : paths[i];
   }
   return shortest;
-};
-
-RM.Actor.prototype.handleEvent = function (e) {
-  'use strict';
-  var bcr, eMapXPX, eMapYPX, eInvXPX, eInvYPX, eX, eY, eIX, eIY,
-    eClientXPX, eClientYPX, i, item;
-  bcr = RM.canvas.getBoundingClientRect();
-  RM.clientXPX = bcr.left;
-  RM.clientYPX = bcr.top;
-  RM.mapClientXPX = RM.clientXPX + RM.mapXPX;
-  RM.mapClientYPX = RM.clientYPX + RM.mapYPX;
-  RM.invClientXPX = RM.clientXPX + RM.invXPX;
-  RM.invClientYPX = RM.clientYPX + RM.invYPX;
-  eMapXPX = e.clientX - RM.mapClientXPX;
-  eMapYPX = e.clientY - RM.mapClientYPX;
-  eInvXPX = e.clientX - RM.invClientXPX;
-  eInvYPX = e.clientY - RM.invClientYPX;
-  if (eMapXPX > 0 &&
-      eMapYPX > 0 &&
-      eMapXPX < RM.mapWidthPX &&
-      eMapYPX < RM.mapHeightPX) {
-    eX = Math.floor(eMapXPX / 24 + this.x - 10);
-    eY = Math.floor(eMapYPX / 21 + this.y - 10);
-    if (e.type === 'click') {
-      if (RM.getActor(eX, eY) !== this) {
-        if (RM.isPassable(eX, eY)) {
-          RM.canvas.removeEventListener('click', this);
-          RM.canvas.removeEventListener('mousemove', this);
-          this.computePath(eX, eY);
-          this.moveTo(this.paths[0][1][0], this.paths[0][1][1]);
-          RM.engine.unlock();
-        }
-      } else {
-        /* rest */
-        RM.scheduler.setDuration(1.0 / this.agility);
-        this.health = Math.min(this.maxHealth, this.health + 1);
-        RM.canvas.removeEventListener('click', this);
-        RM.canvas.removeEventListener('mousemove', this);
-        RM.engine.unlock();
-      }
-    } else {
-      this.target = eX + ',' + eY;
-      RM.drawFOV(this);
-    }
-  } else if (eInvXPX > 0 &&
-             eInvYPX > 0 &&
-             eInvXPX < RM.invWidthPX &&
-             eInvYPX < RM.invHeightPX) {
-    eIX = Math.floor(eInvXPX / 24);
-    eIY = Math.floor(eInvYPX / 21);
-    if (e.type === 'click') {
-      i = eIX + eIY * 4;
-      item = RM.items[this.items[i]];
-      if (item) {
-        if (this.selected === i) {
-          this.selected = null;
-          if (!item.passive) {
-            this.primary = this.primary === i ? null :
-                           (item.oneHanded || item.twoHanded ? i :
-                           this.primary);
-            this.cloak = this.cloak === i ? null :
-                         (this.cloak = item.cloak ? i : this.cloak);
-            RM.scheduler.setDuration(1.0 / this.agility);
-            RM.canvas.removeEventListener('click', this);
-            RM.canvas.removeEventListener('mousemove', this);
-            RM.engine.unlock();
-          }
-        } else {
-          this.selected = i;
-          RM.drawHUD(this);
-        }
-      } else if (this.selected !== null) {
-        this.items[i] = this.items[this.selected];
-        this.items[this.selected] = null;
-        this.selected = null;
-        RM.drawHUD(this);
-      }
-    }
-  }
 };
