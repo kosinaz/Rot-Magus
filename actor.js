@@ -10,9 +10,7 @@ RM.Actor = function (type, x, y, ai) {
   this.y = y;
   this.ai = ai;
   this.fov = {};
-  this.target = '';
-  this.targets = [];
-  this.paths = [];
+  this.target = {};
   this.path = [];
   this.level = 0;
   this.xp = 0;
@@ -36,43 +34,69 @@ RM.Actor = function (type, x, y, ai) {
 
 RM.Actor.prototype.act = function () {
   'use strict';
-  var i, path;
-  this.paths = [];
+  var i;
+  this.regenerate();
   this.computeFOV();
-  this.health = Math.min(this.maxHealth, this.health + 1 / this.agility);
   if (this.ai) {
-    /* if there isn't any enemy, hold position */
-    if (this.targets.length > 0) {
-      for (i = 0; i < this.targets.length; i += 1) {
-        this.computePath(this.targets[i].x, this.targets[i].y);
-      }
-      path = this.getShortest(this.paths);
-      if (path[1]) {
-        this.moveTo(path[1][0], path[1][1]);
-      }
-    }
+    this.moveTo(this.target);
   } else {
-    RM.drawFOV(this);
-    RM.drawHUD(this);
     RM.engine.lock();
-    RM.map.addClickListener(this.moveTo);
-    RM.canvas.addEventListener('mousemove', this);
+    RM.map.draw(this);
+    RM.map.subscribe(this);
+    RM.inventory.draw(this);
+    RM.inventory.subscribe(this);
   }
 };
 
-RM.Actor.prototype.moveTo = function (targetX, targetY) {
+RM.Actor.prototype.computeFOV = function () {
   'use strict';
-  var x, y, enemy, damage, i;
-  if (RM.getActor(targetX, targetY) === this) {
-    /* rest */
-    RM.scheduler.setDuration(1.0 / this.agility);
-    this.health = Math.min(this.maxHealth, this.health + 1);
-    return true;
+  var ps = new ROT.FOV.PreciseShadowcasting(function (x, y) {
+    return RM.isTransparent(x, y);
+  }.bind(this));
+  this.fov = {};
+  this.newTarget = null;
+  ps.compute(this.x, this.y, 10, function (x, y) {
+    var actor = RM.getActor(x, y);
+    this.fov[x + ',' + y] = RM.map[x + ',' + y];
+    if (actor && (actor.ai !== this.ai) && !this.newTarget) {
+      this.newTarget = {
+        x: x,
+        y: y
+      };
+    }
+  }.bind(this));
+  if (this.newTarget) {
+    this.target = this.newTarget;
   }
-  if (!RM.isPassable(targetX, targetY)) {
+};
+
+RM.Actor.prototype.heal = function (amount) {
+  'use strict';
+  this.health = Math.min(this.maxHealth, this.health + amount);
+};
+
+RM.Actor.prototype.regenerate = function () {
+  'use strict';
+  this.heal(1 / this.agility);
+};
+
+RM.Actor.prototype.order = function (target) {
+  'use strict';
+  if (!RM.isPassable(target.x, target.y)) {
     return false;
   }
-  this.computePath(targetX, targetY);
+  if (RM.getActor(target.x, target.y) === this) {
+    /* rest */
+    RM.scheduler.setDuration(1.0 / this.agility);
+    this.regenerate();
+    return true;
+  }
+};
+
+RM.Actor.prototype.moveTo = function (target) {
+  'use strict';
+  var x, y, enemy, damage, i;
+  this.computePath(target.x, target.y);
   x = this.path[1][0];
   y = this.path[1][1];
   RM.scheduler.setDuration(1.0 / this.agility);
@@ -114,22 +138,6 @@ RM.Actor.prototype.moveTo = function (targetX, targetY) {
   }
 };
 
-RM.Actor.prototype.computeFOV = function () {
-  'use strict';
-  var ps = new ROT.FOV.PreciseShadowcasting(function (x, y) {
-    return RM.isTransparent(x, y);
-  }.bind(this));
-  this.fov = {};
-  this.targets = [];
-  ps.compute(this.x, this.y, 10, function (x, y) {
-    var actor = RM.getActor(x, y);
-    this.fov[x + ',' + y] = [x, y];
-    if (actor && (actor.ai !== this.ai)) {
-      this.targets.push(actor);
-    }
-  }.bind(this));
-};
-
 RM.Actor.prototype.computePath = function (x, y) {
   'use strict';
   var a = new ROT.Path.AStar(x, y, function (x, y) {
@@ -149,14 +157,4 @@ RM.Actor.prototype.computePath = function (x, y) {
   a.compute(this.x, this.y, function (x, y) {
     this.path.push([x, y]);
   }.bind(this));
-};
-
-RM.Actor.prototype.getShortest = function (paths) {
-  'use strict';
-  var i, shortest;
-  shortest = paths[0];
-  for (i = 1; i < paths.length; i += 1) {
-    shortest = shortest.length < paths[i].length ? shortest : paths[i];
-  }
-  return shortest;
 };
