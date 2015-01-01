@@ -102,34 +102,8 @@ RM.Actor.prototype.moveTo = function (target) {
   RM.scheduler.setDuration(1.0 / this.agility);
   enemy = RM.getActor(x, y);
   if (enemy) {
-    damage = ROT.RNG.getUniformInt(1, 6);
-    damage += damage === 6 ? 6 : 0;
-    if (this.primary !== undefined &&
-        this.items !== undefined) {
-      i = RM.items[this.items[this.primary]];
-      damage += i.melee ? i.damage : 0;
-    }
-    enemy.health -= damage;
-    this.xp += 1;
-    if (enemy.health < 1) {
-      if (!enemy.ai) {
-        RM.engine.lock();
-        RM.c.drawImage(RM.gameover, 0, 0);
-        RM.canvas.addEventListener('click', RM.start);
-      }
-      RM.scheduler.remove(enemy);
-      RM.map[enemy.x][enemy.y].actor = null;
-      RM.enemy = null;
-      this.xp += 2;
-    }
-    if (this.xp > 50 * Math.pow(2, this.level)) {
-      this.xp = 0;
-      this.level += 1;
-      this.maxHealth += 10;
-      this.maxMana += this.maxMana ? 10 : 0;
-      this.health += 10;
-      this.mana += this.maxMana ? 10 : 0;
-    }
+    enemy.damage(this);
+    this.gainXP(1);
   } else {
     RM.map[this.x][this.y].actor = null;
     this.x = x;
@@ -157,4 +131,39 @@ RM.Actor.prototype.computePath = function (x, y) {
   a.compute(this.x, this.y, function (x, y) {
     this.path.push([x, y]);
   }.bind(this));
+};
+
+RM.Actor.prototype.damage = function (source) {
+  'use strict';
+  var damage = ROT.RNG.getUniformInt(1, 6);
+  if (damage === 6) {
+    damage += 6;
+  }
+  if (source.primary !== undefined && source.items !== undefined) {
+    damage += source.damage;
+  }
+  this.health -= damage;
+  if (this.health < 1) {
+    if (!this.ai) {
+      RM.engine.lock();
+      RM.c.drawImage(RM.gameover, 0, 0);
+      RM.canvas.addEventListener('click', RM.start);
+    }
+    RM.scheduler.remove(this);
+    RM.map[this.x][this.y].actor = null;
+    this.gainXP(2);
+  }
+};
+
+RM.Actor.prototype.gainXP = function (amount) {
+  'use strict';
+  this.xp += amount;
+  if (this.xp > 50 * Math.pow(2, this.level)) {
+    this.xp = 0;
+    this.level += 1;
+    this.maxHealth += 10;
+    this.maxMana += this.maxMana ? 10 : 0;
+    this.health += 10;
+    this.mana += this.maxMana ? 10 : 0;
+  }
 };
