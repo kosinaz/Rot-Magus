@@ -1,20 +1,21 @@
-var pubsub = (function () {
+/*global RM*/
+RM.subscriberList = {};
+RM.publish = function (message, publisher, data) {
   'use strict';
-	var subscriberList = {};
-	window.publish = function (message, publisher, data) {
-		var subscribers = subscriberList[message] || [];
-		subscribers.forEach(function (subscriber) {
-			subscriber.handleMessage(message, publisher, data);
-		});
-	};
-	window.subscribe = function (message, subscriber) {
-		if (!(subscriberList.hasOwnProperty(subscriber))) {
-			subscriberList[message] = [];
-		}
-		subscriberList[message].push(subscriber);
-	};
-	window.unsubscribe = function (message, subscriber) {
-		var index = subscriberList[message].indexOf(subscriber);
-		subscriberList[message].splice(index, 1);
-	};
-}());
+  var subscribers = RM.subscriberList[message] || [];
+  subscribers.forEach(function (subscriber) {
+    subscriber.handleMessage(message, publisher, data);
+  });
+};
+RM.subscribe = function (message, subscriber) {
+  'use strict';
+  if (!(RM.subscriberList.hasOwnProperty(subscriber))) {
+    RM.subscriberList[message] = [];
+  }
+  RM.subscriberList[message].push(subscriber);
+};
+RM.unsubscribe = function (message, subscriber) {
+  'use strict';
+  var index = RM.subscriberList[message].indexOf(subscriber);
+  RM.subscriberList[message].splice(index, 1);
+};

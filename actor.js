@@ -4,8 +4,6 @@ RM.Actor = function (type, x, y, ai) {
   'use strict';
   var i;
   RM.scheduler.add(this, true);
-  this.tx = type.x;
-  this.ty = type.y;
   this.x = x;
   this.y = y;
   this.ai = ai;
@@ -23,29 +21,28 @@ RM.Actor = function (type, x, y, ai) {
   this.agility = type.agility;
   this.precision = type.precision;
   this.items = type.items;
-  this.burden = 0;
-  if (this.items) {
-    for (i = 0; i < this.items.length; i += 1) {
-      this.burden += RM.items[this.items[i]].weight;
-    }
-  }
-  this.selected = null;
 };
 
 RM.Actor.prototype.act = function () {
   'use strict';
-  var i;
   this.regenerate();
   this.computeFOV();
   if (this.ai) {
     this.moveTo(this.target);
   } else {
     RM.engine.lock();
-    RM.map.draw(this);
-    RM.map.subscribe(this);
-    RM.inventory.draw(this);
-    RM.inventory.subscribe(this);
+    RM.subscribe('click', this);
   }
+};
+
+RM.Actor.prototype.regenerate = function () {
+  'use strict';
+  this.heal(1 / this.agility);
+};
+
+RM.Actor.prototype.heal = function (amount) {
+  'use strict';
+  this.health = Math.min(this.maxHealth, this.health + amount);
 };
 
 RM.Actor.prototype.computeFOV = function () {
@@ -58,7 +55,7 @@ RM.Actor.prototype.computeFOV = function () {
   ps.compute(this.x, this.y, 10, function (x, y) {
     var actor = RM.getActor(x, y);
     this.fov[x + ',' + y] = RM.map[x + ',' + y];
-    if (actor && (actor.ai !== this.ai) && !this.newTarget) {
+    if (actor && (actor.ai !== this.ai) && !this.newTarget && this.ai) {
       this.newTarget = {
         x: x,
         y: y
@@ -68,29 +65,7 @@ RM.Actor.prototype.computeFOV = function () {
   if (this.newTarget) {
     this.target = this.newTarget;
   }
-};
-
-RM.Actor.prototype.heal = function (amount) {
-  'use strict';
-  this.health = Math.min(this.maxHealth, this.health + amount);
-};
-
-RM.Actor.prototype.regenerate = function () {
-  'use strict';
-  this.heal(1 / this.agility);
-};
-
-RM.Actor.prototype.order = function (target) {
-  'use strict';
-  if (!RM.isPassable(target.x, target.y)) {
-    return false;
-  }
-  if (RM.getActor(target.x, target.y) === this) {
-    /* rest */
-    RM.scheduler.setDuration(1.0 / this.agility);
-    this.regenerate();
-    return true;
-  }
+  RM.publish('FOVupdate', this);
 };
 
 RM.Actor.prototype.moveTo = function (target) {
@@ -166,4 +141,34 @@ RM.Actor.prototype.gainXP = function (amount) {
     this.health += 10;
     this.mana += this.maxMana ? 10 : 0;
   }
+};
+
+RM.Actor.prototype.handleMessage = function (message, publisher, data) {
+  'use strict';
+  switch (message) {
+  case 'click':
+    switch (publisher.id) {
+    case 'map':
+      this.order(data);
+      break;
+    }
+    break;
+  }
+};
+
+RM.Actor.prototype.order = function (target) {
+  'use strict';
+  if (!RM.isPassable(target.x, target.y)) {
+    return false;
+  }
+  if (RM.getActor(target.x, target.y) === this) {
+    /* rest */
+    RM.scheduler.setDuration(1.0 / this.agility);
+    this.regenerate();
+    return true;
+  }
+  RM.moveTo(target);
+  RM.unsubscribe('click', this);
+  RM.unsubscribe('mousemove', this);
+  RM.engine.unlock();
 };
