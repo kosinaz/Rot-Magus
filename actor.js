@@ -2,13 +2,13 @@
 
 RM.Actor = function (type, x, y, ai) {
   'use strict';
-  var i;
   RM.scheduler.add(this, true);
   this.x = x;
   this.y = y;
   this.ai = ai;
   this.fov = {};
   this.target = {};
+  this.newTarget = {};
   this.path = [];
   this.level = 0;
   this.xp = 0;
@@ -26,12 +26,12 @@ RM.Actor = function (type, x, y, ai) {
 RM.Actor.prototype.act = function () {
   'use strict';
   this.regenerate();
-  this.computeFOV();
   if (this.ai) {
     this.moveTo(this.target);
   } else {
     RM.engine.lock();
     RM.subscribe('click', this);
+    this.showFOV();
   }
 };
 
@@ -45,27 +45,41 @@ RM.Actor.prototype.heal = function (amount) {
   this.health = Math.min(this.maxHealth, this.health + amount);
 };
 
+RM.Actor.prototype.showFOV = function () {
+  'use strict';
+  RM.map.center(this.x, this.y);
+  RM.map.fill(RM.terrains.invisible);
+  RM.preciseShadowcasting.compute(this.x, this.y, 10, RM.map.show);
+};
+
 RM.Actor.prototype.computeFOV = function () {
   'use strict';
-  var ps = new ROT.FOV.PreciseShadowcasting(function (x, y) {
-    return RM.isTransparent(x, y);
-  }.bind(this));
-  this.fov = {};
-  this.newTarget = null;
-  ps.compute(this.x, this.y, 10, function (x, y) {
-    var actor = RM.getActor(x, y);
-    this.fov[x + ',' + y] = RM.map[x + ',' + y];
-    if (actor && (actor.ai !== this.ai) && !this.newTarget && this.ai) {
+  RM.preciseShadowcasting.compute(this.x, this.y, 10, function (x, y) {
+
+    /**
+     * Returns if the actor has already found a target to attack.
+     */
+    if (this.newTarget) {
+      return true;
+    }
+
+    /*
+     * Updates target if the actor found a player to attack.
+     */
+    if (RM.isPlayer(x, y)) {
       this.newTarget = {
         x: x,
         y: y
       };
     }
   }.bind(this));
+
+  /*
+   * Updates target if the actor found a new one.
+   */
   if (this.newTarget) {
     this.target = this.newTarget;
   }
-  RM.publish('FOVupdate', this);
 };
 
 RM.Actor.prototype.moveTo = function (target) {

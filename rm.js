@@ -24,6 +24,7 @@ RM.init = function () {
   RM.invWidthPX = 96;
   RM.invHeightPX = 168;
   RM.c = RM.canvas.getContext('2d');
+  RM.preciseShadowcasting = new ROT.FOV.PreciseShadowcasting(RM.isTransparent);
 };
 
 RM.createImage = function (src) {
@@ -117,6 +118,12 @@ RM.getActor = function (x, y) {
   'use strict';
   var point = RM.getPoint(x, y);
   return point ? point.actor : null;
+};
+
+RM.isPlayer = function (x, y) {
+  'use strict';
+  var actor = RM.getActor(x, y);
+  return actor ? actor.ai : false;
 };
 
 RM.isTransparent = function (x, y) {
