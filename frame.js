@@ -58,16 +58,16 @@ RM.Frame.prototype.show = function (x, y) {
 
 RM.Frame.prototype.handleEvent = function (e) {
   'use strict';
-  var canvas, x, y;
+  var canvas, x, y, contentX, contentY;
   canvas = RM.canvas.getBoundingClientRect();
-  x = Math.floor(e.clientX - canvas.left - this.x +
-                 this.content.x / this.tileWidth);
-  y = Math.floor(e.clientY - canvas.top - this.y +
-                 this.content.y / this.tileHeight);
+  x = e.clientX - canvas.left - this.x;
+  contentX = Math.floor(x / this.tileWidth) - this.content.x;
+  y = e.clientY - canvas.top - this.y;
+  contentY = Math.floor(y / this.tileHeight) - this.content.y;
   if (x > 0 && y > 0 && x < this.width && y < this.height) {
     RM.publish(e.type, this, {
-      x: x,
-      y: y
+      x: contentX,
+      y: contentY
     });
   }
 };

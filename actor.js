@@ -32,7 +32,7 @@ RM.Actor.prototype.act = function () {
     this.moveTo(this.target);
   } else {
     RM.engine.lock();
-    RM.subscribe('click', this.moveTo);
+    RM.subscribe('click', this);
     this.showFOV();
   }
 };
@@ -152,8 +152,8 @@ RM.Actor.prototype.handleMessage = function (message, publisher, data) {
   'use strict';
   switch (message) {
   case 'click':
-    switch (publisher.id) {
-    case 'map':
+    switch (publisher) {
+    case RM.mapFrame:
       this.order(data);
       break;
     }
@@ -163,17 +163,16 @@ RM.Actor.prototype.handleMessage = function (message, publisher, data) {
 
 RM.Actor.prototype.order = function (target) {
   'use strict';
-  if (!RM.isPassable(target.x, target.y)) {
+  if (!RM.map.isPassable(target.x, target.y)) {
     return false;
   }
-  if (RM.getActor(target.x, target.y) === this) {
+  if (RM.map.getActor(target.x, target.y) === this) {
     /* rest */
     RM.scheduler.setDuration(1.0 / this.agility);
     this.regenerate();
     return true;
   }
-  RM.moveTo(target);
+  this.moveTo(target);
   RM.unsubscribe('click', this);
-  RM.unsubscribe('mousemove', this);
   RM.engine.unlock();
 };

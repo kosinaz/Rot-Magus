@@ -2,10 +2,13 @@
 RM.subscriberList = {};
 RM.publish = function (message, publisher, data) {
   'use strict';
-  var subscribers = RM.subscriberList[message] || [];
-  subscribers.forEach(function (subscriber) {
-    subscriber.handleMessage(message, publisher, data);
-  });
+  var s, subscribers;
+  subscribers = RM.subscriberList[message] || [];
+  for (s in subscribers) {
+    if (subscribers.hasOwnProperty(s)) {
+      subscribers[s].handleMessage(message, publisher, data);
+    }
+  }
 };
 RM.subscribe = function (message, subscriber) {
   'use strict';
