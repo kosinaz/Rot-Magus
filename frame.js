@@ -12,6 +12,7 @@
  * @param {Number} content.y      The y offset of the content.
  * @param {Number} content.width  The width of content's part to display.
  * @param {Number} content.height The height of content's part to display.
+ * @param {Object} content.empty  The tile coordinates of the empty points.
  */
 RM.Frame = function (x, y, width, height, content) {
   'use strict';
@@ -33,12 +34,12 @@ RM.Frame.prototype.center = function (x, y) {
   this.content.y = y - Math.floor(this.content.height / 2);
 };
 
-RM.Frame.prototype.fill = function (tile) {
+RM.Frame.prototype.clear = function () {
   'use strict';
   var x, y;
   for (x = 0; x < this.content.width; x += 1) {
     for (y = 0; y < this.content.height; y += 1) {
-      RM.c.drawImage(RM.tileSet, tile.x, tile.y,
+      RM.c.drawImage(RM.tileSet, this.content.empty.x, this.content.empty.y,
                      this.tileWidth, this.tileHeight,
                      this.tileWidth * x + this.x, this.tileHeight * y + this.y,
                      this.tileWidth, this.tileHeight);
@@ -49,6 +50,9 @@ RM.Frame.prototype.fill = function (tile) {
 RM.Frame.prototype.show = function (x, y) {
   'use strict';
   var tile = this.content.map.getTile(x, y);
+  if (!tile) {
+    tile = this.content.empty;
+  }
   RM.c.drawImage(RM.tileSet, tile.x, tile.y,
                  this.tileWidth, this.tileHeight,
                  this.tileWidth * (x - this.content.x) + this.x,

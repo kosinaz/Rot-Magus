@@ -15,10 +15,6 @@ RM.init = function () {
   RM.terrainSet = RM.getTerrainSet();
   RM.actorSet = RM.getActorSet();
   RM.canvas = document.getElementById('rm');
-  RM.invXPX = 16;
-  RM.invYPX = 135;
-  RM.invWidthPX = 96;
-  RM.invHeightPX = 168;
   RM.c = RM.canvas.getContext('2d');
 };
 
@@ -99,15 +95,18 @@ RM.start = function () {
     x: 0,
     y: 0,
     width: 21,
-    height: 21
+    height: 21,
+    empty: RM.terrains.invisible
   });
   RM.inventory = new RM.Frame(16, 135, 96, 168, {
     map: RM.map.getActor(0, 0).inventory,
     x: 0,
     y: 0,
     width: 4,
-    height: 8
+    height: 8,
+    empty: RM.items.empty
   });
+  RM.map.setItem(3, 3, new RM.Item(RM.items.elvenCloak));
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
 };

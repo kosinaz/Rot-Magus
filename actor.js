@@ -41,6 +41,7 @@ RM.Actor.prototype.act = function () {
     RM.engine.lock();
     RM.subscribe('click', this);
     this.showFOV();
+    this.showInventory();
   }
 };
 
@@ -57,9 +58,20 @@ RM.Actor.prototype.heal = function (amount) {
 RM.Actor.prototype.showFOV = function () {
   'use strict';
   RM.mapFrame.center(this.x, this.y);
-  RM.mapFrame.fill(RM.terrains.invisible);
+  RM.mapFrame.clear(RM.terrains.invisible);
   RM.map.shadowcasting.compute(this.x, this.y, 10,
                                RM.mapFrame.show.bind(RM.mapFrame));
+};
+
+RM.Actor.prototype.showInventory = function () {
+  'use strict';
+  var x, y;
+  RM.inventory.content.map = this.inventory;
+  for (x = RM.inventory.content.x; x < RM.inventory.content.width; x += 1) {
+    for (y = RM.inventory.content.y; y < RM.inventory.content.height; y += 1) {
+      RM.inventory.show(x, y);
+    }
+  }
 };
 
 RM.Actor.prototype.scanFOV = function () {
