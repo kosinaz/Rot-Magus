@@ -12,6 +12,7 @@ RM.Actor = function (type, x, y, ai) {
   this.path = [];
   this.level = 0;
   this.xp = 0;
+  this.type = type;
   this.maxHealth = type.health;
   this.health = type.health;
   this.maxMana = type.mana;

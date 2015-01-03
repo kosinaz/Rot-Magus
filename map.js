@@ -52,7 +52,7 @@ RM.Map.prototype.getTile = function (x, y) {
   tile = null;
   actor = this.getActor(x, y);
   if (actor) {
-    tile = actor;
+    tile = actor.type;
   } else {
     terrain = this.getTerrain(x, y);
     if (terrain) {

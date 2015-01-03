@@ -51,7 +51,8 @@ RM.Frame.prototype.show = function (x, y) {
   var tile = this.content.map.getTile(x, y);
   RM.c.drawImage(RM.tileSet, tile.x, tile.y,
                  this.tileWidth, this.tileHeight,
-                 this.tileWidth * x + this.x, this.tileHeight * y + this.y,
+                 this.tileWidth * (x - this.content.x) + this.x,
+                 this.tileHeight * (y - this.content.y) + this.y,
                  this.tileWidth, this.tileHeight);
 };
 
