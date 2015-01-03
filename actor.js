@@ -2,6 +2,7 @@
 
 RM.Actor = function (type, x, y, ai) {
   'use strict';
+  var i;
   RM.scheduler.add(this, true);
   this.x = x;
   this.y = y;
@@ -21,7 +22,13 @@ RM.Actor = function (type, x, y, ai) {
   this.wisdom = type.wisdom;
   this.agility = type.agility;
   this.precision = type.precision;
-  this.items = type.items;
+  this.inventory = new RM.Map();
+  if (type.inventory) {
+    for (i = 0; i < type.inventory.length; i += 1) {
+      this.inventory.setItem(i % 4, Math.floor(i / 4),
+                             new RM.Item(RM.items[type.inventory[i]]));
+    }
+  }
 };
 
 RM.Actor.prototype.act = function () {

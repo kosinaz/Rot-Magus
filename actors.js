@@ -10,7 +10,7 @@ RM.actors = {
     'wisdom': 0,
     'agility': 6,
     'precision': 15,
-    'items': [
+    'inventory': [
       'arrows',
       'bow',
       'dagger',

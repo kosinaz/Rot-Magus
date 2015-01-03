@@ -28,6 +28,23 @@ RM.Map.prototype.setTerrain = function (x, y, terrain) {
   this.points[x][y].terrain = terrain;
 };
 
+RM.Map.prototype.getItem = function (x, y) {
+  'use strict';
+  var point = this.getPoint(x, y);
+  return point ? point.item : null;
+};
+
+RM.Map.prototype.setItem = function (x, y, item) {
+  'use strict';
+  if (!this.points[x]) {
+    this.points[x] = [];
+  }
+  if (!this.points[x][y]) {
+    this.points[x][y] = {};
+  }
+  this.points[x][y].item = item;
+};
+
 RM.Map.prototype.getActor = function (x, y) {
   'use strict';
   var point = this.getPoint(x, y);
@@ -48,15 +65,20 @@ RM.Map.prototype.setActor = function (x, y, actor) {
 
 RM.Map.prototype.getTile = function (x, y) {
   'use strict';
-  var actor, terrain, tile;
+  var actor, item, terrain, tile;
   tile = null;
   actor = this.getActor(x, y);
   if (actor) {
     tile = actor.type;
   } else {
-    terrain = this.getTerrain(x, y);
-    if (terrain) {
-      tile = terrain;
+    item = this.getItem(x, y);
+    if (item) {
+      tile = item.type;
+    } else {
+      terrain = this.getTerrain(x, y);
+      if (terrain) {
+        tile = terrain;
+      }
     }
   }
   return tile;

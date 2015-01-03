@@ -101,6 +101,13 @@ RM.start = function () {
     width: 21,
     height: 21
   });
+  RM.inventory = new RM.Frame(16, 135, 96, 168, {
+    map: RM.map.getActor(0, 0).inventory,
+    x: 0,
+    y: 0,
+    width: 4,
+    height: 8
+  });
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
 };
