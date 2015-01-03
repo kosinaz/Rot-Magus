@@ -2,7 +2,6 @@
 /**
  * A region of the game window to display parts of 2-dimensional graphical data
  * maps in different sizes, and pass on window events.
- * @param {String} id             The id that is passed on when events occur.
  * @param {Number} x              The x coordinate of the left border.
  * @param {Number} y              The y coordinate of the top border.
  * @param {Number} width          The width of the frame.
@@ -14,7 +13,7 @@
  * @param {Number} content.width  The width of content's part to display.
  * @param {Number} content.height The height of content's part to display.
  */
-RM.Frame = function (id, x, y, width, height, content) {
+RM.Frame = function (x, y, width, height, content) {
   'use strict';
   this.x = x;
   this.y = y;

@@ -15,16 +15,11 @@ RM.init = function () {
   RM.terrainSet = RM.getTerrainSet();
   RM.actorSet = RM.getActorSet();
   RM.canvas = document.getElementById('rm');
-  RM.mapXPX = 128;
-  RM.mapYPX = 9;
-  RM.mapWidthPX = 504;
-  RM.mapHeightPX = 441;
   RM.invXPX = 16;
   RM.invYPX = 135;
   RM.invWidthPX = 96;
   RM.invHeightPX = 168;
   RM.c = RM.canvas.getContext('2d');
-  RM.preciseShadowcasting = new ROT.FOV.PreciseShadowcasting(RM.isTransparent);
 };
 
 RM.createImage = function (src) {
@@ -87,56 +82,29 @@ RM.start = function () {
   RM.c.drawImage(RM.hud, 0, 0);
   RM.scheduler = new ROT.Scheduler.Action();
   RM.engine = new ROT.Engine(RM.scheduler);
-  RM.map = [];
+  RM.map = new RM.Map();
   for (x = -50; x < 51; x += 1) {
-    RM.map[x] = [];
     for (y = -50; y < 51; y += 1) {
-      RM.map[x][y] = {};
-      RM.map[x][y].terrain = RM.terrainSet.random();
+      RM.map.setTerrain(x, y, RM.terrainSet.random());
       if (ROT.RNG.getPercentage() === 1) {
-        RM.map[x][y].actor = new RM.Actor(RM.actorSet.random(), x, y, true);
-        RM.map[x][y].terrain = RM.terrains.grass;
+        RM.map.setActor(x, y, new RM.Actor(RM.actorSet.random(), x, y, true));
       }
     }
   }
   for (i = 0; i < 1; i += 1) {
-    RM.map[i][0] = {
-      terrain: RM.terrains.grass,
-      actor: new RM.Actor(RM.actors.elf, i, 0)
-    };
+    RM.map.setActor(i, 0, new RM.Actor(RM.actors.elf, i, 0));
   }
+  RM.mapFrame = RM.Frame(128, 9, 504, 441, {
+    map: RM.map,
+    x: 0,
+    y: 0,
+    width: 21,
+    height: 21
+  });
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
 };
 
-RM.getPoint = function (x, y) {
-  'use strict';
-  return RM.map[x] ? RM.map[x][y] : null;
-};
-
-RM.getActor = function (x, y) {
-  'use strict';
-  var point = RM.getPoint(x, y);
-  return point ? point.actor : null;
-};
-
-RM.isPlayer = function (x, y) {
-  'use strict';
-  var actor = RM.getActor(x, y);
-  return actor ? actor.ai : false;
-};
-
-RM.isTransparent = function (x, y) {
-  'use strict';
-  var point = RM.getPoint(x, y);
-  return point ? point.terrain.transparent : false;
-};
-
-RM.isPassable = function (x, y) {
-  'use strict';
-  var point = RM.getPoint(x, y);
-  return point ? point.terrain.passable : false;
-};
 
 RM.drawHUD = function (player) {
   'use strict';
