@@ -32,7 +32,7 @@ RM.Actor.prototype.act = function () {
     this.moveTo(this.target);
   } else {
     RM.engine.lock();
-    RM.subscribe('click', this);
+    RM.subscribe('click', this.moveTo);
     this.showFOV();
   }
 };
@@ -58,27 +58,13 @@ RM.Actor.prototype.showFOV = function () {
 RM.Actor.prototype.computeFOV = function () {
   'use strict';
   RM.map.shadowcasting.compute(this.x, this.y, 10, function (x, y) {
-
-    /**
-     * Updates target if the actor didn't found a new target yet.
-     */
-    if (!this.newTarget) {
-
-      /*
-       * Updates target if the actor found a player to attack.
-       */
-      if (RM.isPlayer(x, y)) {
-        this.newTarget = {
-          x: x,
-          y: y
-        };
-      }
+    if (!this.newTarget && RM.isPlayer(x, y)) {
+      this.newTarget = {
+        x: x,
+        y: y
+      };
     }
   }.bind(this));
-
-  /*
-   * Updates target if the actor found a new one.
-   */
   if (this.newTarget) {
     this.target = this.newTarget;
   }
