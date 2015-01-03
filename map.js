@@ -65,7 +65,7 @@ RM.Map.prototype.getTile = function (x, y) {
 RM.Map.prototype.isPlayer = function (x, y) {
   'use strict';
   var actor = this.getActor(x, y);
-  return actor ? actor.ai : false;
+  return actor ? !actor.ai : false;
 };
 
 RM.Map.prototype.isTransparent = function (x, y) {

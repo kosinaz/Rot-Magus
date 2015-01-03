@@ -28,7 +28,7 @@ RM.Actor.prototype.act = function () {
   'use strict';
   this.regenerate();
   if (this.ai) {
-    this.computeFOV();
+    this.scanFOV();
     this.moveTo(this.target);
   } else {
     RM.engine.lock();
@@ -55,10 +55,11 @@ RM.Actor.prototype.showFOV = function () {
                                RM.mapFrame.show.bind(RM.mapFrame));
 };
 
-RM.Actor.prototype.computeFOV = function () {
+RM.Actor.prototype.scanFOV = function () {
   'use strict';
+  this.newTarget = null;
   RM.map.shadowcasting.compute(this.x, this.y, 10, function (x, y) {
-    if (!this.newTarget && RM.isPlayer(x, y)) {
+    if (!this.newTarget && RM.map.isPlayer(x, y)) {
       this.newTarget = {
         x: x,
         y: y
@@ -77,6 +78,9 @@ RM.Actor.prototype.moveTo = function (target) {
     return false;
   }
   this.computePath(target.x, target.y);
+  if (this.path.length < 2) {
+    return false;
+  }
   x = this.path[1][0];
   y = this.path[1][1];
   RM.scheduler.setDuration(1.0 / this.agility);
