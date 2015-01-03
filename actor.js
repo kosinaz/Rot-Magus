@@ -130,7 +130,7 @@ RM.Actor.prototype.damage = function (source) {
       RM.canvas.addEventListener('click', RM.start);
     }
     RM.scheduler.remove(this);
-    RM.map[this.x][this.y].actor = null;
+    RM.map.setActor(this.x, this.y, null);
     this.gainXP(2);
   }
 };
