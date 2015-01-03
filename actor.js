@@ -73,22 +73,22 @@ RM.Actor.prototype.computeFOV = function () {
 RM.Actor.prototype.moveTo = function (target) {
   'use strict';
   var x, y, enemy, damage, i;
-  if (target) {
+  if (!target.x) {
     return false;
   }
   this.computePath(target.x, target.y);
   x = this.path[1][0];
   y = this.path[1][1];
   RM.scheduler.setDuration(1.0 / this.agility);
-  enemy = RM.getActor(x, y);
+  enemy = RM.map.getActor(x, y);
   if (enemy) {
     enemy.damage(this);
     this.gainXP(1);
   } else {
-    RM.map[this.x][this.y].actor = null;
+    RM.map.setActor(this.x, this.y, null);
     this.x = x;
     this.y = y;
-    RM.map[this.x][this.y].actor = this;
+    RM.map.setActor(this.x, this.y, this);
   }
 };
 

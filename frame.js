@@ -61,9 +61,9 @@ RM.Frame.prototype.handleEvent = function (e) {
   var canvas, x, y, contentX, contentY;
   canvas = RM.canvas.getBoundingClientRect();
   x = e.clientX - canvas.left - this.x;
-  contentX = Math.floor(x / this.tileWidth) - this.content.x;
+  contentX = Math.floor(x / this.tileWidth) + this.content.x;
   y = e.clientY - canvas.top - this.y;
-  contentY = Math.floor(y / this.tileHeight) - this.content.y;
+  contentY = Math.floor(y / this.tileHeight) + this.content.y;
   if (x > 0 && y > 0 && x < this.width && y < this.height) {
     RM.publish(e.type, this, {
       x: contentX,
