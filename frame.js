@@ -27,13 +27,13 @@ RM.Frame = function (x, y, width, height, content) {
   window.addEventListener('mousemove', this);
 };
 
-RM.Frame.center = function (x, y) {
+RM.Frame.prototype.center = function (x, y) {
   'use strict';
   this.content.x = x - Math.floor(this.content.width / 2);
   this.content.y = y - Math.floor(this.content.height / 2);
 };
 
-RM.Frame.fill = function (tile) {
+RM.Frame.prototype.fill = function (tile) {
   'use strict';
   var x, y;
   for (x = 0; x < this.content.width; x += 1) {
@@ -49,7 +49,7 @@ RM.Frame.fill = function (tile) {
 RM.Frame.prototype.show = function (x, y) {
   'use strict';
   var tile = this.content.map.getTile(x, y);
-  RM.c.drawImage(RM.tileset, tile.x, tile.y,
+  RM.c.drawImage(RM.tileSet, tile.x, tile.y,
                  this.tileWidth, this.tileHeight,
                  this.tileWidth * x + this.x, this.tileHeight * y + this.y,
                  this.tileWidth, this.tileHeight);

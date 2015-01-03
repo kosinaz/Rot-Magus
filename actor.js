@@ -50,12 +50,13 @@ RM.Actor.prototype.showFOV = function () {
   'use strict';
   RM.mapFrame.center(this.x, this.y);
   RM.mapFrame.fill(RM.terrains.invisible);
-  RM.map.shadowcasting.compute(this.x, this.y, 10, RM.mapFrame.show);
+  RM.map.shadowcasting.compute(this.x, this.y, 10,
+                               RM.mapFrame.show.bind(RM.mapFrame));
 };
 
 RM.Actor.prototype.computeFOV = function () {
   'use strict';
-  RM.preciseShadowcasting.compute(this.x, this.y, 10, function (x, y) {
+  RM.map.shadowcasting.compute(this.x, this.y, 10, function (x, y) {
 
     /**
      * Updates target if the actor didn't found a new target yet.
@@ -85,6 +86,9 @@ RM.Actor.prototype.computeFOV = function () {
 RM.Actor.prototype.moveTo = function (target) {
   'use strict';
   var x, y, enemy, damage, i;
+  if (target) {
+    return false;
+  }
   this.computePath(target.x, target.y);
   x = this.path[1][0];
   y = this.path[1][1];
@@ -104,8 +108,8 @@ RM.Actor.prototype.moveTo = function (target) {
 RM.Actor.prototype.computePath = function (x, y) {
   'use strict';
   var a = new ROT.Path.AStar(x, y, function (x, y) {
-    var actor = RM.getActor(x, y);
-    if (RM.isPassable(x, y)) {
+    var actor = RM.map.getActor(x, y);
+    if (RM.map.isPassable(x, y)) {
       if (actor) {
         if (actor === this) {
           return true;
