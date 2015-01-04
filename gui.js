@@ -18,6 +18,10 @@ RM.GUI = function () {
     x: 24 * 4,
     y: 21 * 11
   });
+  this.strength = new RM.Label(16, 114, 24, 21);
+  this.wisdom = new RM.Label(40, 114, 24, 21);
+  this.agility = new RM.Label(64, 114, 24, 21);
+  this.precision = new RM.Label(88, 114, 24, 21);
   this.map = new RM.Frame(128, 9, 504, 441, {
     map: RM.map,
     x: 0,

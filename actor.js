@@ -101,6 +101,10 @@ RM.Actor.prototype.showStats = function () {
                         ? '#00e300' : '#e30000');
   RM.gui.mana.setValue(this.mana, this.maxMana, '#4261e7');
   RM.gui.burden.setValue(this.burden, this.strength, '#844121');
+  RM.gui.strength.setValue(this.strength);
+  RM.gui.wisdom.setValue(this.wisdom);
+  RM.gui.agility.setValue(this.agility);
+  RM.gui.precision.setValue(this.precision);
 };
 
 RM.Actor.prototype.scanFOV = function () {
