@@ -86,6 +86,7 @@ RM.start = function () {
     for (y = -50; y < 51; y += 1) {
       RM.map.setTerrain(x, y, RM.terrainSet.random());
       if (ROT.RNG.getPercentage() === 1) {
+        RM.map.setTerrain(x, y, RM.terrains.grass);
         RM.map.setActor(x, y, new RM.Actor(RM.actorSet.random(), x, y, true));
       }
     }
@@ -96,6 +97,7 @@ RM.start = function () {
   im = new RM.Map();
   im.setItem(0, 0, new RM.Item(RM.items.elvenCloak));
   im.setItem(1, 0, new RM.Item(RM.items.dagger));
+  RM.map.setTerrain(3, 3, RM.terrains.grass);
   RM.map.setItemMap(3, 3, im);
   RM.gui = new RM.GUI();
   RM.engine = new ROT.Engine(RM.scheduler);

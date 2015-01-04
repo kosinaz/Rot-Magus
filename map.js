@@ -76,7 +76,6 @@ RM.Map.prototype.setActor = function (x, y, actor) {
   if (!this.points[x][y]) {
     this.points[x][y] = {};
   }
-  this.points[x][y].terrain = RM.terrains.grass;
   this.points[x][y].actor = actor;
 };
 
