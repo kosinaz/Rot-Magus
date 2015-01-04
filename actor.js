@@ -42,6 +42,7 @@ RM.Actor.prototype.act = function () {
     RM.subscribe('click', this);
     this.showFOV();
     this.showInventory();
+    this.showGround();
   }
 };
 
@@ -70,6 +71,17 @@ RM.Actor.prototype.showInventory = function () {
   for (x = RM.inventory.content.x; x < RM.inventory.content.width; x += 1) {
     for (y = RM.inventory.content.y; y < RM.inventory.content.height; y += 1) {
       RM.inventory.show(x, y);
+    }
+  }
+};
+
+RM.Actor.prototype.showGround = function () {
+  'use strict';
+  var x, y;
+  RM.ground.content.map = RM.map.getItemMap(this.x, this.y);
+  for (x = RM.ground.content.x; x < RM.ground.content.width; x += 1) {
+    for (y = RM.ground.content.y; y < RM.ground.content.height; y += 1) {
+      RM.ground.show(x, y);
     }
   }
 };

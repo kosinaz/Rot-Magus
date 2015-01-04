@@ -49,9 +49,9 @@ RM.Frame.prototype.clear = function () {
 
 RM.Frame.prototype.show = function (x, y) {
   'use strict';
-  var tile = this.content.map.getTile(x, y);
-  if (!tile) {
-    tile = this.content.empty;
+  var tile = this.content.empty;
+  if (this.content.map) {
+    tile = this.content.map.getTile(x, y) || this.content.empty;
   }
   RM.c.drawImage(RM.tileSet, tile.x, tile.y,
                  this.tileWidth, this.tileHeight,

@@ -1,7 +1,7 @@
 /*global RM, ROT*/
 RM.items = {
   'empty': {
-    'x': 24 * 20,
+    'x': 24 * 19,
     'y': 21
   },
   'arrows': {

@@ -33,7 +33,7 @@ RM.terrains = {
     'chance': 10
   },
   'invisible': {
-    'x': 24 * 19,
+    'x': 24 * 17,
     'y': 21
   }
 };

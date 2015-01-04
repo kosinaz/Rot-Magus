@@ -106,6 +106,13 @@ RM.start = function () {
     height: 8,
     empty: RM.items.empty
   });
+  RM.ground = new RM.Frame(16, 345, 96, 84, {
+    x: 0,
+    y: 0,
+    width: 4,
+    height: 4,
+    empty: RM.items.empty
+  });
   im = new RM.Map();
   im.setItem(0, 0, new RM.Item(RM.items.elvenCloak));
   im.setItem(1, 0, new RM.Item(RM.items.dagger));
