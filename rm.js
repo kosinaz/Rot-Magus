@@ -16,6 +16,10 @@ RM.init = function () {
   RM.actorSet = RM.getActorSet();
   RM.canvas = document.getElementById('rm');
   RM.c = RM.canvas.getContext('2d');
+  RM.overlay = document.createElement('canvas');
+  RM.overlay.width = RM.canvas.width;
+  RM.overlay.height = RM.canvas.height;
+  RM.oc = RM.overlay.getContext('2d');
 };
 
 RM.createImage = function (src) {
@@ -96,81 +100,4 @@ RM.start = function () {
   RM.gui = new RM.GUI();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
-};
-
-
-RM.drawHUD = function (player) {
-  'use strict';
-  var p, item;
-  RM.c.font = '12px Immortal';
-  RM.c.textAlign = 'center';
-  RM.c.textBaseline = 'top';
-
-  p = Math.floor(player.xp / (50 * Math.pow(2, player.level)) * 70);
-  RM.c.fillStyle = '#616161';
-  RM.c.fillRect(41, 10, 70, 19);
-  RM.c.fillStyle = '#e3e300';
-  RM.c.fillRect(41, 10, p, 19);
-  RM.c.fillStyle = '#000000';
-  RM.c.fillText(player.xp + '/' + (50 * Math.pow(2, player.level)), 76, 12);
-
-  p = Math.floor((player.health / player.maxHealth) * 70);
-  RM.c.fillStyle = '#616161';
-  RM.c.fillRect(41, 31, 70, 19);
-  RM.c.fillStyle = player.health > player.maxHealth / 4 ?
-      '#00e300' : '#e30000';
-  RM.c.fillRect(41, 31, p, 19);
-  RM.c.fillStyle = '#000000';
-  RM.c.fillText(Math.floor(player.health) + '/' + player.maxHealth, 76, 33);
-
-  p = player.maxMana ? Math.floor((player.mana / player.maxMana) * 70) : 0;
-  RM.c.fillStyle = '#616161';
-  RM.c.fillRect(41, 52, 70, 19);
-  RM.c.fillStyle = '#4261e7';
-  RM.c.fillRect(41, 52, p, 19);
-  RM.c.fillStyle = '#000000';
-  RM.c.fillText(player.mana + '/' + player.maxMana, 76, 54);
-
-  p = player.maxMana ? Math.floor((player.burden / player.strength) * 35) : 0;
-  RM.c.fillStyle = '#616161';
-  RM.c.fillRect(41, 73, 70, 19);
-  RM.c.fillStyle = player.burden / player.strength < 1 ? '#844121' : '#e30000';
-  RM.c.fillRect(41, 73, Math.min(p, 70), 19);
-  RM.c.fillStyle = '#000000';
-  RM.c.fillText(player.burden + '/' + player.strength, 76, 76);
-
-  RM.c.fillStyle = '#616161';
-  RM.c.fillRect(16, 114, 96, 21);
-  RM.c.fillStyle = '#000000';
-  RM.c.fillText(player.strength, 28, 114);
-  RM.c.fillText(player.wisdom, 52, 114);
-  RM.c.fillText(player.agility, 76, 114);
-  RM.c.fillText(player.precision, 100, 114);
-  for (p = 0; p < player.items.length; p += 1) {
-    item = player.items[p];
-    if (item) {
-      RM.c.drawImage(RM.tileSet,
-                     RM.items[item].x, RM.items[item].y, 24, 21,
-                     RM.invXPX + p % 4 * 24,
-                     RM.invYPX + Math.floor(p / 4) * 21, 24, 21);
-      if (player.primary === p ||
-          player.cloak === p) {
-        RM.c.drawImage(RM.tileSet,
-                       18 * 24, 21, 24, 21,
-                       RM.invXPX + p % 4 * 24,
-                       RM.invYPX + Math.floor(p / 4) * 21, 24, 21);
-      }
-      if (player.selected === p) {
-        RM.c.drawImage(RM.tileSet,
-                       17 * 24, 21, 24, 21,
-                       RM.invXPX + p % 4 * 24,
-                       RM.invYPX + Math.floor(p / 4) * 21, 24, 21);
-      }
-    } else {
-      RM.c.drawImage(RM.tileSet,
-                     19 * 24, 21, 24, 21,
-                     RM.invXPX + p % 4 * 24,
-                     RM.invYPX + Math.floor(p / 4) * 21, 24, 21);
-    }
-  }
 };

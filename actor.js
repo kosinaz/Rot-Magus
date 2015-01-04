@@ -64,7 +64,8 @@ RM.Actor.prototype.showFOV = function () {
   RM.gui.map.center(this.x, this.y);
   RM.gui.map.clear(RM.terrains.invisible);
   RM.map.shadowcasting.compute(this.x, this.y, 10,
-                               RM.gui.map.show.bind(RM.gui.map));
+                               RM.gui.map.process.bind(RM.gui.map));
+  RM.gui.map.show();
 };
 
 RM.Actor.prototype.showInventory = function () {
@@ -75,9 +76,10 @@ RM.Actor.prototype.showInventory = function () {
        x < RM.gui.inventory.content.width; x += 1) {
     for (y = RM.gui.inventory.content.y;
          y < RM.gui.inventory.content.height; y += 1) {
-      RM.gui.inventory.show(x, y);
+      RM.gui.inventory.process(x, y);
     }
   }
+  RM.gui.inventory.show();
 };
 
 RM.Actor.prototype.showGround = function () {
@@ -88,9 +90,10 @@ RM.Actor.prototype.showGround = function () {
        x < RM.gui.ground.content.width; x += 1) {
     for (y = RM.gui.ground.content.y;
          y < RM.gui.ground.content.height; y += 1) {
-      RM.gui.ground.show(x, y);
+      RM.gui.ground.process(x, y);
     }
   }
+  RM.gui.ground.show();
 };
 
 RM.Actor.prototype.showStats = function () {
@@ -183,6 +186,9 @@ RM.Actor.prototype.damage = function (source) {
     if (!this.ai) {
       RM.engine.lock();
       RM.c.drawImage(RM.gameover, 0, 0);
+      RM.canvas.removeEventListener('mousemove', RM.gui.map);
+      RM.canvas.removeEventListener('mousemove', RM.gui.inventory);
+      RM.canvas.removeEventListener('mousemove', RM.gui.ground);
       RM.canvas.addEventListener('click', RM.start);
     }
     RM.scheduler.remove(this);

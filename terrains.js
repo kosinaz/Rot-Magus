@@ -35,5 +35,9 @@ RM.terrains = {
   'invisible': {
     'x': 0,
     'y': 21 * 11
+  },
+  'pointer': {
+    'x': 24,
+    'y': 21 * 11
   }
 };

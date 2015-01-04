@@ -23,9 +23,12 @@ RM.Frame = function (x, y, width, height, content) {
   this.content = content;
   this.tileWidth = this.width / this.content.width;
   this.tileHeight = this.height / this.content.height;
-  this.clickListeners = [];
-  window.addEventListener('click', this);
-  window.addEventListener('mousemove', this);
+  this.cursor = {
+    x: 0,
+    y: 0
+  };
+  RM.canvas.addEventListener('click', this);
+  RM.canvas.addEventListener('mousemove', this);
 };
 
 RM.Frame.prototype.center = function (x, y) {
@@ -39,7 +42,7 @@ RM.Frame.prototype.clear = function () {
   var x, y;
   for (x = 0; x < this.content.width; x += 1) {
     for (y = 0; y < this.content.height; y += 1) {
-      RM.c.drawImage(RM.tileSet, this.content.empty.x, this.content.empty.y,
+      RM.oc.drawImage(RM.tileSet, this.content.empty.x, this.content.empty.y,
                      this.tileWidth, this.tileHeight,
                      this.tileWidth * x + this.x, this.tileHeight * y + this.y,
                      this.tileWidth, this.tileHeight);
@@ -47,22 +50,27 @@ RM.Frame.prototype.clear = function () {
   }
 };
 
-RM.Frame.prototype.show = function (x, y) {
+RM.Frame.prototype.process = function (x, y) {
   'use strict';
   var tile = this.content.empty;
   if (this.content.map) {
     tile = this.content.map.getTile(x, y) || this.content.empty;
   }
-  RM.c.drawImage(RM.tileSet, tile.x, tile.y,
+  RM.oc.drawImage(RM.tileSet, tile.x, tile.y,
                  this.tileWidth, this.tileHeight,
                  this.tileWidth * (x - this.content.x) + this.x,
                  this.tileHeight * (y - this.content.y) + this.y,
                  this.tileWidth, this.tileHeight);
 };
 
+RM.Frame.prototype.show = function () {
+  'use strict';
+  RM.c.drawImage(RM.overlay, 0, 0);
+};
+
 RM.Frame.prototype.handleEvent = function (e) {
   'use strict';
-  var canvas, x, y, contentX, contentY;
+  var canvas, x, y, contentX, contentY, tile;
   canvas = RM.canvas.getBoundingClientRect();
   x = e.clientX - canvas.left - this.x;
   contentX = Math.floor(x / this.tileWidth) + this.content.x;
@@ -73,5 +81,14 @@ RM.Frame.prototype.handleEvent = function (e) {
       x: contentX,
       y: contentY
     });
+    if (e.type === 'mousemove') {
+      this.show();
+      tile = RM.terrains.pointer;
+      RM.c.drawImage(RM.tileSet, tile.x, tile.y,
+                   this.tileWidth, this.tileHeight,
+                   this.tileWidth * (contentX - this.content.x) + this.x,
+                   this.tileHeight * (contentY - this.content.y) + this.y,
+                   this.tileWidth, this.tileHeight);
+    }
   }
 };
