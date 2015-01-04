@@ -259,7 +259,8 @@ RM.Actor.prototype.order = function (target) {
 
 RM.Actor.prototype.manageInventory = function (target) {
   'use strict';
-  var item = RM.gui.inventory.content.map.getItem(target.x, target.y);
+  var item, category;
+  item = RM.gui.inventory.content.map.getItem(target.x, target.y);
   if (item) {
     if (RM.gui.inventory.isSelected('select', target)) {
       this.use(item, target);
@@ -270,6 +271,28 @@ RM.Actor.prototype.manageInventory = function (target) {
         tile: RM.terrains.pointer
       };
     }
+    this.showInventory();
+  } else if (RM.gui.inventory.selected.select) {
+    this.inventory.setItem(target.x, target.y, this.inventory.getItem(
+      RM.gui.inventory.selected.select.x,
+      RM.gui.inventory.selected.select.y
+    ));
+    item = this.inventory.getItem(
+      RM.gui.inventory.selected.select.x,
+      RM.gui.inventory.selected.select.y
+    );
+    category = item.type.category;
+    if (RM.gui.inventory.isSelected(category,
+                                    RM.gui.inventory.selected.select)) {
+      RM.gui.inventory.selected[category] = {
+        x: target.x,
+        y: target.y,
+        tile: RM.items.use
+      };
+    }
+    this.inventory.setItem(RM.gui.inventory.selected.select.x,
+                           RM.gui.inventory.selected.select.y, null);
+    RM.gui.inventory.selected.select = null;
     this.showInventory();
   }
 };
