@@ -23,10 +23,12 @@ RM.Actor = function (type, x, y, ai) {
   this.agility = type.agility;
   this.precision = type.precision;
   this.inventory = new RM.Map();
+  this.burden = 0;
   if (type.inventory) {
     for (i = 0; i < type.inventory.length; i += 1) {
       this.inventory.setItem(i % 4, Math.floor(i / 4),
                              new RM.Item(RM.items[type.inventory[i]]));
+      this.burden += RM.items[type.inventory[i]].weight;
     }
   }
 };
@@ -94,6 +96,11 @@ RM.Actor.prototype.showGround = function () {
 RM.Actor.prototype.showStats = function () {
   'use strict';
   RM.gui.xp.setValue(this.xp, 50 * Math.pow(2, this.level), '#e3e300');
+  RM.gui.health.setValue(Math.floor(this.health), this.maxHealth,
+                        this.health > this.maxHealth / 4
+                        ? '#00e300' : '#e30000');
+  RM.gui.mana.setValue(this.mana, this.maxMana, '#4261e7');
+  RM.gui.burden.setValue(this.burden, this.strength, '#844121');
 };
 
 RM.Actor.prototype.scanFOV = function () {

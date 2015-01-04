@@ -6,6 +6,18 @@ RM.GUI = function () {
     x: 24 * 4,
     y: 21 * 11
   });
+  this.health = new RM.Bar(40, 30, 72, 21, {
+    x: 24 * 4,
+    y: 21 * 11
+  });
+  this.mana = new RM.Bar(40, 51, 72, 21, {
+    x: 24 * 4,
+    y: 21 * 11
+  });
+  this.burden = new RM.Bar(40, 72, 72, 21, {
+    x: 24 * 4,
+    y: 21 * 11
+  });
   this.map = new RM.Frame(128, 9, 504, 441, {
     map: RM.map,
     x: 0,
