@@ -271,7 +271,9 @@ RM.Actor.prototype.manageInventory = function (target) {
         tile: RM.terrains.pointer
       };
     }
+    RM.gui.ground.selected.select = null;
     this.showInventory();
+    this.showGround();
   } else if (RM.gui.inventory.selected.select) {
     this.inventory.setItem(target.x, target.y, this.inventory.getItem(
       RM.gui.inventory.selected.select.x,
@@ -299,13 +301,29 @@ RM.Actor.prototype.manageInventory = function (target) {
 
 RM.Actor.prototype.manageGround = function (target) {
   'use strict';
-  var item = RM.gui.ground.content.map.getItem(target.x, target.y);
+  var item;
+  if (!RM.gui.ground.content.map) {
+    return false;
+  }
+  item = RM.gui.ground.content.map.getItem(target.x, target.y);
   if (item) {
     RM.gui.ground.selected.select = {
       x: target.x,
       y: target.y,
       tile: RM.terrains.pointer
     };
+    RM.gui.inventory.selected.select = null;
+    this.showInventory();
+    this.showGround();
+  } else if (RM.gui.ground.selected.select) {
+    RM.gui.ground.content.map.setItem(target.x, target.y,
+                                      RM.gui.ground.content.map.getItem(
+        RM.gui.ground.selected.select.x,
+        RM.gui.ground.selected.select.y
+      ));
+    RM.gui.ground.content.map.setItem(RM.gui.ground.selected.select.x,
+                                      RM.gui.ground.selected.select.y, null);
+    RM.gui.ground.selected.select = null;
     this.showGround();
   }
 };
