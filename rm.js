@@ -90,6 +90,10 @@ RM.start = function () {
   for (i = 0; i < 1; i += 1) {
     RM.map.setActor(i, 0, new RM.Actor(RM.actors.elf, i, 0));
   }
+  RM.xp = new RM.Bar(40, 9, 72, 21, {
+    x: 24 * 4,
+    y: 21 * 11
+  });
   RM.mapFrame = new RM.Frame(128, 9, 504, 441, {
     map: RM.map,
     x: 0,

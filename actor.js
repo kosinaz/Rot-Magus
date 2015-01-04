@@ -43,6 +43,7 @@ RM.Actor.prototype.act = function () {
     this.showFOV();
     this.showInventory();
     this.showGround();
+    this.showStats();
   }
 };
 
@@ -84,6 +85,11 @@ RM.Actor.prototype.showGround = function () {
       RM.ground.show(x, y);
     }
   }
+};
+
+RM.Actor.prototype.showStats = function () {
+  'use strict';
+  RM.xp.setValue(this.xp, 50 * Math.pow(2, this.level), '#e3e300');
 };
 
 RM.Actor.prototype.scanFOV = function () {
