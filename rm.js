@@ -73,7 +73,7 @@ RM.getActorSet = function () {
 
 RM.start = function () {
   'use strict';
-  var x, y, actor, i;
+  var x, y, actor, i, im;
   RM.canvas.removeEventListener('click', RM.start);
   RM.c.drawImage(RM.hud, 0, 0);
   RM.scheduler = new ROT.Scheduler.Action();
@@ -106,7 +106,10 @@ RM.start = function () {
     height: 8,
     empty: RM.items.empty
   });
-  RM.map.setItem(3, 3, new RM.Item(RM.items.elvenCloak));
+  im = new RM.Map();
+  im.setItem(0, 0, new RM.Item(RM.items.elvenCloak));
+  im.setItem(1, 0, new RM.Item(RM.items.dagger));
+  RM.map.setItemMap(3, 3, im);
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
 };

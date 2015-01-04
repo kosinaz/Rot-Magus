@@ -45,6 +45,23 @@ RM.Map.prototype.setItem = function (x, y, item) {
   this.points[x][y].item = item;
 };
 
+RM.Map.prototype.getItemMap = function (x, y) {
+  'use strict';
+  var point = this.getPoint(x, y);
+  return point ? point.itemMap : null;
+};
+
+RM.Map.prototype.setItemMap = function (x, y, itemMap) {
+  'use strict';
+  if (!this.points[x]) {
+    this.points[x] = [];
+  }
+  if (!this.points[x][y]) {
+    this.points[x][y] = {};
+  }
+  this.points[x][y].itemMap = itemMap;
+};
+
 RM.Map.prototype.getActor = function (x, y) {
   'use strict';
   var point = this.getPoint(x, y);
@@ -65,19 +82,32 @@ RM.Map.prototype.setActor = function (x, y, actor) {
 
 RM.Map.prototype.getTile = function (x, y) {
   'use strict';
-  var actor, item, terrain, tile;
+  var actor, itemMap, i, j, item, terrain, tile;
   tile = null;
   actor = this.getActor(x, y);
   if (actor) {
     tile = actor.type;
   } else {
-    item = this.getItem(x, y);
-    if (item) {
-      tile = item.type;
+    itemMap = this.getItemMap(x, y);
+    if (itemMap) {
+      for (i = 0; i < itemMap.points.length; i += 1) {
+        for (j = 0; j < itemMap.points[i].length; j += 1) {
+          item = itemMap.getItem(i, j);
+          if (item) {
+            tile = item.type;
+            break;
+          }
+        }
+      }
     } else {
       terrain = this.getTerrain(x, y);
       if (terrain) {
         tile = terrain;
+      } else {
+        item = this.getItem(x, y);
+        if (item) {
+          tile = item.type;
+        }
       }
     }
   }
