@@ -226,8 +226,7 @@ RM.Actor.prototype.gainXP = function (amount) {
 
 RM.Actor.prototype.handleMessage = function (message, publisher, data) {
   'use strict';
-  switch (message) {
-  case 'click':
+  if (message === 'click') {
     switch (publisher) {
     case RM.gui.map:
       this.order(data);
@@ -235,8 +234,10 @@ RM.Actor.prototype.handleMessage = function (message, publisher, data) {
     case RM.gui.inventory:
       this.manageInventory(data);
       break;
+    case RM.gui.ground:
+      this.manageGround(data);
+      break;
     }
-    break;
   }
 };
 
@@ -270,6 +271,19 @@ RM.Actor.prototype.manageInventory = function (target) {
       };
     }
     this.showInventory();
+  }
+};
+
+RM.Actor.prototype.manageGround = function (target) {
+  'use strict';
+  var item = RM.gui.ground.content.map.getItem(target.x, target.y);
+  if (item) {
+    RM.gui.ground.selected.select = {
+      x: target.x,
+      y: target.y,
+      tile: RM.terrains.pointer
+    };
+    this.showGround();
   }
 };
 

@@ -38,6 +38,7 @@ RM.items = {
     'x': 24 * 18,
     'y': 21 * 4,
     'weight': 1,
+    'armour': 1,
     'category': 'cloak'
   }
 };
