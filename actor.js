@@ -246,17 +246,37 @@ RM.Actor.prototype.manageInventory = function (target) {
   'use strict';
   var item = RM.gui.inventory.content.map.getItem(target.x, target.y);
   if (item) {
-    if (RM.gui.inventory.selected &&
-        RM.gui.inventory.selected.x === target.x &&
-        RM.gui.inventory.selected.y === target.y) {
-      this.use(item);
+    if (RM.gui.inventory.selected.select &&
+        RM.gui.inventory.selected.select.x === target.x &&
+        RM.gui.inventory.selected.select.y === target.y) {
+      this.use(item, target);
     } else {
-      RM.gui.inventory.selected = target;
+      RM.gui.inventory.selected.select = {
+        x: target.x,
+        y: target.y,
+        tile: RM.terrains.pointer
+      };
     }
     this.showInventory();
   }
 };
 
-RM.Actor.prototype.use = function (item) {
+RM.Actor.prototype.use = function (item, target) {
   'use strict';
+  switch (item.type.category) {
+  case 'weapon':
+    RM.gui.inventory.selected.weapon = {
+      x: target.x,
+      y: target.y,
+      tile: RM.items.use
+    };
+    break;
+  case 'cloak':
+    RM.gui.inventory.selected.cloak = {
+      x: target.x,
+      y: target.y,
+      tile: RM.items.use
+    };
+    break;
+  }
 };

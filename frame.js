@@ -27,7 +27,7 @@ RM.Frame = function (x, y, width, height, content) {
     x: 0,
     y: 0
   };
-  this.selected = null;
+  this.selected = {};
   RM.canvas.addEventListener('click', this);
   RM.canvas.addEventListener('mousemove', this);
 };
@@ -53,7 +53,8 @@ RM.Frame.prototype.clear = function () {
 
 RM.Frame.prototype.process = function (x, y) {
   'use strict';
-  var tile = this.content.empty;
+  var tile, i;
+  tile = this.content.empty;
   if (this.content.map) {
     tile = this.content.map.getTile(x, y) || this.content.empty;
   }
@@ -62,13 +63,17 @@ RM.Frame.prototype.process = function (x, y) {
                  this.tileWidth * (x - this.content.x) + this.x,
                  this.tileHeight * (y - this.content.y) + this.y,
                  this.tileWidth, this.tileHeight);
-  if (this.selected && this.selected.x === x && this.selected.y === y) {
-    tile = RM.terrains.pointer;
-    RM.oc.drawImage(RM.tileSet, tile.x, tile.y,
-                   this.tileWidth, this.tileHeight,
-                   this.tileWidth * (x - this.content.x) + this.x,
-                   this.tileHeight * (y - this.content.y) + this.y,
-                   this.tileWidth, this.tileHeight);
+  for (i in this.selected) {
+    if (this.selected.hasOwnProperty(i)) {
+      if (this.selected[i].x === x && this.selected[i].y === y) {
+        tile = this.selected[i].tile;
+        RM.oc.drawImage(RM.tileSet, tile.x, tile.y,
+                       this.tileWidth, this.tileHeight,
+                       this.tileWidth * (x - this.content.x) + this.x,
+                       this.tileHeight * (y - this.content.y) + this.y,
+                       this.tileWidth, this.tileHeight);
+      }
+    }
   }
 };
 
