@@ -301,7 +301,7 @@ RM.Actor.prototype.manageInventory = function (target) {
 
 RM.Actor.prototype.manageGround = function (target) {
   'use strict';
-  var item;
+  var item, category;
   if (!RM.gui.ground.content.map) {
     return false;
   }
@@ -324,6 +324,26 @@ RM.Actor.prototype.manageGround = function (target) {
     RM.gui.ground.content.map.setItem(RM.gui.ground.selected.select.x,
                                       RM.gui.ground.selected.select.y, null);
     RM.gui.ground.selected.select = null;
+    this.showGround();
+  } else if (RM.gui.inventory.selected.select) {
+    RM.gui.ground.content.map.setItem(target.x, target.y,
+                                      this.inventory.getItem(
+        RM.gui.inventory.selected.select.x,
+        RM.gui.inventory.selected.select.y
+      ));
+    item = this.inventory.getItem(
+      RM.gui.inventory.selected.select.x,
+      RM.gui.inventory.selected.select.y
+    );
+    category = item.type.category;
+    if (RM.gui.inventory.isSelected(category,
+                                    RM.gui.inventory.selected.select)) {
+      RM.gui.inventory.selected[category] = null;
+    }
+    this.inventory.setItem(RM.gui.inventory.selected.select.x,
+                           RM.gui.inventory.selected.select.y, null);
+    RM.gui.inventory.selected.select = null;
+    this.showInventory();
     this.showGround();
   }
 };
