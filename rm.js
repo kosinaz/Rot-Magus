@@ -75,7 +75,6 @@ RM.start = function () {
   'use strict';
   var x, y, actor, i, im;
   RM.canvas.removeEventListener('click', RM.start);
-  RM.c.drawImage(RM.hud, 0, 0);
   RM.scheduler = new ROT.Scheduler.Action();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.map = new RM.Map();
@@ -90,37 +89,11 @@ RM.start = function () {
   for (i = 0; i < 1; i += 1) {
     RM.map.setActor(i, 0, new RM.Actor(RM.actors.elf, i, 0));
   }
-  RM.xp = new RM.Bar(40, 9, 72, 21, {
-    x: 24 * 4,
-    y: 21 * 11
-  });
-  RM.mapFrame = new RM.Frame(128, 9, 504, 441, {
-    map: RM.map,
-    x: 0,
-    y: 0,
-    width: 21,
-    height: 21,
-    empty: RM.terrains.invisible
-  });
-  RM.inventory = new RM.Frame(16, 135, 96, 168, {
-    map: RM.map.getActor(0, 0).inventory,
-    x: 0,
-    y: 0,
-    width: 4,
-    height: 8,
-    empty: RM.items.empty
-  });
-  RM.ground = new RM.Frame(16, 345, 96, 84, {
-    x: 0,
-    y: 0,
-    width: 4,
-    height: 4,
-    empty: RM.items.empty
-  });
   im = new RM.Map();
   im.setItem(0, 0, new RM.Item(RM.items.elvenCloak));
   im.setItem(1, 0, new RM.Item(RM.items.dagger));
   RM.map.setItemMap(3, 3, im);
+  RM.gui = new RM.GUI();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
 };

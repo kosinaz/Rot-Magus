@@ -59,19 +59,21 @@ RM.Actor.prototype.heal = function (amount) {
 
 RM.Actor.prototype.showFOV = function () {
   'use strict';
-  RM.mapFrame.center(this.x, this.y);
-  RM.mapFrame.clear(RM.terrains.invisible);
+  RM.gui.map.center(this.x, this.y);
+  RM.gui.map.clear(RM.terrains.invisible);
   RM.map.shadowcasting.compute(this.x, this.y, 10,
-                               RM.mapFrame.show.bind(RM.mapFrame));
+                               RM.gui.map.show.bind(RM.gui.map));
 };
 
 RM.Actor.prototype.showInventory = function () {
   'use strict';
   var x, y;
-  RM.inventory.content.map = this.inventory;
-  for (x = RM.inventory.content.x; x < RM.inventory.content.width; x += 1) {
-    for (y = RM.inventory.content.y; y < RM.inventory.content.height; y += 1) {
-      RM.inventory.show(x, y);
+  RM.gui.inventory.content.map = this.inventory;
+  for (x = RM.gui.inventory.content.x;
+       x < RM.gui.inventory.content.width; x += 1) {
+    for (y = RM.gui.inventory.content.y;
+         y < RM.gui.inventory.content.height; y += 1) {
+      RM.gui.inventory.show(x, y);
     }
   }
 };
@@ -79,17 +81,19 @@ RM.Actor.prototype.showInventory = function () {
 RM.Actor.prototype.showGround = function () {
   'use strict';
   var x, y;
-  RM.ground.content.map = RM.map.getItemMap(this.x, this.y);
-  for (x = RM.ground.content.x; x < RM.ground.content.width; x += 1) {
-    for (y = RM.ground.content.y; y < RM.ground.content.height; y += 1) {
-      RM.ground.show(x, y);
+  RM.gui.ground.content.map = RM.map.getItemMap(this.x, this.y);
+  for (x = RM.gui.ground.content.x;
+       x < RM.gui.ground.content.width; x += 1) {
+    for (y = RM.gui.ground.content.y;
+         y < RM.gui.ground.content.height; y += 1) {
+      RM.gui.ground.show(x, y);
     }
   }
 };
 
 RM.Actor.prototype.showStats = function () {
   'use strict';
-  RM.xp.setValue(this.xp, 50 * Math.pow(2, this.level), '#e3e300');
+  RM.gui.xp.setValue(this.xp, 50 * Math.pow(2, this.level), '#e3e300');
 };
 
 RM.Actor.prototype.scanFOV = function () {
@@ -194,7 +198,7 @@ RM.Actor.prototype.handleMessage = function (message, publisher, data) {
   switch (message) {
   case 'click':
     switch (publisher) {
-    case RM.mapFrame:
+    case RM.gui.map:
       this.order(data);
       break;
     }
