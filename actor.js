@@ -42,10 +42,10 @@ RM.Actor.prototype.act = function () {
   } else {
     RM.engine.lock();
     RM.subscribe('click', this);
-    this.showFOV();
+    this.showStats();
     this.showInventory();
     this.showGround();
-    this.showStats();
+    this.showFOV();
   }
 };
 
@@ -218,6 +218,9 @@ RM.Actor.prototype.handleMessage = function (message, publisher, data) {
     case RM.gui.map:
       this.order(data);
       break;
+    case RM.gui.inventory:
+      this.manageInventory(data);
+      break;
     }
     break;
   }
@@ -237,4 +240,23 @@ RM.Actor.prototype.order = function (target) {
   this.moveTo(target);
   RM.unsubscribe('click', this);
   RM.engine.unlock();
+};
+
+RM.Actor.prototype.manageInventory = function (target) {
+  'use strict';
+  var item = RM.gui.inventory.content.map.getItem(target.x, target.y);
+  if (item) {
+    if (RM.gui.inventory.selected &&
+        RM.gui.inventory.selected.x === target.x &&
+        RM.gui.inventory.selected.y === target.y) {
+      this.use(item);
+    } else {
+      RM.gui.inventory.selected = target;
+    }
+    this.showInventory();
+  }
+};
+
+RM.Actor.prototype.use = function (item) {
+  'use strict';
 };

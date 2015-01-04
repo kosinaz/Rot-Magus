@@ -27,6 +27,7 @@ RM.Frame = function (x, y, width, height, content) {
     x: 0,
     y: 0
   };
+  this.selected = null;
   RM.canvas.addEventListener('click', this);
   RM.canvas.addEventListener('mousemove', this);
 };
@@ -61,6 +62,14 @@ RM.Frame.prototype.process = function (x, y) {
                  this.tileWidth * (x - this.content.x) + this.x,
                  this.tileHeight * (y - this.content.y) + this.y,
                  this.tileWidth, this.tileHeight);
+  if (this.selected && this.selected.x === x && this.selected.y === y) {
+    tile = RM.terrains.pointer;
+    RM.oc.drawImage(RM.tileSet, tile.x, tile.y,
+                   this.tileWidth, this.tileHeight,
+                   this.tileWidth * (x - this.content.x) + this.x,
+                   this.tileHeight * (y - this.content.y) + this.y,
+                   this.tileWidth, this.tileHeight);
+  }
 };
 
 RM.Frame.prototype.show = function () {
