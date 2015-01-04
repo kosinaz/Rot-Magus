@@ -98,7 +98,8 @@ RM.Map.prototype.getTile = function (x, y) {
           }
         }
       }
-    } else {
+    }
+    if (!tile) {
       terrain = this.getTerrain(x, y);
       if (terrain) {
         tile = terrain;
