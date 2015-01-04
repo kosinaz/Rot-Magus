@@ -296,6 +296,17 @@ RM.Actor.prototype.manageInventory = function (target) {
                            RM.gui.inventory.selected.select.y, null);
     RM.gui.inventory.selected.select = null;
     this.showInventory();
+  } else if (RM.gui.ground.selected.select) {
+    this.inventory.setItem(target.x, target.y,
+                                      RM.gui.ground.content.map.getItem(
+        RM.gui.ground.selected.select.x,
+        RM.gui.ground.selected.select.y
+      ));
+    RM.gui.ground.content.map.setItem(RM.gui.ground.selected.select.x,
+                                      RM.gui.ground.selected.select.y, null);
+    RM.gui.ground.selected.select = null;
+    this.showGround();
+    this.showInventory();
   }
 };
 
