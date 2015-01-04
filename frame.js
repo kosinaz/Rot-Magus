@@ -65,7 +65,9 @@ RM.Frame.prototype.process = function (x, y) {
                  this.tileWidth, this.tileHeight);
   for (i in this.selected) {
     if (this.selected.hasOwnProperty(i)) {
-      if (this.selected[i].x === x && this.selected[i].y === y) {
+      if (this.selected[i] &&
+          this.selected[i].x === x &&
+          this.selected[i].y === y) {
         tile = this.selected[i].tile;
         RM.oc.drawImage(RM.tileSet, tile.x, tile.y,
                        this.tileWidth, this.tileHeight,
@@ -105,4 +107,11 @@ RM.Frame.prototype.handleEvent = function (e) {
                    this.tileWidth, this.tileHeight);
     }
   }
+};
+
+RM.Frame.prototype.isSelected = function (category, target) {
+  'use strict';
+  return this.selected[category] &&
+    this.selected[category].x === target.x &&
+    this.selected[category].y === target.y;
 };

@@ -15,9 +15,7 @@ RM.actors = {
       'bow',
       'dagger',
       'elvenCloak'
-    ],
-    'primary': 1,
-    'cloak': 3
+    ]
   },
   'zombie': {
     'x': 0,

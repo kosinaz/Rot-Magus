@@ -31,6 +31,16 @@ RM.Actor = function (type, x, y, ai) {
       this.burden += RM.items[type.inventory[i]].weight;
     }
   }
+  this.used = {
+    weapon: {
+      x: this.type.weapon % 4,
+      y: Math.floor(this.type.weapon / 4)
+    },
+    cloak: {
+      x: this.type.cloak % 4,
+      y: Math.floor(this.type.weapon / 4)
+    }
+  };
 };
 
 RM.Actor.prototype.act = function () {
@@ -174,12 +184,16 @@ RM.Actor.prototype.computePath = function (x, y) {
 
 RM.Actor.prototype.damage = function (source) {
   'use strict';
-  var damage = ROT.RNG.getUniformInt(1, 6);
+  var damage, weaponDamage;
+  damage = ROT.RNG.getUniformInt(1, 6);
   if (damage === 6) {
     damage += 6;
   }
-  if (source.primary !== undefined && source.items !== undefined) {
-    damage += source.damage;
+  if (source.inventory !== undefined &&
+      source.used.weapon !== undefined &&
+      source.inventory.getItem(source.used.weapon.x, source.used.weapon.y)) {
+    damage += source.inventory.getItem(source.used.weapon.x,
+                                      source.used.weapon.y).type.damage;
   }
   this.health -= damage;
   if (this.health < 1) {
@@ -246,9 +260,7 @@ RM.Actor.prototype.manageInventory = function (target) {
   'use strict';
   var item = RM.gui.inventory.content.map.getItem(target.x, target.y);
   if (item) {
-    if (RM.gui.inventory.selected.select &&
-        RM.gui.inventory.selected.select.x === target.x &&
-        RM.gui.inventory.selected.select.y === target.y) {
+    if (RM.gui.inventory.isSelected('select', target)) {
       this.use(item, target);
     } else {
       RM.gui.inventory.selected.select = {
@@ -263,20 +275,17 @@ RM.Actor.prototype.manageInventory = function (target) {
 
 RM.Actor.prototype.use = function (item, target) {
   'use strict';
-  switch (item.type.category) {
-  case 'weapon':
-    RM.gui.inventory.selected.weapon = {
+  if (RM.gui.inventory.isSelected(item.type.category, target)) {
+    RM.gui.inventory.selected[item.type.category] = null;
+    RM.gui.inventory.selected.select = null;
+    this.used[item.type.category] = null;
+  } else {
+    RM.gui.inventory.selected[item.type.category] = {
       x: target.x,
       y: target.y,
       tile: RM.items.use
     };
-    break;
-  case 'cloak':
-    RM.gui.inventory.selected.cloak = {
-      x: target.x,
-      y: target.y,
-      tile: RM.items.use
-    };
-    break;
+    RM.gui.inventory.selected.select = null;
+    this.used[item.type.category] = target;
   }
 };
