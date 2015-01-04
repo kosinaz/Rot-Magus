@@ -94,8 +94,12 @@ RM.Actor.prototype.showInventory = function () {
 
 RM.Actor.prototype.showGround = function () {
   'use strict';
-  var x, y;
+  var x, y, im;
   RM.gui.ground.content.map = RM.map.getItemMap(this.x, this.y);
+  if (RM.gui.ground.content.map === undefined) {
+    RM.map.setItemMap(this.x, this.y, new RM.Map());
+    RM.gui.ground.content.map = RM.map.getItemMap(this.x, this.y);
+  }
   for (x = RM.gui.ground.content.x;
        x < RM.gui.ground.content.width; x += 1) {
     for (y = RM.gui.ground.content.y;
