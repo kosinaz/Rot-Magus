@@ -143,7 +143,7 @@ RM.Actor.prototype.scanFOV = function () {
 RM.Actor.prototype.moveTo = function (target) {
   'use strict';
   var x, y, enemy, damage, i;
-  if (!target.x) {
+  if (target.x === undefined) {
     return false;
   }
   this.computePath(target.x, target.y);
