@@ -300,7 +300,7 @@ RM.Actor.prototype.manageInventory = function (target) {
                            RM.gui.inventory.selected.select.y, null);
     RM.gui.inventory.selected.select = null;
     this.showInventory();
-  } else if (RM.gui.ground.selected.select) {
+  } else if (RM.gui.ground.selected.select) { //pick up item from the ground
     this.inventory.setItem(target.x, target.y,
                                       RM.gui.ground.content.map.getItem(
         RM.gui.ground.selected.select.x,
@@ -309,6 +309,7 @@ RM.Actor.prototype.manageInventory = function (target) {
     RM.gui.ground.content.map.setItem(RM.gui.ground.selected.select.x,
                                       RM.gui.ground.selected.select.y, null);
     RM.gui.ground.selected.select = null;
+    RM.gui.burden.setValue(this.burden, this.strength, '#844121');
     this.showGround();
     this.showInventory();
   }
@@ -340,7 +341,7 @@ RM.Actor.prototype.manageGround = function (target) {
                                       RM.gui.ground.selected.select.y, null);
     RM.gui.ground.selected.select = null;
     this.showGround();
-  } else if (RM.gui.inventory.selected.select) {
+  } else if (RM.gui.inventory.selected.select) { //drop item
     RM.gui.ground.content.map.setItem(target.x, target.y,
                                       this.inventory.getItem(
         RM.gui.inventory.selected.select.x,
@@ -358,6 +359,12 @@ RM.Actor.prototype.manageGround = function (target) {
     this.inventory.setItem(RM.gui.inventory.selected.select.x,
                            RM.gui.inventory.selected.select.y, null);
     RM.gui.inventory.selected.select = null;
+
+    this.burden -= RM.gui.ground.content.map.getItem(
+      target.x,
+      target.y
+    ).type.weight;
+    RM.gui.burden.setValue(this.burden, this.strength, '#844121');
     this.showInventory();
     this.showGround();
   }
