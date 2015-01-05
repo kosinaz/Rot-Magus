@@ -254,9 +254,9 @@ RM.Actor.prototype.order = function (target) {
     /* rest */
     RM.scheduler.setDuration(1.0 / this.agility);
     this.regenerate();
-    return true;
+  } else {
+    this.moveTo(target);
   }
-  this.moveTo(target);
   RM.unsubscribe('click', this);
   RM.engine.unlock();
 };
