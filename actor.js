@@ -156,12 +156,45 @@ RM.Actor.prototype.moveTo = function (target) {
   enemy = RM.map.getActor(x, y);
   if (enemy) {
     enemy.damage(this);
-    this.gainXP(1);
   } else {
     RM.map.setActor(this.x, this.y, null);
     this.x = x;
     this.y = y;
     RM.map.setActor(this.x, this.y, this);
+  }
+};
+
+RM.Actor.prototype.attackRanged = function (target) {
+  'use strict';
+  var weapon, munition;
+  weapon = this.inventory.getItem(this.used.weapon.x, this.used.weapon.y);
+  if (weapon.type.usesArrows) {
+    if (this.used.munition) {
+      munition = this.inventory.getItem(
+        this.used.munition.x,
+        this.used.munition.y
+      );
+      if (munition) {
+        RM.map.getActor(target.x, target.y).damage(this);
+        RM.scheduler.setDuration(1.0 / this.agility);
+        munition.count -= 1;
+        if (munition.count === 0) {
+          RM.gui.inventory.selected.munition = null;
+          this.inventory.setItem(
+            this.used.munition.x,
+            this.used.munition.y,
+            null
+          );
+          this.used.munition = null;
+        }
+      } else {
+        this.moveTo(target);
+      }
+    } else {
+      this.moveTo(target);
+    }
+  } else {
+    this.moveTo(target);
   }
 };
 
@@ -199,6 +232,7 @@ RM.Actor.prototype.damage = function (source) {
     damage += source.inventory.getItem(source.used.weapon.x,
                                       source.used.weapon.y).type.damage;
   }
+  source.gainXP(1);
   this.health -= damage;
   if (this.health < 1) {
     if (!this.ai) {
@@ -211,7 +245,7 @@ RM.Actor.prototype.damage = function (source) {
     }
     RM.scheduler.remove(this);
     RM.map.setActor(this.x, this.y, null);
-    this.gainXP(2);
+    source.gainXP(2);
   }
 };
 
@@ -247,13 +281,24 @@ RM.Actor.prototype.handleMessage = function (message, publisher, data) {
 
 RM.Actor.prototype.order = function (target) {
   'use strict';
+  var actor;
   if (!RM.map.isPassable(target.x, target.y)) {
     return false;
   }
-  if (RM.map.getActor(target.x, target.y) === this) {
-    /* rest */
-    RM.scheduler.setDuration(1.0 / this.agility);
-    this.regenerate();
+  actor = RM.map.getActor(target.x, target.y);
+  if (actor) {
+    if (actor === this) {
+      /* rest */
+      RM.scheduler.setDuration(1.0 / this.agility);
+      this.regenerate();
+    } else {
+      if (this.used.weapon && this.inventory.getItem(
+          this.used.weapon.x,
+          this.used.weapon.y
+        ).type.ranged) {
+        this.attackRanged(target);
+      }
+    }
   } else {
     this.moveTo(target);
   }
@@ -266,8 +311,7 @@ RM.Actor.prototype.manageInventory = function (target) {
   var item, category;
   item = RM.gui.inventory.content.map.getItem(target.x, target.y);
   if (item) {
-    if (RM.gui.inventory.isSelected('select', target) &&
-        item.type.category !== 'munition') {
+    if (RM.gui.inventory.isSelected('select', target)) {
       this.use(item, target);
     } else {
       RM.gui.inventory.selected.select = {

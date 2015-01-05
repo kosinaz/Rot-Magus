@@ -2,4 +2,7 @@
 RM.Item = function (type) {
   'use strict';
   this.type = type;
+  if (type.count) {
+    this.count = type.count;
+  }
 };

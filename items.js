@@ -18,6 +18,7 @@ RM.items = {
   'bow': {
     'x': 24 * 8,
     'y': 21 * 4,
+    'damage': 3,
     'weight': 3,
     'twoHanded': true,
     'ranged': true,
@@ -31,6 +32,7 @@ RM.items = {
     'weight': 1,
     'oneHanded': true,
     'melee': true,
+    'ranged': true,
     'throwable': true,
     'category': 'weapon'
   },
