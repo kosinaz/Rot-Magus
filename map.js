@@ -90,6 +90,9 @@ RM.Map.prototype.getTile = function (x, y) {
     itemMap = this.getItemMap(x, y);
     if (itemMap) {
       for (i = 0; i < itemMap.points.length; i += 1) {
+        if (!itemMap.points[i]) {
+          itemMap.points[i] = [];
+        }
         for (j = 0; j < itemMap.points[i].length; j += 1) {
           item = itemMap.getItem(i, j);
           if (item) {
