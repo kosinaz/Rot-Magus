@@ -1,6 +1,6 @@
 /*global ROT*/
 var RM = {
-  VERSION: 'Version 0.2.0.43'
+  VERSION: 'Version 0.3.0.93'
 };
 
 RM.init = function () {
