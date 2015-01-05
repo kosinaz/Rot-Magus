@@ -266,7 +266,8 @@ RM.Actor.prototype.manageInventory = function (target) {
   var item, category;
   item = RM.gui.inventory.content.map.getItem(target.x, target.y);
   if (item) {
-    if (RM.gui.inventory.isSelected('select', target)) {
+    if (RM.gui.inventory.isSelected('select', target) &&
+        item.type.category !== 'munition') {
       this.use(item, target);
     } else {
       RM.gui.inventory.selected.select = {
