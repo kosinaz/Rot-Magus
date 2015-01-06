@@ -1,5 +1,5 @@
 /*global RM*/
-RM.Label = function (x, y, width, height) {
+RM.Label = function (x, y, width, height, align) {
   'use strict';
   this.x = x;
   this.y = y;
@@ -10,7 +10,6 @@ RM.Label = function (x, y, width, height) {
 RM.Label.prototype.setValue = function (value) {
   'use strict';
   RM.c.font = '12px Immortal';
-  RM.c.textAlign = 'center';
   RM.c.textBaseline = 'top';
   RM.c.fillStyle = '#616161';
   RM.c.fillRect(this.x, this.y, this.width, this.height);

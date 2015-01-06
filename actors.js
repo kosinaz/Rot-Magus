@@ -1,6 +1,7 @@
 /*global RM, ROT*/
 RM.actors = {
   'elf': {
+    'name': 'Elf',
     'x': 24 * 12,
     'y': 21,
     'chance': 0,
@@ -18,6 +19,7 @@ RM.actors = {
     ]
   },
   'zombie': {
+    'name': 'Zombie',
     'x': 0,
     'y': 21 * 2,
     'chance': 6,
@@ -29,6 +31,7 @@ RM.actors = {
     'precision': 10
   },
   'skeleton': {
+    'name': 'Skeleton',
     'x': 24,
     'y': 21 * 2,
     'chance': 5,
@@ -40,6 +43,7 @@ RM.actors = {
     'precision': 7
   },
   'goblin': {
+    'name': 'Goblin',
     'x': 24 * 2,
     'y': 21 * 2,
     'chance': 4,
@@ -51,6 +55,7 @@ RM.actors = {
     'precision': 12
   },
   'hobgoblin': {
+    'name': 'Hobgoblin',
     'x': 24 * 3,
     'y': 21 * 2,
     'chance': 3,
@@ -62,6 +67,7 @@ RM.actors = {
     'precision': 15
   },
   'troll': {
+    'name': 'Troll',
     'x': 24 * 4,
     'y': 21 * 2,
     'chance': 2,

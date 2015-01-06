@@ -234,6 +234,9 @@ RM.Actor.prototype.damage = function (source) {
   }
   source.gainXP(1);
   this.health -= damage;
+  RM.gui.log.setValue(this.type.name + ' has lost ' +
+                      damage + ' health point' +
+                      (damage !== 1 ? 's' : '') + '.');
   if (this.health < 1) {
     if (!this.ai) {
       RM.engine.lock();
@@ -301,6 +304,7 @@ RM.Actor.prototype.order = function (target) {
     }
   } else {
     this.moveTo(target);
+    RM.gui.log.setValue('');
   }
   RM.unsubscribe('click', this);
   RM.engine.unlock();

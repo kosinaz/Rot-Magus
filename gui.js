@@ -45,4 +45,5 @@ RM.GUI = function () {
     height: 4,
     empty: RM.items.empty
   });
+  this.log = new RM.Label(16, 455, 608, 21, 'left');
 };
