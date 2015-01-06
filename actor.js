@@ -221,7 +221,7 @@ RM.Actor.prototype.computePath = function (x, y) {
 
 RM.Actor.prototype.damage = function (source) {
   'use strict';
-  var damage, weaponDamage;
+  var damage, weaponDamage, log;
   damage = ROT.RNG.getUniformInt(1, 6);
   if (damage === 6) {
     damage += 6;
@@ -234,10 +234,11 @@ RM.Actor.prototype.damage = function (source) {
   }
   source.gainXP(1);
   this.health -= damage;
-  RM.gui.log.setValue(this.type.name + ' has lost ' +
-                      damage + ' health point' +
-                      (damage !== 1 ? 's' : '') + '.');
+
+  log = this.type.name + ' has lost ' + damage + ' health point' +
+    (damage !== 1 ? 's' : '');
   if (this.health < 1) {
+    log += ' and died';
     if (!this.ai) {
       RM.engine.lock();
       RM.c.drawImage(RM.gameover, 0, 0);
@@ -250,6 +251,7 @@ RM.Actor.prototype.damage = function (source) {
     RM.map.setActor(this.x, this.y, null);
     source.gainXP(2);
   }
+  RM.gui.log.setValue(log + '.');
 };
 
 RM.Actor.prototype.gainXP = function (amount) {
