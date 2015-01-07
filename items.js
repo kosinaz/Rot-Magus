@@ -1,13 +1,5 @@
-/*global RM, ROT*/
+/*global RM*/
 RM.items = {
-  'empty': {
-    'x': 24 * 2,
-    'y': 21 * 11
-  },
-  'use': {
-    'x': 24 * 3,
-    'y': 21 * 11
-  },
   'arrows': {
     'x': 24 * 2,
     'y': 21 * 4,

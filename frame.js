@@ -99,7 +99,7 @@ RM.Frame.prototype.handleEvent = function (e) {
     });
     if (e.type === 'mousemove') {
       this.show();
-      tile = RM.terrains.pointer;
+      tile = RM.guitiles.pointer;
       RM.c.drawImage(RM.tileSet, tile.x, tile.y,
                    this.tileWidth, this.tileHeight,
                    this.tileWidth * (contentX - this.content.x) + this.x,

@@ -72,7 +72,7 @@ RM.Actor.prototype.heal = function (amount) {
 RM.Actor.prototype.showFOV = function () {
   'use strict';
   RM.gui.map.center(this.x, this.y);
-  RM.gui.map.clear(RM.terrains.invisible);
+  RM.gui.map.clear(RM.gui.map.invisible);
   RM.map.shadowcasting.compute(this.x, this.y, 10,
                                RM.gui.map.process.bind(RM.gui.map));
   RM.gui.map.show();
@@ -323,7 +323,7 @@ RM.Actor.prototype.manageInventory = function (target) {
       RM.gui.inventory.selected.select = {
         x: target.x,
         y: target.y,
-        tile: RM.terrains.pointer
+        tile: RM.guitiles.pointer
       };
     }
     RM.gui.ground.selected.select = null;
@@ -344,7 +344,7 @@ RM.Actor.prototype.manageInventory = function (target) {
       RM.gui.inventory.selected[category] = {
         x: target.x,
         y: target.y,
-        tile: RM.items.use
+        tile: RM.guitiles.use
       };
     }
     this.inventory.setItem(RM.gui.inventory.selected.select.x,
@@ -377,7 +377,7 @@ RM.Actor.prototype.manageGround = function (target) {
     RM.gui.ground.selected.select = {
       x: target.x,
       y: target.y,
-      tile: RM.terrains.pointer
+      tile: RM.guitiles.pointer
     };
     RM.gui.inventory.selected.select = null;
     this.showInventory();
@@ -431,7 +431,7 @@ RM.Actor.prototype.use = function (item, target) {
     RM.gui.inventory.selected[item.type.category] = {
       x: target.x,
       y: target.y,
-      tile: RM.items.use
+      tile: RM.guitiles.use
     };
     RM.gui.inventory.selected.select = null;
     this.used[item.type.category] = target;

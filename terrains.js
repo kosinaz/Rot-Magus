@@ -31,13 +31,5 @@ RM.terrains = {
     'x': 24 * 17,
     'y': 0,
     'chance': 10
-  },
-  'invisible': {
-    'x': 0,
-    'y': 21 * 11
-  },
-  'pointer': {
-    'x': 24,
-    'y': 21 * 11
   }
 };

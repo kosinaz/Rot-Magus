@@ -28,7 +28,7 @@ RM.GUI = function () {
     y: 0,
     width: 21,
     height: 21,
-    empty: RM.terrains.invisible
+    empty: RM.guitiles.invisible
   });
   this.inventory = new RM.Frame(16, 135, 96, 168, {
     map: RM.map.getActor(0, 0).inventory,
@@ -36,14 +36,14 @@ RM.GUI = function () {
     y: 0,
     width: 4,
     height: 8,
-    empty: RM.items.empty
+    empty: RM.guitiles.empty
   });
   this.ground = new RM.Frame(16, 345, 96, 84, {
     x: 0,
     y: 0,
     width: 4,
     height: 4,
-    empty: RM.items.empty
+    empty: RM.guitiles.empty
   });
   this.log = new RM.Label(16, 455, 608, 21, 'left');
 };
