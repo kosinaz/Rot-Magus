@@ -92,7 +92,7 @@ RM.start = function () {
     }
   }
   for (i = 0; i < 1; i += 1) {
-    RM.map.setActor(i, 0, new RM.Actor(RM.actors.elf, i, 0));
+    RM.map.setActor(i, 0, new RM.Hero(RM.actors.elf, i, 0));
   }
   im = new RM.Map();
   im.setItem(0, 0, new RM.Item(RM.items.elvenCloak));
