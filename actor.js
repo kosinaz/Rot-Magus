@@ -52,10 +52,7 @@ RM.Actor.prototype.act = function () {
   } else {
     RM.engine.lock();
     RM.subscribe('click', this);
-    this.showStats();
-    this.showInventory();
-    this.showGround();
-    this.showFOV();
+    RM.gui.update(this);
   }
 };
 
@@ -69,60 +66,7 @@ RM.Actor.prototype.heal = function (amount) {
   this.health = Math.min(this.maxHealth, this.health + amount);
 };
 
-RM.Actor.prototype.showFOV = function () {
-  'use strict';
-  RM.gui.map.center(this.x, this.y);
-  RM.gui.map.clear(RM.gui.map.invisible);
-  RM.map.shadowcasting.compute(this.x, this.y, 10,
-                               RM.gui.map.process.bind(RM.gui.map));
-  RM.gui.map.show();
-};
 
-RM.Actor.prototype.showInventory = function () {
-  'use strict';
-  var x, y;
-  RM.gui.inventory.content.map = this.inventory;
-  for (x = RM.gui.inventory.content.x;
-       x < RM.gui.inventory.content.width; x += 1) {
-    for (y = RM.gui.inventory.content.y;
-         y < RM.gui.inventory.content.height; y += 1) {
-      RM.gui.inventory.process(x, y);
-    }
-  }
-  RM.gui.inventory.show();
-};
-
-RM.Actor.prototype.showGround = function () {
-  'use strict';
-  var x, y, im;
-  RM.gui.ground.content.map = RM.map.getItemMap(this.x, this.y);
-  if (RM.gui.ground.content.map === undefined) {
-    RM.map.setItemMap(this.x, this.y, new RM.Map());
-    RM.gui.ground.content.map = RM.map.getItemMap(this.x, this.y);
-  }
-  for (x = RM.gui.ground.content.x;
-       x < RM.gui.ground.content.width; x += 1) {
-    for (y = RM.gui.ground.content.y;
-         y < RM.gui.ground.content.height; y += 1) {
-      RM.gui.ground.process(x, y);
-    }
-  }
-  RM.gui.ground.show();
-};
-
-RM.Actor.prototype.showStats = function () {
-  'use strict';
-  RM.gui.xp.setValue(this.xp, 50 * Math.pow(2, this.level), '#e3e300');
-  RM.gui.health.setValue(Math.floor(this.health), this.maxHealth,
-                        this.health > this.maxHealth / 4
-                        ? '#00e300' : '#e30000');
-  RM.gui.mana.setValue(this.mana, this.maxMana, '#4261e7');
-  RM.gui.burden.setValue(this.burden, this.strength, '#844121');
-  RM.gui.strength.setValue(this.strength);
-  RM.gui.wisdom.setValue(this.wisdom);
-  RM.gui.agility.setValue(this.agility);
-  RM.gui.precision.setValue(this.precision);
-};
 
 RM.Actor.prototype.scanFOV = function () {
   'use strict';
@@ -327,8 +271,8 @@ RM.Actor.prototype.manageInventory = function (target) {
       };
     }
     RM.gui.ground.selected.select = null;
-    this.showInventory();
-    this.showGround();
+    RM.gui.showInventory(this);
+    RM.gui.showGround(this);
   } else if (RM.gui.inventory.selected.select) {
     this.inventory.setItem(target.x, target.y, this.inventory.getItem(
       RM.gui.inventory.selected.select.x,
