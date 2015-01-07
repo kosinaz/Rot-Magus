@@ -87,7 +87,7 @@ RM.start = function () {
       RM.map.setTerrain(x, y, RM.terrainSet.random());
       if (ROT.RNG.getPercentage() === 1) {
         RM.map.setTerrain(x, y, RM.terrains.grass);
-        RM.map.setActor(x, y, new RM.Actor(RM.actorSet.random(), x, y, true));
+        RM.map.setActor(x, y, new RM.Nasty(RM.actorSet.random(), x, y, true));
       }
     }
   }
