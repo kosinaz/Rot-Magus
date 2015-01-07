@@ -1,6 +1,11 @@
 /*global RM, ROT*/
 RM.Actor = function (type, x, y, ai) {
   'use strict';
+  this.init(type, x, y, ai);
+};
+
+RM.Actor.prototype.init = function (type, x, y, ai) {
+  'use strict';
   var i;
   RM.scheduler.add(this, true);
   this.x = x;
