@@ -7,11 +7,11 @@ RM.Map = function () {
 };
 
 /**
- * Gets the data stored in an arbitrarily defined point of the map.
- * @param   {String} p The coordinates of the point separated with commas,
- *                   or the first coordinate of the point, followed by the
- *                   others as additional arguments.
- * @returns {Object} The object stored in the specified point of the map.
+ * Stores a custom data in an arbitrarily defined point of the map.
+ * @param   {Object} data The object to store.
+ * @param   {String} p    The coordinates of the point separated with commas,
+ *                        or the first coordinate of the point, followed by the
+ *                        others as additional arguments.
  */
 RM.Map.prototype.setPoint = function (data, p) {
   'use strict';
