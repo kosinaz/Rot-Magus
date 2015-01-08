@@ -1,6 +1,9 @@
 /*global ROT*/
 var RM = {
-  VERSION: 'Version 0.3.0.93'
+  VERSION: 'Version 0.3.0.93',
+  TERRAIN: 0,
+  ITEMS: 1,
+  ACTOR: 2
 };
 
 RM.init = function () {
@@ -84,21 +87,15 @@ RM.start = function () {
   RM.map = new RM.Map();
   for (x = -50; x < 51; x += 1) {
     for (y = -50; y < 51; y += 1) {
-      RM.map.setTerrain(x, y, RM.terrainSet.random());
+      RM.map.setPoint(RM.terrainSet.random(), x, y, RM.TERRAIN);
       if (ROT.RNG.getPercentage() === 1) {
-        RM.map.setTerrain(x, y, RM.terrains.grass);
-        RM.map.setActor(x, y, new RM.Nasty(RM.actorSet.random(), x, y, true));
+        RM.map.setPoint(RM.terrains.grass, x, y, RM.TERRAIN);
+        RM.map.setPoint(new RM.Nasty(RM.actorSet.random(), x, y, true),
+                        x, y, RM.ACTOR);
       }
     }
   }
-  for (i = 0; i < 1; i += 1) {
-    RM.map.setActor(i, 0, new RM.Hero(RM.actors.elf, i, 0));
-  }
-  im = new RM.Map();
-  im.setItem(0, 0, new RM.Item(RM.items.elvenCloak));
-  im.setItem(1, 0, new RM.Item(RM.items.dagger));
-  RM.map.setTerrain(3, 3, RM.terrains.grass);
-  RM.map.setItemMap(3, 3, im);
+  RM.map.setPoint(new RM.Hero(RM.actors.elf, 0, 0), 0, 0, RM.ACTOR);
   RM.gui = new RM.GUI();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
