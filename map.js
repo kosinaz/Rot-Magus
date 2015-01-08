@@ -47,11 +47,6 @@ RM.Map.prototype.getTerrain = function (x, y) {
   return this.getPoint(x, y, 0);
 };
 
-RM.Map.prototype.setTerrain = function (x, y, terrain) {
-  'use strict';
-  this.setPoint(terrain, x, y, 0);
-};
-
 RM.Map.prototype.getItemMap = function (x, y) {
   'use strict';
   return this.getPoint(x, y, 1);
