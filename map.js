@@ -6,9 +6,13 @@ RM.Map = function () {
     new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
 };
 
-RM.Map.prototype.getPoint = function (x, y) {
+RM.Map.prototype.getPoint = function (p) {
   'use strict';
-  return this.points[x + ',' + y];
+  var i;
+  for (i = 1; i < arguments.length; i += 1) {
+    p += ',' + arguments[i];
+  }
+  return this.points[p];
 };
 
 RM.Map.prototype.getTerrain = function (x, y) {
