@@ -42,11 +42,6 @@ RM.Map.prototype.getPoint = function (p) {
   return this.points[p];
 };
 
-RM.Map.prototype.getTerrain = function (x, y) {
-  'use strict';
-  return this.getPoint(x, y, 0);
-};
-
 RM.Map.prototype.getItemMap = function (x, y) {
   'use strict';
   return this.getPoint(x, y, 1);
@@ -100,7 +95,7 @@ RM.Map.prototype.getTile = function (x, y) {
       }
     }
     if (tile === null) {
-      terrain = this.getTerrain(x, y);
+      terrain = this.getPoint(x, y, 0);
       if (terrain) {
         tile = terrain;
       } else {
