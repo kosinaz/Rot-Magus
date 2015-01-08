@@ -52,14 +52,14 @@ RM.Map.prototype.setTerrain = function (x, y, terrain) {
   this.setPoint(terrain, x, y, 0);
 };
 
-RM.Map.prototype.getItem = function (x, y) {
+RM.Map.prototype.getItemMap = function (x, y) {
   'use strict';
   return this.getPoint(x, y, 1);
 };
 
-RM.Map.prototype.setItem = function (x, y, item) {
+RM.Map.prototype.setItemMap = function (x, y, itemMap) {
   'use strict';
-  this.setPoint(item, x, y, 1);
+  this.setPoint(itemMap, x, y, 1);
 };
 
 RM.Map.prototype.getActor = function (x, y) {
@@ -72,24 +72,14 @@ RM.Map.prototype.setActor = function (x, y, actor) {
   this.setPoint(actor, x, y, 2);
 };
 
-RM.Map.prototype.getItemMap = function (x, y) {
+RM.Map.prototype.getItem = function (x, y) {
   'use strict';
-  var point = this.getPoint(x, y);
-  if (point) {
-    if (point.itemMap === undefined) {
-      this.setItemMap(x, y, new RM.Map());
-    }
-    return point.itemMap;
-  }
-  return null;
+  return this.getPoint(x, y, 3);
 };
 
-RM.Map.prototype.setItemMap = function (x, y, itemMap) {
+RM.Map.prototype.setItem = function (x, y, item) {
   'use strict';
-  if (this.points[x + ',' + y] === undefined) {
-    this.points[x + ',' + y] = {};
-  }
-  this.points[x + ',' + y].itemMap = itemMap;
+  this.setPoint(item, x, y, 3);
 };
 
 RM.Map.prototype.getTile = function (x, y) {
