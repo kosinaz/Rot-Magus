@@ -88,10 +88,6 @@ RM.GUI.prototype.showGround = function (actor) {
   'use strict';
   var x, y, im;
   this.ground.content.map = RM.map.getItemMap(actor.x, actor.y);
-  if (this.ground.content.map === undefined) {
-    RM.map.setItemMap(actor.x, actor.y, new RM.Map());
-    this.ground.content.map = RM.map.getItemMap(actor.x, actor.y);
-  }
   for (x = RM.gui.ground.content.x;
        x < RM.gui.ground.content.width; x += 1) {
     for (y = RM.gui.ground.content.y;

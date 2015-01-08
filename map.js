@@ -48,7 +48,13 @@ RM.Map.prototype.setItem = function (x, y, item) {
 RM.Map.prototype.getItemMap = function (x, y) {
   'use strict';
   var point = this.getPoint(x, y);
-  return point ? point.itemMap : null;
+  if (point) {
+    if (point.itemMap === undefined) {
+      RM.map.setItemMap(x, y, new RM.Map());
+    }
+    return point.itemMap;
+  }
+  return null;
 };
 
 RM.Map.prototype.setItemMap = function (x, y, itemMap) {

@@ -96,7 +96,7 @@ RM.Hero.prototype.manageInventory = function (target) {
     this.inventory.setItem(RM.gui.inventory.selected.select.x,
                            RM.gui.inventory.selected.select.y, null);
     RM.gui.inventory.selected.select = null;
-    this.showInventory();
+    RM.gui.showInventory(this);
   } else if (RM.gui.ground.selected.select) { //pick up item from the ground
     this.inventory.setItem(target.x, target.y,
                                       RM.gui.ground.content.map.getItem(
@@ -107,8 +107,8 @@ RM.Hero.prototype.manageInventory = function (target) {
                                       RM.gui.ground.selected.select.y, null);
     RM.gui.ground.selected.select = null;
     RM.gui.burden.setValue(this.burden, this.strength, '#844121');
-    this.showGround();
-    this.showInventory();
+    RM.gui.showGround(this);
+    RM.gui.showInventory(this);
   }
 };
 
@@ -126,8 +126,8 @@ RM.Hero.prototype.manageGround = function (target) {
       tile: RM.guitiles.pointer
     };
     RM.gui.inventory.selected.select = null;
-    this.showInventory();
-    this.showGround();
+    RM.gui.showInventory(this);
+    RM.gui.showGround(this);
   } else if (RM.gui.ground.selected.select) {
     RM.gui.ground.content.map.setItem(target.x, target.y,
                                       RM.gui.ground.content.map.getItem(
@@ -162,8 +162,8 @@ RM.Hero.prototype.manageGround = function (target) {
       target.y
     ).type.weight;
     RM.gui.burden.setValue(this.burden, this.strength, '#844121');
-    this.showInventory();
-    this.showGround();
+    RM.gui.showInventory(this);
+    RM.gui.showGround(this);
   }
 };
 
