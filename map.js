@@ -1,4 +1,8 @@
 /*global RM, ROT*/
+/**
+ * A class to store multi-dimensional data.
+ * @constructor
+ */
 RM.Map = function () {
   'use strict';
   this.points = {};
@@ -40,16 +44,12 @@ RM.Map.prototype.getPoint = function (p) {
 
 RM.Map.prototype.getTerrain = function (x, y) {
   'use strict';
-  var point = this.getPoint(x, y);
-  return point ? point.terrain : null;
+  return this.getPoint(x, y, 0);
 };
 
 RM.Map.prototype.setTerrain = function (x, y, terrain) {
   'use strict';
-  if (this.points[x + ',' + y] === undefined) {
-    this.points[x + ',' + y] = {};
-  }
-  this.points[x + ',' + y].terrain = terrain;
+  this.setPoint(terrain, x, y, 0);
 };
 
 RM.Map.prototype.getItem = function (x, y) {
@@ -145,12 +145,12 @@ RM.Map.prototype.isPlayer = function (x, y) {
 
 RM.Map.prototype.isTransparent = function (x, y) {
   'use strict';
-  var point = this.getPoint(x, y);
-  return point ? point.terrain.transparent : false;
+  var point = this.getPoint(x, y, 0);
+  return point ? point.transparent : false;
 };
 
 RM.Map.prototype.isPassable = function (x, y) {
   'use strict';
-  var point = this.getPoint(x, y);
-  return point ? point.terrain.passable : false;
+  var point = this.getPoint(x, y, 0);
+  return point ? point.passable : false;
 };
