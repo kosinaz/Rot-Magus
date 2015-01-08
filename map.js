@@ -1,14 +1,14 @@
 /*global RM, ROT*/
 RM.Map = function () {
   'use strict';
-  this.points = [];
+  this.points = {};
   this.shadowcasting =
     new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
 };
 
 RM.Map.prototype.getPoint = function (x, y) {
   'use strict';
-  return this.points[x] ? this.points[x][y] : null;
+  return this.points[x + ',' + y];
 };
 
 RM.Map.prototype.getTerrain = function (x, y) {
@@ -19,13 +19,10 @@ RM.Map.prototype.getTerrain = function (x, y) {
 
 RM.Map.prototype.setTerrain = function (x, y, terrain) {
   'use strict';
-  if (!this.points[x]) {
-    this.points[x] = [];
+  if (this.points[x + ',' + y] === undefined) {
+    this.points[x + ',' + y] = {};
   }
-  if (!this.points[x][y]) {
-    this.points[x][y] = {};
-  }
-  this.points[x][y].terrain = terrain;
+  this.points[x + ',' + y].terrain = terrain;
 };
 
 RM.Map.prototype.getItem = function (x, y) {
@@ -36,13 +33,10 @@ RM.Map.prototype.getItem = function (x, y) {
 
 RM.Map.prototype.setItem = function (x, y, item) {
   'use strict';
-  if (!this.points[x]) {
-    this.points[x] = [];
+  if (this.points[x + ',' + y] === undefined) {
+    this.points[x + ',' + y] = {};
   }
-  if (!this.points[x][y]) {
-    this.points[x][y] = {};
-  }
-  this.points[x][y].item = item;
+  this.points[x + ',' + y].item = item;
 };
 
 RM.Map.prototype.getItemMap = function (x, y) {
@@ -50,7 +44,7 @@ RM.Map.prototype.getItemMap = function (x, y) {
   var point = this.getPoint(x, y);
   if (point) {
     if (point.itemMap === undefined) {
-      RM.map.setItemMap(x, y, new RM.Map());
+      this.setItemMap(x, y, new RM.Map());
     }
     return point.itemMap;
   }
@@ -59,13 +53,10 @@ RM.Map.prototype.getItemMap = function (x, y) {
 
 RM.Map.prototype.setItemMap = function (x, y, itemMap) {
   'use strict';
-  if (!this.points[x]) {
-    this.points[x] = [];
+  if (this.points[x + ',' + y] === undefined) {
+    this.points[x + ',' + y] = {};
   }
-  if (!this.points[x][y]) {
-    this.points[x][y] = {};
-  }
-  this.points[x][y].itemMap = itemMap;
+  this.points[x + ',' + y].itemMap = itemMap;
 };
 
 RM.Map.prototype.getActor = function (x, y) {
@@ -76,18 +67,15 @@ RM.Map.prototype.getActor = function (x, y) {
 
 RM.Map.prototype.setActor = function (x, y, actor) {
   'use strict';
-  if (!this.points[x]) {
-    this.points[x] = [];
+  if (this.points[x + ',' + y] === undefined) {
+    this.points[x + ',' + y] = {};
   }
-  if (!this.points[x][y]) {
-    this.points[x][y] = {};
-  }
-  this.points[x][y].actor = actor;
+  this.points[x + ',' + y].actor = actor;
 };
 
 RM.Map.prototype.getTile = function (x, y) {
   'use strict';
-  var actor, itemMap, i, j, item, terrain, tile;
+  var actor, itemMap, i, ix, iy, item, terrain, tile;
   tile = null;
   actor = this.getActor(x, y);
   if (actor) {
@@ -95,12 +83,11 @@ RM.Map.prototype.getTile = function (x, y) {
   } else {
     itemMap = this.getItemMap(x, y);
     if (itemMap) {
-      for (i = 0; i < itemMap.points.length; i += 1) {
-        if (!itemMap.points[i]) {
-          itemMap.points[i] = [];
-        }
-        for (j = 0; j < itemMap.points[i].length; j += 1) {
-          item = itemMap.getItem(i, j);
+      for (i in itemMap.points) {
+        if (itemMap.points.hasOwnProperty(i)) {
+          ix = i.split(',')[0];
+          iy = i.split(',')[1];
+          item = itemMap.getItem(ix, iy);
           if (item) {
             tile = item.type;
             break;
@@ -108,7 +95,7 @@ RM.Map.prototype.getTile = function (x, y) {
         }
       }
     }
-    if (!tile) {
+    if (tile === null) {
       terrain = this.getTerrain(x, y);
       if (terrain) {
         tile = terrain;
