@@ -6,6 +6,29 @@ RM.Map = function () {
     new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
 };
 
+/**
+ * Gets the data stored in an arbitrarily defined point of the map.
+ * @param   {String} p The coordinates of the point separated with commas,
+ *                   or the first coordinate of the point, followed by the
+ *                   others as additional arguments.
+ * @returns {Object} The object stored in the specified point of the map.
+ */
+RM.Map.prototype.setPoint = function (data, p) {
+  'use strict';
+  var i;
+  for (i = 2; i < arguments.length; i += 1) {
+    p += ',' + arguments[i];
+  }
+  this.points[p] = data;
+};
+
+/**
+ * Gets the data stored in an arbitrarily defined point of the map.
+ * @param   {String} p The coordinates of the point separated with commas,
+ *                   or the first coordinate of the point, followed by the
+ *                   others as additional arguments.
+ * @returns {Object} The object stored in the specified point of the map.
+ */
 RM.Map.prototype.getPoint = function (p) {
   'use strict';
   var i;
