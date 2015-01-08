@@ -54,16 +54,12 @@ RM.Map.prototype.setTerrain = function (x, y, terrain) {
 
 RM.Map.prototype.getItem = function (x, y) {
   'use strict';
-  var point = this.getPoint(x, y);
-  return point ? point.item : null;
+  return this.getPoint(x, y, 1);
 };
 
 RM.Map.prototype.setItem = function (x, y, item) {
   'use strict';
-  if (this.points[x + ',' + y] === undefined) {
-    this.points[x + ',' + y] = {};
-  }
-  this.points[x + ',' + y].item = item;
+  this.setPoint(item, x, y, 1);
 };
 
 RM.Map.prototype.getItemMap = function (x, y) {
