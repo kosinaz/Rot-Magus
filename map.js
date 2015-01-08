@@ -62,6 +62,16 @@ RM.Map.prototype.setItem = function (x, y, item) {
   this.setPoint(item, x, y, 1);
 };
 
+RM.Map.prototype.getActor = function (x, y) {
+  'use strict';
+  return this.getPoint(x, y, 2);
+};
+
+RM.Map.prototype.setActor = function (x, y, actor) {
+  'use strict';
+  this.setPoint(actor, x, y, 2);
+};
+
 RM.Map.prototype.getItemMap = function (x, y) {
   'use strict';
   var point = this.getPoint(x, y);
@@ -80,20 +90,6 @@ RM.Map.prototype.setItemMap = function (x, y, itemMap) {
     this.points[x + ',' + y] = {};
   }
   this.points[x + ',' + y].itemMap = itemMap;
-};
-
-RM.Map.prototype.getActor = function (x, y) {
-  'use strict';
-  var point = this.getPoint(x, y);
-  return point ? point.actor : null;
-};
-
-RM.Map.prototype.setActor = function (x, y, actor) {
-  'use strict';
-  if (this.points[x + ',' + y] === undefined) {
-    this.points[x + ',' + y] = {};
-  }
-  this.points[x + ',' + y].actor = actor;
 };
 
 RM.Map.prototype.getTile = function (x, y) {
