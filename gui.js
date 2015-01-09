@@ -31,7 +31,7 @@ RM.GUI = function () {
     empty: RM.guitiles.invisible
   });
   this.inventory = new RM.Frame(16, 135, 96, 168, {
-    map: RM.map.getActor(0, 0).inventory,
+    map: RM.map.getPoint(0, 0, RM.ACTOR).inventory,
     x: 0,
     y: 0,
     width: 4,
@@ -87,7 +87,7 @@ RM.GUI.prototype.showInventory = function (actor) {
 RM.GUI.prototype.showGround = function (actor) {
   'use strict';
   var x, y, im;
-  this.ground.content.map = RM.map.getItemMap(actor.x, actor.y);
+  this.ground.content.map = RM.map.getPoint(actor.x, actor.y, RM.ITEMS);
   for (x = RM.gui.ground.content.x;
        x < RM.gui.ground.content.width; x += 1) {
     for (y = RM.gui.ground.content.y;
