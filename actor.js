@@ -85,15 +85,17 @@ RM.Actor.prototype.moveTo = function (target) {
 RM.Actor.prototype.attackRanged = function (target) {
   'use strict';
   var weapon, munition;
-  weapon = this.inventory.getItem(this.used.weapon.x, this.used.weapon.y);
+  weapon = this.inventory.getPoint(this.used.weapon.x,
+                                   this.used.weapon.y, RM.ITEM);
   if (weapon.type.usesArrows) {
     if (this.used.munition) {
-      munition = this.inventory.getItem(
+      munition = this.inventory.getPoint(
         this.used.munition.x,
-        this.used.munition.y
+        this.used.munition.y,
+        RM.ITEM
       );
       if (munition) {
-        RM.map.getActor(target.x, target.y).damage(this);
+        RM.map.getPoint(target.x, target.y, RM.ACTOR).damage(this);
         RM.scheduler.setDuration(1.0 / this.agility);
         munition.count -= 1;
         if (munition.count === 0) {
@@ -146,9 +148,11 @@ RM.Actor.prototype.damage = function (source) {
   }
   if (source.inventory !== undefined &&
       source.used.weapon !== undefined &&
-      source.inventory.getItem(source.used.weapon.x, source.used.weapon.y)) {
-    damage += source.inventory.getItem(source.used.weapon.x,
-                                      source.used.weapon.y).type.damage;
+      source.inventory.getPoint(source.used.weapon.x, source.used.weapon.y,
+                                RM.ITEM)) {
+    damage += source.inventory.getPoint(source.used.weapon.x,
+                                        source.used.weapon.y,
+                                        RM.ITEM).type.damage;
   }
   source.gainXP(1);
   this.health -= damage;

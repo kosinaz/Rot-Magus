@@ -43,9 +43,10 @@ RM.Hero.prototype.order = function (target) {
       RM.scheduler.setDuration(1.0 / this.agility);
       this.regenerate();
     } else {
-      if (this.used.weapon && this.inventory.getItem(
+      if (this.used.weapon && this.inventory.getPoint(
           this.used.weapon.x,
-          this.used.weapon.y
+          this.used.weapon.y,
+          RM.ITEM
         ).type.ranged) {
         this.attackRanged(target);
       }
@@ -61,7 +62,7 @@ RM.Hero.prototype.order = function (target) {
 RM.Hero.prototype.manageInventory = function (target) {
   'use strict';
   var item, category;
-  item = RM.gui.inventory.content.map.getItem(target.x, target.y);
+  item = RM.gui.inventory.content.map.getPoint(target.x, target.y, RM.ITEM);
   if (item) {
     if (RM.gui.inventory.isSelected('select', target)) {
       this.use(item, target);
