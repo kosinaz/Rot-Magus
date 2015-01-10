@@ -71,14 +71,14 @@ RM.Actor.prototype.moveTo = function (target) {
   x = this.path[1][0];
   y = this.path[1][1];
   RM.scheduler.setDuration(1.0 / this.agility);
-  enemy = RM.map.getActor(x, y);
+  enemy = RM.map.getPoint(x, y, RM.ACTOR);
   if (enemy) {
     enemy.damage(this);
   } else {
-    RM.map.setActor(this.x, this.y, null);
+    RM.map.move(this.x + ',' + this.y + ',' + RM.ACTOR,
+                x + ',' + y + ',' + RM.ACTOR);
     this.x = x;
     this.y = y;
-    RM.map.setActor(this.x, this.y, this);
   }
 };
 
@@ -119,7 +119,7 @@ RM.Actor.prototype.attackRanged = function (target) {
 RM.Actor.prototype.computePath = function (x, y) {
   'use strict';
   var a = new ROT.Path.AStar(x, y, function (x, y) {
-    var actor = RM.map.getActor(x, y);
+    var actor = RM.map.getPoint(x, y, RM.ACTOR);
     if (RM.map.isPassable(x, y)) {
       if (actor) {
         if (actor === this) {

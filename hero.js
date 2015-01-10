@@ -36,7 +36,7 @@ RM.Hero.prototype.order = function (target) {
   if (!RM.map.isPassable(target.x, target.y)) {
     return false;
   }
-  actor = RM.map.getActor(target.x, target.y);
+  actor = RM.map.getPoint(target.x, target.y, RM.ACTOR);
   if (actor) {
     if (actor === this) {
       /* rest */

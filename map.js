@@ -42,76 +42,11 @@ RM.Map.prototype.getPoint = function (p) {
   return this.points[p];
 };
 
-RM.Map.prototype.getItemMap = function (x, y) {
-  'use strict';
-  return this.getPoint(x, y, 1);
-};
 
-RM.Map.prototype.setItemMap = function (x, y, itemMap) {
-  'use strict';
-  this.setPoint(itemMap, x, y, 1);
-};
-
-RM.Map.prototype.getActor = function (x, y) {
-  'use strict';
-  return this.getPoint(x, y, 2);
-};
-
-RM.Map.prototype.setActor = function (x, y, actor) {
-  'use strict';
-  this.setPoint(actor, x, y, 2);
-};
-
-RM.Map.prototype.getItem = function (x, y) {
-  'use strict';
-  return this.getPoint(x, y, 3);
-};
-
-RM.Map.prototype.setItem = function (x, y, item) {
-  'use strict';
-  this.setPoint(item, x, y, 3);
-};
-
-RM.Map.prototype.getTile = function (x, y) {
-  'use strict';
-  var actor, itemMap, i, ix, iy, item, terrain, tile;
-  tile = null;
-  actor = this.getActor(x, y);
-  if (actor) {
-    tile = actor.type;
-  } else {
-    itemMap = this.getItemMap(x, y);
-    if (itemMap) {
-      for (i in itemMap.points) {
-        if (itemMap.points.hasOwnProperty(i)) {
-          ix = i.split(',')[0];
-          iy = i.split(',')[1];
-          item = itemMap.getItem(ix, iy);
-          if (item) {
-            tile = item.type;
-            break;
-          }
-        }
-      }
-    }
-    if (tile === null) {
-      terrain = this.getPoint(x, y, 0);
-      if (terrain) {
-        tile = terrain;
-      } else {
-        item = this.getItem(x, y);
-        if (item) {
-          tile = item.type;
-        }
-      }
-    }
-  }
-  return tile;
-};
 
 RM.Map.prototype.isPlayer = function (x, y) {
   'use strict';
-  var actor = this.getActor(x, y);
+  var actor = this.getPoint(x, y, RM.ACTOR);
   return actor ? !actor.ai : false;
 };
 
@@ -125,4 +60,11 @@ RM.Map.prototype.isPassable = function (x, y) {
   'use strict';
   var point = this.getPoint(x, y, 0);
   return point ? point.passable : false;
+};
+
+RM.Map.prototype.move = function (point1, point2, map2) {
+  'use strict';
+  map2 = map2 || this;
+  map2.setPoint(this.getPoint(point1), point2);
+  this.setPoint(null, point1);
 };

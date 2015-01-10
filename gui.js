@@ -106,9 +106,3 @@ RM.GUI.prototype.showFOV = function (actor) {
                                this.map.process.bind(this.map));
   this.map.show();
 };
-
-RM.GUI.prototype.move = function (map1, point1, map2, point2) {
-  'use strict';
-  map2.setPoint(map1.getPoint(point1), point2);
-  map1.setPoint(null, point1);
-};
