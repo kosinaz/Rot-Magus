@@ -31,8 +31,8 @@ RM.Actor.prototype.init = function (type, x, y, ai) {
   this.burden = 0;
   if (type.inventory) {
     for (i = 0; i < type.inventory.length; i += 1) {
-      this.inventory.setItem(i % 4, Math.floor(i / 4),
-                             new RM.Item(RM.items[type.inventory[i]]));
+      this.inventory.setPoint(new RM.Item(RM.items[type.inventory[i]]),
+                             i % 4, Math.floor(i / 4), 1);
       this.burden += RM.items[type.inventory[i]].weight;
     }
   }

@@ -5,4 +5,5 @@ RM.Item = function (type) {
   if (type.count) {
     this.count = type.count;
   }
+  this.tile = type.tile;
 };
