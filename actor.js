@@ -18,6 +18,7 @@ RM.Actor.prototype.init = function (type, x, y, ai) {
   this.level = 0;
   this.xp = 0;
   this.type = type;
+  this.tile = type.tile;
   this.maxHealth = type.health;
   this.health = type.health;
   this.maxMana = type.mana;

@@ -56,7 +56,7 @@ RM.Frame.prototype.process = function (x, y) {
   var tile, i;
   tile = this.content.empty;
   if (this.content.map) {
-    tile = this.content.map.getTile(x, y) || this.content.empty;
+    tile = this.getTile(x, y);
   }
   RM.oc.drawImage(RM.tileSet, tile.x, tile.y,
                  this.tileWidth, this.tileHeight,
@@ -114,4 +114,28 @@ RM.Frame.prototype.isSelected = function (category, target) {
   return this.selected[category] &&
     this.selected[category].x === target.x &&
     this.selected[category].y === target.y;
+};
+
+/**
+ * Returns the tile coordinates of the data stored in an arbitrarily defined
+ * point of the map.
+ * @param   {String} p The coordinates of the point separated with commas,
+ *                   or the first coordinate of the point, followed by the
+ *                   others as additional arguments.
+ * @returns {Object} The tile coordinates of the object stored in the
+ *                   specified point of the map.
+ */
+RM.Frame.prototype.getTile = function (p) {
+  'use strict';
+  var i, mp;
+  for (i = 1; i < arguments.length; i += 1) {
+    p += ',' + arguments[i];
+  }
+  for (i = 2; i >= 0; i -= 1) {
+    mp = this.content.map.getPoint(p + ',' + i);
+    if (mp) {
+      return mp.tile;
+    }
+  }
+  return this.content.empty;
 };

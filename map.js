@@ -27,7 +27,7 @@ RM.Map.prototype.setPoint = function (data, p) {
 };
 
 /**
- * Gets the data stored in an arbitrarily defined point of the map.
+ * Returns the data stored in an arbitrarily defined point of the map.
  * @param   {String} p The coordinates of the point separated with commas,
  *                   or the first coordinate of the point, followed by the
  *                   others as additional arguments.
