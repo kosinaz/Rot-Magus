@@ -11,10 +11,10 @@ RM.init = function () {
   var bcr;
   RM.resources = 0;
   RM.loaded = 0;
-  RM.tileSet = RM.createImage('tileset.png');
-  RM.hud = RM.createImage('hud.png');
-  RM.title = RM.createImage('title.png');
-  RM.gameover = RM.createImage('gameover.png');
+  RM.tileSet = RM.createImage('images/resources/tileset.png');
+  RM.hud = RM.createImage('images/resources/hud.png');
+  RM.title = RM.createImage('images/gamescreens/title.png');
+  RM.gameover = RM.createImage('images/gamescreens/gameover.png');
   RM.terrainSet = RM.getTerrainSet();
   RM.actorSet = RM.getActorSet();
   RM.canvas = document.getElementById('rm');
