@@ -1,6 +1,11 @@
 /*global RM*/
 RM.UIObject = function (x, y, width, height) {
   'use strict';
+  this.init(x, y, width, height);
+};
+
+RM.UIObject.prototype.init = function (x, y, width, height) {
+  'use strict';
   this.x = x;
   this.y = y;
   this.width = width;
@@ -17,7 +22,7 @@ RM.UIObject.prototype.isHovered = function () {
          RM.mouse.y < this.y + this.height;
 };
 
-RM.UIObject.prototype.update = function () {
+RM.UIObject.prototype.updateStats = function () {
   'use strict';
   this.hovered = this.isHovered();
   this.clicked = this.hovered && RM.mouse.clicked && RM.mouse.down;
