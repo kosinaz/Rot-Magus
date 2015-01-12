@@ -3,7 +3,13 @@ var RM = {
   VERSION: 'Version 0.3.0.93',
   TERRAIN: 0,
   ITEMS: 1,
-  ACTOR: 2
+  ACTOR: 2,
+  mouse: {
+    x: 0,
+    y: 0,
+    clicked: false,
+    down: false
+  }
 };
 
 RM.init = function () {
@@ -47,7 +53,20 @@ RM.loadTitle = function () {
   RM.c.textBaseline = 'top';
   RM.c.fillStyle = '#808080';
   RM.c.fillText(RM.VERSION, 320, 440);
-  RM.canvas.addEventListener('click', RM.start);
+  RM.canvas.addEventListener("mousemove", function (e) {
+    RM.mouse.x = e.offsetX;
+    RM.mouse.y = e.offsetY;
+    RM.mouse.clicked = (e.which === 1 && !RM.mouse.down);
+    RM.mouse.down = (e.which === 1);
+  });
+  RM.canvas.addEventListener("mousedown", function (e) {
+    RM.mouse.clicked = !RM.mouse.down;
+    RM.mouse.down = true;
+  });
+  RM.canvas.addEventListener("mouseup", function (e) {
+    RM.mouse.down = false;
+    RM.mouse.clicked = false;
+  });
 };
 
 RM.getTerrainSet = function () {
