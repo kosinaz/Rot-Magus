@@ -29,6 +29,42 @@ RM.init = function () {
   RM.overlay.width = RM.canvas.width;
   RM.overlay.height = RM.canvas.height;
   RM.oc = RM.overlay.getContext('2d');
+  RM.uiObjects = [];
+  setInterval(function () {
+    RM.update();
+    RM.draw();
+  }, 10);
+  RM.canvas.addEventListener("mousemove", function (e) {
+    RM.mouse.x = e.offsetX;
+    RM.mouse.y = e.offsetY;
+    RM.mouse.clicked = (e.which === 1 && !RM.mouse.down);
+    RM.mouse.down = (e.which === 1);
+  });
+  RM.canvas.addEventListener("mousedown", function (e) {
+    RM.mouse.clicked = !RM.mouse.down;
+    RM.mouse.down = true;
+  });
+  RM.canvas.addEventListener("mouseup", function (e) {
+    RM.mouse.down = false;
+    RM.mouse.clicked = false;
+  });
+};
+
+RM.update = function () {
+  'use strict';
+  var i;
+  for (i = 0; i < RM.uiObjects.length; i += 1) {
+    RM.uiObjects[i].update();
+  }
+};
+
+RM.draw = function () {
+  'use strict';
+  var i;
+  RM.c.clearRect(0, 0, 640, 480);
+  for (i = 0; i < RM.uiObjects.length; i += 1) {
+    RM.uiObjects[i].draw();
+  }
 };
 
 RM.createImage = function (src) {
@@ -47,26 +83,13 @@ RM.createImage = function (src) {
 
 RM.loadTitle = function () {
   'use strict';
-  RM.c.drawImage(RM.title, 0, 0);
+  RM.titleScreen = new RM.Button(0, 0, 640, 480,
+                  new RM.Image(0, 0, 640, 480, RM.title));
   RM.c.font = '16px Immortal';
   RM.c.textAlign = 'center';
   RM.c.textBaseline = 'top';
   RM.c.fillStyle = '#808080';
   RM.c.fillText(RM.VERSION, 320, 440);
-  RM.canvas.addEventListener("mousemove", function (e) {
-    RM.mouse.x = e.offsetX;
-    RM.mouse.y = e.offsetY;
-    RM.mouse.clicked = (e.which === 1 && !RM.mouse.down);
-    RM.mouse.down = (e.which === 1);
-  });
-  RM.canvas.addEventListener("mousedown", function (e) {
-    RM.mouse.clicked = !RM.mouse.down;
-    RM.mouse.down = true;
-  });
-  RM.canvas.addEventListener("mouseup", function (e) {
-    RM.mouse.down = false;
-    RM.mouse.clicked = false;
-  });
 };
 
 RM.getTerrainSet = function () {
