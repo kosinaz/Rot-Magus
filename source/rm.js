@@ -84,7 +84,11 @@ RM.createImage = function (src) {
 RM.loadTitle = function () {
   'use strict';
   RM.titleScreen = new RM.Button(0, 0, 640, 480,
-                  new RM.Image(0, 0, 640, 480, RM.title));
+    new RM.Image(0, 0, 640, 480, RM.title),
+    function () {
+      RM.start();
+      RM.titleScreen.remove();
+    });
   RM.c.font = '16px Immortal';
   RM.c.textAlign = 'center';
   RM.c.textBaseline = 'top';

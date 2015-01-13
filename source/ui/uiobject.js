@@ -12,6 +12,7 @@ RM.UIObject.prototype.init = function (x, y, width, height) {
   this.height = height;
   this.hovered = false;
   this.clicked = false;
+  RM.uiObjects.push(this);
 };
 
 RM.UIObject.prototype.isHovered = function () {
@@ -26,4 +27,9 @@ RM.UIObject.prototype.updateStats = function () {
   'use strict';
   this.hovered = this.isHovered();
   this.clicked = this.hovered && RM.mouse.clicked && RM.mouse.down;
+};
+
+RM.UIObject.prototype.remove = function () {
+  'use strict';
+  RM.uiObjects.splice(RM.uiObjects.indexOf(this), 1);
 };

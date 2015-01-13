@@ -4,7 +4,6 @@ RM.Button = function (x, y, width, height, image, handler) {
   this.init(x, y, width, height);
   this.image = image;
   this.handler = handler;
-  RM.uiObjects.push(this);
 };
 RM.Button.extend(RM.UIObject);
 
