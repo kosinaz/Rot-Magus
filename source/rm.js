@@ -48,6 +48,7 @@ RM.init = function () {
     RM.mouse.down = false;
     RM.mouse.clicked = false;
   });
+  RM.background = null;
 };
 
 RM.update = function () {
@@ -61,7 +62,7 @@ RM.update = function () {
 RM.draw = function () {
   'use strict';
   var i;
-  RM.c.clearRect(0, 0, 640, 480);
+  RM.c.drawImage(RM.background, 0, 0);
   for (i = 0; i < RM.uiObjects.length; i += 1) {
     RM.uiObjects[i].draw();
   }
@@ -83,8 +84,9 @@ RM.createImage = function (src) {
 
 RM.loadTitle = function () {
   'use strict';
-  RM.titleScreen = new RM.Button(0, 0, 640, 480,
-    new RM.Image(0, 0, 640, 480, RM.title),
+  RM.background = RM.title;
+  RM.startButton = new RM.Button(250, 410, 140, 21,
+    new RM.Image(96, 231, 72, 21, RM.tileSet), 'Start Game',
     function () {
       RM.start();
       RM.titleScreen.remove();
