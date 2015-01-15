@@ -29,7 +29,7 @@ RM.Button.prototype.draw = function () {
                  this.width,
                  this.height);
   RM.c.textAlign = 'center';
-  RM.c.strokeStyle = 'black';
+  RM.c.strokeStyle = '#511515';
   RM.c.textBaseline = 'middle';
   RM.c.strokeText(this.text, this.x + this.width / 2, this.y + this.height / 2);
 };

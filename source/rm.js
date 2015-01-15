@@ -18,6 +18,7 @@ RM.init = function () {
   RM.resources = 0;
   RM.loaded = 0;
   RM.tileSet = RM.createImage('images/resources/tileset.png');
+  RM.uiObjectsImage = RM.createImage('images/resources/uiobjects.png');
   RM.hud = RM.createImage('images/resources/hud.png');
   RM.title = RM.createImage('images/gamescreens/title.png');
   RM.gameover = RM.createImage('images/gamescreens/gameover.png');
@@ -85,8 +86,8 @@ RM.createImage = function (src) {
 RM.loadTitle = function () {
   'use strict';
   RM.background = RM.title;
-  RM.startButton = new RM.Button(250, 410, 140, 21,
-    new RM.Image(96, 231, 72, 21, RM.tileSet), 'Start Game',
+  RM.startButton = new RM.Button(250, 440, 140, 28,
+    new RM.Image(0, 21, 140, 28, RM.uiObjectsImage), 'Start Game',
     function () {
       RM.start();
       RM.titleScreen.remove();
