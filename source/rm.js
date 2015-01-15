@@ -1,6 +1,6 @@
 /*global ROT*/
 var RM = {
-  VERSION: 'Version 0.3.0.93',
+  VERSION: 'Version 0.3.0.126',
   TERRAIN: 0,
   ITEMS: 1,
   ACTOR: 2,
@@ -86,17 +86,13 @@ RM.createImage = function (src) {
 RM.loadTitle = function () {
   'use strict';
   RM.background = RM.title;
-  RM.startButton = new RM.Button(250, 440, 140, 28,
-    new RM.Image(0, 21, 140, 28, RM.uiObjectsImage), 'Start Game',
+  RM.startButton = new RM.Button(250, 440, 140, 28, 'Start Game',
+    new RM.Image(0, 21, 140, 28, RM.uiObjectsImage),
     function () {
       RM.start();
       RM.titleScreen.remove();
     });
-  RM.c.font = '16px Immortal';
-  RM.c.textAlign = 'center';
-  RM.c.textBaseline = 'top';
-  RM.c.fillStyle = '#808080';
-  RM.c.fillText(RM.VERSION, 320, 440);
+  RM.version = new RM.Label(250, 40, 140, 21, RM.VERSION, '#616161', '#000');
 };
 
 RM.getTerrainSet = function () {

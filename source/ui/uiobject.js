@@ -15,6 +15,14 @@ RM.UIObject.prototype.init = function (x, y, width, height) {
   RM.uiObjects.push(this);
 };
 
+RM.UIObject.prototype.update = function () {
+  'use strict';
+};
+
+RM.UIObject.prototype.draw = function () {
+  'use strict';
+};
+
 RM.UIObject.prototype.isHovered = function () {
   'use strict';
   return RM.mouse.x > this.x &&

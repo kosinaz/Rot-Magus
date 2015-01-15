@@ -1,9 +1,9 @@
 /*global RM*/
-RM.Button = function (x, y, width, height, image, text, handler) {
+RM.Button = function (x, y, width, height, text, image, handler) {
   'use strict';
   this.init(x, y, width, height);
-  this.image = image;
   this.text = text;
+  this.image = image;
   this.handler = handler;
 };
 RM.Button.extend(RM.UIObject);
@@ -28,6 +28,7 @@ RM.Button.prototype.draw = function () {
                  this.y,
                  this.width,
                  this.height);
+  RM.c.font = '16px Immortal';
   RM.c.textAlign = 'center';
   RM.c.strokeStyle = '#511515';
   RM.c.textBaseline = 'middle';
