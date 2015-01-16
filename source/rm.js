@@ -30,7 +30,6 @@ RM.init = function () {
   RM.overlay.width = RM.canvas.width;
   RM.overlay.height = RM.canvas.height;
   RM.oc = RM.overlay.getContext('2d');
-  RM.uiObjects = [];
   setInterval(function () {
     RM.update();
     RM.draw();
@@ -76,11 +75,16 @@ RM.createImage = function (src) {
   img.onload = function () {
     RM.loaded += 1;
     if (RM.loaded === RM.resources) {
-      RM.loadTitle();
+      RM.changeScreen(new RM.TitleScreen());
     }
   };
   img.src = src;
   return img;
+};
+
+RM.changeScreen = function (screen) {
+  'use strict';
+  RM.currentScreen = screen;
 };
 
 RM.loadTitle = function () {
@@ -92,7 +96,8 @@ RM.loadTitle = function () {
       RM.start();
       RM.titleScreen.remove();
     });
-  RM.version = new RM.Label(250, 40, 140, 21, RM.VERSION, '#616161', '#000');
+  RM.versionLabel = new RM.Label(250, 40, 140, 21,
+                                 RM.VERSION, '#616161', '#000');
 };
 
 RM.getTerrainSet = function () {
@@ -126,7 +131,9 @@ RM.getActorSet = function () {
 RM.start = function () {
   'use strict';
   var x, y, actor, i, im;
-  RM.canvas.removeEventListener('click', RM.start);
+  RM.background = RM.hud;
+  RM.startButton.remove();
+  RM.versionLabel.remove();
   RM.scheduler = new ROT.Scheduler.Action();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.map = new RM.Map();
