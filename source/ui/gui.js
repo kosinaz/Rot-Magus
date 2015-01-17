@@ -1,7 +1,6 @@
 /*global RM*/
 RM.GUI = function () {
   'use strict';
-  RM.c.drawImage(RM.hud, 0, 0);
   this.xp = new RM.Bar(40, 9, 72, 21, {
     x: 24 * 4,
     y: 21 * 11

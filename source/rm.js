@@ -19,9 +19,9 @@ RM.init = function () {
   RM.loaded = 0;
   RM.tileSet = RM.createImage('images/resources/tileset.png');
   RM.uiObjectsImage = RM.createImage('images/resources/uiobjects.png');
-  RM.hud = RM.createImage('images/resources/hud.png');
-  RM.title = RM.createImage('images/gamescreens/title.png');
-  RM.gameover = RM.createImage('images/gamescreens/gameover.png');
+  RM.title = RM.createImage('images/screens/title.png');
+  RM.ingame = RM.createImage('images/screens/ingame.png');
+  RM.gameover = RM.createImage('images/screens/gameover.png');
   RM.terrainSet = RM.getTerrainSet();
   RM.actorSet = RM.getActorSet();
   RM.canvas = document.getElementById('rm');
@@ -54,17 +54,17 @@ RM.init = function () {
 RM.update = function () {
   'use strict';
   var i;
-  for (i = 0; i < RM.uiObjects.length; i += 1) {
-    RM.uiObjects[i].update();
+  for (i = 0; i < RM.currentScreen.uiObjects.length; i += 1) {
+    RM.currentScreen.uiObjects[i].update();
   }
 };
 
 RM.draw = function () {
   'use strict';
   var i;
-  RM.c.drawImage(RM.background, 0, 0);
-  for (i = 0; i < RM.uiObjects.length; i += 1) {
-    RM.uiObjects[i].draw();
+  RM.c.drawImage(RM.currentScreen.background, 0, 0);
+  for (i = 0; i < RM.currentScreen.uiObjects.length; i += 1) {
+    RM.currentScreen.uiObjects[i].draw();
   }
 };
 
@@ -131,9 +131,7 @@ RM.getActorSet = function () {
 RM.start = function () {
   'use strict';
   var x, y, actor, i, im;
-  RM.background = RM.hud;
-  RM.startButton.remove();
-  RM.versionLabel.remove();
+  RM.changeScreen(new RM.IngameScreen());
   RM.scheduler = new ROT.Scheduler.Action();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.map = new RM.Map();
@@ -148,7 +146,6 @@ RM.start = function () {
     }
   }
   RM.map.setPoint(new RM.Hero(RM.actors.elf, 0, 0), 0, 0, RM.ACTOR);
-  RM.gui = new RM.GUI();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
 };

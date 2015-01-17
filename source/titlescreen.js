@@ -5,8 +5,6 @@ RM.TitleScreen = function (background) {
   this.uiObjects = [
     new RM.Label(250, 40, 140, 21, RM.VERSION, '#616161', '#000'),
     new RM.Button(250, 440, 140, 28, 'Start Game',
-                  new RM.Image(0, 21, 140, 28, RM.uiObjectsImage),
-                  RM.changeScreen(new RM.IngameScreen()))
+      new RM.Image(0, 21, 140, 28, RM.uiObjectsImage), RM.start)
   ];
 };
-RM.TitleScreen.extend(RM.Screen);

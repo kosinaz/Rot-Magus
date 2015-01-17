@@ -6,8 +6,6 @@ RM.UIObject = function (x, y, width, height) {
 
 RM.UIObject.prototype.init = function (x, y, width, height) {
   'use strict';
-  this.screen = screen;
-  this.screen.uiObjects.push(this);
   this.x = x;
   this.y = y;
   this.width = width;
@@ -36,4 +34,17 @@ RM.UIObject.prototype.updateStats = function () {
   'use strict';
   this.hovered = this.isHovered();
   this.clicked = this.hovered && RM.mouse.clicked && RM.mouse.down;
+};
+
+RM.UIObject.prototype.drawBackground = function () {
+  'use strict';
+  RM.c.drawImage(this.background.source,
+                 this.background.x,
+                 this.background.y,
+                 this.background.width,
+                 this.background.height,
+                 this.x,
+                 this.y,
+                 this.width,
+                 this.height);
 };

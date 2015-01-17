@@ -7,10 +7,10 @@ RM.Hero.extend(RM.Actor);
 
 RM.Hero.prototype.act = function () {
   'use strict';
+  RM.currentActor = this;
   this.regenerate();
   RM.engine.lock();
   RM.subscribe('click', this);
-  RM.gui.update(this);
 };
 
 RM.Hero.prototype.handleMessage = function (message, publisher, data) {
