@@ -35,6 +35,26 @@ RM.IngameScreen = function (background) {
       function () {
         return RM.currentActor.strength;
       },
-      '#844121')
+      '#844121'),
+    new RM.Label(16, 114, 24, 21, '#616161',
+      function () {
+        return RM.currentActor.strength;
+      },
+      '#000'),
+    new RM.Label(40, 114, 24, 21, '#616161',
+      function () {
+        return RM.currentActor.wisdom;
+      },
+      '#000'),
+    new RM.Label(64, 114, 24, 21, '#616161',
+      function () {
+        return RM.currentActor.agility;
+      },
+      '#000'),
+    new RM.Label(88, 114, 24, 21, '#616161',
+      function () {
+        return RM.currentActor.precision;
+      },
+      '#000')
   ];
 };
