@@ -2,7 +2,7 @@
 RM.Button = function (x, y, width, height, background, text, handler) {
   'use strict';
   this.init(x, y, width, height, background);
-  this.text = text;
+  this.text = text || '';
   this.handler = handler;
 };
 RM.Button.extend(RM.UIObject);

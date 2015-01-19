@@ -14,23 +14,37 @@
  * @param {Number} content.height The height of content's part to display.
  * @param {Object} content.empty  The tile coordinates of the empty points.
  */
-RM.Frame = function (x, y, width, height, content) {
+RM.Frame = function (x, y, width, height, background, screen, content) {
   'use strict';
-  this.x = x;
-  this.y = y;
-  this.width = width;
-  this.height = height;
+  var xb, yb;
+  this.init(x, y, width, height, background);
   this.content = content;
   this.tileWidth = this.width / this.content.width;
   this.tileHeight = this.height / this.content.height;
-  this.cursor = {
-    x: 0,
-    y: 0
-  };
   this.selected = {};
-  RM.canvas.addEventListener('click', this);
-  RM.canvas.addEventListener('mousemove', this);
+  for (xb = 0; xb < this.content.width; xb += 1) {
+    for (yb = 0; yb < this.content.width; yb += 1) {
+      screen.uiObjects.push(new RM.Button(
+        x + xb * this.tileWidth,
+        y + yb * this.tileHeight,
+        this.tileWidth,
+        this.tileHeight,
+        new RM.Image(
+          this.getTile(xb, yb).x,
+          this.getTile(xb, yb).y,
+          this.tileWidth,
+          this.tileHeight,
+          RM.tileSet
+        ),
+        null,
+        this.process.bind(this)
+      ));
+    }
+  }
 };
+RM.Frame.extend(RM.UIObject);
+
+
 
 RM.Frame.prototype.center = function (x, y) {
   'use strict';

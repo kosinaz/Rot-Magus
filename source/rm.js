@@ -131,7 +131,6 @@ RM.getActorSet = function () {
 RM.start = function () {
   'use strict';
   var x, y, actor, i, im;
-  RM.changeScreen(new RM.IngameScreen());
   RM.scheduler = new ROT.Scheduler.Action();
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.map = new RM.Map();
@@ -146,6 +145,7 @@ RM.start = function () {
     }
   }
   RM.map.setPoint(new RM.Hero(RM.actors.elf, 0, 0), 0, 0, RM.ACTOR);
+  RM.changeScreen(new RM.IngameScreen());
   RM.engine = new ROT.Engine(RM.scheduler);
   RM.engine.start();
 };

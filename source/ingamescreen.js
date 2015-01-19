@@ -57,4 +57,12 @@ RM.IngameScreen = function (background) {
       },
       '#000')
   ];
+  this.map = new RM.Frame(128, 9, 504, 441, '#000', this, {
+    map: RM.map,
+    x: 0,
+    y: 0,
+    width: 21,
+    height: 21,
+    empty: RM.guitiles.invisible
+  });
 };
