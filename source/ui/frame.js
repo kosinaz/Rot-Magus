@@ -14,113 +14,76 @@
  * @param {Number} content.height The height of content's part to display.
  * @param {Object} content.empty  The tile coordinates of the empty points.
  */
-RM.Frame = function (x, y, width, height, background, screen, content) {
+RM.Frame = function (x, y, width, height, background, content, handler) {
   'use strict';
   var xb, yb;
   this.init(x, y, width, height, background);
   this.content = content;
+  this.handler = handler;
   this.tileWidth = this.width / this.content.width;
   this.tileHeight = this.height / this.content.height;
+  this.center(0, 0);
   this.selected = {};
-  for (xb = 0; xb < this.content.width; xb += 1) {
-    for (yb = 0; yb < this.content.width; yb += 1) {
-      screen.uiObjects.push(new RM.Button(
-        x + xb * this.tileWidth,
-        y + yb * this.tileHeight,
-        this.tileWidth,
-        this.tileHeight,
-        new RM.Image(
-          this.getTile(xb, yb).x,
-          this.getTile(xb, yb).y,
-          this.tileWidth,
-          this.tileHeight,
-          RM.tileSet
-        ),
-        null,
-        this.process.bind(this)
-      ));
-    }
-  }
 };
 RM.Frame.extend(RM.UIObject);
 
-
-
-RM.Frame.prototype.center = function (x, y) {
+RM.Frame.prototype.update = function () {
   'use strict';
-  this.content.x = x - Math.floor(this.content.width / 2);
-  this.content.y = y - Math.floor(this.content.height / 2);
-};
-
-RM.Frame.prototype.clear = function () {
-  'use strict';
-  var x, y;
-  for (x = 0; x < this.content.width; x += 1) {
-    for (y = 0; y < this.content.height; y += 1) {
-      RM.oc.drawImage(RM.tileSet, this.content.empty.x, this.content.empty.y,
-                     this.tileWidth, this.tileHeight,
-                     this.tileWidth * x + this.x, this.tileHeight * y + this.y,
-                     this.tileWidth, this.tileHeight);
-    }
+  var clicked, x, y;
+  clicked = this.clicked;
+  this.updateStats();
+  if (this.clicked && !clicked && this.handler) {
+    x = Math.floor((RM.mouse.x - this.x) / this.tileWidth) + this.content.x;
+    y = Math.floor((RM.mouse.y - this.y) / this.tileHeight) + this.content.y;
+    this.handler(x, y);
   }
 };
 
-RM.Frame.prototype.process = function (x, y) {
+RM.Frame.prototype.draw = function () {
   'use strict';
-  var tile, i;
-  tile = this.content.empty;
-  if (this.content.map) {
-    tile = this.getTile(x, y);
-  }
-  RM.oc.drawImage(RM.tileSet, tile.x, tile.y,
-                 this.tileWidth, this.tileHeight,
-                 this.tileWidth * (x - this.content.x) + this.x,
-                 this.tileHeight * (y - this.content.y) + this.y,
-                 this.tileWidth, this.tileHeight);
-  for (i in this.selected) {
-    if (this.selected.hasOwnProperty(i)) {
-      if (this.selected[i] &&
-          this.selected[i].x === x &&
-          this.selected[i].y === y) {
-        tile = this.selected[i].tile;
-        RM.oc.drawImage(RM.tileSet, tile.x, tile.y,
-                       this.tileWidth, this.tileHeight,
-                       this.tileWidth * (x - this.content.x) + this.x,
-                       this.tileHeight * (y - this.content.y) + this.y,
-                       this.tileWidth, this.tileHeight);
+  var x, y, tile, i;
+  this.drawBackground();
+  for (x = this.content.x; x < this.content.width; x += 1) {
+    for (y = this.content.y; y < this.content.height; y += 1) {
+      tile = this.content.empty;
+      if (this.content.map) {
+        tile = this.getTile(x, y);
+      }
+      RM.c.drawImage(RM.tileSet,
+                     tile.x,
+                     tile.y,
+                     this.tileWidth,
+                     this.tileHeight,
+                     this.tileWidth * (x - this.content.x) + this.x,
+                     this.tileHeight * (y - this.content.y) + this.y,
+                     this.tileWidth,
+                     this.tileHeight);
+      for (i in this.selected) {
+        if (this.selected.hasOwnProperty(i)) {
+          if (this.selected[i] &&
+              this.selected[i].x === x &&
+              this.selected[i].y === y) {
+            tile = this.selected[i].tile;
+            RM.c.drawImage(RM.tileSet,
+                           tile.x,
+                           tile.y,
+                           this.tileWidth,
+                           this.tileHeight,
+                           this.tileWidth * (x - this.content.x) + this.x,
+                           this.tileHeight * (y - this.content.y) + this.y,
+                           this.tileWidth,
+                           this.tileHeight);
+          }
+        }
       }
     }
   }
 };
 
-RM.Frame.prototype.show = function () {
+RM.Frame.prototype.center = function (x, y) {
   'use strict';
-  RM.c.drawImage(RM.overlay, 0, 0);
-};
-
-RM.Frame.prototype.handleEvent = function (e) {
-  'use strict';
-  var canvas, x, y, contentX, contentY, tile;
-  canvas = RM.canvas.getBoundingClientRect();
-  x = e.clientX - canvas.left - this.x;
-  contentX = Math.floor(x / this.tileWidth) + this.content.x;
-  y = e.clientY - canvas.top - this.y;
-  contentY = Math.floor(y / this.tileHeight) + this.content.y;
-  if (x > 0 && y > 0 && x < this.width && y < this.height) {
-    RM.publish(e.type, this, {
-      x: contentX,
-      y: contentY
-    });
-    if (e.type === 'mousemove') {
-      this.show();
-      tile = RM.guitiles.pointer;
-      RM.c.drawImage(RM.tileSet, tile.x, tile.y,
-                   this.tileWidth, this.tileHeight,
-                   this.tileWidth * (contentX - this.content.x) + this.x,
-                   this.tileHeight * (contentY - this.content.y) + this.y,
-                   this.tileWidth, this.tileHeight);
-    }
-  }
+  this.content.x = x - Math.floor(this.content.width / 2);
+  this.content.y = y - Math.floor(this.content.height / 2);
 };
 
 RM.Frame.prototype.isSelected = function (category, target) {

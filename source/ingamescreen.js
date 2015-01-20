@@ -55,14 +55,16 @@ RM.IngameScreen = function (background) {
       function () {
         return RM.currentActor.precision;
       },
-      '#000')
+      '#000'),
+    new RM.Frame(128, 9, 504, 441, '#000', {
+      map: RM.map,
+      x: 0,
+      y: 0,
+      width: 21,
+      height: 21,
+      empty: RM.guitiles.invisible
+    }, function (x, y) {
+
+    })
   ];
-  this.map = new RM.Frame(128, 9, 504, 441, '#000', this, {
-    map: RM.map,
-    x: 0,
-    y: 0,
-    width: 21,
-    height: 21,
-    empty: RM.guitiles.invisible
-  });
 };
