@@ -41,36 +41,34 @@ RM.Frame.prototype.update = function () {
 
 RM.Frame.prototype.draw = function () {
   'use strict';
-  var x, y, tile, i;
+  var tile, i, s, content;
+  content = this.content();
   this.drawBackground();
-  for (x = this.content.x; x < this.content.width; x += 1) {
-    for (y = this.content.y; y < this.content.height; y += 1) {
-      tile = this.content.empty;
-      if (this.content.map) {
-        tile = this.getTile(x, y);
-      }
+  for (i in content.points) {
+    if (content.points.hasOwnProperty(i)) {
+      tile = this.getTile(i);
       RM.c.drawImage(RM.tileSet,
                      tile.x,
                      tile.y,
                      this.tileWidth,
                      this.tileHeight,
-                     this.tileWidth * (x - this.content.x) + this.x,
-                     this.tileHeight * (y - this.content.y) + this.y,
+                     this.tileWidth * this.content[i].x + this.x,
+                     this.tileHeight * this.content[i].y + this.y,
                      this.tileWidth,
                      this.tileHeight);
-      for (i in this.selected) {
-        if (this.selected.hasOwnProperty(i)) {
-          if (this.selected[i] &&
-              this.selected[i].x === x &&
-              this.selected[i].y === y) {
+      for (s in this.selected) {
+        if (this.selected.hasOwnProperty(s)) {
+          if (this.selected[s] &&
+              this.selected[s].x === this.content[i].x &&
+              this.selected[s].y === this.content[i].y) {
             tile = this.selected[i].tile;
             RM.c.drawImage(RM.tileSet,
                            tile.x,
                            tile.y,
                            this.tileWidth,
                            this.tileHeight,
-                           this.tileWidth * (x - this.content.x) + this.x,
-                           this.tileHeight * (y - this.content.y) + this.y,
+                           this.tileWidth * this.content[i].x + this.x,
+                           this.tileHeight * this.content[i].y + this.y,
                            this.tileWidth,
                            this.tileHeight);
           }

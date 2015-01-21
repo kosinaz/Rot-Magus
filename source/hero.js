@@ -2,15 +2,24 @@
 RM.Hero = function (type, x, y, ai) {
   'use strict';
   this.init(type, x, y, ai);
+  this.fov = new RM.Map();
 };
 RM.Hero.extend(RM.Actor);
 
 RM.Hero.prototype.act = function () {
   'use strict';
-  RM.currentActor = this;
   this.regenerate();
+  RM.currentHero = this;
+  RM.map.shadowcasting.compute(this.x, this.y, 10, this.computeFOV.bind(this));
   RM.engine.lock();
   RM.subscribe('click', this);
+};
+
+RM.Hero.prototype.computeFOV = function (x, y) {
+  'use strict';
+  this.fov.setPoint(RM.map.getPoint(x, y, 0), x, y, 0);
+  this.fov.setPoint(RM.map.getPoint(x, y, 1), x, y, 1);
+  this.fov.setPoint(RM.map.getPoint(x, y, 2), x, y, 2);
 };
 
 RM.Hero.prototype.handleMessage = function (message, publisher, data) {
