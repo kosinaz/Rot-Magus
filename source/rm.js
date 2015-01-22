@@ -4,6 +4,10 @@ var RM = {
   TERRAIN: 0,
   ITEMS: 1,
   ACTOR: 2,
+  tile: {
+    width: 24,
+    height: 21
+  },
   mouse: {
     x: 0,
     y: 0,

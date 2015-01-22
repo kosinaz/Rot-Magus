@@ -56,17 +56,12 @@ RM.IngameScreen = function (background) {
         return RM.currentHero.precision;
       },
       '#000'),
-    new RM.Frame(128, 9, 504, 441, '#000', {
-      map: RM.map,
-      x: 0,
-      y: 0,
-      width: 21,
-      height: 21,
-      empty: RM.guitiles.invisible
-    }, function () {
-      return RM.currentHero.fov;
-    }, function (x, y) {
-      RM.currentHero.order(x, y);
-    })
+    new RM.Frame(128, 9, 504, 441, '#000',
+      function () {
+        return RM.currentHero.fov;
+      },
+      function (x, y) {
+        RM.currentHero.order(x, y);
+      })
   ];
 };

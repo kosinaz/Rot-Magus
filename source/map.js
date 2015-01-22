@@ -68,3 +68,27 @@ RM.Map.prototype.move = function (point1, point2, map2) {
   map2.setPoint(this.getPoint(point1), point2);
   this.setPoint(null, point1);
 };
+
+/**
+ * Returns the tile coordinates of the data stored in an arbitrarily defined
+ * point of the map.
+ * @param   {String} p The coordinates of the point separated with commas,
+ *                   or the first coordinate of the point, followed by the
+ *                   others as additional arguments.
+ * @returns {Object} The tile coordinates of the object stored in the
+ *                   specified point of the map.
+ */
+RM.Map.prototype.getTile = function (p) {
+  'use strict';
+  var i, mp;
+  for (i = 1; i < arguments.length; i += 1) {
+    p += ',' + arguments[i];
+  }
+  for (i = 2; i >= 0; i -= 1) {
+    mp = this.getPoint(p + ',' + i);
+    if (mp) {
+      return mp.tile;
+    }
+  }
+  return this.content.empty;
+};
