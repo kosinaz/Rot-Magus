@@ -19,8 +19,8 @@ RM.Hero.prototype.act = function () {
 RM.Hero.prototype.computeFOV = function (x, y) {
   'use strict';
   this.fov.push({
-    x: x,
-    y: y,
+    x: x + 10 - this.x,
+    y: y + 10 - this.y,
     tile: RM.map.getTile(x, y)
   });
 };
@@ -65,7 +65,7 @@ RM.Hero.prototype.order = function (target) {
     }
   } else {
     this.moveTo(target);
-    RM.gui.log.setValue('');
+    //RM.gui.log.setValue('');
   }
   RM.unsubscribe('click', this);
   RM.engine.unlock();

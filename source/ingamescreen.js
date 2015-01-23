@@ -61,7 +61,10 @@ RM.IngameScreen = function (background) {
         return RM.currentHero.fov;
       },
       function (x, y) {
-        RM.currentHero.order(x, y);
+        RM.currentHero.order({
+          x: x - 10 + RM.currentHero.x,
+          y: y - 10 + RM.currentHero.y
+        });
       })
   ];
 };

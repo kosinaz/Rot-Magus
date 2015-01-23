@@ -27,8 +27,8 @@ RM.Frame.prototype.update = function () {
   clicked = this.clicked;
   this.updateStats();
   if (this.clicked && !clicked && this.handler) {
-    x = Math.floor((RM.mouse.x - this.x) / RM.tile.width) + this.content.x;
-    y = Math.floor((RM.mouse.y - this.y) / RM.tile.height) + this.content.y;
+    x = Math.floor((RM.mouse.x - this.x) / RM.tile.width);
+    y = Math.floor((RM.mouse.y - this.y) / RM.tile.height);
     this.handler(x, y);
   }
 };
@@ -45,8 +45,8 @@ RM.Frame.prototype.draw = function () {
                    tile.y,
                    RM.tile.width,
                    RM.tile.height,
-                   RM.tile.width * (content[i].x + 10) + this.x,
-                   RM.tile.height * (content[i].y + 10) + this.y,
+                   RM.tile.width * content[i].x + this.x,
+                   RM.tile.height * content[i].y + this.y,
                    RM.tile.width,
                    RM.tile.height);
     for (s in this.selected) {
@@ -60,8 +60,8 @@ RM.Frame.prototype.draw = function () {
                          tile.y,
                          RM.tile.width,
                          RM.tile.height,
-                         RM.tile.width * (content[s].x + 10) + this.x,
-                         RM.tile.height * (content[s].y + 10) + this.y,
+                         RM.tile.width * content[s].x + this.x,
+                         RM.tile.height * content[s].y + this.y,
                          RM.tile.width,
                          RM.tile.height);
         }
