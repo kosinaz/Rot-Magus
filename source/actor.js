@@ -173,7 +173,7 @@ RM.Actor.prototype.damage = function (source) {
     RM.map.setActor(this.x, this.y, null);
     source.gainXP(2);
   }
-  RM.gui.log.setValue(log + '.');
+  //RM.gui.log.setValue(log + '.');
 };
 
 RM.Actor.prototype.gainXP = function (amount) {

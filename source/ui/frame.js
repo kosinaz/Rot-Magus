@@ -40,30 +40,32 @@ RM.Frame.prototype.draw = function () {
   this.drawBackground();
   for (i = 0; i < content.length; i += 1) {
     tile = content[i].tile;
-    RM.c.drawImage(RM.tileSet,
-                   tile.x,
-                   tile.y,
-                   RM.tile.width,
-                   RM.tile.height,
-                   RM.tile.width * content[i].x + this.x,
-                   RM.tile.height * content[i].y + this.y,
-                   RM.tile.width,
-                   RM.tile.height);
-    for (s in this.selected) {
-      if (this.selected.hasOwnProperty(s)) {
-        if (this.selected[s] &&
-            this.selected[s].x === content[i].x &&
-            this.selected[s].y === content[i].y) {
-          tile = this.selected[i].tile;
-          RM.c.drawImage(RM.tileSet,
-                         tile.x,
-                         tile.y,
-                         RM.tile.width,
-                         RM.tile.height,
-                         RM.tile.width * content[s].x + this.x,
-                         RM.tile.height * content[s].y + this.y,
-                         RM.tile.width,
-                         RM.tile.height);
+    if (tile) {
+      RM.c.drawImage(RM.tileSet,
+                     tile.x,
+                     tile.y,
+                     RM.tile.width,
+                     RM.tile.height,
+                     RM.tile.width * content[i].x + this.x,
+                     RM.tile.height * content[i].y + this.y,
+                     RM.tile.width,
+                     RM.tile.height);
+      for (s in this.selected) {
+        if (this.selected.hasOwnProperty(s)) {
+          if (this.selected[s] &&
+              this.selected[s].x === content[i].x &&
+              this.selected[s].y === content[i].y) {
+            tile = this.selected[i].tile;
+            RM.c.drawImage(RM.tileSet,
+                           tile.x,
+                           tile.y,
+                           RM.tile.width,
+                           RM.tile.height,
+                           RM.tile.width * content[s].x + this.x,
+                           RM.tile.height * content[s].y + this.y,
+                           RM.tile.width,
+                           RM.tile.height);
+          }
         }
       }
     }

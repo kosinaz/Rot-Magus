@@ -21,25 +21,32 @@ RM.Hero.prototype.computeFOV = function (x, y) {
   this.fov.push({
     x: x + 10 - this.x,
     y: y + 10 - this.y,
-    tile: RM.map.getTile(x, y)
+    tile: this.getTile(x, y)
   });
 };
 
-RM.Hero.prototype.handleMessage = function (message, publisher, data) {
+/**
+ * Returns the tile coordinates of the data stored in an arbitrarily defined
+ * point of the map.
+ * @param   {String} p The coordinates of the point separated with commas,
+ *                   or the first coordinate of the point, followed by the
+ *                   others as additional arguments.
+ * @returns {Object} The tile coordinates of the object stored in the
+ *                   specified point of the map.
+ */
+RM.Hero.prototype.getTile = function (p) {
   'use strict';
-  if (message === 'click') {
-    switch (publisher) {
-    case RM.gui.map:
-      this.order(data);
-      break;
-    case RM.gui.inventory:
-      this.manageInventory(data);
-      break;
-    case RM.gui.ground:
-      this.manageGround(data);
-      break;
+  var i, mp;
+  for (i = 1; i < arguments.length; i += 1) {
+    p += ',' + arguments[i];
+  }
+  for (i = 2; i >= 0; i -= 1) {
+    mp = RM.map.getPoint(p + ',' + i);
+    if (mp) {
+      return mp.tile;
     }
   }
+  return null;
 };
 
 RM.Hero.prototype.order = function (target) {
