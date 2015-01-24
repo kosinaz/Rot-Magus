@@ -72,12 +72,6 @@ RM.Frame.prototype.draw = function () {
   }
 };
 
-RM.Frame.prototype.center = function (x, y) {
-  'use strict';
-  this.content.x = x - Math.floor(this.content.width / 2);
-  this.content.y = y - Math.floor(this.content.height / 2);
-};
-
 RM.Frame.prototype.isSelected = function (category, target) {
   'use strict';
   return this.selected[category] &&

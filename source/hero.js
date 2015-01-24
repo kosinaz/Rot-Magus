@@ -34,14 +34,11 @@ RM.Hero.prototype.computeFOV = function (x, y) {
  * @returns {Object} The tile coordinates of the object stored in the
  *                   specified point of the map.
  */
-RM.Hero.prototype.getTile = function (p) {
+RM.Hero.prototype.getTile = function (x, y) {
   'use strict';
   var i, mp;
-  for (i = 1; i < arguments.length; i += 1) {
-    p += ',' + arguments[i];
-  }
   for (i = 2; i >= 0; i -= 1) {
-    mp = RM.map.getPoint(p + ',' + i);
+    mp = RM.map.getPoint(x, y, i);
     if (mp) {
       return mp.tile;
     }
