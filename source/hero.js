@@ -3,6 +3,9 @@ RM.Hero = function (type, x, y, ai) {
   'use strict';
   this.init(type, x, y, ai);
   this.fov = [];
+  this.visibleItems = [];
+  this.inventoryY = 0;
+  this.updateVisibleItems();
 };
 RM.Hero.extend(RM.Actor);
 
@@ -25,6 +28,24 @@ RM.Hero.prototype.computeFOV = function (x, y) {
   });
 };
 
+RM.Hero.prototype.updateVisibleItems = function () {
+  'use strict';
+  var x, y, p;
+  this.visibleItems = [];
+  for (y = this.inventoryY; y < this.inventoryY + 4; y += 1) {
+    for (x = 0; x < 3; x += 1) {
+      p = this.inventory.getPoint(x, y, 1);
+      if (p) {
+        this.visibleItems.push({
+          x: x,
+          y: y,
+          tile: p.tile
+        });
+      }
+    }
+  }
+};
+
 /**
  * Returns the tile coordinates of the data stored in an arbitrarily defined
  * point of the map.
@@ -39,6 +60,28 @@ RM.Hero.prototype.getTile = function (x, y) {
   var i, mp;
   for (i = 2; i >= 0; i -= 1) {
     mp = RM.map.getPoint(x, y, i);
+    if (mp) {
+      return mp.tile;
+    }
+  }
+  return null;
+};
+
+
+/**
+ * Returns the tile coordinates of the data stored in an arbitrarily defined
+ * point of the map.
+ * @param   {String} p The coordinates of the point separated with commas,
+ *                   or the first coordinate of the point, followed by the
+ *                   others as additional arguments.
+ * @returns {Object} The tile coordinates of the object stored in the
+ *                   specified point of the map.
+ */
+RM.Hero.prototype.getItemTile = function (x, y) {
+  'use strict';
+  var i, mp;
+  for (i = 2; i >= 0; i -= 1) {
+    this.inventory.getPoint(x, y, i);
     if (mp) {
       return mp.tile;
     }

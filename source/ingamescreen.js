@@ -65,6 +65,14 @@ RM.IngameScreen = function (background) {
           x: x - 10 + RM.currentHero.x,
           y: y - 10 + RM.currentHero.y
         });
+      }),
+    new RM.Frame(41, 261, 72, 84,
+      new RM.Image(0, 49, 72, 84, RM.uiObjectsImage),
+      function () {
+        return RM.currentHero.visibleItems;
+      },
+      function (x, y) {
+
       })
   ];
 };

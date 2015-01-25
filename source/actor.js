@@ -32,18 +32,18 @@ RM.Actor.prototype.init = function (type, x, y, ai) {
   if (type.inventory) {
     for (i = 0; i < type.inventory.length; i += 1) {
       this.inventory.setPoint(new RM.Item(RM.items[type.inventory[i]]),
-                             i % 4, Math.floor(i / 4), 1);
+                             i % 3, Math.floor(i / 3), 1);
       this.burden += RM.items[type.inventory[i]].weight;
     }
   }
   this.used = {
     weapon: {
-      x: this.type.weapon % 4,
-      y: Math.floor(this.type.weapon / 4)
+      x: this.type.weapon % 3,
+      y: Math.floor(this.type.weapon / 3)
     },
     cloak: {
-      x: this.type.cloak % 4,
-      y: Math.floor(this.type.weapon / 4)
+      x: this.type.cloak % 3,
+      y: Math.floor(this.type.weapon / 3)
     }
   };
 };

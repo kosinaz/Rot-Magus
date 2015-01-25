@@ -16,7 +16,6 @@ RM.Frame = function (x, y, width, height, background, content, handler) {
   this.init(x, y, width, height, background);
   this.content = content;
   this.handler = handler;
-  this.center(0, 0);
   this.selected = {};
 };
 RM.Frame.extend(RM.UIObject);
