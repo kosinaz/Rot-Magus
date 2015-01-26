@@ -67,28 +67,6 @@ RM.Hero.prototype.getTile = function (x, y) {
   return null;
 };
 
-
-/**
- * Returns the tile coordinates of the data stored in an arbitrarily defined
- * point of the map.
- * @param   {String} p The coordinates of the point separated with commas,
- *                   or the first coordinate of the point, followed by the
- *                   others as additional arguments.
- * @returns {Object} The tile coordinates of the object stored in the
- *                   specified point of the map.
- */
-RM.Hero.prototype.getItemTile = function (x, y) {
-  'use strict';
-  var i, mp;
-  for (i = 2; i >= 0; i -= 1) {
-    this.inventory.getPoint(x, y, i);
-    if (mp) {
-      return mp.tile;
-    }
-  }
-  return null;
-};
-
 RM.Hero.prototype.order = function (target) {
   'use strict';
   var actor;
