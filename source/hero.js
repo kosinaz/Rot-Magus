@@ -34,14 +34,11 @@ RM.Hero.prototype.updateVisibleItems = function () {
   this.visibleItems = [];
   for (y = this.inventoryY; y < this.inventoryY + 4; y += 1) {
     for (x = 0; x < 3; x += 1) {
-      p = this.inventory.getPoint(x, y, 1);
-      if (p) {
-        this.visibleItems.push({
-          x: x,
-          y: y,
-          tile: p.tile
-        });
-      }
+      this.visibleItems.push({
+        x: x,
+        y: y,
+        tile: this.getItemTile(x, y)
+      });
     }
   }
 };
@@ -62,6 +59,27 @@ RM.Hero.prototype.getTile = function (x, y) {
     mp = RM.map.getPoint(x, y, i);
     if (mp) {
       return mp.tile;
+    }
+  }
+  return null;
+};
+
+/**
+ * Returns the tile coordinates of the data stored in an arbitrarily defined
+ * point of the map.
+ * @param   {String} p The coordinates of the point separated with commas,
+ *                   or the first coordinate of the point, followed by the
+ *                   others as additional arguments.
+ * @returns {Object} The tile coordinates of the object stored in the
+ *                   specified point of the map.
+ */
+RM.Hero.prototype.getItemTile = function (x, y) {
+  'use strict';
+  var i, item;
+  for (i = 1; i >= 0; i -= 1) {
+    item = this.inventory.getPoint(x, y, i);
+    if (item) {
+      return item.tile;
     }
   }
   return null;

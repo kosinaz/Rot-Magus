@@ -27,7 +27,7 @@ RM.Actor.prototype.init = function (type, x, y, ai) {
   this.wisdom = type.wisdom;
   this.agility = type.agility;
   this.precision = type.precision;
-  this.inventory = new RM.Map();
+  this.inventory = new RM.Map(3, 4, RM.uiobjects.empty);
   this.burden = 0;
   if (type.inventory) {
     for (i = 0; i < type.inventory.length; i += 1) {

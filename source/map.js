@@ -3,11 +3,19 @@
  * A class to store multi-dimensional data.
  * @constructor
  */
-RM.Map = function () {
+RM.Map = function (width, height, defaultData) {
   'use strict';
+  var x, y;
   this.points = {};
   this.shadowcasting =
     new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
+  if (width && height && defaultData) {
+    for (x = 0; x < width; x += 1) {
+      for (y = 0; y < height; y += 1) {
+        this.setPoint(defaultData, x, y, 0);
+      }
+    }
+  }
 };
 
 /**

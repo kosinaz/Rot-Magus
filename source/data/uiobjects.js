@@ -1,5 +1,5 @@
 /*global RM*/
-RM.guitiles = {
+RM.uiobjects = {
   'invisible': {
     'x': 0,
     'y': 21 * 11
@@ -9,8 +9,10 @@ RM.guitiles = {
     'y': 21 * 11
   },
   'empty': {
-    'x': 24 * 2,
-    'y': 21 * 11
+    'tile': {
+      'x': 24 * 2,
+      'y': 21 * 11
+    }
   },
   'use': {
     'x': 24 * 3,
