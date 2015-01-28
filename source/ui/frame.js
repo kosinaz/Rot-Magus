@@ -12,13 +12,23 @@
  */
 RM.Frame = function (x, y, width, height, background, content, handler) {
   'use strict';
-  var xb, yb;
-  this.init(x, y, width, height, background);
-  this.content = content;
-  this.handler = handler;
-  this.selected = {};
+  this.init(x, y, width, height, background, content, handler);
 };
 RM.Frame.extend(RM.UIObject);
+RM.Frame.prototype.superInit = RM.UIObject.prototype.init;
+
+RM.Frame.prototype.init = function (x,
+                                    y,
+                                    width,
+                                    height,
+                                    background,
+                                    content,
+                                    handler) {
+  'use strict';
+  this.superInit(x, y, width, height, background);
+  this.content = content;
+  this.handler = handler;
+};
 
 RM.Frame.prototype.update = function () {
   'use strict';
