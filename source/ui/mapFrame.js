@@ -10,9 +10,9 @@
  * @param {Object}   content    [[Description]]
  * @param {[[Type]]} handler    [[Description]]
  */
-RM.MapFrame = function (x, y, width, height, background, content, handler) {
+RM.MapFrame = function (x, y, width, height, content, handler) {
   'use strict';
-  this.init(x, y, width, height, background, content, handler);
+  this.init(x, y, width, height, content, handler);
 };
 RM.MapFrame.extend(RM.Frame);
 RM.MapFrame.prototype.superInit = RM.Frame.prototype.init;
@@ -21,9 +21,8 @@ RM.MapFrame.prototype.init = function (x,
                                        y,
                                        width,
                                        height,
-                                       background,
                                        content,
                                        handler) {
   'use strict';
-  this.superInit(x, y, width, height, background, content, handler);
+  this.superInit(x, y, width, height, content, handler);
 };

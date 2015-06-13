@@ -1,7 +1,7 @@
 /*global RM*/
-RM.Button = function (x, y, width, height, background, text, handler) {
+RM.Button = function (x, y, width, height, text, handler) {
   'use strict';
-  this.init(x, y, width, height, background);
+  this.init(x, y, width, height);
   this.text = text || '';
   this.handler = handler;
 };
@@ -18,6 +18,5 @@ RM.Button.prototype.update = function () {
 
 RM.Button.prototype.draw = function () {
   'use strict';
-  this.drawBackground();
   this.write(this.text, '#511515');
 };

@@ -32,8 +32,8 @@ RM.Hero.prototype.updateVisibleItems = function () {
   'use strict';
   var x, y, p;
   this.visibleItems = [];
-  for (y = this.inventoryY; y < this.inventoryY + 4; y += 1) {
-    for (x = 0; x < 3; x += 1) {
+  for (y = this.inventoryY; y < this.inventoryY + 5; y += 1) {
+    for (x = 0; x < 5; x += 1) {
       this.visibleItems.push({
         x: x,
         y: y,

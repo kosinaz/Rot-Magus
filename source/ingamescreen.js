@@ -1,10 +1,9 @@
 /*global RM*/
 RM.IngameScreen = function (background) {
   'use strict';
-  var barBackground = new RM.Image(96, 0, 72, 21, RM.uiObjectsImage);
   this.background = RM.ingame;
   this.uiObjects = [
-    new RM.Bar(40, 9, 72, 21, barBackground,
+    new RM.Bar(28, 9, 96, 21,
       function () {
         return RM.currentHero.xp;
       },
@@ -12,7 +11,7 @@ RM.IngameScreen = function (background) {
         return 50 * Math.pow(2, RM.currentHero.level);
       },
       '#e3e300'),
-    new RM.Bar(40, 30, 72, 21, barBackground,
+    new RM.Bar(28, 30, 96, 21,
       function () {
         return Math.floor(RM.currentHero.health);
       },
@@ -20,7 +19,7 @@ RM.IngameScreen = function (background) {
         return RM.currentHero.maxHealth;
       },
       '#00e300'),
-    new RM.Bar(40, 51, 72, 21, barBackground,
+    new RM.Bar(28, 51, 96, 21,
       function () {
         return RM.currentHero.mana;
       },
@@ -28,7 +27,7 @@ RM.IngameScreen = function (background) {
         return RM.currentHero.maxMana;
       },
       '#4261e7'),
-    new RM.Bar(40, 72, 72, 21, barBackground,
+    new RM.Bar(28, 72, 96, 21,
       function () {
         return RM.currentHero.burden;
       },
@@ -36,27 +35,27 @@ RM.IngameScreen = function (background) {
         return RM.currentHero.strength;
       },
       '#844121'),
-    new RM.Label(16, 114, 24, 21, '#616161',
+    new RM.Label(28, 114, 24, 21,
       function () {
         return RM.currentHero.strength;
       },
       '#000'),
-    new RM.Label(40, 114, 24, 21, '#616161',
+    new RM.Label(52, 114, 24, 21,
       function () {
         return RM.currentHero.wisdom;
       },
       '#000'),
-    new RM.Label(64, 114, 24, 21, '#616161',
+    new RM.Label(76, 114, 24, 21,
       function () {
         return RM.currentHero.agility;
       },
       '#000'),
-    new RM.Label(88, 114, 24, 21, '#616161',
+    new RM.Label(100, 114, 24, 21,
       function () {
         return RM.currentHero.precision;
       },
       '#000'),
-    new RM.Frame(128, 9, 504, 441, '#000',
+    new RM.Frame(128, 9, 504, 441,
       function () {
         return RM.currentHero.fov;
       },
@@ -66,7 +65,7 @@ RM.IngameScreen = function (background) {
           y: y - 10 + RM.currentHero.y
         });
       }),
-    new RM.Frame(41, 261, 72, 84, '#000',
+    new RM.Frame(4, 230, 120, 105,
       function () {
         return RM.currentHero.visibleItems;
       },

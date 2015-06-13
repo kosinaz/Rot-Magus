@@ -4,10 +4,8 @@ var RM = {
   TERRAIN: 0,
   ITEMS: 1,
   ACTOR: 2,
-  tile: {
-    width: 24,
-    height: 21
-  },
+  TILE_WIDTH: 24,
+  TILE_HEIGHT: 21,
   mouse: {
     x: 0,
     y: 0,
@@ -18,7 +16,6 @@ var RM = {
 
 RM.init = function () {
   'use strict';
-  var bcr;
   RM.resources = 0;
   RM.loaded = 0;
   RM.tileSet = RM.createImage('images/resources/tileset.png');
@@ -58,17 +55,21 @@ RM.init = function () {
 RM.update = function () {
   'use strict';
   var i;
-  for (i = 0; i < RM.currentScreen.uiObjects.length; i += 1) {
-    RM.currentScreen.uiObjects[i].update();
+  if (RM.currentScreen) {
+    for (i = 0; i < RM.currentScreen.uiObjects.length; i += 1) {
+      RM.currentScreen.uiObjects[i].update();
+    }
   }
 };
 
 RM.draw = function () {
   'use strict';
   var i;
-  RM.c.drawImage(RM.currentScreen.background, 0, 0);
-  for (i = 0; i < RM.currentScreen.uiObjects.length; i += 1) {
-    RM.currentScreen.uiObjects[i].draw();
+  if (RM.currentScreen) {
+    RM.c.drawImage(RM.currentScreen.background, 0, 0);
+    for (i = 0; i < RM.currentScreen.uiObjects.length; i += 1) {
+      RM.currentScreen.uiObjects[i].draw();
+    }
   }
 };
 

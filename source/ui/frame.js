@@ -6,13 +6,12 @@
  * @param {Number}   y          The y coordinate of the top border.
  * @param {Number}   width      The width of the frame.
  * @param {Number}   height     The height of the frame.
- * @param {[[Type]]} background [[Description]]
  * @param {Object}   content    [[Description]]
  * @param {[[Type]]} handler    [[Description]]
  */
-RM.Frame = function (x, y, width, height, background, content, handler) {
+RM.Frame = function (x, y, width, height, content, handler) {
   'use strict';
-  this.init(x, y, width, height, background, content, handler);
+  this.init(x, y, width, height, content, handler);
 };
 RM.Frame.extend(RM.UIObject);
 RM.Frame.prototype.superInit = RM.UIObject.prototype.init;
@@ -21,11 +20,10 @@ RM.Frame.prototype.init = function (x,
                                     y,
                                     width,
                                     height,
-                                    background,
                                     content,
                                     handler) {
   'use strict';
-  this.superInit(x, y, width, height, background);
+  this.superInit(x, y, width, height);
   this.content = content;
   this.handler = handler;
 };
@@ -36,8 +34,8 @@ RM.Frame.prototype.update = function () {
   clicked = this.clicked;
   this.updateStats();
   if (this.clicked && !clicked && this.handler) {
-    x = Math.floor((RM.mouse.x - this.x) / RM.tile.width);
-    y = Math.floor((RM.mouse.y - this.y) / RM.tile.height);
+    x = Math.floor((RM.mouse.x - this.x) / RM.TILE_WIDTH);
+    y = Math.floor((RM.mouse.y - this.y) / RM.TILE_HEIGHT);
     this.handler(x, y);
   }
 };
@@ -46,7 +44,6 @@ RM.Frame.prototype.draw = function () {
   'use strict';
   var tile, i, content;
   content = this.content();
-  this.drawBackground();
   for (i = 0; i < content.length; i += 1) {
     tile = content[i].tile;
     if (tile) {
@@ -60,11 +57,11 @@ RM.Frame.prototype.drawTile = function (tile, x, y) {
   RM.c.drawImage(RM.tileSet,
                  tile.x,
                  tile.y,
-                 RM.tile.width,
-                 RM.tile.height,
-                 RM.tile.width * x + this.x,
-                 RM.tile.height * y + this.y,
-                 RM.tile.width,
-                 RM.tile.height);
+                 RM.TILE_WIDTH,
+                 RM.TILE_HEIGHT,
+                 RM.TILE_WIDTH * x + this.x,
+                 RM.TILE_HEIGHT * y + this.y,
+                 RM.TILE_WIDTH,
+                 RM.TILE_HEIGHT);
 };
 
