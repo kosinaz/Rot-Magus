@@ -12,8 +12,10 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+let map;
 let player;
-let controls;
+let marker;
+let layer;
 
 function preload() {
   this.load.spritesheet("tiles", "assets/images/tiles.png", {
@@ -24,7 +26,8 @@ function preload() {
 }
 
 function create() {
-  const map = this.make.tilemap({
+
+  map = this.make.tilemap({
     key: "map"
   });
 
@@ -37,7 +40,7 @@ function create() {
   /**
    * Parameters: layer name (or index) from Tiled, tileset, x, y
    */
-  map.createStaticLayer("tiles", tileset, 0, 0);
+  layer = map.createStaticLayer("tiles", tileset, 0, 0);
 
   /**
    * Create player
@@ -45,6 +48,13 @@ function create() {
   const start = map.findObject("objects", obj => obj.name === "player");
   player = this.add.sprite(start.x, start.y, "tiles", 25);
   player.setOrigin(0);
+
+  /**
+   * Create pointer marker
+   */
+  marker = this.add.graphics();
+  marker.lineStyle(1, 0xffff00, 1);
+  marker.strokeRect(0, 0, map.tileWidth, map.tileHeight);
 
   /**
    * The default camera
@@ -61,6 +71,8 @@ function create() {
 
 function update() {
 
+  var x, y, tile;
+
   /**
    * Convert the mouse position to world position within the camera
    */
@@ -68,18 +80,54 @@ function update() {
     this.input.activePointer.positionToCamera(this.cameras.main);
 
   /**
-   * Move the player towards the mouse
-   */  
-  if (this.input.manager.activePointer.justDown) {
-    if (worldPoint.x > player.x + 24) {
-      player.x += 24;
-    } else if (worldPoint.x < player.x) {
-      player.x -= 24;
+   * Define the next position of the player based on the position of the pointer
+   */
+  x = player.x;
+  y = player.y;
+  if (worldPoint.x > player.x + 24) {
+    x += 24;
+  } else if (worldPoint.x < player.x) {
+    x -= 24;
+  }
+  if (worldPoint.y > player.y + 21) {
+    y += 21;
+  } else if (worldPoint.y < player.y) {
+    y -= 21;
+  }
+  
+  /**
+   * Move the pointer marker to the next position
+   */
+  marker.x = x;
+  marker.y = y;
+
+  /**
+   * Check if the next position if passable
+   */
+  tile = layer.getTileAtWorldXY(x, y);
+  if (!tile.properties.unpassable) {
+
+    /** If passable turn the pointer yellow */
+    marker.lineStyle(1, 0xffff00, 1);
+    marker.strokeRect(0, 0, map.tileWidth, map.tileHeight);
+
+    /**
+     * Check if the player clicked
+     */
+    if (this.input.manager.activePointer.justDown) {
+
+      /**
+       * Move the player towards the pointer
+       */
+      player.x = x;
+      player.y = y;
     }
-    if (worldPoint.y > player.y + 24) {
-      player.y += 21;
-    } else if (worldPoint.y < player.y) {
-      player.y -= 21;
-    }
+  } else {
+
+    /**
+     * If unpassable turn the pointer grey
+     */
+    marker.lineStyle(1, 0x888888, 1);
+    marker.strokeRect(0, 0, map.tileWidth, map.tileHeight);
   }
 }
