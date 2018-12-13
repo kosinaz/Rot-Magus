@@ -158,7 +158,7 @@ const GameScene = new Phaser.Class({
      * Find the visible tiles
      */
     tileXY = layer.worldToTileXY(x, y);
-    fov.compute(tileXY.x, tileXY.y, 12, function (x, y) {
+    fov.compute(tileXY.x, tileXY.y, 13, function (x, y) {
 
       /**
        * Show the visible tiles
