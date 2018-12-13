@@ -77,6 +77,13 @@ const GameScene = new Phaser.Class({
     var x, y, tile;
 
     /**
+     * Ignore GUI input
+     */
+    if (this.input.activePointer.x < 372) {
+      return;
+    }
+
+    /**
      * Convert the mouse position to world position within the camera
      */
     const worldPoint = 
