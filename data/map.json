@@ -59,11 +59,20 @@
                 },
              "13":
                 {
-                 "collides":true,
-                 "unpassable":false
+                 "collides":false,
+                 "unpassable":true
+                },
+             "14":
+                {
+                 "opaque":true
+                },
+             "15":
+                {
+                 "opaque":true
                 },
              "16":
                 {
+                 "opaque":true,
                  "unpassable":true
                 },
              "17":
@@ -108,8 +117,17 @@
                  "collides":"bool",
                  "unpassable":"bool"
                 },
+             "14":
+                {
+                 "opaque":"bool"
+                },
+             "15":
+                {
+                 "opaque":"bool"
+                },
              "16":
                 {
+                 "opaque":"bool",
                  "unpassable":"bool"
                 },
              "17":
