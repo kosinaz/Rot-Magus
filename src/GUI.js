@@ -9,6 +9,8 @@ GUIScene = new Phaser.Class({
         key: 'GUIScene',
         active: true
       });
+      this.inventory;
+      this.hold;
     },
 
   preload: function () {
@@ -138,14 +140,13 @@ GUIScene = new Phaser.Class({
       fill: '#000000'
     });
     this.wisdomLabel.setOrigin(1, 0.5);
-
+    
     /**
-     * Add player item images
+     * Create inventory
      */
-    this.add.image(160, 79, "tiles", 114);
-    this.add.image(184, 79, "tiles", 138);
-    this.add.image(16, 121, "tiles", 108);
-    this.add.image(40, 121, "tiles", 102);
+    this.inventory = createInventory(this);
+    this.inventory.putTileAt(108, 0, 0);
+    this.inventory.putTileAt(102, 1, 0);
 
     /**
      * Grab a reference to the Game Scene
@@ -158,6 +159,60 @@ GUIScene = new Phaser.Class({
     game.events.on('specificEvent', function () {
 
     }, this);
+  },
+
+  update: function () {
+
+    var x, y, tile, tileXY;
+
+    /**
+     * Ignore world input
+     */
+    if (this.input.activePointer.x > 370) {
+      return;
+    }
+    
+    x = this.input.activePointer.x;
+    y = this.input.activePointer.y;
+    if (this.input.activePointer.justDown) {
+      tileXY = this.inventory.worldToTileXY(x, y);
+      tile = this.inventory.getTileAt(tileXY.x, tileXY.y);
+      if (tile) {
+        if (!this.hold) {
+          this.hold = this.add.image(x, y, "tiles", tile.index);
+          this.inventory.removeTileAt(tileXY.x, tileXY.y);
+        } 
+      } else if (this.hold) {
+        this.inventory.putTileAt(this.hold.frame.name, tileXY.x, tileXY.y);
+        this.hold.destroy();
+        this.hold = null;
+      }
+    }
+
+    if (this.hold) {
+      this.hold.x = x;
+      this.hold.y = y;
+    }
+    
   }
 
 });
+
+/**
+ * Create the inventory of the player
+ * @param {*} scene 
+ */
+function createInventory(scene) {
+  var map = scene.make.tilemap({
+    tileWidth: 24,
+    tileHeight: 21,
+    width: 15,
+    height: 10
+  });
+  return map.createBlankDynamicLayer(
+    'inventory', 
+    map.addTilesetImage('tiles'), 
+    4, 
+    110
+  );
+}
