@@ -150,6 +150,12 @@ GUIScene = new Phaser.Class({
     this.inventory.putTileAt(108, 2, 5);
     this.inventory.putTileAt(102, 3, 5);
 
+    this.ground = createGround(this);
+    this.grounds = {};
+    this.grounds[player.x + ',' + player.y] = addGround(this.ground);
+    this.currentGround = this.grounds[player.x + ',' + player.y];
+    this.currentGround.putTileAt(114, 0, 0);
+
     /**
      * Grab a reference to the Game Scene
      */
@@ -158,14 +164,34 @@ GUIScene = new Phaser.Class({
     /**
      * Listen for events from it
      */
-    game.events.on('specificEvent', function () {
-
+    game.events.on('playerMoved', function () {
+      this.currentGround.alpha = 0;
+      var topTile = this.currentGround.getTilesWithin(0, 0, 15, 10, {
+        isNotEmpty: true
+      })[0];
+      if (topTile) {
+        itemLayer.putTileAt(
+          topTile.index + 1,
+          this.currentGround.data.x, 
+          this.currentGround.data.y
+        );
+      } else {
+        itemLayer.removeTileAt(
+          this.currentGround.data.x,
+          this.currentGround.data.y
+        );
+      };
+      if (!this.grounds[player.x + ',' + player.y]) {
+        this.grounds[player.x + ',' + player.y] = addGround(this.ground);
+      }
+      this.currentGround = this.grounds[player.x + ',' + player.y];
+      this.currentGround.alpha = 1;
     }, this);
   },
 
   update: function () {
 
-    var x, y, tile, tileXY;
+    var x, y, tileXY;
 
     /**
      * Ignore world input
@@ -237,14 +263,21 @@ GUIScene = new Phaser.Class({
            */
           this.pickUpOrPutDownType("shield", tileXY, x, y);
         }         
-      } else if (tileXY.x > -1 && tileXY.x < 15
-        && (tileXY.y > 4 && tileXY.y < 15 
-        || tileXY.y > 15 && tileXY.y < 26)) {
+      } else if (tileXY.x > -1 && tileXY.x < 15) {
+        if (tileXY.y > 4 && tileXY.y < 15) {
 
-        /**
-         * If the player clicked on the inventory or on the ground
-         */
-        this.pickUpOrPutDown(tileXY, x, y);
+          /**
+           * If the player clicked on the inventory
+           */
+          this.pickUpOrPutDown(this.inventory, tileXY, x, y);
+        } else if (tileXY.y > 15 && tileXY.y < 26) {
+          tileXY.y -= 16;
+
+          /**
+           * If the player clicked on the ground
+           */
+          this.pickUpOrPutDown(this.currentGround, tileXY, x, y - 16);
+        }
       }
     }
 
@@ -325,7 +358,7 @@ GUIScene = new Phaser.Class({
         /**
          * If the player holds someting put it down or switch it
          */
-        this.pickUpOrPutDown(tileXY, x, y);
+        this.pickUpOrPutDown(this.inventory, tileXY, x, y);
       }
     } else {
 
@@ -333,12 +366,12 @@ GUIScene = new Phaser.Class({
        * If the player does not hold anything pick up if there is
        * something 
        */
-      this.pickUp(tileXY, x, y);
+      this.pickUp(this.inventory, tileXY, x, y);
     }
   },
 
-  pickUpOrPutDown: function (tileXY, x, y) {
-    var tile = this.inventory.getTileAt(tileXY.x, tileXY.y);
+  pickUpOrPutDown: function (layer, tileXY, x, y) {
+    var tile = layer.getTileAt(tileXY.x, tileXY.y);
     if (this.hold) {
 
       /**
@@ -364,30 +397,29 @@ GUIScene = new Phaser.Class({
       /**
        * Put down the already held item
        */
-      this.inventory.putTileAt(heldItem, tileXY.x, tileXY.y);
+      layer.putTileAt(heldItem, tileXY.x, tileXY.y);
     }
     else {
 
       /** 
        * If the player does not hold anything pick up if there is something 
        */
-      this.pickUp(tileXY, x, y);
+      this.pickUp(layer, tileXY, x, y);
     }
   },
   
-  pickUp: function (tileXY, x, y) {
-    var tile = this.inventory.getTileAt(tileXY.x, tileXY.y);
+  pickUp: function (layer, tileXY, x, y) {
+    var tile = layer.getTileAt(tileXY.x, tileXY.y);
     if (tile) {
 
       /**
        * If the player does not hold anything pick up the item
        */
       this.hold = this.add.image(x, y, "tiles", tile.index);
-      this.inventory.removeTileAt(tileXY.x, tileXY.y);
+      layer.removeTileAt(tileXY.x, tileXY.y);
     }
   }
 });
-
 
 /**
  * Create the inventory of the player
@@ -398,7 +430,7 @@ function createInventory(scene) {
     tileWidth: 24,
     tileHeight: 21,
     width: 15,
-    height: 26
+    height: 15
   });
   return map.createBlankDynamicLayer(
     'inventory', 
@@ -406,4 +438,28 @@ function createInventory(scene) {
     4, 
     5
   );
+}
+
+/**
+ * Create the collection of items on the ground
+ * @param {*} scene 
+ */
+function createGround(scene) {
+  return scene.make.tilemap({
+    tileWidth: 24,
+    tileHeight: 21,
+    width: 15,
+    height: 10
+  });
+}
+
+function addGround(map) {
+  var layer = map.createBlankDynamicLayer(
+    'ground ' + player.x + ',' + player.y,
+    map.addTilesetImage('tiles'),
+    4,
+    341
+  );
+  layer.data = groundLayer.worldToTileXY(player.x, player.y);
+  return layer;
 }

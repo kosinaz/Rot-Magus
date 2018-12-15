@@ -2,7 +2,8 @@ const fov = new ROT.FOV.PreciseShadowcasting(isTransparent);
 let map;
 let player;
 let marker;
-let layer;
+let groundLayer;
+let itemLayer;
 
 const GameScene = new Phaser.Class({
 
@@ -39,8 +40,10 @@ const GameScene = new Phaser.Class({
     /**
      * Parameters: layer name (or index) from Tiled, tileset, x, y
      */
-    layer = map.createDynamicLayer("tiles", tileset, 0, 0);
-    layer.forEachTile(tile => (tile.alpha = 0));
+    groundLayer = map.createDynamicLayer("tiles", tileset, 0, 0);
+    itemLayer = map.createBlankDynamicLayer("items", tileset, 0, 0);
+    groundLayer.forEachTile(tile => (tile.alpha = 0));
+    itemLayer.forEachTile(tile => (tile.alpha = 0));
 
     /**
      * Create player
@@ -114,7 +117,7 @@ const GameScene = new Phaser.Class({
     /**
      * Check if the next position if passable
      */
-    tile = layer.getTileAtWorldXY(x, y);
+    tile = groundLayer.getTileAtWorldXY(x, y);
     if (!tile.properties.unpassable) {
       
       /** If passable turn the pointer yellow */
@@ -131,6 +134,11 @@ const GameScene = new Phaser.Class({
          */
         player.x = x;
         player.y = y;
+
+        /**
+         * Dispatch the player moved event
+         */
+        this.events.emit('playerMoved');
 
         /**
          * Update field of view
@@ -152,20 +160,25 @@ const GameScene = new Phaser.Class({
     /**
      * Overlay fog of war on every tile that was already visible
      */
-    layer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+    groundLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+    itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
 
     /**
      * Find the visible tiles
      */
-    tileXY = layer.worldToTileXY(x, y);
+    tileXY = groundLayer.worldToTileXY(x, y);
     fov.compute(tileXY.x, tileXY.y, 13, function (x, y) {
 
       /**
        * Show the visible tiles
        */
-      var tile = layer.getTileAt(x, y);
+      var tile = groundLayer.getTileAt(x, y);
       if (tile) {
         tile.alpha = 1;
+        tile = itemLayer.getTileAt(x, y);
+        if (tile) {
+          tile.alpha = 1;
+        }
       }
     });
   },
@@ -177,8 +190,8 @@ function isTransparent (x, y) {
   /**
    * Return true if the position is the player's position or if it is not opaque
    */
-  playerXY = layer.worldToTileXY(player.x, player.y);
-  tile = layer.getTileAt(x, y);
+  playerXY = groundLayer.worldToTileXY(player.x, player.y);
+  tile = groundLayer.getTileAt(x, y);
   return x === playerXY.x && y === playerXY.y 
     || tile && !tile.properties.opaque;
 }
