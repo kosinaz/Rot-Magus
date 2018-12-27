@@ -62,7 +62,6 @@ let Actor = new Phaser.Class({
     var a = new ROT.Path.AStar(x, y, function (x, y) {
       var actor = getActorAt(x, y);
       if (isPassableAtXY(x, y)) {
-        console.log(x, y);
         if (actor) {
           if (actor === this) {
             return true;
