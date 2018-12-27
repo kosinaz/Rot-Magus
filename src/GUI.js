@@ -154,7 +154,6 @@ GUIScene = new Phaser.Class({
     this.grounds = {};
     this.grounds[player.x + ',' + player.y] = addGround(this.ground);
     this.currentGround = this.grounds[player.x + ',' + player.y];
-    this.currentGround.putTileAt(114, 0, 0);
 
     /**
      * Grab a reference to the Game Scene

@@ -1,9 +1,12 @@
 const fov = new ROT.FOV.PreciseShadowcasting(isTransparent);
+const scheduler = new ROT.Scheduler.Action();
+const engine = new ROT.Engine(scheduler)
 let map;
 let player;
 let marker;
 let groundLayer;
 let itemLayer;
+let enemies = [];
 
 const GameScene = new Phaser.Class({
 
@@ -48,10 +51,18 @@ const GameScene = new Phaser.Class({
     /**
      * Create player
      */
-    const start = map.findObject("objects", obj => obj.name === "player");
-    player = this.add.sprite(start.x, start.y, "tiles", 25);
+    var actor = map.findObject("objects", obj => obj.type === "player");
+    player = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1);
     player.setOrigin(0);
-    this.showFOV(start.x, start.y);
+    this.showFOV(actor.x, actor.y);
+
+    /**
+     * Create zombie
+     */
+    actor = map.findObject("objects", obj => obj.type === "zombie");
+    var zombie = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1);
+    zombie.setOrigin(0);
+    enemies.push(zombie);
 
     /**
      * Create pointer marker
@@ -162,6 +173,9 @@ const GameScene = new Phaser.Class({
      */
     groundLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
     itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+    enemies.forEach(function (enemy) {
+      enemy.alpha = 0;
+    });
 
     /**
      * Find the visible tiles
@@ -178,6 +192,11 @@ const GameScene = new Phaser.Class({
         tile = itemLayer.getTileAt(x, y);
         if (tile) {
           tile.alpha = 1;
+        }
+        for (var i = 0; i < enemies.length; i += 1) {
+          if (enemies[i].isAtXY(x, y)) {
+            enemies[i].alpha = 1;
+          } 
         }
       }
     });
