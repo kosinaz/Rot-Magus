@@ -62,6 +62,7 @@ const GameScene = new Phaser.Class({
     actor = map.findObject("objects", obj => obj.type === "zombie");
     var zombie = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1);
     zombie.setOrigin(0);
+    zombie.alpha = 0;
     enemies.push(zombie);
 
     /**
