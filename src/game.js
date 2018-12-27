@@ -52,7 +52,7 @@ const GameScene = new Phaser.Class({
      * Create player
      */
     var actor = map.findObject("objects", obj => obj.type === "player");
-    player = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1);
+    player = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1, true);
     player.setOrigin(0);
     this.showFOV(actor.x, actor.y);
 
@@ -60,7 +60,7 @@ const GameScene = new Phaser.Class({
      * Create zombie
      */
     actor = map.findObject("objects", obj => obj.type === "zombie");
-    var zombie = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1);
+    var zombie = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1,);
     zombie.setOrigin(0);
     zombie.alpha = 0;
     enemies.push(zombie);
@@ -85,6 +85,7 @@ const GameScene = new Phaser.Class({
      * width/height of tilemap
      */
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    engine.start();
   },
 
   update: function () {
@@ -129,8 +130,7 @@ const GameScene = new Phaser.Class({
     /**
      * Check if the next position if passable
      */
-    tile = groundLayer.getTileAtWorldXY(x, y);
-    if (!tile.properties.unpassable) {
+    if (isPassableAtWorldXY(x, y)) {
       
       /** If passable turn the pointer yellow */
       marker.lineStyle(1, 0xffff00, 1);
@@ -156,6 +156,9 @@ const GameScene = new Phaser.Class({
          * Update field of view
          */
         this.showFOV(x, y);
+
+        scheduler.setDuration(1.0 / player.speed);
+        engine.unlock();
       }
     } else {
       
@@ -194,10 +197,9 @@ const GameScene = new Phaser.Class({
         if (tile) {
           tile.alpha = 1;
         }
-        for (var i = 0; i < enemies.length; i += 1) {
-          if (enemies[i].isAtXY(x, y)) {
-            enemies[i].alpha = 1;
-          } 
+        var actor = getActorAt(x, y);
+        if (actor) {
+          actor.alpha = 1;
         }
       }
     });
@@ -214,6 +216,25 @@ function isTransparent (x, y) {
   tile = groundLayer.getTileAt(x, y);
   return x === playerXY.x && y === playerXY.y 
     || tile && !tile.properties.opaque;
+}
+
+function isPassableAtXY(x, y) {
+  return !groundLayer.getTileAt(x, y).properties.unpassable;
+}
+
+function isPassableAtWorldXY(x, y) {
+  return !groundLayer.getTileAtWorldXY(x, y).properties.unpassable;
+}
+
+function getActorAt(x, y) {
+  if (player.isAtXY(x, y)) {
+    return player;
+  }
+  for (var i = 0; i < enemies.length; i += 1) {
+    if (enemies[i].isAtXY(x, y)) {
+      return enemies[i];
+    }
+  }
 }
 
 const game = new Phaser.Game({
