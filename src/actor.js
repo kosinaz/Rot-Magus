@@ -9,11 +9,13 @@ let Actor = new Phaser.Class({
         y: this.getY()
       }
       this.speed = 4;
+      this.health = 120;
       scene.add.existing(this);
       scheduler.add(this, true);
     },
   act: function () {
     if (this.isPlayer) {
+      engineLocked = true;
       engine.lock();
     } else {
       this.scanFOV();
@@ -55,8 +57,22 @@ let Actor = new Phaser.Class({
       return false;
     }
     scheduler.setDuration(1.0 / this.speed);
-    this.x = groundLayer.tileToWorldX(this.path[1][0]);
-    this.y = groundLayer.tileToWorldY(this.path[1][1]);
+    var x = this.path[1][0];
+    var y = this.path[1][1];
+    var actor = getActorAt(x, y);
+    if (actor) {
+      this.damage(actor);
+    } else {
+      this.x = groundLayer.tileToWorldX(x);
+      this.y = groundLayer.tileToWorldY(y);
+    }
+  },
+  damage: function (actor) {
+    actor.health -= Math.floor(Math.random() * 6) + 1;
+    this.effect = this.scene.add.sprite(actor.x + 12, actor.y + 11, 'tiles', 200);
+    this.scene.time.delayedCall(250, function () {
+      this.effect.destroy();
+    }.bind(this), [], this);
   },
   computePath: function (x, y) {
     var a = new ROT.Path.AStar(x, y, function (x, y) {

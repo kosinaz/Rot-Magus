@@ -7,6 +7,7 @@ let marker;
 let groundLayer;
 let itemLayer;
 let enemies = [];
+let engineLocked = false;
 
 const GameScene = new Phaser.Class({
 
@@ -139,26 +140,40 @@ const GameScene = new Phaser.Class({
       /**
        * Check if the player clicked
        */
-      if (this.input.manager.activePointer.justDown) {
+      if (this.input.manager.activePointer.justDown && engineLocked) {
+
+        engineLocked = false;
+
+        this.time.delayedCall(250, function () {
+            
+          /**
+           * Move the player towards the pointer
+           */
+          x = groundLayer.worldToTileX(x);
+          y = groundLayer.worldToTileY(y);
+          var actor = getActorAt(x, y);
+          if (actor) {
+            player.damage(actor);
+          } else {
+            player.x = groundLayer.tileToWorldX(x);
+            player.y = groundLayer.tileToWorldY(y);
+          }
+
+          /**
+           * Dispatch the player moved event
+           */
+          this.events.emit('playerMoved');
+
+          /**
+           * Update field of view
+           */
+          this.showFOV(player.x, player.y);
+
+          scheduler.setDuration(1.0 / player.speed);
         
-        /**
-         * Move the player towards the pointer
-         */
-        player.x = x;
-        player.y = y;
-
-        /**
-         * Dispatch the player moved event
-         */
-        this.events.emit('playerMoved');
-
-        /**
-         * Update field of view
-         */
-        this.showFOV(x, y);
-
-        scheduler.setDuration(1.0 / player.speed);
-        engine.unlock();
+          engine.unlock();
+          
+        }.bind(this));
       }
     } else {
       
