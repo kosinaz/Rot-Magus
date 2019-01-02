@@ -153,7 +153,9 @@ const GameScene = new Phaser.Class({
           y = groundLayer.worldToTileY(y);
           var actor = getActorAt(x, y);
           if (actor) {
-            player.damage(actor);
+            if (actor !== player) {
+              player.damage(actor);
+            }
           } else {
             player.x = groundLayer.tileToWorldX(x);
             player.y = groundLayer.tileToWorldY(y);
