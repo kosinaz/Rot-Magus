@@ -58,7 +58,7 @@ GUIScene = new Phaser.Class({
         color: 0xe30000
       }
     });
-    this.XPBar.fillRectShape(new Phaser.Geom.Rectangle(5, 27, 1, 19));
+    this.XPBar.fillRect(5, 27, 1, 19);
     this.XPLabel = this.add.text(64, 37, '0/50', {
       fontFamily: 'Rhythmus',
       fontSize: '14px',
@@ -75,7 +75,7 @@ GUIScene = new Phaser.Class({
         color: 0x00e300
       }
     });
-    this.healthBar.fillRectShape(new Phaser.Geom.Rectangle(5, 48, 118, 19));
+    this.healthBar.fillRect(5, 48, 118, 19);
     this.healthLabel = this.add.text(64, 58, '120/120', {
       fontFamily: 'Rhythmus',
       fontSize: '14px',
@@ -92,7 +92,7 @@ GUIScene = new Phaser.Class({
         color: 0x4261e7
       }
     });
-    this.manaBar.fillRectShape(new Phaser.Geom.Rectangle(5, 69, 118, 19));
+    this.manaBar.fillRect(5, 69, 118, 19);
     this.manaLabel = this.add.text(64, 79, '10/10', {
       fontFamily: 'Rhythmus',
       fontSize: '14px',
@@ -185,6 +185,12 @@ GUIScene = new Phaser.Class({
       }
       this.currentGround = this.grounds[player.x + ',' + player.y];
       this.currentGround.alpha = 1;
+    }, this);
+
+    game.events.on('playerDamaged', function () {
+      this.healthLabel.text = player.health + "/" + player.maxHealth;
+      this.healthBar.clear();
+      this.healthBar.fillRect(5, 48, 118 * player.health/player.maxHealth, 19);
     }, this);
   },
 

@@ -155,6 +155,7 @@ const GameScene = new Phaser.Class({
           if (actor) {
             if (actor !== player) {
               player.damage(actor);
+              this.events.emit('playerDamaged');
             }
           } else {
             player.x = groundLayer.tileToWorldX(x);

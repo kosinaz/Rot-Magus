@@ -10,6 +10,7 @@ let Actor = new Phaser.Class({
       }
       this.speed = 4;
       this.health = 120;
+      this.maxHealth = 120;
       scene.add.existing(this);
       scheduler.add(this, true);
     },
