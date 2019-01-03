@@ -69,11 +69,27 @@ let Actor = new Phaser.Class({
     }
   },
   damage: function (actor) {
-    actor.health -= Math.floor(Math.random() * 6) + 1;
+    actor.health -= Math.floor(Math.random() * 60) + 1;
+    if (actor === player) {
+      this.scene.events.emit('playerDamaged');
+    }
     this.effect = this.scene.add.sprite(actor.x + 12, actor.y + 11, 'tiles', 200);
     this.scene.time.delayedCall(250, function () {
       this.effect.destroy();
     }.bind(this), [], this);
+    if (actor.health < 1) {
+      actor.die();
+    }
+  },
+  die: function () {
+    if (this === player) {
+      scheduler.clear();
+      this.scene.events.emit('playerDied');
+    } else {
+      enemies.splice(enemies.indexOf(this), 1);
+      scheduler.remove(this);
+      this.destroy();
+    }
   },
   computePath: function (x, y) {
     var a = new ROT.Path.AStar(x, y, function (x, y) {

@@ -190,7 +190,7 @@ GUIScene = new Phaser.Class({
     game.events.on('playerDamaged', function () {
       this.healthLabel.text = player.health + "/" + player.maxHealth;
       this.healthBar.clear();
-      this.healthBar.fillRect(5, 48, 118 * player.health/player.maxHealth, 19);
+      this.healthBar.fillRect(5, 48, Math.max(1, 118 * player.health/player.maxHealth), 19);
     }, this);
   },
 

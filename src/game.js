@@ -87,6 +87,10 @@ const GameScene = new Phaser.Class({
      */
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     engine.start();
+
+    this.events.on('playerDied', function () {
+      this.scene.start('DeathScene');
+    }.bind(this));
   },
 
   update: function () {
@@ -155,7 +159,6 @@ const GameScene = new Phaser.Class({
           if (actor) {
             if (actor !== player) {
               player.damage(actor);
-              this.events.emit('playerDamaged');
             }
           } else {
             player.x = groundLayer.tileToWorldX(x);
@@ -261,5 +264,5 @@ const game = new Phaser.Game({
   height: 576,
   parent: "game-container",
   pixelArt: true,
-  scene: [GameScene, GUIScene]
+  scene: [GameScene, GUIScene, DeathScene]
 });
