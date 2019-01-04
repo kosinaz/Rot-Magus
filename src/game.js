@@ -8,8 +8,9 @@ let groundLayer;
 let itemLayer;
 let enemies = [];
 let engineLocked = false;
-let mapdebug = false;
 let zoomed = false;
+let mapdebug = false;
+let heightmapDebug = false;
 
 const GameScene = new Phaser.Class({
 
@@ -98,6 +99,8 @@ const GameScene = new Phaser.Class({
      */
     var noise = new ROT.Noise.Simplex();
     var heightmap = [];
+    var max = 0;
+    var min = 0;
     for (var j = 0; j < map.height; j++) {
       heightmap[j] = [];
       for (var i = 0; i < map.width; i++) {
@@ -110,6 +113,8 @@ const GameScene = new Phaser.Class({
           noise.get(i / 64, j / 64) * 64 -
           noise.get(i / 32, j / 32) * 64 -
           noise.get(i / 16, j / 16) * 64;
+        max = heightmap[j][i] > max ? heightmap[j][i] : max;
+        min = heightmap[j][i] < min ? heightmap[j][i] : min;
         var tile;
         if (heightmap[j][i] > 192) {
 
@@ -132,6 +137,8 @@ const GameScene = new Phaser.Class({
       }
     }
 
+    
+    
     /**
      * Put down the start location
      */
@@ -145,6 +152,15 @@ const GameScene = new Phaser.Class({
       groundLayer.forEachTile(tile => (tile.alpha = 0));
     }
     itemLayer.forEachTile(tile => (tile.alpha = 0));
+    
+    if (heightmapDebug) {
+      for (var j = 0; j < map.height; j++) {
+        for (var i = 0; i < map.width; i++) {
+          tile = groundLayer.getTileAt(j,i);
+          tile.alpha = (heightmap[j][i] - min) / (max - min);
+        }
+      }
+    }
 
     /**
      * Create player
