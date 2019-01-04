@@ -54,7 +54,11 @@ const GameScene = new Phaser.Class({
      */
     featureLayer = features.createDynamicLayer("tiles", featureTiles, 0, 0);
     groundLayer = map.createBlankDynamicLayer("tiles", tileset, 0, 0);
-    var start = features.findObject("features", obj => obj.name === "start");
+    itemLayer = map.createBlankDynamicLayer("items", tileset, 0, 0);
+
+    /**
+     * Generate a random forest on the whole map
+     */
     groundLayer.weightedRandomize(5, 5, map.width - 5, map.height - 5, [{
         index: 0,
         weight: 50
@@ -76,7 +80,21 @@ const GameScene = new Phaser.Class({
         weight: 10
       } // Tree
     ]);
-    itemLayer = map.createBlankDynamicLayer("items", tileset, 0, 0);
+
+    /**
+     * Set the properties of every bush and tree
+     */
+    groundLayer.forEachTile(function (tile) {
+      if (tile.index === 16 || tile.index === 17) {
+        tile.properties.unpassable = true;
+        tile.properties.opaque = true;
+      }
+    });
+
+    /**
+     * Put down the start location
+     */
+    var start = features.findObject("features", obj => obj.name === "start");
     featureLayer.forEachTile(function(tile) {
       tile.alpha = 0;
       tile.index -= 1;
