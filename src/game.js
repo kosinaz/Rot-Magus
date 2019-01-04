@@ -8,6 +8,8 @@ let groundLayer;
 let itemLayer;
 let enemies = [];
 let engineLocked = false;
+let mapdebug = false;
+let zoomed = false;
 
 const GameScene = new Phaser.Class({
 
@@ -59,9 +61,9 @@ const GameScene = new Phaser.Class({
     /**
      * Generate a random forest on the whole map
      */
-    groundLayer.weightedRandomize(5, 5, map.width - 5, map.height - 5, [{
+    groundLayer.weightedRandomize(0, 0, map.width, map.height, [{
         index: 0,
-        weight: 50
+        weight: 100
       }, // Grass
       {
         index: 1,
@@ -73,7 +75,7 @@ const GameScene = new Phaser.Class({
       }, // Yellow Flower
       {
         index: 16,
-        weight: 5
+        weight: 3
       }, // Bush
       {
         index: 17,
@@ -92,27 +94,43 @@ const GameScene = new Phaser.Class({
     });
 
     /**
-     * Add mountains
+     * Generate height map
      */
-    var mountains = new ROT.Map.Cellular(map.width, map.height);
+    var noise = new ROT.Noise.Simplex();
+    var heightmap = [];
+    for (var j = 0; j < map.height; j++) {
+      heightmap[j] = [];
+      for (var i = 0; i < map.width; i++) {
 
-    /**
-     * Cells with 60% probability 
-     */
-    mountains.randomize(0.6);
+        /**
+         * Generate a smooth map then apply 3 levels of erosion
+         */
+        heightmap[j][i] = 
+          noise.get(i / 96, j / 96) * 256 -
+          noise.get(i / 64, j / 64) * 64 -
+          noise.get(i / 32, j / 32) * 64 -
+          noise.get(i / 16, j / 16) * 64;
+        var tile;
+        if (heightmap[j][i] > 192) {
 
-    /* generate and show four generations */
-    for (var i = 0; i < 4; i++) {
-      mountains.create();
-    }
-    mountains.create(function (x, y, value) {
-      if (!value) {
-        var tile = new Phaser.Tilemaps.Tile(groundLayer, 21, x, y, 24, 21, 24, 21);
-        tile.properties.unpassable = true;
-        tile.properties.opaque = true;
-        groundLayer.putTileAt(tile, x, y);
+          /**
+           * Change the highest parts to mountain rocks
+           */
+          tile = new Phaser.Tilemaps.Tile(groundLayer, 21, i, j, 24, 21, 24, 21);
+          groundLayer.putTileAt(tile, j, i);
+          tile.properties.unpassable = true;
+          tile.properties.opaque = true;
+        } else if (heightmap[j][i] < -192) {
+
+          /**
+           * Fill the lowest parts with water
+           */
+          tile = new Phaser.Tilemaps.Tile(groundLayer, 12, i, j, 24, 21, 24, 21);
+          groundLayer.putTileAt(tile, j, i);
+          tile.properties.unpassable = true;
+        }         
       }
-    });
+    }
 
     /**
      * Put down the start location
@@ -123,8 +141,9 @@ const GameScene = new Phaser.Class({
       tile.index -= 1;
       groundLayer.putTileAt(tile, tile.x + 122, tile.y + 122);
     }, this, start.x, start.y, start.width / 24, start.height / 21);
-    
-    groundLayer.forEachTile(tile => (tile.alpha = 0));
+    if(!mapdebug) {
+      groundLayer.forEachTile(tile => (tile.alpha = 0));
+    }
     itemLayer.forEachTile(tile => (tile.alpha = 0));
 
     /**
@@ -153,6 +172,9 @@ const GameScene = new Phaser.Class({
      * The default camera
      */
     const camera = this.cameras.main;
+    if (zoomed) {
+      camera.zoom = 0.1;
+    }
     camera.setPosition(372, 5);
     camera.setSize(648, 567);
     camera.startFollow(player, true, 1, 1, -12, -10);
@@ -272,7 +294,9 @@ const GameScene = new Phaser.Class({
     /**
      * Overlay fog of war on every tile that was already visible
      */
-    groundLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+    if (!mapdebug) {
+      groundLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+    }
     itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
     enemies.forEach(function (enemy) {
       enemy.alpha = 0;
