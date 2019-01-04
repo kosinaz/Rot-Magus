@@ -31,37 +31,72 @@ const GameScene = new Phaser.Class({
 
   create: function () {
 
-    map = this.make.tilemap({
+    features = this.make.tilemap({
       key: "map"
+    });
+
+    map = this.make.tilemap({
+      tileWidth: 24,
+      tileHeight: 21,
+      width: 256,
+      height: 256
     });
 
     /** 
      * Parameters are the name of the tileset in Tiled and then the key of the
      * tileset image in Phaser's cache (i.e. the name used in preload)
      */
-    const tileset = map.addTilesetImage("tiles", "tiles");
+    const featureTiles = features.addTilesetImage("tiles", "tiles");
+    const tileset = map.addTilesetImage("tiles");
 
     /**
      * Parameters: layer name (or index) from Tiled, tileset, x, y
      */
-    groundLayer = map.createDynamicLayer("tiles", tileset, 0, 0);
+    featureLayer = features.createDynamicLayer("tiles", featureTiles, 0, 0);
+    groundLayer = map.createBlankDynamicLayer("tiles", tileset, 0, 0);
+    var start = features.findObject("features", obj => obj.name === "start");
+    groundLayer.weightedRandomize(5, 5, map.width - 5, map.height - 5, [{
+        index: 0,
+        weight: 50
+      }, // Grass
+      {
+        index: 1,
+        weight: 1
+      }, // Red Flower
+      {
+        index: 2,
+        weight: 1
+      }, // Yellow Flower
+      {
+        index: 16,
+        weight: 5
+      }, // Bush
+      {
+        index: 17,
+        weight: 10
+      } // Tree
+    ]);
     itemLayer = map.createBlankDynamicLayer("items", tileset, 0, 0);
+    featureLayer.forEachTile(function(tile) {
+      tile.alpha = 0;
+      tile.index -= 1;
+      groundLayer.putTileAt(tile, tile.x + 122, tile.y + 122);
+    }, this, start.x, start.y, start.width / 24, start.height / 21);
+    
     groundLayer.forEachTile(tile => (tile.alpha = 0));
     itemLayer.forEachTile(tile => (tile.alpha = 0));
 
     /**
      * Create player
      */
-    var actor = map.findObject("objects", obj => obj.type === "player");
-    player = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1, true);
+    player = new Actor(this, 127 * 24, 127 * 21, "tiles", 25, true);
     player.setOrigin(0);
-    this.showFOV(actor.x, actor.y);
+    this.showFOV(player.x, player.y);
 
     /**
      * Create zombie
      */
-    actor = map.findObject("objects", obj => obj.type === "zombie");
-    var zombie = new Actor(this, actor.x, actor.y, "tiles", actor.gid - 1,);
+    var zombie = new Actor(this, 131 * 24, 127 * 21, "tiles", 50);
     zombie.setOrigin(0);
     zombie.alpha = 0;
     enemies.push(zombie);

@@ -170,7 +170,7 @@ GUIScene = new Phaser.Class({
       })[0];
       if (topTile) {
         itemLayer.putTileAt(
-          topTile.index + 1,
+          topTile.index,
           this.currentGround.data.x, 
           this.currentGround.data.y
         );
