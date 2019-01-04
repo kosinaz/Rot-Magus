@@ -92,6 +92,29 @@ const GameScene = new Phaser.Class({
     });
 
     /**
+     * Add mountains
+     */
+    var mountains = new ROT.Map.Cellular(map.width, map.height);
+
+    /**
+     * Cells with 60% probability 
+     */
+    mountains.randomize(0.6);
+
+    /* generate and show four generations */
+    for (var i = 0; i < 4; i++) {
+      mountains.create();
+    }
+    mountains.create(function (x, y, value) {
+      if (!value) {
+        var tile = new Phaser.Tilemaps.Tile(groundLayer, 21, x, y, 24, 21, 24, 21);
+        tile.properties.unpassable = true;
+        tile.properties.opaque = true;
+        groundLayer.putTileAt(tile, x, y);
+      }
+    });
+
+    /**
      * Put down the start location
      */
     var start = features.findObject("features", obj => obj.name === "start");
