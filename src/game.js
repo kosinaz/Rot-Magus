@@ -2,13 +2,14 @@ const fov = new ROT.FOV.PreciseShadowcasting(isTransparent);
 const scheduler = new ROT.Scheduler.Action();
 const engine = new ROT.Engine(scheduler)
 let map;
+let heightmap;
 let player;
 let marker;
 let groundLayer;
 let itemLayer;
 let enemies = [];
 let engineLocked = false;
-let zoomed = false;
+let minimap = false;
 let mapdebug = false;
 let heightmapDebug = false;
 
@@ -89,8 +90,10 @@ const GameScene = new Phaser.Class({
      */
     groundLayer.forEachTile(function (tile) {
       if (tile.index === 16 || tile.index === 17) {
-        tile.properties.unpassable = true;
-        tile.properties.opaque = true;
+        if (!mapdebug) {
+          tile.properties.unpassable = true;
+          tile.properties.opaque = true;
+        }
       }
     });
 
@@ -98,7 +101,7 @@ const GameScene = new Phaser.Class({
      * Generate height map
      */
     var noise = new ROT.Noise.Simplex();
-    var heightmap = [];
+    heightmap = [];
     var max = 0;
     var min = 0;
     for (var j = 0; j < map.height; j++) {
@@ -116,28 +119,41 @@ const GameScene = new Phaser.Class({
         max = heightmap[j][i] > max ? heightmap[j][i] : max;
         min = heightmap[j][i] < min ? heightmap[j][i] : min;
         var tile;
+        var index = -1;
+        var properties = {};
         if (heightmap[j][i] > 192) {
+          if (Math.random() < 0.995) {
 
-          /**
-           * Change the highest parts to mountain rocks
-           */
-          tile = new Phaser.Tilemaps.Tile(groundLayer, 21, i, j, 24, 21, 24, 21);
-          groundLayer.putTileAt(tile, j, i);
-          tile.properties.unpassable = true;
-          tile.properties.opaque = true;
+            /**
+             * Most of the times change the highest parts to mountain rocks
+             */
+            index = 21;
+            properties = {
+              unpassable: true,
+              opaque: true
+            }
+          } else {
+
+            /**
+             * Sometimes put down a spring
+             */
+            index = 11;
+          }
         } else if (heightmap[j][i] < -192) {
-
+          
           /**
            * Fill the lowest parts with water
            */
-          tile = new Phaser.Tilemaps.Tile(groundLayer, 12, i, j, 24, 21, 24, 21);
-          groundLayer.putTileAt(tile, j, i);
-          tile.properties.unpassable = true;
+          index = 12;
+          properties.unpassable = true;
         }         
+        if (index !== -1) {
+          tile = new Phaser.Tilemaps.Tile(groundLayer, index, i, j, 24, 21, 24, 21);
+          groundLayer.putTileAt(tile, j, i);
+          tile.properties = properties;
+        }
       }
     }
-
-    
     
     /**
      * Put down the start location
@@ -148,15 +164,128 @@ const GameScene = new Phaser.Class({
       tile.index -= 1;
       groundLayer.putTileAt(tile, tile.x + 122, tile.y + 122);
     }, this, start.x, start.y, start.width / 24, start.height / 21);
-    if(!mapdebug) {
+
+    /**
+     * Generate rivers
+     */
+    groundLayer.forEachTile(function(tile) {
+      var newTile;
+      if (tile.index === 11) {
+        var x = tile.x;
+        var y = tile.y;
+        for (var i = 0; i < 100; i += 1) {
+          if (heightmap[x + 1] && heightmap[x + 1][y] < heightmap[x][y]) {
+            newTile = groundLayer.putTileAt(12, ++x, y);
+            newTile.properties = {
+              unpassable: true
+            };
+            if (Math.random() > 0.7) {
+              newTile = groundLayer.putTileAt(12, ++x, y);
+              newTile.properties = {
+                unpassable: true
+              };
+              if (Math.random() > 0.7) {
+                newTile = groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, ++x, y);
+                if (newTile.index === 13) {
+                  newTile.properties = {
+                    unpassable: true
+                  };
+                }
+              }
+            }
+          } 
+          else if (heightmap[x - 1] && 
+            heightmap[x - 1][y] &&
+            heightmap[x] &&
+            heightmap[x][y] &&
+            heightmap[x - 1][y] < heightmap[x][y]) {
+            newTile = groundLayer.putTileAt(12, --x, y);
+            newTile.properties = {
+              unpassable: true
+            };
+            if (Math.random() > 0.7) {
+              newTile = groundLayer.putTileAt(12, --x, y);
+              newTile.properties = {
+                unpassable: true
+              };
+              if (Math.random() > 0.7) {
+                newTile = groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, --x, y);
+                if (newTile.index === 13) {
+                  newTile.properties = {
+                    unpassable: true
+                  };
+                }
+              }
+            }
+          }
+          if (heightmap[x] && heightmap[x][y + 1] && heightmap[x][y + 1] < heightmap[x][y]) {
+            newTile = groundLayer.putTileAt(12, x, ++y);
+            newTile.properties = {
+              unpassable: true
+            };
+            if (Math.random() > 0.7) {
+              newTile = groundLayer.putTileAt(12, x, ++y);
+              newTile.properties = {
+                unpassable: true
+              };
+              if (Math.random() > 0.7) {
+                newTile = groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, x, ++y);
+                if (newTile.index === 13) {
+                  newTile.properties = {
+                    unpassable: true
+                  };
+                }
+              }
+            }
+          } 
+          else if (heightmap[x] && heightmap[x][y - 1] && heightmap[x][y - 1] < heightmap[x][y]) {
+            newTile = groundLayer.putTileAt(12, x, --y);
+            newTile.properties = {
+              unpassable: true
+            };
+            if (Math.random() > 0.7) {
+              newTile = groundLayer.putTileAt(12, x, --y);
+              newTile.properties = {
+                unpassable: true
+              };
+              if (Math.random() > 0.7) {
+                newTile = groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, x, --y);
+                if (newTile.index === 13) {
+                  newTile.properties = {
+                    unpassable: true
+                  };
+                }
+              }
+            }
+          }
+        }
+        var lake = features.findObject("features", obj => obj.name === "lake");
+        this.originX = x - 3;
+        this.originY = y - 3;
+        this.lakeX = lake.x / 24;
+        this.lakeY = lake.y / 21;
+        featureLayer.forEachTile(function (tile) {
+          var newTile;
+          tile.alpha = 0;
+          newTile = groundLayer.putTileAt(tile.index - 1, tile.x - this.lakeX + this.originX, tile.y - this.lakeY + this.originY);
+          if (newTile.index === 12) {
+            newTile.properties = {
+              unpassable: true
+            };
+          }
+        }, this, lake.x / 24, lake.y / 21, lake.width / 24, lake.height / 21);
+      }
+    });
+
+    if (!mapdebug) {
       groundLayer.forEachTile(tile => (tile.alpha = 0));
     }
     itemLayer.forEachTile(tile => (tile.alpha = 0));
-    
+
     if (heightmapDebug) {
       for (var j = 0; j < map.height; j++) {
         for (var i = 0; i < map.width; i++) {
-          tile = groundLayer.getTileAt(j,i);
+          tile = groundLayer.getTileAt(j, i);
           tile.alpha = (heightmap[j][i] - min) / (max - min);
         }
       }
@@ -188,12 +317,13 @@ const GameScene = new Phaser.Class({
      * The default camera
      */
     const camera = this.cameras.main;
-    if (zoomed) {
-      camera.zoom = 0.1;
-    }
     camera.setPosition(372, 5);
     camera.setSize(648, 567);
     camera.startFollow(player, true, 1, 1, -12, -10);
+    if (minimap) {
+      smallCamera = this.cameras.add(635, 210, 400, 400);
+      smallCamera.zoom = 0.03;
+    }
 
     /**
      * Constrain the camera so that it isn't allowed to move outside the
@@ -262,7 +392,7 @@ const GameScene = new Phaser.Class({
 
         engineLocked = false;
 
-        this.time.delayedCall(250, function () {
+        this.time.delayedCall(10, function () {
             
           /**
            * Move the player towards the pointer
