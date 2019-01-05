@@ -145,11 +145,13 @@ const GameScene = new Phaser.Class({
            * Fill the lowest parts with water
            */
           index = 12;
-          properties.unpassable = true;
+          properties = {
+            unpassable: true
+          };
         }         
         if (index !== -1) {
           tile = new Phaser.Tilemaps.Tile(groundLayer, index, i, j, 24, 21, 24, 21);
-          groundLayer.putTileAt(tile, j, i);
+          tile = groundLayer.putTileAt(tile, j, i);
           tile.properties = properties;
         }
       }
