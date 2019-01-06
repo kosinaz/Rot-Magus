@@ -27,7 +27,7 @@ GUIScene = new Phaser.Class({
     /**
      * Add player character image
      */
-    this.add.image(16, 16, "tiles", 25);
+    this.add.image(16, 16, 'tilesetImage', 25);
 
     /**
      * Add experience level indicator
@@ -188,7 +188,7 @@ GUIScene = new Phaser.Class({
     }, this);
 
     game.events.on('playerDamaged', function () {
-      this.healthLabel.text = player.health + "/" + player.maxHealth;
+      this.healthLabel.text = player.health + '/' + player.maxHealth;
       this.healthBar.clear();
       this.healthBar.fillRect(5, 48, Math.max(1, 118 * player.health/player.maxHealth), 19);
     }, this);
@@ -223,50 +223,50 @@ GUIScene = new Phaser.Class({
           /**
            * If the player clicked on the helmet
            */
-          this.pickUpOrPutDownType("helmet", tileXY, x, y);
+          this.pickUpOrPutDownType('helmet', tileXY, x, y);
         } else if (tileXY.x === 7 && tileXY.y === 1) {
 
           /**
            * If the player clicked on the necklace
            */
-          this.pickUpOrPutDownType("necklace", tileXY, x, y);
+          this.pickUpOrPutDownType('necklace', tileXY, x, y);
         } else if (tileXY.x === 6 && tileXY.y === 2) {
 
           /**
            * If the player clicked on the ring
            */
-          this.pickUpOrPutDownType("ring", tileXY, x, y);
+          this.pickUpOrPutDownType('ring', tileXY, x, y);
         } else if (tileXY.x === 7 && tileXY.y === 2) {
 
           /**
            * If the player clicked on the cloak
            */
-          this.pickUpOrPutDownType("cloak", tileXY, x, y);
+          this.pickUpOrPutDownType('cloak', tileXY, x, y);
         } else if (tileXY.x === 8 && tileXY.y === 2) {
 
           /**
            * If the player clicked on the gloves
            */
-          this.pickUpOrPutDownType("gloves", tileXY, x, y);
+          this.pickUpOrPutDownType('gloves', tileXY, x, y);
         } else if (tileXY.x === 6 && tileXY.y === 3) {
 
           /**
            * If the player clicked on the weapon
            */
-          this.pickUpOrPutDownType("weapon", tileXY, x, y);
+          this.pickUpOrPutDownType('weapon', tileXY, x, y);
         } else if (tileXY.x === 7 && tileXY.y === 3) {
 
           /**
            * If the player clicked on the armor
            */
-          this.pickUpOrPutDownType("armor", tileXY, x, y);
+          this.pickUpOrPutDownType('armor', tileXY, x, y);
           
         } else if (tileXY.x === 8 && tileXY.y === 3) {
 
           /**
            * If the player clicked on the shield
            */
-          this.pickUpOrPutDownType("shield", tileXY, x, y);
+          this.pickUpOrPutDownType('shield', tileXY, x, y);
         }         
       } else if (tileXY.x > -1 && tileXY.x < 15) {
         if (tileXY.y > 4 && tileXY.y < 15) {
@@ -297,61 +297,61 @@ GUIScene = new Phaser.Class({
   },
 
   isHolding: function (requiredItemType) {
-    var heldItemType = "";
+    var heldItemType = '';
     if (!this.hold) {
       return;
     }
     switch (this.hold.frame.name) {
-      case 100: heldItemType = "weapon"; break;
-      case 101: heldItemType = "armor"; break;
-      case 102: heldItemType = "shield"; break;
-      case 103: heldItemType = "weapon"; break;
-      case 104: heldItemType = "helmet"; break;
-      case 105: heldItemType = "shield"; break;
-      case 106: heldItemType = "weapon"; break;
-      case 107: heldItemType = "weapon"; break;
-      case 108: heldItemType = "weapon"; break;
-      case 109: heldItemType = ""; break;
-      case 110: heldItemType = ""; break;
-      case 111: heldItemType = "armor"; break;
-      case 112: heldItemType = "weapon"; break;
-      case 113: heldItemType = "cloak"; break;
-      case 114: heldItemType = "weapon"; break;
-      case 115: heldItemType = "weapon"; break;
-      case 116: heldItemType = "weapon"; break;
-      case 117: heldItemType = "weapon"; break;
-      case 118: heldItemType = "cloak"; break;
-      case 119: heldItemType = "necklace"; break;
-      case 120: heldItemType = "ring"; break;
-      case 121: heldItemType = "shield"; break;
-      case 122: heldItemType = "weapon"; break;
-      case 123: heldItemType = "gloves"; break;
-      case 124: heldItemType = "weapon"; break;
-      case 125: heldItemType = "gloves"; break;
-      case 126: heldItemType = "helmet"; break;
-      case 127: heldItemType = "armor"; break;
-      case 128: heldItemType = ""; break;
-      case 129: heldItemType = "necklace"; break;
-      case 130: heldItemType = "ring"; break;
-      case 131: heldItemType = "weapon"; break;
-      case 132: heldItemType = "cloak"; break;
-      case 133: heldItemType = "shield"; break;
-      case 134: heldItemType = "weapon"; break;
-      case 135: heldItemType = "weapon"; break;
-      case 136: heldItemType = "weapon"; break;
-      case 137: heldItemType = "weapon"; break;
-      case 138: heldItemType = "armor"; break;
-      case 139: heldItemType = "weapon"; break;
-      case 140: heldItemType = "armor"; break;
-      case 141: heldItemType = "weapon"; break;
-      case 142: heldItemType = "gloves"; break;
-      case 143: heldItemType = "helmet"; break;
-      case 144: heldItemType = "shield"; break;
-      case 145: heldItemType = "weapon"; break;
-      case 146: heldItemType = "weapon"; break;
-      case 147: heldItemType = "necklace"; break;
-      case 148: heldItemType = "weapon"; break;
-      case 149: heldItemType = "shield"; break;
+      case 100: heldItemType = 'weapon'; break;
+      case 101: heldItemType = 'armor'; break;
+      case 102: heldItemType = 'shield'; break;
+      case 103: heldItemType = 'weapon'; break;
+      case 104: heldItemType = 'helmet'; break;
+      case 105: heldItemType = 'shield'; break;
+      case 106: heldItemType = 'weapon'; break;
+      case 107: heldItemType = 'weapon'; break;
+      case 108: heldItemType = 'weapon'; break;
+      case 109: heldItemType = ''; break;
+      case 110: heldItemType = ''; break;
+      case 111: heldItemType = 'armor'; break;
+      case 112: heldItemType = 'weapon'; break;
+      case 113: heldItemType = 'cloak'; break;
+      case 114: heldItemType = 'weapon'; break;
+      case 115: heldItemType = 'weapon'; break;
+      case 116: heldItemType = 'weapon'; break;
+      case 117: heldItemType = 'weapon'; break;
+      case 118: heldItemType = 'cloak'; break;
+      case 119: heldItemType = 'necklace'; break;
+      case 120: heldItemType = 'ring'; break;
+      case 121: heldItemType = 'shield'; break;
+      case 122: heldItemType = 'weapon'; break;
+      case 123: heldItemType = 'gloves'; break;
+      case 124: heldItemType = 'weapon'; break;
+      case 125: heldItemType = 'gloves'; break;
+      case 126: heldItemType = 'helmet'; break;
+      case 127: heldItemType = 'armor'; break;
+      case 128: heldItemType = ''; break;
+      case 129: heldItemType = 'necklace'; break;
+      case 130: heldItemType = 'ring'; break;
+      case 131: heldItemType = 'weapon'; break;
+      case 132: heldItemType = 'cloak'; break;
+      case 133: heldItemType = 'shield'; break;
+      case 134: heldItemType = 'weapon'; break;
+      case 135: heldItemType = 'weapon'; break;
+      case 136: heldItemType = 'weapon'; break;
+      case 137: heldItemType = 'weapon'; break;
+      case 138: heldItemType = 'armor'; break;
+      case 139: heldItemType = 'weapon'; break;
+      case 140: heldItemType = 'armor'; break;
+      case 141: heldItemType = 'weapon'; break;
+      case 142: heldItemType = 'gloves'; break;
+      case 143: heldItemType = 'helmet'; break;
+      case 144: heldItemType = 'shield'; break;
+      case 145: heldItemType = 'weapon'; break;
+      case 146: heldItemType = 'weapon'; break;
+      case 147: heldItemType = 'necklace'; break;
+      case 148: heldItemType = 'weapon'; break;
+      case 149: heldItemType = 'shield'; break;
     }
     return heldItemType === requiredItemType;
   },
@@ -389,7 +389,7 @@ GUIScene = new Phaser.Class({
         /**
          * If there is an item there pick up
          */
-        this.hold = this.add.image(x, y, "tiles", tile.index);
+        this.hold = this.add.image(x, y, 'tilesetImage', tile.index);
       }
       else {
 
@@ -420,7 +420,7 @@ GUIScene = new Phaser.Class({
       /**
        * If the player does not hold anything pick up the item
        */
-      this.hold = this.add.image(x, y, "tiles", tile.index);
+      this.hold = this.add.image(x, y, 'tilesetImage', tile.index);
       layer.removeTileAt(tileXY.x, tileXY.y);
     }
   }
@@ -439,7 +439,7 @@ function createInventory(scene) {
   });
   return map.createBlankDynamicLayer(
     'inventory', 
-    map.addTilesetImage('tiles'), 
+    map.addTilesetImage('tilesetImage'),
     4, 
     5
   );
@@ -461,7 +461,7 @@ function createGround(scene) {
 function addGround(map) {
   var layer = map.createBlankDynamicLayer(
     'ground ' + player.x + ',' + player.y,
-    map.addTilesetImage('tiles'),
+    map.addTilesetImage('tilesetImage'),
     4,
     341
   );

@@ -27,44 +27,43 @@ const GameScene = new Phaser.Class({
 
   preload: function () {
 
-    // preload the spritesheet that contains all the tiles of the map
-    this.load.spritesheet('tiles', 'assets/images/tiles.png', {
+    // preload the Tiled map of the random features that will be used 
+    // to fill the game map with random map features
+    this.load.tilemapTiledJSON('featureMap', 'data/map.json');
+
+    // preload the tileset image that contains all the tiles of the map
+    this.load.spritesheet('tilesetImage', 'assets/images/tiles.png', {
       frameWidth: 24,
       frameHeight: 21
     });
-
-    // preload the Tiled map of the random features that will be used 
-    // to generate the game map
-    this.load.tilemapTiledJSON('features', 'data/map.json');
   },
 
   create: function () {
 
-    // make the map of features based on the preloaded Tiled map
+    // make the tilemap of features based on the preloaded Tiled map
     const features = this.make.tilemap({
-      key: 'features'
+      key: 'featureMap'
     });
 
-    map = this.make.tilemap({
+    // create a dynamic layer for the tilemap layer in the map of features
+    const featureLayer = features.createDynamicLayer();
+    
+    // make a blank map that will be filled with random map features
+    const map = this.make.tilemap({
       tileWidth: 24,
       tileHeight: 21,
       width: 256,
       height: 256
     });
 
-    /** 
-     * Parameters are the name of the tileset in Tiled and then the key of the
-     * tileset image in Phaser's cache (i.e. the name used in preload)
-     */
-    const featureTiles = features.addTilesetImage('tiles', 'tiles');
-    const tileset = map.addTilesetImage('tiles');
+    // add a tileset to the game map based on the preloaded tileset image
+    const tilemap = map.addTilesetImage('tilesetImage');
 
-    /**
-     * Parameters: layer name (or index) from Tiled, tileset, x, y
-     */
-    featureLayer = features.createDynamicLayer('tiles', featureTiles);
-    groundLayer = map.createBlankDynamicLayer('tiles', tileset);
-    itemLayer = map.createBlankDynamicLayer('items', tileset);
+    // create a blank ground layer that will be filled with random map features
+    groundLayer = map.createBlankDynamicLayer('tiles', tilemap);
+
+    // create a blank item layer to show items on top of the ground layer
+    itemLayer = map.createBlankDynamicLayer('items', tilemap);
 
     /**
      * Generate a random forest on the whole map
@@ -300,14 +299,14 @@ const GameScene = new Phaser.Class({
     /**
      * Create player
      */
-    player = new Actor(this, 127 * 24, 127 * 21, 'tiles', 25, true);
+    player = new Actor(this, 127 * 24, 127 * 21, 'tilesetImage', 25, true);
     player.setOrigin(0);
     this.showFOV(player.x, player.y);
 
     /**
      * Create zombie
      */
-    var zombie = new Actor(this, 131 * 24, 127 * 21, 'tiles', 50);
+    var zombie = new Actor(this, 131 * 24, 127 * 21, 'tilesetImage', 50);
     zombie.setOrigin(0);
     zombie.alpha = 0;
     enemies.push(zombie);
@@ -389,7 +388,7 @@ const GameScene = new Phaser.Class({
 
       /** If passable turn the pointer yellow */
       marker.lineStyle(1, 0xffff00, 1);
-      marker.strokeRect(0, 0, map.tileWidth, map.tileHeight);
+      marker.strokeRect(0, 0, 24, 21);
 
       /**
        * Check if the player clicked
@@ -437,7 +436,7 @@ const GameScene = new Phaser.Class({
        * If unpassable turn the pointer grey
        */
       marker.lineStyle(1, 0x888888, 1);
-      marker.strokeRect(0, 0, map.tileWidth, map.tileHeight);
+      marker.strokeRect(0, 0, 24, 21);
     }
   },
 
