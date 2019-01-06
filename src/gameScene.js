@@ -26,17 +26,23 @@ const GameScene = new Phaser.Class({
     },
 
   preload: function () {
-    this.load.spritesheet("tiles", "assets/images/tiles.png", {
+
+    // preload the spritesheet that contains all the tiles of the map
+    this.load.spritesheet('tiles', 'assets/images/tiles.png', {
       frameWidth: 24,
       frameHeight: 21
     });
-    this.load.tilemapTiledJSON("map", "data/map.json");
+
+    // preload the Tiled map of the random features that will be used 
+    // to generate the game map
+    this.load.tilemapTiledJSON('features', 'data/map.json');
   },
 
   create: function () {
 
-    features = this.make.tilemap({
-      key: "map"
+    // make the map of features based on the preloaded Tiled map
+    const features = this.make.tilemap({
+      key: 'features'
     });
 
     map = this.make.tilemap({
@@ -50,15 +56,15 @@ const GameScene = new Phaser.Class({
      * Parameters are the name of the tileset in Tiled and then the key of the
      * tileset image in Phaser's cache (i.e. the name used in preload)
      */
-    const featureTiles = features.addTilesetImage("tiles", "tiles");
-    const tileset = map.addTilesetImage("tiles");
+    const featureTiles = features.addTilesetImage('tiles', 'tiles');
+    const tileset = map.addTilesetImage('tiles');
 
     /**
      * Parameters: layer name (or index) from Tiled, tileset, x, y
      */
-    featureLayer = features.createDynamicLayer("tiles", featureTiles, 0, 0);
-    groundLayer = map.createBlankDynamicLayer("tiles", tileset, 0, 0);
-    itemLayer = map.createBlankDynamicLayer("items", tileset, 0, 0);
+    featureLayer = features.createDynamicLayer('tiles', featureTiles);
+    groundLayer = map.createBlankDynamicLayer('tiles', tileset);
+    itemLayer = map.createBlankDynamicLayer('items', tileset);
 
     /**
      * Generate a random forest on the whole map
@@ -160,7 +166,7 @@ const GameScene = new Phaser.Class({
     /**
      * Put down the start location
      */
-    var start = features.findObject("features", obj => obj.name === "start");
+    var start = features.findObject('features', obj => obj.name === 'start');
     featureLayer.forEachTile(function (tile) {
       tile.alpha = 0;
       tile.index -= 1;
@@ -259,7 +265,7 @@ const GameScene = new Phaser.Class({
             }
           }
         }
-        var lake = features.findObject("features", obj => obj.name === "lake");
+        var lake = features.findObject('features', obj => obj.name === 'lake');
         this.originX = x - 3;
         this.originY = y - 3;
         this.lakeX = lake.x / 24;
@@ -294,14 +300,14 @@ const GameScene = new Phaser.Class({
     /**
      * Create player
      */
-    player = new Actor(this, 127 * 24, 127 * 21, "tiles", 25, true);
+    player = new Actor(this, 127 * 24, 127 * 21, 'tiles', 25, true);
     player.setOrigin(0);
     this.showFOV(player.x, player.y);
 
     /**
      * Create zombie
      */
-    var zombie = new Actor(this, 131 * 24, 127 * 21, "tiles", 50);
+    var zombie = new Actor(this, 131 * 24, 127 * 21, 'tiles', 50);
     zombie.setOrigin(0);
     zombie.alpha = 0;
     enemies.push(zombie);
