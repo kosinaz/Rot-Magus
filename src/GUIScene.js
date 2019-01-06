@@ -140,26 +140,12 @@ GUIScene = new Phaser.Class({
       fill: '#000000'
     });
     this.wisdomLabel.setOrigin(1, 0.5);
-    
-    /**
-     * Create inventory
-     */
-    this.inventory = createInventory(this);
-    this.inventory.putTileAt(114, 0, 5);
-    this.inventory.putTileAt(138, 1, 5);
-    this.inventory.putTileAt(108, 2, 5);
-    this.inventory.putTileAt(102, 3, 5);
-
-    this.ground = createGround(this);
-    this.grounds = {};
-    this.grounds[player.x + ',' + player.y] = addGround(this.ground);
-    this.currentGround = this.grounds[player.x + ',' + player.y];
 
     /**
      * Grab a reference to the Game Scene
      */
     var game = this.scene.get('GameScene');
-
+    this.groundLayer = game.groundLayer;
     /**
      * Listen for events from it
      */
@@ -181,7 +167,7 @@ GUIScene = new Phaser.Class({
         );
       };
       if (!this.grounds[player.x + ',' + player.y]) {
-        this.grounds[player.x + ',' + player.y] = addGround(this.ground);
+        this.grounds[player.x + ',' + player.y] = addGround(this.ground, this.groundLayer);
       }
       this.currentGround = this.grounds[player.x + ',' + player.y];
       this.currentGround.alpha = 1;
@@ -192,6 +178,20 @@ GUIScene = new Phaser.Class({
       this.healthBar.clear();
       this.healthBar.fillRect(5, 48, Math.max(1, 118 * player.health/player.maxHealth), 19);
     }, this);
+
+    /**
+    * Create inventory
+    */
+    this.inventory = createInventory(this);
+    this.inventory.putTileAt(114, 0, 5);
+    this.inventory.putTileAt(138, 1, 5);
+    this.inventory.putTileAt(108, 2, 5);
+    this.inventory.putTileAt(102, 3, 5);
+
+    this.ground = createGround(this);
+    this.grounds = {};
+    this.grounds[player.x + ',' + player.y] = addGround(this.ground, this.groundLayer);
+    this.currentGround = this.grounds[player.x + ',' + player.y];
   },
 
   update: function () {
@@ -458,7 +458,7 @@ function createGround(scene) {
   });
 }
 
-function addGround(map) {
+function addGround(map, groundLayer) {
   var layer = map.createBlankDynamicLayer(
     'ground ' + player.x + ',' + player.y,
     map.addTilesetImage('tilesetImage'),

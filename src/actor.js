@@ -1,8 +1,9 @@
 let Actor = new Phaser.Class({
   Extends: Phaser.GameObjects.Image,
   initialize:
-    function Actor(scene, x, y, texture, frame, isPlayer) {
-      Phaser.GameObjects.Image.call(this, scene, x, y, texture, frame);
+    function Actor(scene, x, y, texture, frame, layer, isPlayer) {
+      Phaser.GameObjects.Image.call(this, scene, x * 24, y * 21, texture, frame);
+      this.layer = layer;
       this.isPlayer = isPlayer;
       this.target = {
         x: this.getX(),
@@ -11,6 +12,7 @@ let Actor = new Phaser.Class({
       this.speed = 4;
       this.health = 120;
       this.maxHealth = 120;
+      this.fov = scene.fov;
       scene.add.existing(this);
       scheduler.add(this, true);
     },
@@ -24,20 +26,20 @@ let Actor = new Phaser.Class({
     }
   },
   getX: function () {
-    return groundLayer.worldToTileX(this.x);
+    return this.layer.worldToTileX(this.x);
   },
   getY: function () {
-    return groundLayer.worldToTileY(this.y);
+    return this.layer.worldToTileY(this.y);
   },
   isAtXY: function (x, y) {
     return this.getX() === x && this.getY() === y;
   },
   isAtWorldXY: function (x, y) {
-    return this.isAtXY(groundLayer.worldToTileX(x), groundLayer.worldToTileY(y));
+    return this.isAtXY(this.layer.worldToTileX(x), this.layer.worldToTileY(y));
   },
   scanFOV: function () {
     this.newTarget = null;
-    fov.compute(this.getX(), this.getY(), 13, function (x, y) {
+    this.fov.compute(this.getX(), this.getY(), 13, function (x, y) {
       if (!this.newTarget && player.isAtXY(x, y)) {
         this.newTarget = {
           x: x,
@@ -64,8 +66,8 @@ let Actor = new Phaser.Class({
     if (actor) {
       this.damage(actor);
     } else {
-      this.x = groundLayer.tileToWorldX(x);
-      this.y = groundLayer.tileToWorldY(y);
+      this.x = this.layer.tileToWorldX(x);
+      this.y = this.layer.tileToWorldY(y);
     }
   },
   damage: function (actor) {

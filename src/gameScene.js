@@ -1,11 +1,10 @@
-const fov = new ROT.FOV.PreciseShadowcasting(isTransparent);
+
 const scheduler = new ROT.Scheduler.Action();
 const engine = new ROT.Engine(scheduler)
 let map;
 let heightmap;
 let player;
 let marker;
-let groundLayer;
 let itemLayer;
 let enemies = [];
 let engineLocked = false;
@@ -24,6 +23,8 @@ const GameScene = new Phaser.Class({
         key: 'GameScene'
       });
     },
+
+  groundLayer: {},
 
   preload: function () {
 
@@ -60,15 +61,18 @@ const GameScene = new Phaser.Class({
     const tilemap = map.addTilesetImage('tilesetImage');
 
     // create a blank ground layer that will be filled with random map features
-    groundLayer = map.createBlankDynamicLayer('tiles', tilemap);
+    this.groundLayer = map.createBlankDynamicLayer('tiles', tilemap);
 
     // create a blank item layer to show items on top of the ground layer
     itemLayer = map.createBlankDynamicLayer('items', tilemap);
 
+    // create a FOV calculator
+    this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
+
     /**
      * Generate a random forest on the whole map
      */
-    groundLayer.weightedRandomize(0, 0, map.width, map.height, [{
+    this.groundLayer.weightedRandomize(0, 0, map.width, map.height, [{
         index: 0,
         weight: 100
       }, // Grass
@@ -93,7 +97,7 @@ const GameScene = new Phaser.Class({
     /**
      * Set the properties of every bush and tree
      */
-    groundLayer.forEachTile(function (tile) {
+    this.groundLayer.forEachTile(function (tile) {
       if (tile.index === 16 || tile.index === 17) {
         if (!mapdebug) {
           tile.properties.unpassable = true;
@@ -155,8 +159,8 @@ const GameScene = new Phaser.Class({
           };
         }
         if (index !== -1) {
-          tile = new Phaser.Tilemaps.Tile(groundLayer, index, i, j, 24, 21, 24, 21);
-          tile = groundLayer.putTileAt(tile, j, i);
+          tile = new Phaser.Tilemaps.Tile(this.groundLayer, index, i, j, 24, 21, 24, 21);
+          tile = this.groundLayer.putTileAt(tile, j, i);
           tile.properties = properties;
         }
       }
@@ -169,30 +173,30 @@ const GameScene = new Phaser.Class({
     featureLayer.forEachTile(function (tile) {
       tile.alpha = 0;
       tile.index -= 1;
-      groundLayer.putTileAt(tile, tile.x + 122, tile.y + 122);
+      this.groundLayer.putTileAt(tile, tile.x + 122, tile.y + 122);
     }, this, start.x, start.y, start.width / 24, start.height / 21);
 
     /**
      * Generate rivers
      */
-    groundLayer.forEachTile(function (tile) {
+    this.groundLayer.forEachTile(function (tile) {
       var newTile;
       if (tile.index === 11) {
         var x = tile.x;
         var y = tile.y;
         for (var i = 0; i < 100; i += 1) {
           if (heightmap[x + 1] && heightmap[x + 1][y] < heightmap[x][y]) {
-            newTile = groundLayer.putTileAt(12, ++x, y);
+            newTile = this.groundLayer.putTileAt(12, ++x, y);
             newTile.properties = {
               unpassable: true
             };
             if (Math.random() > 0.7) {
-              newTile = groundLayer.putTileAt(12, ++x, y);
+              newTile = this.groundLayer.putTileAt(12, ++x, y);
               newTile.properties = {
                 unpassable: true
               };
               if (Math.random() > 0.7) {
-                newTile = groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, ++x, y);
+                newTile = this.groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, ++x, y);
                 if (newTile.index === 13) {
                   newTile.properties = {
                     unpassable: true
@@ -205,17 +209,17 @@ const GameScene = new Phaser.Class({
             heightmap[x] &&
             heightmap[x][y] &&
             heightmap[x - 1][y] < heightmap[x][y]) {
-            newTile = groundLayer.putTileAt(12, --x, y);
+            newTile = this.groundLayer.putTileAt(12, --x, y);
             newTile.properties = {
               unpassable: true
             };
             if (Math.random() > 0.7) {
-              newTile = groundLayer.putTileAt(12, --x, y);
+              newTile = this.groundLayer.putTileAt(12, --x, y);
               newTile.properties = {
                 unpassable: true
               };
               if (Math.random() > 0.7) {
-                newTile = groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, --x, y);
+                newTile = this.groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, --x, y);
                 if (newTile.index === 13) {
                   newTile.properties = {
                     unpassable: true
@@ -225,17 +229,17 @@ const GameScene = new Phaser.Class({
             }
           }
           if (heightmap[x] && heightmap[x][y + 1] && heightmap[x][y + 1] < heightmap[x][y]) {
-            newTile = groundLayer.putTileAt(12, x, ++y);
+            newTile = this.groundLayer.putTileAt(12, x, ++y);
             newTile.properties = {
               unpassable: true
             };
             if (Math.random() > 0.7) {
-              newTile = groundLayer.putTileAt(12, x, ++y);
+              newTile = this.groundLayer.putTileAt(12, x, ++y);
               newTile.properties = {
                 unpassable: true
               };
               if (Math.random() > 0.7) {
-                newTile = groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, x, ++y);
+                newTile = this.groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, x, ++y);
                 if (newTile.index === 13) {
                   newTile.properties = {
                     unpassable: true
@@ -244,17 +248,17 @@ const GameScene = new Phaser.Class({
               }
             }
           } else if (heightmap[x] && heightmap[x][y - 1] && heightmap[x][y - 1] < heightmap[x][y]) {
-            newTile = groundLayer.putTileAt(12, x, --y);
+            newTile = this.groundLayer.putTileAt(12, x, --y);
             newTile.properties = {
               unpassable: true
             };
             if (Math.random() > 0.7) {
-              newTile = groundLayer.putTileAt(12, x, --y);
+              newTile = this.groundLayer.putTileAt(12, x, --y);
               newTile.properties = {
                 unpassable: true
               };
               if (Math.random() > 0.7) {
-                newTile = groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, x, --y);
+                newTile = this.groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, x, --y);
                 if (newTile.index === 13) {
                   newTile.properties = {
                     unpassable: true
@@ -272,7 +276,7 @@ const GameScene = new Phaser.Class({
         featureLayer.forEachTile(function (tile) {
           var newTile;
           tile.alpha = 0;
-          newTile = groundLayer.putTileAt(tile.index - 1, tile.x - this.lakeX + this.originX, tile.y - this.lakeY + this.originY);
+          newTile = this.groundLayer.putTileAt(tile.index - 1, tile.x - this.lakeX + this.originX, tile.y - this.lakeY + this.originY);
           if (newTile.index === 12) {
             newTile.properties = {
               unpassable: true
@@ -280,17 +284,17 @@ const GameScene = new Phaser.Class({
           }
         }, this, lake.x / 24, lake.y / 21, lake.width / 24, lake.height / 21);
       }
-    });
+    }, this);
 
     if (!mapdebug) {
-      groundLayer.forEachTile(tile => (tile.alpha = 0));
+      this.groundLayer.forEachTile(tile => (tile.alpha = 0));
     }
     itemLayer.forEachTile(tile => (tile.alpha = 0));
 
     if (heightmapDebug) {
       for (var j = 0; j < map.height; j++) {
         for (var i = 0; i < map.width; i++) {
-          tile = groundLayer.getTileAt(j, i);
+          tile = this.groundLayer.getTileAt(j, i);
           tile.alpha = (heightmap[j][i] - min) / (max - min);
         }
       }
@@ -299,14 +303,14 @@ const GameScene = new Phaser.Class({
     /**
      * Create player
      */
-    player = new Actor(this, 127 * 24, 127 * 21, 'tilesetImage', 25, true);
+    player = new Actor(this, 127, 127, 'tilesetImage', 25, this.groundLayer, true);
     player.setOrigin(0);
     this.showFOV(player.x, player.y);
 
     /**
      * Create zombie
      */
-    var zombie = new Actor(this, 131 * 24, 127 * 21, 'tilesetImage', 50);
+    var zombie = new Actor(this, 131, 127, 'tilesetImage', 50, this.groundLayer);
     zombie.setOrigin(0);
     zombie.alpha = 0;
     enemies.push(zombie);
@@ -384,7 +388,7 @@ const GameScene = new Phaser.Class({
     /**
      * Check if the next position if passable
      */
-    if (isPassableAtWorldXY(x, y)) {
+    if (this.isPassableAtWorldXY(x, y)) {
 
       /** If passable turn the pointer yellow */
       marker.lineStyle(1, 0xffff00, 1);
@@ -402,16 +406,16 @@ const GameScene = new Phaser.Class({
           /**
            * Move the player towards the pointer
            */
-          x = groundLayer.worldToTileX(x);
-          y = groundLayer.worldToTileY(y);
-          var actor = getActorAt(x, y);
+          x = this.groundLayer.worldToTileX(x);
+          y = this.groundLayer.worldToTileY(y);
+          var actor = this.getActorAt(x, y);
           if (actor) {
             if (actor !== player) {
               player.damage(actor);
             }
           } else {
-            player.x = groundLayer.tileToWorldX(x);
-            player.y = groundLayer.tileToWorldY(y);
+            player.x = this.groundLayer.tileToWorldX(x);
+            player.y = this.groundLayer.tileToWorldY(y);
           }
 
           /**
@@ -446,7 +450,7 @@ const GameScene = new Phaser.Class({
      * Overlay fog of war on every tile that was already visible
      */
     if (!mapdebug) {
-      groundLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+      this.groundLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
     }
     itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
     enemies.forEach(function (enemy) {
@@ -456,55 +460,56 @@ const GameScene = new Phaser.Class({
     /**
      * Find the visible tiles
      */
-    tileXY = groundLayer.worldToTileXY(x, y);
-    fov.compute(tileXY.x, tileXY.y, 13, function (x, y) {
+    tileXY = this.groundLayer.worldToTileXY(x, y);
+    this.fov.compute(tileXY.x, tileXY.y, 13, function (x, y) {
 
       /**
        * Show the visible tiles
        */
-      var tile = groundLayer.getTileAt(x, y);
+      var tile = this.groundLayer.getTileAt(x, y);
       if (tile) {
         tile.alpha = 1;
         tile = itemLayer.getTileAt(x, y);
         if (tile) {
           tile.alpha = 1;
         }
-        var actor = getActorAt(x, y);
+        var actor = this.getActorAt(x, y);
         if (actor) {
           actor.alpha = 1;
         }
       }
-    });
+    }.bind(this));
   },
-});
 
-function isTransparent(x, y) {
-  var playerXY, tile;
+  isTransparent: function (x, y) {
+    var playerXY, tile;
 
-  /**
-   * Return true if the position is the player's position or if it is not opaque
-   */
-  playerXY = groundLayer.worldToTileXY(player.x, player.y);
-  tile = groundLayer.getTileAt(x, y);
-  return x === playerXY.x && y === playerXY.y ||
-    tile && !tile.properties.opaque;
-}
+    /**
+     * Return true if the position is the player's position or if it is not opaque
+     */
+    playerXY = this.groundLayer.worldToTileXY(player.x, player.y);
+    tile = this.groundLayer.getTileAt(x, y);
+    return x === playerXY.x && y === playerXY.y ||
+      tile && !tile.properties.opaque;
+  },
 
-function isPassableAtXY(x, y) {
-  return !groundLayer.getTileAt(x, y).properties.unpassable;
-}
+  isPassableAtXY: function (x, y) {
+    return !this.groundLayer.getTileAt(x, y).properties.unpassable;
+  },
 
-function isPassableAtWorldXY(x, y) {
-  return !groundLayer.getTileAtWorldXY(x, y).properties.unpassable;
-}
+  isPassableAtWorldXY: function (x, y) {
+    return !this.groundLayer.getTileAtWorldXY(x, y).properties.unpassable;
+  },
 
-function getActorAt(x, y) {
-  if (player.isAtXY(x, y)) {
-    return player;
-  }
-  for (var i = 0; i < enemies.length; i += 1) {
-    if (enemies[i].isAtXY(x, y)) {
-      return enemies[i];
+  getActorAt: function (x, y) {
+    if (player.isAtXY(x, y)) {
+      return player;
+    }
+    for (var i = 0; i < enemies.length; i += 1) {
+      if (enemies[i].isAtXY(x, y)) {
+        return enemies[i];
+      }
     }
   }
-}
+
+});
