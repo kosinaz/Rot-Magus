@@ -146,6 +146,7 @@ GUIScene = new Phaser.Class({
      */
     var game = this.scene.get('GameScene');
     this.groundLayer = game.groundLayer;
+    this.itemLayer = game.itemLayer;
     /**
      * Listen for events from it
      */
@@ -155,13 +156,13 @@ GUIScene = new Phaser.Class({
         isNotEmpty: true
       })[0];
       if (topTile) {
-        itemLayer.putTileAt(
+        this.itemLayer.putTileAt(
           topTile.index,
           this.currentGround.data.x, 
           this.currentGround.data.y
         );
       } else {
-        itemLayer.removeTileAt(
+        this.itemLayer.removeTileAt(
           this.currentGround.data.x,
           this.currentGround.data.y
         );

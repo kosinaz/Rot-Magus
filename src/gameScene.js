@@ -5,7 +5,6 @@ let map;
 let heightmap;
 let player;
 let marker;
-let itemLayer;
 let enemies = [];
 let engineLocked = false;
 let minimap = false;
@@ -25,6 +24,8 @@ const GameScene = new Phaser.Class({
     },
 
   groundLayer: {},
+  itemLayer: {},
+  fov: {},
 
   preload: function () {
 
@@ -64,7 +65,7 @@ const GameScene = new Phaser.Class({
     this.groundLayer = map.createBlankDynamicLayer('tiles', tilemap);
 
     // create a blank item layer to show items on top of the ground layer
-    itemLayer = map.createBlankDynamicLayer('items', tilemap);
+    this.itemLayer = map.createBlankDynamicLayer('items', tilemap);
 
     // create a FOV calculator
     this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
@@ -289,7 +290,7 @@ const GameScene = new Phaser.Class({
     if (!mapdebug) {
       this.groundLayer.forEachTile(tile => (tile.alpha = 0));
     }
-    itemLayer.forEachTile(tile => (tile.alpha = 0));
+    this.itemLayer.forEachTile(tile => (tile.alpha = 0));
 
     if (heightmapDebug) {
       for (var j = 0; j < map.height; j++) {
@@ -452,7 +453,7 @@ const GameScene = new Phaser.Class({
     if (!mapdebug) {
       this.groundLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
     }
-    itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+    this.itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
     enemies.forEach(function (enemy) {
       enemy.alpha = 0;
     });
@@ -469,7 +470,7 @@ const GameScene = new Phaser.Class({
       var tile = this.groundLayer.getTileAt(x, y);
       if (tile) {
         tile.alpha = 1;
-        tile = itemLayer.getTileAt(x, y);
+        tile = this.itemLayer.getTileAt(x, y);
         if (tile) {
           tile.alpha = 1;
         }
