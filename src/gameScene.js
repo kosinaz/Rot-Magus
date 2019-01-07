@@ -70,42 +70,8 @@ const GameScene = new Phaser.Class({
     // create a FOV calculator
     this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
 
-    /**
-     * Generate a random forest on the whole map
-     */
-    this.groundLayer.weightedRandomize(0, 0, map.width, map.height, [{
-        index: 0,
-        weight: 100
-      }, // Grass
-      {
-        index: 1,
-        weight: 1
-      }, // Red Flower
-      {
-        index: 2,
-        weight: 1
-      }, // Yellow Flower
-      {
-        index: 16,
-        weight: 3
-      }, // Bush
-      {
-        index: 17,
-        weight: 10
-      } // Tree
-    ]);
-
-    /**
-     * Set the properties of every bush and tree
-     */
-    this.groundLayer.forEachTile(function (tile) {
-      if (tile.index === 16 || tile.index === 17) {
-        if (!mapdebug) {
-          tile.properties.unpassable = true;
-          tile.properties.opaque = true;
-        }
-      }
-    });
+    // generate a random forest on the whole map
+    vegetation.add(this.groundLayer);
 
     /**
      * Generate height map
@@ -514,3 +480,5 @@ const GameScene = new Phaser.Class({
   }
 
 });
+
+
