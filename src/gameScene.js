@@ -71,7 +71,7 @@ const GameScene = new Phaser.Class({
     this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
 
     // generate a random forest on the whole map
-    vegetation.add(this.groundLayer);
+    Vegetation.add(this.groundLayer);
 
     /**
      * Generate height map
