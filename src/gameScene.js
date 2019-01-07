@@ -73,65 +73,8 @@ const GameScene = new Phaser.Class({
     // generate a random forest on the whole map
     Vegetation.add(this.groundLayer);
 
-    /**
-     * Generate height map
-     */
-    var noise = new ROT.Noise.Simplex();
-    heightmap = [];
-    var max = 0;
-    var min = 0;
-    for (var j = 0; j < map.height; j++) {
-      heightmap[j] = [];
-      for (var i = 0; i < map.width; i++) {
-
-        /**
-         * Generate a smooth map then apply 3 levels of erosion
-         */
-        heightmap[j][i] =
-          noise.get(i / 96, j / 96) * 256 -
-          noise.get(i / 64, j / 64) * 64 -
-          noise.get(i / 32, j / 32) * 64 -
-          noise.get(i / 16, j / 16) * 64;
-        max = heightmap[j][i] > max ? heightmap[j][i] : max;
-        min = heightmap[j][i] < min ? heightmap[j][i] : min;
-        var tile;
-        var index = -1;
-        var properties = {};
-        if (heightmap[j][i] > 192) {
-          if (Math.random() < 0.995) {
-
-            /**
-             * Most of the times change the highest parts to mountain rocks
-             */
-            index = 21;
-            properties = {
-              unpassable: true,
-              opaque: true
-            }
-          } else {
-
-            /**
-             * Sometimes put down a spring
-             */
-            index = 11;
-          }
-        } else if (heightmap[j][i] < -192) {
-
-          /**
-           * Fill the lowest parts with water
-           */
-          index = 12;
-          properties = {
-            unpassable: true
-          };
-        }
-        if (index !== -1) {
-          tile = new Phaser.Tilemaps.Tile(this.groundLayer, index, i, j, 24, 21, 24, 21);
-          tile = this.groundLayer.putTileAt(tile, j, i);
-          tile.properties = properties;
-        }
-      }
-    }
+    // generate height map
+    Heightmap.add(this.groundLayer);
 
     /**
      * Put down the start location
@@ -480,5 +423,3 @@ const GameScene = new Phaser.Class({
   }
 
 });
-
-
