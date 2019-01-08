@@ -7,8 +7,8 @@ let player;
 let marker;
 let enemies = [];
 let engineLocked = false;
-let minimap = false;
-let mapdebug = false;
+let minimap = true;
+let mapdebug = true;
 let heightmapDebug = false;
 
 const GameScene = new Phaser.Class({
@@ -213,7 +213,7 @@ const GameScene = new Phaser.Class({
     /**
      * Create player
      */
-    player = new Actor(this, 127, 127, 'tilesetImage', 25, this.groundLayer, true);
+    player = new Actor(this, 12, 12, 'tilesetImage', 25, this.groundLayer, true);
     player.setOrigin(0);
     this.showFOV(player.x, player.y);
 

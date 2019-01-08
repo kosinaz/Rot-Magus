@@ -1,53 +1,70 @@
 const Heightmap = {
   add: function (layer) {
     const noise = new ROT.Noise.Simplex();
-    const heightmap = [];
-    let tile = {};
-    let index = -1;
-    let properties = {};
-    let x, y;
+    const map = [
+      [],
+      [], 
+      []
+    ];
+    let x, y, z;
     for (x = 0; x < layer.layer.width; x += 1) {
-      heightmap[x] = [];
       for (y = 0; y < layer.layer.height; y += 1) {
 
-        // generate a smooth map then apply 3 levels of erosion
-        heightmap[x][y] =
-          noise.get(x / 96, y / 96) * 256 -
-          noise.get(x / 64, y / 64) * 64 -
-          noise.get(x / 32, y / 32) * 64 -
-          noise.get(x / 16, y / 16) * 64;
-        if (heightmap[x][y] > 192) {
-          if (Math.random() < 0.995) {
+        // determine the height level of the tile with a random noise based on
+        // its position, first with a very high, level 128 smoothness to 
+        // determine the higher and lowed parts of the map, then with a low, 
+        // level 32 smoothness to generate the detailed features, and finally
+        // convert it to integer, resulting in a height map with 3 well-defined
+        // levels: 0 lakes/deep forest, 1 grasslands, 2 mountains/deserts
+        z = ~~(noise.get(x / 128, y / 128) + noise.get(x / 32, y / 32)) + 1;
 
-            // most of the times change the highest parts to mountain rocks
-            index = 21;
-            properties = {
-              unpassable: true,
-              opaque: true
-            };
-          }
-          else {
-
-            // sometimes put down a spring
-            index = 11;
-          }
-        }
-        else if (heightmap[x][y] < -192) {
-
-          // fill the lowest parts with water
-          index = 12;
-          properties = {
-            unpassable: true
-          };
-        }
-        if (index !== -1) {
-
-          // add the mountains, springs and lakes to the map
-          tile = new Phaser.Tilemaps.Tile(layer, index, x, y, 24, 21, 24, 21);
-          tile = layer.putTileAt(tile, x, y);
-          tile.properties = properties;
-        }
+        // sort the connecting features to separate groups
+        this.sort(map, x, y, z);
       }
+    }
+    console.log(map);
+  },
+  sort: function (map, x, y, z) {
+    let i, j;
+    let extension = false;
+    for (i = 0; i < map[z].length; i += 1) {
+
+      // check all the separate features
+      if (map[z][i].includes((x - 1) + ',' + y)) {
+
+        // if the left neighbor of the current tile has the same height, extend
+        // the shape of the neighboring feature with the current tile
+        extension = true;
+        map[z][i].push(x + ',' + y);
+        for (j = 1; j < map[z].length; j += 1) {
+
+          // check all the separate features again except the neighboring one
+          if (map[z][j].includes(x + ',' + (y - 1)) && i !== j) {
+
+            // if the top neighbor of the current tile also has the same height,
+            // concatenate the two neighboring shapes in the first shape, 
+            // remove the second one, and stop looking for additional neighbors
+            map[z][i] = map[z][i].concat(map[z][j]);            
+            map[z].splice(map[z].indexOf(map[z][j]), 1);
+            break;
+          }
+        }
+      } else if (map[z][i].includes(x + ',' + (y - 1))) {
+
+        // if the left neighbor of the current tile does not have the same 
+        // height, but the top one has, extend the shape of the neighboring
+        // feature with the current tile, and stop looking for additional 
+        // neighbors
+        map[z][i].push(x + ',' + y);
+        extension = true;
+        break;
+      }
+    }
+    if (!extension) {
+
+      // if no neighbor has the same height add the current tile as a new 
+      // feature of that height level
+      map[z].push([x + ',' + y]);
     }
   }
 };
