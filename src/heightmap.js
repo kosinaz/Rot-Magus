@@ -22,7 +22,7 @@ const Heightmap = {
         this.sort(map, x, y, z);
       }
     }
-    console.log(map);
+    return map;
   },
   sort: function (map, x, y, z) {
     let i, j;

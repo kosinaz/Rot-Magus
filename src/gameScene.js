@@ -7,8 +7,8 @@ let player;
 let marker;
 let enemies = [];
 let engineLocked = false;
-let minimap = true;
-let mapdebug = true;
+let minimap = false;
+let mapdebug = false;
 let heightmapDebug = false;
 
 const GameScene = new Phaser.Class({
@@ -69,12 +69,12 @@ const GameScene = new Phaser.Class({
 
     // create a FOV calculator
     this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
+    
+    // generate height map
+    const heightmap = Heightmap.add(this.groundLayer);
 
     // generate a random forest on the whole map
-    Vegetation.add(this.groundLayer);
-
-    // generate height map
-    Heightmap.add(this.groundLayer);
+    Vegetation.add(this.groundLayer, heightmap[1]);
 
     /**
      * Put down the start location
@@ -213,17 +213,17 @@ const GameScene = new Phaser.Class({
     /**
      * Create player
      */
-    player = new Actor(this, 12, 12, 'tilesetImage', 25, this.groundLayer, true);
+    player = new Actor(this, 127, 127, 'tilesetImage', 25, this.groundLayer, true);
     player.setOrigin(0);
     this.showFOV(player.x, player.y);
 
     /**
      * Create zombie
      */
-    var zombie = new Actor(this, 131, 127, 'tilesetImage', 50, this.groundLayer);
-    zombie.setOrigin(0);
-    zombie.alpha = 0;
-    enemies.push(zombie);
+    // var zombie = new Actor(this, 131, 127, 'tilesetImage', 50, this.groundLayer);
+    // zombie.setOrigin(0);
+    // zombie.alpha = 0;
+    // enemies.push(zombie);
 
     /**
      * Create pointer marker
