@@ -4,11 +4,15 @@ const Highland = {
       if (Math.random() > 0.3) {
         area.forEach(function (position) {
           let XY = position.split(',');
-          let tile = layer.putTileAt(21, XY[0], XY[1]);
-          if (!mapdebug) {
-            tile.properties = {
-              unpassable: true,
-              opaque: true
+          if (Math.random() > 0.99) {
+            layer.putTileAt(11, XY[0], XY[1]);
+          } else {
+            let tile = layer.putTileAt(21, XY[0], XY[1]);
+            if (!mapdebug) {
+              tile.properties = {
+                unpassable: true,
+                opaque: true
+              }
             }
           }
         }, layer);

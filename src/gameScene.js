@@ -95,7 +95,7 @@ const GameScene = new Phaser.Class({
     /**
      * Generate rivers
      */
-    this.groundLayer.forEachTile(function (tile) {
+    /*this.groundLayer.forEachTile(function (tile) {
       var newTile;
       if (tile.index === 11) {
         var x = tile.x;
@@ -184,6 +184,7 @@ const GameScene = new Phaser.Class({
             }
           }
         }
+        
         var lake = features.findObject('features', obj => obj.name === 'lake');
         this.originX = x - 3;
         this.originY = y - 3;
@@ -200,7 +201,7 @@ const GameScene = new Phaser.Class({
           }
         }, this, lake.x / 24, lake.y / 21, lake.width / 24, lake.height / 21);
       }
-    }, this);
+    }, this);*/
 
     if (!mapdebug) {
       this.groundLayer.forEachTile(tile => (tile.alpha = 0));
