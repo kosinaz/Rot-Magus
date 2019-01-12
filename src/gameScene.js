@@ -46,9 +46,6 @@ const GameScene = new Phaser.Class({
     const features = this.make.tilemap({
       key: 'featureMap'
     });
-
-    // create a dynamic layer for the tilemap layer in the map of features
-    const featureLayer = features.createDynamicLayer();
     
     // make a blank map that will be filled with random map features
     const map = this.make.tilemap({
@@ -73,15 +70,8 @@ const GameScene = new Phaser.Class({
     // generate height map
     const heightmap = Heightmap.add(this.groundLayer);
 
-    /**
-     * Put down the start location
-     */
-    var start = features.findObject('features', obj => obj.name === 'start');
-    featureLayer.forEachTile(function (tile) {
-      tile.alpha = 0;
-      tile.index -= 1;
-      this.groundLayer.putTileAt(tile, tile.x + 122, tile.y + 122);
-    }, this, start.x, start.y, start.width / 24, start.height / 21);
+    // put down the start location
+    Start.put(this.groundLayer, features)
 
     /**
      * Generate rivers
