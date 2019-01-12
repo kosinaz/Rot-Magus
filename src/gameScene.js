@@ -73,15 +73,6 @@ const GameScene = new Phaser.Class({
     // generate height map
     const heightmap = Heightmap.add(this.groundLayer);
 
-    // generate lakes on the bottom level of the whole map
-    Lowland.add(this.groundLayer, heightmap[0]);
-
-    // generate a random forest on the mid level of the whole map
-    Vegetation.add(this.groundLayer, heightmap[1]);
-
-    // generate mountains and deserts on the top level of the whole map
-    Highland.add(this.groundLayer, heightmap[2]);
-
     /**
      * Put down the start location
      */
