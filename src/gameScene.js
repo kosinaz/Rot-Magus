@@ -7,8 +7,8 @@ let player;
 let marker;
 let enemies = [];
 let engineLocked = false;
-let minimap = false;
-let mapdebug = false;
+let minimap = true;
+let mapdebug = true;
 let heightmapDebug = false;
 
 const GameScene = new Phaser.Class({
@@ -60,130 +60,38 @@ const GameScene = new Phaser.Class({
 
     // create a blank ground layer that will be filled with random map features
     this.groundLayer = map.createBlankDynamicLayer('tiles', tilemap);
+    layer = this.groundLayer;
 
     // create a blank item layer to show items on top of the ground layer
     this.itemLayer = map.createBlankDynamicLayer('items', tilemap);
 
     // create a FOV calculator
     this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
+
+    // generate a noise to use it throughout the whole procedural map generation
+    const noise = new ROT.Noise.Simplex();
     
     // generate height map
-    const heightmap = Heightmap.add(this.groundLayer);
+    Heightmap.add(layer, noise);
 
     // put down the start location
-    Start.put(this.groundLayer, features)
+    Start.put(layer, features)
 
-    /**
-     * Generate rivers
-     */
-    /*this.groundLayer.forEachTile(function (tile) {
-      var newTile;
-      if (tile.index === 11) {
-        var x = tile.x;
-        var y = tile.y;
-        for (var i = 0; i < 100; i += 1) {
-          if (heightmap[x + 1] && heightmap[x + 1][y] < heightmap[x][y]) {
-            newTile = this.groundLayer.putTileAt(12, ++x, y);
-            newTile.properties = {
-              unpassable: true
-            };
-            if (Math.random() > 0.7) {
-              newTile = this.groundLayer.putTileAt(12, ++x, y);
-              newTile.properties = {
-                unpassable: true
-              };
-              if (Math.random() > 0.7) {
-                newTile = this.groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, ++x, y);
-                if (newTile.index === 13) {
-                  newTile.properties = {
-                    unpassable: true
-                  };
-                }
-              }
-            }
-          } else if (heightmap[x - 1] &&
-            heightmap[x - 1][y] &&
-            heightmap[x] &&
-            heightmap[x][y] &&
-            heightmap[x - 1][y] < heightmap[x][y]) {
-            newTile = this.groundLayer.putTileAt(12, --x, y);
-            newTile.properties = {
-              unpassable: true
-            };
-            if (Math.random() > 0.7) {
-              newTile = this.groundLayer.putTileAt(12, --x, y);
-              newTile.properties = {
-                unpassable: true
-              };
-              if (Math.random() > 0.7) {
-                newTile = this.groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, --x, y);
-                if (newTile.index === 13) {
-                  newTile.properties = {
-                    unpassable: true
-                  };
-                }
-              }
-            }
-          }
-          if (heightmap[x] && heightmap[x][y + 1] && heightmap[x][y + 1] < heightmap[x][y]) {
-            newTile = this.groundLayer.putTileAt(12, x, ++y);
-            newTile.properties = {
-              unpassable: true
-            };
-            if (Math.random() > 0.7) {
-              newTile = this.groundLayer.putTileAt(12, x, ++y);
-              newTile.properties = {
-                unpassable: true
-              };
-              if (Math.random() > 0.7) {
-                newTile = this.groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, x, ++y);
-                if (newTile.index === 13) {
-                  newTile.properties = {
-                    unpassable: true
-                  };
-                }
-              }
-            }
-          } else if (heightmap[x] && heightmap[x][y - 1] && heightmap[x][y - 1] < heightmap[x][y]) {
-            newTile = this.groundLayer.putTileAt(12, x, --y);
-            newTile.properties = {
-              unpassable: true
-            };
-            if (Math.random() > 0.7) {
-              newTile = this.groundLayer.putTileAt(12, x, --y);
-              newTile.properties = {
-                unpassable: true
-              };
-              if (Math.random() > 0.7) {
-                newTile = this.groundLayer.putTileAt(Math.random() > 0.5 ? 13 : 11, x, --y);
-                if (newTile.index === 13) {
-                  newTile.properties = {
-                    unpassable: true
-                  };
-                }
-              }
-            }
-          }
-        }
-        
-        var lake = features.findObject('features', obj => obj.name === 'lake');
-        this.originX = x - 3;
-        this.originY = y - 3;
-        this.lakeX = lake.x / 24;
-        this.lakeY = lake.y / 21;
-        featureLayer.forEachTile(function (tile) {
-          var newTile;
-          tile.alpha = 0;
-          newTile = this.groundLayer.putTileAt(tile.index - 1, tile.x - this.lakeX + this.originX, tile.y - this.lakeY + this.originY);
-          if (newTile.index === 12) {
-            newTile.properties = {
-              unpassable: true
-            };
-          }
-        }, this, lake.x / 24, lake.y / 21, lake.width / 24, lake.height / 21);
+    // generate map features
+    layer.forEachTile(function (tile) {
+
+      // if there is a spring
+      if (tile.properties && tile.properties.spring) {
+
+        // put down a river
+        River.put(layer, tile, noise);
+
       }
-    }, this);*/
-
+    }, {
+      layer: layer,
+      noise: noise
+    });
+    
     if (!mapdebug) {
       this.groundLayer.forEachTile(tile => (tile.alpha = 0));
     }

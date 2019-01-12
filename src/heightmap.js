@@ -1,9 +1,6 @@
 const Heightmap = {
-  add: function (layer) {
+  add: function (layer, noise) {
     let x, y, z, tile;
-
-    // generate a noise to use it throughout the whole procedural map generation
-    const noise = new ROT.Noise.Simplex();
 
     // go through all tiles of the map
     for (x = 0; x < layer.layer.width; x += 1) {
