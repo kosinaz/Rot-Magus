@@ -3,7 +3,7 @@ const Mountain = {
     let tile;
 
     // most of the times
-    if (noise.get(x, y) < 0.9) {
+    if (noise.get(x, y) < 0.95) {
 
       // put down rock
       tile = layer.putTileAt(21, x, y);
@@ -13,7 +13,7 @@ const Mountain = {
       };
 
     // sometimes
-    } else if (noise.get(x, y) < 0.99) {
+    } else if (noise.get(x, y) < 0.995) {
 
       // put down spring
       tile = layer.putTileAt(11, x, y);
@@ -24,6 +24,7 @@ const Mountain = {
     // rarely
     } else {
 
+      console.log(x,y);
       // put down floor
       tile = layer.putTileAt(9, x, y);
     }

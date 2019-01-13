@@ -12,7 +12,10 @@ const River = {
       if (tile) {
 
         // let the river flow there if there is a passable or water tile there
-        return !tile.properties.unpassable || tile.index === 12;
+        return !tile.properties.unpassable 
+          || tile.index === 11
+          || tile.index === 12
+          || tile.index === 13;
       }
 
       // prevent the river flowing there every other times
@@ -23,12 +26,12 @@ const River = {
       topology: 4
     });
 
-    // target every stony water tile that is not a spring
+    // target every lake tile
     layer.forEachTile(function (tile) {
       let path = [];
 
-      // if there is a stony water tile that is not a spring
-      if (tile.index === 11 && !tile.properties.spring) {
+      // if there is a lake tile
+      if (tile.index === 11 && tile.properties.lake) {
 
         // find the shortest path to that tile
         a.compute(tile.x, tile.y, function (x, y) {
@@ -63,14 +66,14 @@ const River = {
       min.forEach(function (XY) {
         let tile;
 
-        // 5% of the times
-        if (noise.get(XY.x, XY.y) > 0.9) { 
+        // 15% of the times
+        if (noise.get(XY.x, XY.y) > 0.7) { 
 
           // put down a stony water
           tile = layer.putTileAt(11, XY.x, XY.y);
 
-        // other 5% of the times
-        } else if (noise.get(XY.x, XY.y) < -0.9) {
+        // other 15% of the times
+        } else if (noise.get(XY.x, XY.y) < -0.7) {
 
           // put down a lily
           tile = layer.putTileAt(13, XY.x, XY.y);

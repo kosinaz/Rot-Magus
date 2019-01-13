@@ -17,7 +17,8 @@ const Lake = {
       // put down lily
       tile = layer.putTileAt(13, x, y);
       tile.properties = {
-        unpassable: true
+        unpassable: true,
+        lake: true
       };
 
     // rarely
@@ -25,6 +26,9 @@ const Lake = {
 
       // put down stones
       tile = layer.putTileAt(11, x, y);
+      tile.properties = {
+        lake: true
+      };
 
     // even less of the times
     } else {
