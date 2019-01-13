@@ -7,8 +7,8 @@ let player;
 let marker;
 let enemies = [];
 let engineLocked = false;
-let minimap = true;
-let mapdebug = true;
+let minimap = false;
+let mapdebug = false;
 let heightmapDebug = false;
 
 const GameScene = new Phaser.Class({

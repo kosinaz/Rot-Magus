@@ -24,7 +24,6 @@ const Mountain = {
     // rarely
     } else {
 
-      console.log(x,y);
       // put down floor
       tile = layer.putTileAt(9, x, y);
     }
