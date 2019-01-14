@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="17" height="11" tilewidth="24" tileheight="21" nextobjectid="14">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="11" height="11" tilewidth="24" tileheight="21" nextobjectid="14">
  <tileset firstgid="1" name="tiles" tilewidth="24" tileheight="21" tilecount="250" columns="25">
   <image source="../assets/images/tiles.png" width="600" height="210"/>
   <tile id="0" probability="10"/>
@@ -903,23 +903,22 @@
    </properties>
   </tile>
  </tileset>
- <layer name="tiles" width="17" height="11">
+ <layer name="tiles" width="11" height="11">
   <data encoding="csv">
-5,5,5,5,5,5,5,5,5,5,5,0,1,13,13,13,1,
-5,1,3,2,1,5,1,2,3,1,5,0,13,13,13,13,13,
-5,3,21,21,21,16,21,21,21,3,5,0,13,13,13,13,13,
-5,2,21,10,10,10,10,10,21,2,5,0,13,13,13,13,13,
-5,1,21,10,10,10,10,10,21,1,5,0,1,13,13,13,1,
-5,5,16,10,10,11,10,10,16,5,5,0,0,0,0,0,0,
-5,1,21,10,10,10,10,10,21,1,5,0,0,0,0,0,0,
-5,2,21,10,10,10,10,10,21,2,5,0,0,0,0,0,0,
-5,3,21,21,21,16,21,21,21,3,5,0,0,0,0,0,0,
-5,1,3,2,1,5,1,2,3,1,5,0,0,0,0,0,0,
-5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0
+5,5,5,5,5,5,5,5,5,5,5,
+5,1,3,2,1,5,1,2,3,1,5,
+5,3,21,21,21,16,21,21,21,3,5,
+5,2,21,10,10,10,10,10,21,2,5,
+5,1,21,10,10,10,10,10,21,1,5,
+5,5,16,10,10,11,10,10,16,5,5,
+5,1,21,10,10,10,10,10,21,1,5,
+5,2,21,10,10,10,10,10,21,2,5,
+5,3,21,21,21,16,21,21,21,3,5,
+5,1,3,2,1,5,1,2,3,1,5,
+5,5,5,5,5,5,5,5,5,5,5
 </data>
  </layer>
  <objectgroup name="features">
   <object id="6" name="start" x="0" y="0" width="264" height="231"/>
-  <object id="12" name="lake" x="288" y="0" width="120" height="105"/>
  </objectgroup>
 </map>
