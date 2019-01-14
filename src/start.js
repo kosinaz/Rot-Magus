@@ -17,7 +17,16 @@ const Start = {
       tile.index -= 1;
 
       // put down the tile around the center of the map
-      groundLayer.putTileAt(tile, tile.x + 122, tile.y + 122);
+      tile = groundLayer.putTileAt(tile, tile.x + 122, tile.y + 122);
+
+      // set the center as the potentional start of a road
+      if (tile.x === 125 && tile.y === 125) {
+
+        // set the road properties
+        tile.properties = {
+          road: true
+        };
+      }
     }, {
       featureLayer: featureLayer,
       groundLayer: groundLayer

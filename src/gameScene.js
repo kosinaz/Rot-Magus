@@ -77,7 +77,7 @@ const GameScene = new Phaser.Class({
     // put down the start location
     Start.put(layer, features)
 
-    // generate map features
+    // generate rivers
     layer.forEachTile(function (tile) {
 
       // if there is a spring
@@ -87,12 +87,30 @@ const GameScene = new Phaser.Class({
         River.put(noise, tile.x, tile.y, layer);
 
       }
+    });
+
+    // generate houses
+    layer.forEachTile(function (tile) {
 
       // if there is a floor
-      else if (tile.properties && tile.properties.floor) {
+      if (tile.properties && tile.properties.floor) {
 
         // put down a house
         House.put(noise, tile.x, tile.y, layer);
+      }
+    }, {
+      layer: layer,
+      noise: noise
+    });
+
+    // generate roads
+    layer.forEachTile(function (tile) {
+
+      // if there is a road
+      if (tile.properties && tile.properties.road) {
+
+        // put down a road
+        Road.put(noise, tile.x, tile.y, layer);
       }
     }, {
       layer: layer,

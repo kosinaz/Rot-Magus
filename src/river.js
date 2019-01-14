@@ -45,8 +45,7 @@ const River = {
           path: path
         }));
 
-        // if there is no shortest path to compare or this path is shorter,
-        // than the shortest path
+        // if there is no shortest path to compare or this path is shorter
         if (!min || path.length > 0 && path.length < min.length) {
 
           // save this path as the shortest path
