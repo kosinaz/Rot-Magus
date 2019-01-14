@@ -3,7 +3,7 @@ const Mountain = {
     let tile;
 
     // most of the times
-    if (noise.get(x, y) < 0.95) {
+    if (noise.get(x, y) < 0.8) {
 
       // put down rock
       tile = layer.putTileAt(21, x, y);

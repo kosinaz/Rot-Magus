@@ -1,6 +1,6 @@
 const River = {
   put: function (noise, x, y, layer) {
-    let a, min;
+    let a, min, i, tile;
 
     // calculate an astar map around the spring with a 4 direction topology
     a = new ROT.Path.AStar(x, y, function (x, y) {
@@ -11,11 +11,11 @@ const River = {
       // if there is a tile
       if (tile) {
 
-        // let the river flow there if there is a passable or water tile there
-        return !tile.properties.unpassable 
-          || tile.index === 11
-          || tile.index === 12
-          || tile.index === 13;
+        // let the river flow there only if it is a water or grass tile
+        return tile.index === 0 
+        || tile.index === 11 
+        || tile.index === 12 
+        || tile.index === 13
       }
 
       // prevent the river flowing there every other times
@@ -31,7 +31,7 @@ const River = {
       let path = [];
 
       // if there is a lake tile
-      if (tile.index === 11 && tile.properties.lake) {
+      if (tile.properties.lake) {
 
         // find the shortest path to that tile
         a.compute(tile.x, tile.y, function (x, y) {
@@ -62,20 +62,26 @@ const River = {
     if (min && min.length > 0) {
 
       // get every tile of the path
-      min.forEach(function (XY) {
-        let tile;
+      for (i = min.length - 1; i > 0; i -= 1) {
+
+        // if the river already reached a lake
+        if (layer.getTileAt(min[i].x, min[i].y).index === 12) {
+
+          // stop the river
+          break;
+        }
 
         // 15% of the times
-        if (noise.get(XY.x, XY.y) > 0.7) { 
+        if (noise.get(min[i].x, min[i].y) > 0.7) { 
 
           // put down a stony water
-          tile = layer.putTileAt(11, XY.x, XY.y);
+          tile = layer.putTileAt(11, min[i].x, min[i].y);
 
         // other 15% of the times
-        } else if (noise.get(XY.x, XY.y) < -0.7) {
+        } else if (noise.get(min[i].x, min[i].y) < -0.7) {
 
           // put down a lily
-          tile = layer.putTileAt(13, XY.x, XY.y);
+          tile = layer.putTileAt(13, min[i].x, min[i].y);
           tile.properties = {
             unpassable: true
           }
@@ -84,15 +90,12 @@ const River = {
         } else {
 
           // put down water
-          tile = layer.putTileAt(12, XY.x, XY.y);
+          tile = layer.putTileAt(12, min[i].x, min[i].y);
           tile.properties = {
             unpassable: true
           }
         }
-      }, {
-        layer: layer,
-        noise: noise
-      })
+      }
     }
   }
 };

@@ -3,7 +3,7 @@ const Lake = {
     let tile;
 
     // most of the times
-    if (noise.get(x, y) < 0.9) {
+    if (noise.get(x, y) < 0.95) {
 
       // put down water
       tile = layer.putTileAt(12, x, y);
@@ -12,7 +12,7 @@ const Lake = {
       };
 
     // sometimes
-    } else if (noise.get(x, y) < 0.99) {
+    } else if (noise.get(x, y) < 0.97) {
 
       // put down lily
       tile = layer.putTileAt(13, x, y);
@@ -22,11 +22,12 @@ const Lake = {
       };
 
     // rarely
-    } else if (noise.get(x, y) < 0.995) {
+    } else if (noise.get(x, y) < 0.99) {
 
       // put down stones
       tile = layer.putTileAt(11, x, y);
       tile.properties = {
+        unpassable: false,
         lake: true
       };
 

@@ -45,7 +45,7 @@ const Grassland = {
           }
           
           // on the more or less dense areas put down a flower
-          else if (noise.get(x / 32, y / 32) + noise.get(x / 4, y / 4) < -1.6) {
+          else if (noise.get(x / 32, y / 32) + noise.get(x / 4, y / 4) < -1) {
             
             // 50% of the times put down a red flower, else a yellow flower
             tile = layer.putTileAt(noise.get(x, y) < 0 ? 1 : 2, x, y);
