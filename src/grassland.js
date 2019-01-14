@@ -22,9 +22,9 @@ const Grassland = {
 
           // determine the density level of the tile with a random noise based 
           // on its position, first with a level 32 smoothness to determine 
-          // the position of the forests and plains with 50%-50% chance,
+          // the position of the forests and plains with 33%-66% chance,
           // then with a low, level 4 smoothness to generate the details 
-          if (noise.get(x / 32, y / 32) + noise.get(x / 4, y / 4) > 0.5) {
+          if (noise.get(x / 32, y / 32) + noise.get(x / 4, y / 4) > 0) {
 
             // 75% of the times put down a tree, else put down a bush
             tile = layer.putTileAt(n < 0.5 ? 17 : 16, x, y);
