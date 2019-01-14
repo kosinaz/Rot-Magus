@@ -35,10 +35,13 @@ const Grassland = {
           } 
 
           // on the least dense areas put down a floor instead of a tree or bush
-          else if (noise.get(x / 32, y / 32) + noise.get(x / 4, y / 4) < -1.8) {
+          else if (noise.get(x / 32, y / 32) + noise.get(x / 4, y / 4) < -1.7) {
             
             // put down floor
             tile = layer.putTileAt(9, x, y);
+            tile.properties = {
+              floor: true
+            };
           }
           
           // on the more or less dense areas put down a flower

@@ -1,9 +1,9 @@
 const River = {
-  put: function (layer, tile, noise) {
+  put: function (noise, x, y, layer) {
     let a, min;
 
     // calculate an astar map around the spring with a 4 direction topology
-    a = new ROT.Path.AStar(tile.x, tile.y, function (x, y) {
+    a = new ROT.Path.AStar(x, y, function (x, y) {
 
       // get the tile at the next step
       let tile = layer.getTileAt(x, y);

@@ -84,8 +84,15 @@ const GameScene = new Phaser.Class({
       if (tile.properties && tile.properties.spring) {
 
         // put down a river
-        River.put(layer, tile, noise);
+        River.put(noise, tile.x, tile.y, layer);
 
+      }
+
+      // if there is a floor
+      else if (tile.properties && tile.properties.floor) {
+
+        // put down a house
+        House.put(noise, tile.x, tile.y, layer);
       }
     }, {
       layer: layer,
