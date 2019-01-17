@@ -29,6 +29,9 @@ let Actor = new Phaser.Class({
     engine.lock();
     this.showFOV();
     if (this.target.x === this.getX() && this.target.y === this.getY()) {
+      player = this;
+      this.scene.cameras.main.scrollX = this.x - 12 * 24;
+      this.scene.cameras.main.scrollY = this.y - 10 * 21;
       this.path = null;
       engineLocked = true;
     } else {

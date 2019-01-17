@@ -128,6 +128,8 @@ const GameScene = new Phaser.Class({
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
     });
 
+    new Actor(this, 128, 127, 'tilesetImage', 26, layer, true);
+
     // create pointer marker
     marker = this.add.graphics();
     marker.lineStyle(1, 0xffff00, 1);
@@ -137,7 +139,6 @@ const GameScene = new Phaser.Class({
     const camera = this.cameras.main;
     camera.setPosition(372, 5);
     camera.setSize(648, 567);
-    camera.startFollow(player, true, 1, 1, -12, -10);
     if (minimap) {
       smallCamera = this.cameras.add(635, 210, 400, 400);
       smallCamera.zoom = 0.03;
