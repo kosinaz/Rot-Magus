@@ -2,28 +2,67 @@ let Actor = new Phaser.Class({
   Extends: Phaser.GameObjects.Image,
   initialize:
     function Actor(scene, x, y, texture, frame, layer, isPlayer) {
-      Phaser.GameObjects.Image.call(this, scene, x * 24, y * 21, texture, frame);
+      Phaser.GameObjects.Image.call(
+        this, 
+        scene, 
+        x * 24, 
+        y * 21, 
+        texture, 
+        frame
+      );
       this.layer = layer;
       this.isPlayer = isPlayer;
       this.target = {
         x: this.getX(),
         y: this.getY()
       }
+      this.path = null;
       this.speed = 4;
       this.health = 120;
       this.maxHealth = 120;
       this.fov = scene.fov;
       scene.add.existing(this);
       scheduler.add(this, true);
+      this.setOrigin(0);
     },
   act: function () {
-    if (this.isPlayer) {
+    engine.lock();
+    this.showFOV();
+    if (this.target.x === this.getX() && this.target.y === this.getY()) {
+      this.path = null;
       engineLocked = true;
-      engine.lock();
     } else {
-      this.scanFOV();
-      this.moveTo(this.target);
+      this.scene.time.delayedCall(100, this.move.bind(this));
     }
+  },
+  orderTo: function (x, y) {
+    if (!engineLocked) {
+      return;
+    }
+    this.target = {
+      x: x,
+      y: y
+    };
+    this.scene.time.delayedCall(100, this.move.bind(this));
+  },
+  showFOV: function () {
+
+    // overlay fog of war on every tile that was already visible
+    this.layer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+    //itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
+    enemies.forEach(function (enemy) {
+      enemy.alpha = 0;
+    });
+
+    // find the visible tiles
+    this.fov.compute(this.getX(), this.getY(), 13, function (x, y) {
+
+      // show the visible tiles
+      let tile = this.layer.getTileAt(x, y);
+      if (tile) {
+        tile.alpha = 1;
+      }
+    }.bind(this));
   },
   getX: function () {
     return this.layer.worldToTileX(this.x);
@@ -31,44 +70,20 @@ let Actor = new Phaser.Class({
   getY: function () {
     return this.layer.worldToTileY(this.y);
   },
-  isAtXY: function (x, y) {
-    return this.getX() === x && this.getY() === y;
-  },
-  isAtWorldXY: function (x, y) {
-    return this.isAtXY(this.layer.worldToTileX(x), this.layer.worldToTileY(y));
-  },
-  scanFOV: function () {
-    this.newTarget = null;
-    this.fov.compute(this.getX(), this.getY(), 13, function (x, y) {
-      if (!this.newTarget && player.isAtXY(x, y)) {
-        this.newTarget = {
-          x: x,
-          y: y
-        };
-      }
-    }.bind(this));
-    if (this.newTarget) {
-      this.target = this.newTarget;
+  move: function () {
+    if (!this.path) {
+      this.addPath(this.target.x, this.target.y);
     }
-  },
-  moveTo: function (target) {
-    if (target.x === undefined) {
-      return false;
-    }
-    this.computePath(target.x, target.y);
-    if (this.path.length < 2) {
-      return false;
+    if (this.path.length < 1) {
+      this.path = null;
+      engine.locked = false;
+      return;
     }
     scheduler.setDuration(1.0 / this.speed);
-    var x = this.path[1][0];
-    var y = this.path[1][1];
-    var actor = getActorAt(x, y);
-    if (actor) {
-      this.damage(actor);
-    } else {
-      this.x = this.layer.tileToWorldX(x);
-      this.y = this.layer.tileToWorldY(y);
-    }
+    this.path.shift();
+    this.x = this.layer.tileToWorldX(this.path[0].x);
+    this.y = this.layer.tileToWorldY(this.path[0].y);
+    engine.unlock();
   },
   damage: function (actor) {
     actor.health -= Math.floor(Math.random() * 60) + 1;
@@ -93,23 +108,26 @@ let Actor = new Phaser.Class({
       this.destroy();
     }
   },
-  computePath: function (x, y) {
-    var a = new ROT.Path.AStar(x, y, function (x, y) {
-      var actor = getActorAt(x, y);
-      if (isPassableAtXY(x, y)) {
-        if (actor) {
-          if (actor === this) {
-            return true;
-          }
-          return false;
-        }
-        return true;
-      }
-      return false;
+  addPath: function (x, y) {
+    let a = new ROT.Path.AStar(x, y, function (x, y) {
+      return !this.layer.getTileAt(x, y).properties.unpassable
     }.bind(this));
     this.path = [];
     a.compute(this.getX(), this.getY(), function (x, y) {
-      this.path.push([x, y]);
+      this.path.push({
+        x: x,
+        y: y
+      });
     }.bind(this));
+  },
+  getActorAt: function (x, y) {
+    if (player.isAtXY(x, y)) {
+      return player;
+    }
+    for (var i = 0; i < enemies.length; i += 1) {
+      if (enemies[i].isAtXY(x, y)) {
+        return enemies[i];
+      }
+    }
   }
 });
