@@ -33,8 +33,8 @@ let Actor = new Phaser.Class({
     this.showFOV();
     this.scene.tweens.add({
       targets: this.scene.cameras.main,
-      scrollX: this.x - 12 * 24,
-      scrollY: this.y - 10 * 21,
+      scrollX: this.x - 13 * 24,
+      scrollY: this.y - 13 * 21,
       ease: 'Power1',
       duration: 100,
       onComplete: function () {
@@ -113,7 +113,7 @@ let Actor = new Phaser.Class({
       this.scene.events.emit('playerDamaged');
     }
     this.effect = this.scene.add.sprite(actor.x + 12, actor.y + 11, 'tiles', 200);
-    this.scene.time.delayedCall(250, function () {
+    this.scene.time.delayedCall(100, function () {
       this.effect.destroy();
     }.bind(this), [], this);
     if (actor.health < 1) {
