@@ -124,11 +124,12 @@ const GameScene = new Phaser.Class({
 
     // create player at the center of the map
     player = new Actor(this, 127, 127, 'tilesetImage', 25, layer, true);
+    player.name = 'Bonthar';
     layer.on('pointerdown', function (pointer, x, y) {
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
     });
 
-    new Actor(this, 128, 127, 'tilesetImage', 26, layer, true);
+    new Actor(this, 128, 127, 'tilesetImage', 26, layer, true).name = 'Bontharna';
 
     // create pointer marker
     marker = this.add.graphics();

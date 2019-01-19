@@ -26,40 +26,52 @@ let Actor = new Phaser.Class({
       this.setOrigin(0);
     },
   act: function () {
+    // the engine needs to be locked, even if the player has a target and does
+    // not need additional orders, because every action takes time, and no one
+    // should move in the meantime
     engine.lock();
     this.showFOV();
-    if (this.target.x === this.getX() && this.target.y === this.getY()) {
-      player = this;
-      this.scene.cameras.main.scrollX = this.x - 12 * 24;
-      this.scene.cameras.main.scrollY = this.y - 10 * 21;
-      this.path = null;
-      engineLocked = true;
-    } else {
-      this.scene.time.delayedCall(100, this.move.bind(this));
-    }
+    this.scene.tweens.add({
+      targets: this.scene.cameras.main,
+      scrollX: this.x - 12 * 24,
+      scrollY: this.y - 10 * 21,
+      ease: 'Power1',
+      duration: 100,
+      onComplete: function () {
+        this.scene.time.delayedCall(100, function () {
+          if (this.target.x === this.getX() && this.target.y === this.getY()) { 
+            player = this;
+            this.path = null;
+            isAcceptingOrders = true;
+          } else {
+            this.move();
+          }
+        }.bind(this));
+      }.bind(this)
+    });
   },
   orderTo: function (x, y) {
-    if (!engineLocked) {
+    if (!isAcceptingOrders) {
       return;
     }
     this.target = {
       x: x,
       y: y
     };
-    this.scene.time.delayedCall(100, this.move.bind(this));
+    this.move();
   },
   showFOV: function () {
-
+    
     // overlay fog of war on every tile that was already visible
     this.layer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
     //itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
     enemies.forEach(function (enemy) {
       enemy.alpha = 0;
     });
-
+    
     // find the visible tiles
     this.fov.compute(this.getX(), this.getY(), 13, function (x, y) {
-
+      
       // show the visible tiles
       let tile = this.layer.getTileAt(x, y);
       if (tile) {
@@ -77,16 +89,23 @@ let Actor = new Phaser.Class({
     if (!this.path) {
       this.addPath(this.target.x, this.target.y);
     }
-    if (this.path.length < 1) {
+    if (this.path.length < 1) {    
       this.path = null;
-      engine.locked = false;
       return;
     }
+    isAcceptingOrders = false;
     scheduler.setDuration(1.0 / this.speed);
     this.path.shift();
-    this.x = this.layer.tileToWorldX(this.path[0].x);
-    this.y = this.layer.tileToWorldY(this.path[0].y);
-    engine.unlock();
+    this.scene.tweens.add({
+      targets: this,
+      x: this.layer.tileToWorldX(this.path[0].x),
+      y: this.layer.tileToWorldY(this.path[0].y),
+      ease: 'Power1',
+      duration: 100,
+      onComplete: function () {
+        engine.unlock();
+      }.bind(this)
+    });
   },
   damage: function (actor) {
     actor.health -= Math.floor(Math.random() * 60) + 1;
