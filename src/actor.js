@@ -31,6 +31,7 @@ let Actor = new Phaser.Class({
     // should move in the meantime
     engine.lock();
     this.showFOV();
+    this.scene.cameras.main.stopFollow();
     this.scene.tweens.add({
       targets: this.scene.cameras.main,
       scrollX: this.x - 13 * 24,
@@ -38,6 +39,7 @@ let Actor = new Phaser.Class({
       ease: 'Power1',
       duration: 100,
       onComplete: function () {
+        this.scene.cameras.main.startFollow(this, true, 1, 1, -12, -10);
         this.scene.time.delayedCall(100, function () {
           if (this.target.x === this.getX() && this.target.y === this.getY()) { 
             player = this;
