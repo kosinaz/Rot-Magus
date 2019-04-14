@@ -7,27 +7,17 @@ let player;
 let marker;
 let enemies = [];
 let engineLocked = false;
-let minimap = false;
-let mapdebug = false;
-let heightmapDebug = false;
 
-const GameScene = new Phaser.Class({
+class GameScene extends Phaser.Scene {
+  constructor() {
+    super('GameScene');
+  }
 
-  Extends: Phaser.Scene,
+  groundLayer = {};
+  itemLayer = {};
+  fov = {};
 
-  initialize:
-
-    function GameScene() {
-      Phaser.Scene.call(this, {
-        key: 'GameScene'
-      });
-    },
-
-  groundLayer: {},
-  itemLayer: {},
-  fov: {},
-
-  preload: function () {
+  preload = function () {
 
     // preload the Tiled map of the random features that will be used 
     // to fill the game map with random map features
@@ -38,9 +28,9 @@ const GameScene = new Phaser.Class({
       frameWidth: 24,
       frameHeight: 21
     });
-  },
+  };
 
-  create: function () {
+  create = function () {
 
     // make the tilemap of features based on the preloaded Tiled map
     const features = this.make.tilemap({
@@ -60,7 +50,7 @@ const GameScene = new Phaser.Class({
 
     // create a blank ground layer that will be filled with random map features
     this.groundLayer = map.createBlankDynamicLayer('tiles', tilemap);
-    layer = this.groundLayer;
+    let layer = this.groundLayer;
     layer.setInteractive();
 
     // create a blank item layer to show items on top of the ground layer
@@ -129,8 +119,6 @@ const GameScene = new Phaser.Class({
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
     });
 
-    new Actor(this, 128, 127, 'tilesetImage', 26, layer, true).name = 'Bontharna';
-
     // create pointer marker
     marker = this.add.graphics();
     marker.lineStyle(1, 0xffff00, 1);
@@ -140,10 +128,6 @@ const GameScene = new Phaser.Class({
     const camera = this.cameras.main;
     camera.setPosition(372, 5);
     camera.setSize(648, 567);
-    if (minimap) {
-      smallCamera = this.cameras.add(635, 210, 400, 400);
-      smallCamera.zoom = 0.03;
-    }
 
     // constrain the camera within the width and height of the map
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -152,9 +136,9 @@ const GameScene = new Phaser.Class({
     this.events.on('playerDied', function () {
       this.scene.start('DeathScene');
     }.bind(this));
-  },
+  };
 
-  update: function () {
+  update = function () {
 
     var x, y;
 
@@ -175,9 +159,9 @@ const GameScene = new Phaser.Class({
     marker.x = x;
     marker.y = y;
 
-  },
+  };
 
-  isTransparent: function (x, y) {
+  isTransparent = function (x, y) {
     var playerXY, tile;
 
     /**
@@ -189,4 +173,4 @@ const GameScene = new Phaser.Class({
       tile && !tile.properties.opaque;
   }
 
-});
+}
