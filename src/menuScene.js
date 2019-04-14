@@ -12,6 +12,18 @@ class MenuScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.bitmapText(100, 100, 'font', 'New game');
+    this.add.existing(new BitmapTextButton({
+      font: 'font',
+      onPointerUp: function () {
+        this.scene.start('GameScene');
+        this.scene.start('GUIScene');
+      }.bind(this),
+      origin: 0,
+      scene: this,
+      size: 64,
+      text: 'New game',
+      x: 100,
+      y: 100
+    }));
   }
 }
