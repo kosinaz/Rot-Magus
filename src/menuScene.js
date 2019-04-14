@@ -14,5 +14,15 @@ class MenuScene extends Phaser.Scene {
       x: 100,
       y: 100
     }));
+    this.add.existing(new TextButton({
+      onPointerUp: function () {
+        this.scene.start('InfiniteScene');
+      }.bind(this),
+      origin: 0,
+      scene: this,
+      text: 'Infinite mode',
+      x: 100,
+      y: 200
+    }));
   }
 }
