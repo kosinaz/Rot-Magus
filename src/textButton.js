@@ -6,9 +6,9 @@ class TextButton extends Phaser.GameObjects.Text {
       config.y,
       config.text,
       {
+        'fill': config.fill || '#fff',
         'fontFamily': config.font || 'font',
-        'fontSize': config.size || '48px',
-        'fill': config.fill || '#fff'
+        'fontSize': config.size || '48px'
       }
     );
     this.setOrigin(config.origin);
