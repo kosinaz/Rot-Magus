@@ -1,23 +1,16 @@
-GUIScene = new Phaser.Class({
+class GUIScene extends Phaser.Scene {
+  constructor() {
+    super({
+      key: 'GUIScene', 
+      active: true
+    });
+  }
 
-  Extends: Phaser.Scene,
-
-  initialize:
-
-    function GUIScene() {
-      Phaser.Scene.call(this, {
-        key: 'GUIScene',
-        active: true
-      });
-      this.inventory;
-      this.hold;
-    },
-
-  preload: function () {
+  preload = function () {
     this.load.image('ingame', 'assets/images/gui/ingame.png');
-  },
+  };
   
-  create: function () {
+  create = function () {
     
     /** 
      * Show GUI background
@@ -193,9 +186,9 @@ GUIScene = new Phaser.Class({
     this.grounds = {};
     this.grounds[player.x + ',' + player.y] = addGround(this.ground, this.groundLayer);
     this.currentGround = this.grounds[player.x + ',' + player.y];
-  },
+  };
 
-  update: function () {
+  update = function () {
 
     var x, y, tileXY;
 
@@ -295,9 +288,9 @@ GUIScene = new Phaser.Class({
       this.hold.y = y;
     }
     
-  },
+  };
 
-  isHolding: function (requiredItemType) {
+  isHolding = function (requiredItemType) {
     var heldItemType = '';
     if (!this.hold) {
       return;
@@ -355,9 +348,9 @@ GUIScene = new Phaser.Class({
       case 149: heldItemType = 'shield'; break;
     }
     return heldItemType === requiredItemType;
-  },
+  };
 
-  pickUpOrPutDownType: function (itemType, tileXY, x, y) {
+  pickUpOrPutDownType = function (itemType, tileXY, x, y) {
     if (this.hold) {
       if (this.isHolding(itemType)) {
 
@@ -374,9 +367,9 @@ GUIScene = new Phaser.Class({
        */
       this.pickUp(this.inventory, tileXY, x, y);
     }
-  },
+  };
 
-  pickUpOrPutDown: function (layer, tileXY, x, y) {
+  pickUpOrPutDown = function (layer, tileXY, x, y) {
     var tile = layer.getTileAt(tileXY.x, tileXY.y);
     if (this.hold) {
 
@@ -412,9 +405,9 @@ GUIScene = new Phaser.Class({
        */
       this.pickUp(layer, tileXY, x, y);
     }
-  },
+  };
   
-  pickUp: function (layer, tileXY, x, y) {
+  pickUp = function (layer, tileXY, x, y) {
     var tile = layer.getTileAt(tileXY.x, tileXY.y);
     if (tile) {
 
@@ -424,8 +417,8 @@ GUIScene = new Phaser.Class({
       this.hold = this.add.image(x, y, 'tilesetImage', tile.index);
       layer.removeTileAt(tileXY.x, tileXY.y);
     }
-  }
-});
+  };
+};
 
 /**
  * Create the inventory of the player
