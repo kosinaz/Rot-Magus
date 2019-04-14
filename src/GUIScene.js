@@ -23,7 +23,7 @@ class GUIScene extends Phaser.Scene {
      * Add experience level indicator
      */
     this.levelLabel = this.add.text(40, 16, '0', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '14px',
       fill: '#ffffff'
     });
@@ -34,7 +34,7 @@ class GUIScene extends Phaser.Scene {
      * Add player name
      */
     this.nameLabel = this.add.text(56, 16, 'Bonthar', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
     });
@@ -50,7 +50,7 @@ class GUIScene extends Phaser.Scene {
     });
     this.XPBar.fillRect(5, 27, 1, 19);
     this.XPLabel = this.add.text(64, 37, '0/50', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '14px',
       fill: '#ffffff'
     });
@@ -67,7 +67,7 @@ class GUIScene extends Phaser.Scene {
     });
     this.healthBar.fillRect(5, 48, 118, 19);
     this.healthLabel = this.add.text(64, 58, '120/120', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '14px',
       fill: '#ffffff'
     });
@@ -84,7 +84,7 @@ class GUIScene extends Phaser.Scene {
     });
     this.manaBar.fillRect(5, 69, 118, 19);
     this.manaLabel = this.add.text(64, 79, '10/10', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '14px',
       fill: '#ffffff'
     });
@@ -95,7 +95,7 @@ class GUIScene extends Phaser.Scene {
      * Add speed label
      */
     this.speedLabel = this.add.text(288, 16, '4', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
     });
@@ -105,7 +105,7 @@ class GUIScene extends Phaser.Scene {
      * Add strength label
      */
     this.speedLabel = this.add.text(288, 37, '12/17', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
     });
@@ -115,7 +115,7 @@ class GUIScene extends Phaser.Scene {
      * Add skill label
      */
     this.skillLabel = this.add.text(288, 58, '15', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
     });
@@ -125,7 +125,7 @@ class GUIScene extends Phaser.Scene {
      * Add wisdom label
      */
     this.wisdomLabel = this.add.text(288, 79, '1', {
-      fontFamily: 'Rhythmus',
+      fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
     });
