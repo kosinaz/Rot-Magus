@@ -5,5 +5,5 @@ const game = new Phaser.Game({
   parent: "game-container",
   pixelArt: true,
   roundPixels: true,
-  scene: [GameScene, GUIScene, DeathScene]
+  scene: [MenuScene, GameScene, GUIScene, DeathScene]
 });

@@ -1,9 +1,6 @@
 class GUIScene extends Phaser.Scene {
   constructor() {
-    super({
-      key: 'GUIScene', 
-      active: true
-    });
+    super('GUIScene');
   }
 
   preload = function () {
