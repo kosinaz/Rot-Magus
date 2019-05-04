@@ -26,15 +26,19 @@ class InfiniteScene extends Phaser.Scene {
       scene.add.displayList.removeAll();
 
       // iterate through all tiles on the screen
-      for (let j = 0; j < 28; j += 1) {
-        for (let i = 0; i < 43; i += 1) {
+      for (let j = -28 * 5; j < 28 * 6; j += 1) {
+        for (let i = -43 * 5; i < 43 * 6; i += 1) {
 
           // get a position-based low-frequency random value between -1 and 1
           // then translate it to a height value between 0 and 2,
-          let height = noise.get((x + i) / 64, (y + j) / 64) + 1;
+          let height = noise.get((x + i) / 128, (y + j) / 128) + 1;
+          height = (height + noise.get((x + i) / 64, (y + j) / 64) + 1) / 2;
+          height = (height + noise.get((x + i) / 32, (y + j) / 32) + 1) / 2;
+          height = Math.pow(height, 4) / Math.pow(2, 3)
 
           // sort the current height to one of the twelve height levels
           let heightLevel = ~~(height * 6);
+          heightLevel = heightLevel > 0 ? (heightLevel > 1 ? (heightLevel > 2 ? 11 : 10) : 9) : 4;
 
           // get a position based high-frequency random value between -1 and 1
           // to determine the chance of placing down a special tile
@@ -197,8 +201,15 @@ class InfiniteScene extends Phaser.Scene {
           }
 
           // draw the tile based on the height level
+          // tileIndex = 0;
+          // tileIndex = heightLevel;
+          // tileIndex = heightLevel > 0 ? 21 : 0;
           scene.add.image(i * 24, j * 21, 'tilesetImage', tileIndex)
-            .setAlpha(height / 4 + 0.5);
+            // .setAlpha(height / 4 + 0.5);
+            // .setAlpha(1 - Math.pow(heightLevel, 4) / Math.pow(11, 4));
+            // .setAlpha(Math.sqrt(heightLevel) / Math.sqrt(11));
+
+
         }
       }
 
@@ -208,6 +219,10 @@ class InfiniteScene extends Phaser.Scene {
 
     // draw the screen
     redraw(this);
+
+    this.cameras.main.setZoom(0.1);
+    // this.cameras.main.setZoom(0.5);
+    // this.cameras.main.setZoom(0.25);
 
     // set the movement keys
     this.input.keyboard.on('keydown', function (event) {
