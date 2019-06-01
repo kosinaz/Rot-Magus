@@ -147,7 +147,10 @@ let Actor = new Phaser.Class({
         x: this.layer.tileToWorldX(this.path[0].x),
         y: this.layer.tileToWorldY(this.path[0].y),
         ease: 'Quad.easeInOut',
-        duration: 100
+        duration: 100,
+        onComplete: function () {
+          this.scene.events.emit('playerMoved');
+        }.bind(this)
       });
     }
     engine.unlock();
