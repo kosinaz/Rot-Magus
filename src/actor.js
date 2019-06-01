@@ -110,6 +110,7 @@ let Actor = new Phaser.Class({
     return this.layer.worldToTileY(this.y);
   },
   move: function () {
+    scheduler.setDuration(1.0 / this.speed);
     if (!this.path) {
       this.addPath(this.target.x, this.target.y);
     }
@@ -119,7 +120,6 @@ let Actor = new Phaser.Class({
       return;
     }
     isAcceptingOrders = false;
-    scheduler.setDuration(1.0 / this.speed);
     this.path.shift();
     this.scene.tweens.add({
       targets: this,
@@ -129,18 +129,33 @@ let Actor = new Phaser.Class({
       ease: 'Quad.easeOut',
       yoyo: true
     });
-    if (!this.isPlayer 
-      && this.layer.tileToWorldX(this.path[0].x) === player.x
-      && this.layer.tileToWorldY(this.path[0].y) === player.y) {
-      this.scene.tweens.add({
-        targets: this,
-        x: this.layer.tileToWorldX(this.path[0].x),
-        y: this.layer.tileToWorldY(this.path[0].y),
-        ease: 'Quad.easeInOut',
-        duration: 50,
-        yoyo: true
-      });
-      this.damage(player);
+    let actor = this.getActorAt(this.path[0].x, this.path[0].y);
+    if (actor) {
+      if (this.isPlayer) {
+        this.scene.tweens.add({
+          targets: this,
+          x: this.layer.tileToWorldX(this.path[0].x),
+          y: this.layer.tileToWorldY(this.path[0].y),
+          ease: 'Quad.easeInOut',
+          duration: 50,
+          yoyo: true
+        });
+        this.damage(actor);
+        this.target = {
+          x: this.getX(),
+          y: this.getY()
+        };
+      } else if (actor.isPlayer) {        
+        this.scene.tweens.add({
+          targets: this,
+          x: this.layer.tileToWorldX(this.path[0].x),
+          y: this.layer.tileToWorldY(this.path[0].y),
+          ease: 'Quad.easeInOut',
+          duration: 50,
+          yoyo: true
+        });
+        this.damage(actor);
+      }
     } else {
       this.scene.tweens.add({
         targets: this,
@@ -156,7 +171,7 @@ let Actor = new Phaser.Class({
     engine.unlock();
   },
   damage: function (actor) {
-    actor.health -= Math.floor(Math.random() * 10) + 1;
+    actor.health -= ROT.RNG.getUniformInt(0, 10);
     if (actor === player) {
       this.scene.events.emit('playerDamaged');
     }
@@ -166,6 +181,7 @@ let Actor = new Phaser.Class({
       alpha: 0,
       duration: 1000
     });
+    console.log(actor.name, actor.health);
     if (actor.health < 1) {
       actor.die();
     }
@@ -175,6 +191,7 @@ let Actor = new Phaser.Class({
       scheduler.clear();
       this.scene.events.emit('playerDied');
     } else {
+      console.log('killed');
       enemies.splice(enemies.indexOf(this), 1);
       scheduler.remove(this);
       this.destroy();
@@ -193,11 +210,14 @@ let Actor = new Phaser.Class({
       });
     }.bind(this));
   },
+  isAtXY: function (x, y) {
+    return this.getX() === x && this.getY() === y;
+  },
   getActorAt: function (x, y) {
     if (player.isAtXY(x, y)) {
       return player;
     }
-    for (var i = 0; i < enemies.length; i += 1) {
+    for (var i = 0; i < enemies.length; i += 1) {      
       if (enemies[i].isAtXY(x, y)) {
         return enemies[i];
       }

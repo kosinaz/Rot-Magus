@@ -64,7 +64,7 @@ class GameScene extends Phaser.Scene {
     
     // create zombies
     for (let i = 0; i < 10; i += 1) {
-      new Actor(
+      let enemy = new Actor(
         this, 
         ROT.RNG.getUniformInt(0, 81), 
         ROT.RNG.getUniformInt(0, 81), 
@@ -72,6 +72,10 @@ class GameScene extends Phaser.Scene {
         50, 
         layer
       );
+      enemy.maxHealth = 40;
+      enemy.health = 40;
+      enemy.name = 'Zombie ' + (i + 1);
+      enemies.push(enemy); 
     }
 
     // create pointer marker
