@@ -6,6 +6,7 @@ let player;
 let marker;
 let enemies = [];
 let engineLocked = false;
+let isAcceptingOrders = false;
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -60,6 +61,10 @@ class GameScene extends Phaser.Scene {
     layer.on('pointerdown', function (pointer, x, y) {
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
     });
+    new Actor(this, 40, 43, 'tilesetImage', 50, layer);
+    new Actor(this, 40, 46, 'tilesetImage', 50, layer);
+    new Actor(this, 40, 50, 'tilesetImage', 50, layer);
+  
 
     // create pointer marker
     marker = this.add.graphics();

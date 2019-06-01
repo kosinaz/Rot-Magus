@@ -25,33 +25,38 @@ let Actor = new Phaser.Class({
       scene.add.existing(this);
       scheduler.add(this, true);
       this.setOrigin(0);
+      if (isPlayer) {
+        this.scene.cameras.main.startFollow(this, true, 1, 1, -12, -10);
+      }
     },
   act: function () {
     // the engine needs to be locked, even if the player has a target and does
     // not need additional orders, because every action takes time, and no one
     // should move in the meantime
-    engine.lock();
-    this.showFOV();
-    this.scene.cameras.main.stopFollow();
-    this.scene.tweens.add({
-      targets: this.scene.cameras.main,
-      scrollX: this.x - 13 * 24,
-      scrollY: this.y - 13 * 21,
-      ease: 'Quad.easeInOut',
-      duration: 100,
-      onComplete: function () {
-        this.scene.cameras.main.startFollow(this, true, 1, 1, -12, -10);
-        this.scene.time.delayedCall(100, function () {
-          if (this.target.x === this.getX() && this.target.y === this.getY()) { 
-            player = this;
-            this.path = null;
-            isAcceptingOrders = true;
-          } else {
-            this.move();
-          }
-        }.bind(this));
-      }.bind(this)
-    });
+    if (this.isPlayer) {
+      engine.lock();
+      isAcceptingOrders = false;
+      this.scene.time.delayedCall(150, function () {
+        if (this.target.x === this.getX() && this.target.y === this.getY()) { 
+          this.showFOV();   
+          player = this;
+          this.path = null;
+          isAcceptingOrders = true;
+        } else {
+          this.move();
+          this.showFOV();   
+        }
+      }.bind(this));
+    } else {
+      this.scanFOV();
+      engine.lock();
+        if (this.target.x === this.getX() && this.target.y === this.getY()) {
+          this.path = null;
+          engine.unlock();
+        } else {
+          this.move();
+        }
+    }
   },
   orderTo: function (x, y) {
     if (!isAcceptingOrders) {
@@ -83,6 +88,20 @@ let Actor = new Phaser.Class({
       }
     }.bind(this));
   },
+  scanFOV: function () {
+
+    // find the currently visible tiles
+    this.fov.compute(this.getX(), this.getY(), 13, function (x, y) {
+      
+      if (player.getX() === x && player.getY() === y) {
+        this.target = {
+          x: x,
+          y: y
+        };
+        this.path = null;
+       }
+    }.bind(this));
+  },
   
   getX: function () {
     return this.layer.worldToTileX(this.x);
@@ -94,8 +113,10 @@ let Actor = new Phaser.Class({
     if (!this.path) {
       this.addPath(this.target.x, this.target.y);
     }
-    if (this.path.length < 1) {    
+    console.log('before shift:', this.name, this.path.length);
+    if (this.path.length < 2) {    
       this.path = null;
+      engine.unlock();
       return;
     }
     isAcceptingOrders = false;
@@ -114,11 +135,9 @@ let Actor = new Phaser.Class({
       x: this.layer.tileToWorldX(this.path[0].x),
       y: this.layer.tileToWorldY(this.path[0].y),
       ease: 'Quad.easeInOut',
-      duration: 100,
-      onComplete: function () {
-        engine.unlock();
-      }.bind(this)
+      duration: 100
     });
+    engine.unlock();
   },
   damage: function (actor) {
     actor.health -= Math.floor(Math.random() * 60) + 1;
