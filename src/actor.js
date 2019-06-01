@@ -21,6 +21,7 @@ let Actor = new Phaser.Class({
       this.health = 120;
       this.maxHealth = 120;
       this.fov = scene.fov;
+      this.noise = scene.noise;
       scene.add.existing(this);
       scheduler.add(this, true);
       this.setOrigin(0);
@@ -36,7 +37,7 @@ let Actor = new Phaser.Class({
       targets: this.scene.cameras.main,
       scrollX: this.x - 13 * 24,
       scrollY: this.y - 13 * 21,
-      ease: 'Power1',
+      ease: 'Quad.easeInOut',
       duration: 100,
       onComplete: function () {
         this.scene.cameras.main.startFollow(this, true, 1, 1, -12, -10);
@@ -56,31 +57,33 @@ let Actor = new Phaser.Class({
     if (!isAcceptingOrders) {
       return;
     }
-    this.target = {
-      x: x,
-      y: y
-    };
-    this.move();
+    let tile = this.layer.getTileAt(x, y);
+    if (tile && (tile.index !== 17 && tile.index !== 21)) {
+      this.target = {
+        x: x,
+        y: y
+      };
+      this.move();
+    }
   },
   showFOV: function () {
     
-    // overlay fog of war on every tile that was already visible
-    this.layer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
-    //itemLayer.forEachTile(tile => (tile.alpha = tile.alpha ? 0.3 : 0));
-    enemies.forEach(function (enemy) {
-      enemy.alpha = 0;
+    // hide all tiles
+    this.layer.forEachTile(function (tile) {
+      tile.visible = false;
     });
-    
-    // find the visible tiles
+
+    // find the currently visible tiles
     this.fov.compute(this.getX(), this.getY(), 13, function (x, y) {
       
       // show the visible tiles
       let tile = this.layer.getTileAt(x, y);
       if (tile) {
-        tile.alpha = 1;
+        tile.visible = true;
       }
     }.bind(this));
   },
+  
   getX: function () {
     return this.layer.worldToTileX(this.x);
   },
@@ -100,9 +103,17 @@ let Actor = new Phaser.Class({
     this.path.shift();
     this.scene.tweens.add({
       targets: this,
+      scaleX: 1.1,
+      scaleY: 1.1,
+      duration: 50,
+      ease: 'Quad.easeOut',
+      yoyo: true
+    });
+    this.scene.tweens.add({
+      targets: this,
       x: this.layer.tileToWorldX(this.path[0].x),
       y: this.layer.tileToWorldY(this.path[0].y),
-      ease: 'Power1',
+      ease: 'Quad.easeInOut',
       duration: 100,
       onComplete: function () {
         engine.unlock();
@@ -134,7 +145,8 @@ let Actor = new Phaser.Class({
   },
   addPath: function (x, y) {
     let a = new ROT.Path.AStar(x, y, function (x, y) {
-      return !this.layer.getTileAt(x, y).properties.unpassable
+      let tile = this.layer.getTileAt(x, y);
+      return tile && (tile.index !== 17 && tile.index !== 21);
     }.bind(this));
     this.path = [];
     a.compute(this.getX(), this.getY(), function (x, y) {

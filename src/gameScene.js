@@ -1,4 +1,3 @@
-
 const scheduler = new ROT.Scheduler.Action();
 const engine = new ROT.Engine(scheduler)
 let map;
@@ -19,10 +18,6 @@ class GameScene extends Phaser.Scene {
 
   preload = function () {
 
-    // preload the Tiled map of the random features that will be used 
-    // to fill the game map with random map features
-    this.load.tilemapTiledJSON('featureMap', 'data/map.json');
-
     // preload the tileset image that contains all the tiles of the map
     this.load.spritesheet('tilesetImage', 'assets/images/tiles.png', {
       frameWidth: 24,
@@ -32,17 +27,14 @@ class GameScene extends Phaser.Scene {
 
   create = function () {
 
-    // make the tilemap of features based on the preloaded Tiled map
-    const features = this.make.tilemap({
-      key: 'featureMap'
-    });
+    this.cameras.main.setBackgroundColor('#000000');
     
     // make a blank map that will be filled with random map features
     const map = this.make.tilemap({
       tileWidth: 24,
       tileHeight: 21,
-      width: 256,
-      height: 256
+      width: 27 * 3,
+      height: 27 * 3
     });
 
     // add a tileset to the game map based on the preloaded tileset image
@@ -60,60 +52,10 @@ class GameScene extends Phaser.Scene {
     this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
 
     // generate a noise to use it throughout the whole procedural map generation
-    const noise = new ROT.Noise.Simplex();
-    
-    // generate height map
-    Heightmap.add(layer, noise);
-
-    // put down the start location
-    Start.put(layer, features)
-
-    // generate rivers
-    layer.forEachTile(function (tile) {
-
-      // if there is a spring
-      if (tile.properties && tile.properties.spring) {
-
-        // put down a river
-        //River.put(noise, tile.x, tile.y, layer);
-
-      }
-    });
-
-    // generate houses
-    layer.forEachTile(function (tile) {
-
-      // if there is a floor
-      if (tile.properties && tile.properties.floor) {
-
-        // put down a house
-        //House.put(noise, tile.x, tile.y, layer);
-      }
-    }, {
-      layer: layer,
-      noise: noise
-    });
-
-    // generate roads
-    layer.forEachTile(function (tile) {
-
-      // if there is a road
-      if (tile.properties && tile.properties.road) {
-
-        // put down a road
-        //Road.put(noise, tile.x, tile.y, layer);
-      }
-    }, {
-      layer: layer,
-      noise: noise
-    });
-    
-    // initially hide the whole map
-    this.groundLayer.forEachTile(tile => (tile.alpha = 0));
-    this.itemLayer.forEachTile(tile => (tile.alpha = 0));
+    this.noise = new ROT.Noise.Simplex();
 
     // create player at the center of the map
-    player = new Actor(this, 127, 127, 'tilesetImage', 25, layer, true);
+    player = new Actor(this, 40, 40, 'tilesetImage', 25, layer, true);
     player.name = 'Bonthar';
     layer.on('pointerdown', function (pointer, x, y) {
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
@@ -169,8 +111,46 @@ class GameScene extends Phaser.Scene {
      */
     playerXY = this.groundLayer.worldToTileXY(player.x, player.y);
     tile = this.groundLayer.getTileAt(x, y);
-    return x === playerXY.x && y === playerXY.y ||
-      tile && !tile.properties.opaque;
-  }
+    if (!tile) {
+      tile = this.groundLayer.putTileAt(this.getTileIndexAt(x, y), x, y);
+    }
+    return (x === playerXY.x && y === playerXY.y)
+      || tile && (tile.index !== 17 && tile.index !== 21);
+  };
+  
+  getTileIndexAt = function (x, y) {
 
+    // set the tile as grass by default
+    let tileIndex = 0;
+
+    // set a position-based low-frequency noise 
+    // increase its amplitude to narrow down its median to one tile 
+    // round it to the nearest integer
+    // return the median
+    if (!~~(this.noise.get(x / 48, y / 48) * 16)) {
+
+      // set the tile as dirt
+      tileIndex = 4;
+
+      // set a position-based low-frequency noise 
+      // increase its amplitude to narrow down its median to a few tiles 
+      // round it to the nearest integer
+      // return the median
+    } else if (!~~(this.noise.get(x / 96, y / 96) * 8)) {
+
+      // set the tile as rock
+      tileIndex = 21;
+
+      // set a position-based noise 
+      // increase its amplitude
+      // round it to the nearest integer
+      // return the median
+    } else if (!~~(this.noise.get(x, y) * 32)) {
+
+      // set the tile as tree
+      tileIndex = 17;
+    }
+
+    return tileIndex;
+  };
 }
