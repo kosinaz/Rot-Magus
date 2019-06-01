@@ -4,7 +4,8 @@ class DeathScene extends Phaser.Scene {
   }
 
   create = function () {
-    this.add.text(700, 250, 'The Dark One smiles...', {
+    this.cameras.main.setBackgroundColor('#000000');
+    this.add.text(500, 250, 'The Dark One smiles...', {
       fontFamily: 'font',
       fontSize: '20px',
       fill: '#ffffff'

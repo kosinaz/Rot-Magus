@@ -113,7 +113,6 @@ let Actor = new Phaser.Class({
     if (!this.path) {
       this.addPath(this.target.x, this.target.y);
     }
-    console.log('before shift:', this.name, this.path.length);
     if (this.path.length < 2) {    
       this.path = null;
       engine.unlock();
@@ -130,24 +129,40 @@ let Actor = new Phaser.Class({
       ease: 'Quad.easeOut',
       yoyo: true
     });
-    this.scene.tweens.add({
-      targets: this,
-      x: this.layer.tileToWorldX(this.path[0].x),
-      y: this.layer.tileToWorldY(this.path[0].y),
-      ease: 'Quad.easeInOut',
-      duration: 100
-    });
+    if (!this.isPlayer 
+      && this.layer.tileToWorldX(this.path[0].x) === player.x
+      && this.layer.tileToWorldY(this.path[0].y) === player.y) {
+      this.scene.tweens.add({
+        targets: this,
+        x: this.layer.tileToWorldX(this.path[0].x),
+        y: this.layer.tileToWorldY(this.path[0].y),
+        ease: 'Quad.easeInOut',
+        duration: 50,
+        yoyo: true
+      });
+      this.damage(player);
+    } else {
+      this.scene.tweens.add({
+        targets: this,
+        x: this.layer.tileToWorldX(this.path[0].x),
+        y: this.layer.tileToWorldY(this.path[0].y),
+        ease: 'Quad.easeInOut',
+        duration: 100
+      });
+    }
     engine.unlock();
   },
   damage: function (actor) {
-    actor.health -= Math.floor(Math.random() * 60) + 1;
+    actor.health -= Math.floor(Math.random() * 10) + 1;
     if (actor === player) {
       this.scene.events.emit('playerDamaged');
     }
-    this.effect = this.scene.add.sprite(actor.x + 12, actor.y + 11, 'tiles', 200);
-    this.scene.time.delayedCall(100, function () {
-      this.effect.destroy();
-    }.bind(this), [], this);
+    this.effect = this.scene.add.sprite(actor.x + 12, actor.y + 11, 'tilesetImage', 200);
+    this.scene.tweens.add({
+      targets: this.effect,
+      alpha: 0,
+      duration: 1000
+    });
     if (actor.health < 1) {
       actor.die();
     }
