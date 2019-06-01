@@ -34,8 +34,8 @@ class GameScene extends Phaser.Scene {
     const map = this.make.tilemap({
       tileWidth: 24,
       tileHeight: 21,
-      width: 27 * 3,
-      height: 27 * 3
+      width: 81,
+      height: 81
     });
 
     // add a tileset to the game map based on the preloaded tileset image
@@ -61,10 +61,18 @@ class GameScene extends Phaser.Scene {
     layer.on('pointerdown', function (pointer, x, y) {
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
     });
-    new Actor(this, 40, 43, 'tilesetImage', 50, layer);
-    new Actor(this, 40, 46, 'tilesetImage', 50, layer);
-    new Actor(this, 40, 50, 'tilesetImage', 50, layer);
-  
+    
+    // create zombies
+    for (let i = 0; i < 10; i += 1) {
+      new Actor(
+        this, 
+        ROT.RNG.getUniformInt(0, 81), 
+        ROT.RNG.getUniformInt(0, 81), 
+        'tilesetImage', 
+        50, 
+        layer
+      );
+    }
 
     // create pointer marker
     marker = this.add.graphics();
