@@ -168,15 +168,13 @@ let Actor = new Phaser.Class({
     } else {
       this.tileX = this.path[0].x;
       this.tileY = this.path[0].y;
+      this.scene.events.emit('playerMoved');
       this.scene.tweens.add({
         targets: this,
         x: this.layer.tileToWorldX(this.tileX),
         y: this.layer.tileToWorldY(this.tileY),
         ease: 'Quad.easeInOut',
-        duration: 900 / game.speed,
-        onComplete: function () {
-          this.scene.events.emit('playerMoved');
-        }.bind(this)
+        duration: 900 / game.speed
       });
     }
     engine.unlock();

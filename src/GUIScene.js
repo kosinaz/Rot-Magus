@@ -157,10 +157,10 @@ class GUIScene extends Phaser.Scene {
           this.currentGround.data.y
         );
       };
-      if (!this.grounds[player.x + ',' + player.y]) {
-        this.grounds[player.x + ',' + player.y] = addGround(this.ground, this.groundLayer);
+      if (!this.grounds[player.tileX + ',' + player.tileY]) {
+        this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, this.groundLayer);
       }
-      this.currentGround = this.grounds[player.x + ',' + player.y];
+      this.currentGround = this.grounds[player.tileX + ',' + player.tileY];
       this.currentGround.alpha = 1;
     }, this);
 
@@ -181,8 +181,8 @@ class GUIScene extends Phaser.Scene {
 
     this.ground = createGround(this);
     this.grounds = {};
-    this.grounds[player.x + ',' + player.y] = addGround(this.ground, this.groundLayer);
-    this.currentGround = this.grounds[player.x + ',' + player.y];
+    this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, this.groundLayer);
+    this.currentGround = this.grounds[player.tileX + ',' + player.tileY];
   };
 
   update = function () {
@@ -451,11 +451,14 @@ function createGround(scene) {
 
 function addGround(map, groundLayer) {
   var layer = map.createBlankDynamicLayer(
-    'ground ' + player.x + ',' + player.y,
+    'ground ' + player.tileX + ',' + player.tileY,
     map.addTilesetImage('tilesetImage'),
     4,
     341
   );
-  layer.data = groundLayer.worldToTileXY(player.x, player.y);
+  layer.data = {
+    x: player.tileX, 
+    y: player.tileY
+  };
   return layer;
 }
