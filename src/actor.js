@@ -14,6 +14,7 @@ let Actor = new Phaser.Class({
       this.isPlayer = isPlayer;
       this.tileX = x;
       this.tileY = y;
+      this.tileIndex = frame;
       this.target = {
         x: this.tileX,
         y: this.tileY
@@ -25,6 +26,12 @@ let Actor = new Phaser.Class({
       this.level = 0;
       this.health = 120;
       this.maxHealth = 120;
+      this.mana = 10;
+      this.maxMana = 10;
+      this.strength = 17;
+      this.load = 14;
+      this.skill = 15;
+      this.wisdom = 1;
       this.walksOn = [];
       this.fov = scene.fov;
       this.noise = scene.noise;

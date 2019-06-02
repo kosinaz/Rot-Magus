@@ -17,7 +17,7 @@ class GUIScene extends Phaser.Scene {
     /**
      * Add player character image
      */
-    this.add.image(16, 16, 'tilesetImage', 25);
+    this.add.image(16, 16, 'tilesetImage', player.tileIndex);
 
     /**
      * Add experience level indicator
@@ -33,7 +33,7 @@ class GUIScene extends Phaser.Scene {
     /**
      * Add player name
      */
-    this.nameLabel = this.add.text(56, 16, 'Bonthar', {
+    this.nameLabel = this.add.text(56, 16, player.name, {
       fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
@@ -49,7 +49,7 @@ class GUIScene extends Phaser.Scene {
       }
     });
     this.XPBar.fillRect(5, 27, 1, 19);
-    this.XPLabel = this.add.text(64, 37, '0/50', {
+    this.XPLabel = this.add.text(64, 37, player.xp + '/' + player.maxXP, {
       fontFamily: 'font',
       fontSize: '14px',
       fill: '#ffffff'
@@ -66,7 +66,7 @@ class GUIScene extends Phaser.Scene {
       }
     });
     this.healthBar.fillRect(5, 48, 118, 19);
-    this.healthLabel = this.add.text(64, 58, '120/120', {
+    this.healthLabel = this.add.text(64, 58, player.health + '/' + player.maxHealth, {
       fontFamily: 'font',
       fontSize: '14px',
       fill: '#ffffff'
@@ -83,7 +83,7 @@ class GUIScene extends Phaser.Scene {
       }
     });
     this.manaBar.fillRect(5, 69, 118, 19);
-    this.manaLabel = this.add.text(64, 79, '10/10', {
+    this.manaLabel = this.add.text(64, 79, player.mana + '/' + player.maxMana, {
       fontFamily: 'font',
       fontSize: '14px',
       fill: '#ffffff'
@@ -94,7 +94,7 @@ class GUIScene extends Phaser.Scene {
     /**
      * Add speed label
      */
-    this.speedLabel = this.add.text(288, 16, '4', {
+    this.speedLabel = this.add.text(288, 16, player.speed, {
       fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
@@ -104,17 +104,17 @@ class GUIScene extends Phaser.Scene {
     /**
      * Add strength label
      */
-    this.speedLabel = this.add.text(288, 37, '12/17', {
+    this.strengthLabel = this.add.text(288, 37, player.load + '/' + player.strength, {
       fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
     });
-    this.speedLabel.setOrigin(1, 0.5);
+    this.strengthLabel.setOrigin(1, 0.5);
 
     /**
      * Add skill label
      */
-    this.skillLabel = this.add.text(288, 58, '15', {
+    this.skillLabel = this.add.text(288, 58, player.skill, {
       fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
@@ -124,7 +124,7 @@ class GUIScene extends Phaser.Scene {
     /**
      * Add wisdom label
      */
-    this.wisdomLabel = this.add.text(288, 79, '1', {
+    this.wisdomLabel = this.add.text(288, 79, player.wisdom, {
       fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
