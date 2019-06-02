@@ -24,6 +24,7 @@ let Actor = new Phaser.Class({
       this.maxHealth = 120;
       this.fov = scene.fov;
       this.noise = scene.noise;
+      this.scene = scene;
       scene.add.existing(this);
       scheduler.add(this, true);
       this.setOrigin(0);
@@ -79,6 +80,7 @@ let Actor = new Phaser.Class({
     
     // hide all tiles
     this.layer.forEachTile(tile => tile.visible = false);
+    this.scene.itemLayer.forEachTile(tile => tile.visible = false);
     enemies.forEach(enemy => enemy.visible = false);
 
     // find the currently visible tiles
@@ -86,6 +88,10 @@ let Actor = new Phaser.Class({
       
       // show the visible tiles
       let tile = this.layer.getTileAt(x, y);
+      if (tile) {
+        tile.visible = true;
+      }
+      tile = this.scene.itemLayer.getTileAt(x, y);
       if (tile) {
         tile.visible = true;
       }
