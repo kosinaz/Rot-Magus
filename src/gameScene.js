@@ -34,8 +34,8 @@ class GameScene extends Phaser.Scene {
     const map = this.make.tilemap({
       tileWidth: 24,
       tileHeight: 21,
-      width: 81,
-      height: 81
+      width: 243,
+      height: 243
     });
 
     // add a tileset to the game map based on the preloaded tileset image
@@ -56,10 +56,11 @@ class GameScene extends Phaser.Scene {
     this.noiseMap = new SimplexMap;
 
     // create player at the center of the map
-    let grassTiles = layer.filterTiles(function (tile) {
+    let startTiles = layer.filterTiles(function (tile) {
       return !this.noiseMap.getTileIndexAt(tile.x, tile.y);
-    }, this);
-    let tile = ROT.RNG.getItem(grassTiles);
+    }, this, 108, 108, 27, 27);
+    
+    let tile = ROT.RNG.getItem(startTiles);
     player = new Actor(this, tile.x, tile.y, 'tilesetImage', 37, layer, true);
     player.name = 'Aian';
     player.walksOn = [13, 16];
@@ -68,6 +69,9 @@ class GameScene extends Phaser.Scene {
     });
     
     // create zombies
+    let grassTiles = layer.filterTiles(function (tile) {
+      return !this.noiseMap.getTileIndexAt(tile.x, tile.y);
+    }, this);
     for (let i = 0; i < 10; i += 1) {
       tile = ROT.RNG.getItem(grassTiles);
       let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', 50, layer);

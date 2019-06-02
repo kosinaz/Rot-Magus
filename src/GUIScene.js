@@ -181,8 +181,8 @@ class GUIScene extends Phaser.Scene {
     * Create inventory
     */
     this.inventory = createInventory(this);
-    this.inventory.putTileAt(114, 0, 5);
-    this.inventory.putTileAt(138, 1, 5);
+    this.inventory.putTileAt(116, 0, 5);
+    this.inventory.putTileAt(118, 1, 5);
     this.inventory.putTileAt(108, 2, 5);
     this.inventory.putTileAt(102, 3, 5);
 

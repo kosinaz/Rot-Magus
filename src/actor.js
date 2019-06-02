@@ -187,6 +187,7 @@ let Actor = new Phaser.Class({
       this.tileX = this.path[0].x;
       this.tileY = this.path[0].y;
       this.scene.events.emit('playerMoved');
+      console.log(player.name + ' moved to ' + this.tileX + ', ' + this.tileY);
       this.scene.tweens.add({
         targets: this,
         x: this.layer.tileToWorldX(this.tileX),
