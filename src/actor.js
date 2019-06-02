@@ -12,11 +12,13 @@ let Actor = new Phaser.Class({
       );
       this.layer = layer;
       this.isPlayer = isPlayer;
+      this.tileX = x;
+      this.tileY = y;
       this.target = {
-        x: this.getX(),
-        y: this.getY()
+        x: this.tileX,
+        y: this.tileY
       }
-      this.path = null;
+      this.path = null;      
       this.speed = 4;
       this.health = 120;
       this.maxHealth = 120;
@@ -37,7 +39,7 @@ let Actor = new Phaser.Class({
       engine.lock();
       isAcceptingOrders = false;
       this.scene.time.delayedCall(1000 / game.speed, function () {
-        if (this.target.x === this.getX() && this.target.y === this.getY()) { 
+        if (this.target.x === this.tileX && this.target.y === this.tileY) { 
           this.showFOV();   
           player = this;
           this.path = null;
@@ -50,7 +52,7 @@ let Actor = new Phaser.Class({
     } else {
       this.scanFOV();
       engine.lock();
-        if (this.target.x === this.getX() && this.target.y === this.getY()) {
+        if (this.target.x === this.tileX && this.target.y === this.tileY) {
           this.path = null;
           engine.unlock();
         } else {
@@ -79,7 +81,7 @@ let Actor = new Phaser.Class({
     });
 
     // find the currently visible tiles
-    this.fov.compute(this.getX(), this.getY(), 13, function (x, y) {
+    this.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
       
       // show the visible tiles
       let tile = this.layer.getTileAt(x, y);
@@ -91,9 +93,9 @@ let Actor = new Phaser.Class({
   scanFOV: function () {
 
     // find the currently visible tiles
-    this.fov.compute(this.getX(), this.getY(), 13, function (x, y) {
+    this.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
       
-      if (player.getX() === x && player.getY() === y) {
+      if (player.tileX === x && player.tileY === y) {
         this.target = {
           x: x,
           y: y
@@ -102,13 +104,7 @@ let Actor = new Phaser.Class({
        }
     }.bind(this));
   },
-  
-  getX: function () {
-    return this.layer.worldToTileX(this.x);
-  },
-  getY: function () {
-    return this.layer.worldToTileY(this.y);
-  },
+
   move: function () {
     scheduler.setDuration(1.0 / this.speed);
     if (!this.path) {
@@ -142,8 +138,8 @@ let Actor = new Phaser.Class({
         });
         this.damage(actor);
         this.target = {
-          x: this.getX(),
-          y: this.getY()
+          x: this.tileX,
+          y: this.tileY
         };
       } else if (actor.isPlayer) {        
         this.scene.tweens.add({
@@ -157,10 +153,12 @@ let Actor = new Phaser.Class({
         this.damage(actor);
       }
     } else {
+      this.tileX = this.path[0].x;
+      this.tileY = this.path[0].y;
       this.scene.tweens.add({
         targets: this,
-        x: this.layer.tileToWorldX(this.path[0].x),
-        y: this.layer.tileToWorldY(this.path[0].y),
+        x: this.layer.tileToWorldX(this.tileX),
+        y: this.layer.tileToWorldY(this.tileY),
         ease: 'Quad.easeInOut',
         duration: 900 / game.speed,
         onComplete: function () {
@@ -171,16 +169,30 @@ let Actor = new Phaser.Class({
     engine.unlock();
   },
   damage: function (actor) {
-    actor.health -= ROT.RNG.getUniformInt(0, 10);
+    let damage = ROT.RNG.getUniformInt(1, 10)
+    actor.health -= damage;
     if (actor === player) {
       this.scene.events.emit('playerDamaged');
     }
-    this.effect = this.scene.add.sprite(actor.x + 12, actor.y + 11, 'tilesetImage', 200);
-    this.scene.tweens.add({
-      targets: this.effect,
-      alpha: 0,
-      duration: 1000
-    });
+    this.scene.time.delayedCall(450 / game.speed, function () {
+      let effect = this.scene.add.sprite(
+        this.layer.tileToWorldX(actor.tileX) + 12, 
+        this.layer.tileToWorldY(actor.tileY) + 11, 
+        'tilesetImage', 
+        damage === 10 ? 201 : 200
+      );
+      this.scene.tweens.add({
+        targets: effect,
+        alpha: 0,
+        scaleX: 1.5,
+        scaleY: 1.5,
+        duration: 900 / game.speed,
+        delay: 450 / game.speed,
+        onComplete: function () {
+          effect.destroy();
+        }
+      });
+    }.bind(this));
     console.log(actor.name, actor.health);
     if (actor.health < 1) {
       actor.die();
@@ -191,7 +203,16 @@ let Actor = new Phaser.Class({
       scheduler.clear();
       this.scene.events.emit('playerDied');
     } else {
-      console.log('killed');
+      let effect = this.scene.add.sprite(
+        this.x + 12,
+        this.y + 11,
+        'tilesetImage',
+        this.frame.name
+      );
+      this.scene.time.delayedCall(450 / game.speed, function () {
+        effect.destroy();
+      });
+      console.log(this.name, 'died');
       enemies.splice(enemies.indexOf(this), 1);
       scheduler.remove(this);
       this.destroy();
@@ -203,7 +224,7 @@ let Actor = new Phaser.Class({
       return tile && (tile.index !== 17 && tile.index !== 21);
     }.bind(this));
     this.path = [];
-    a.compute(this.getX(), this.getY(), function (x, y) {
+    a.compute(this.tileX, this.tileY, function (x, y) {
       this.path.push({
         x: x,
         y: y
@@ -211,7 +232,7 @@ let Actor = new Phaser.Class({
     }.bind(this));
   },
   isAtXY: function (x, y) {
-    return this.getX() === x && this.getY() === y;
+    return this.tileX === x && this.tileY === y;
   },
   getActorAt: function (x, y) {
     if (player.isAtXY(x, y)) {
