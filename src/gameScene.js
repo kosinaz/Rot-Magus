@@ -72,6 +72,7 @@ class GameScene extends Phaser.Scene {
       let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', 50, layer);
       enemy.maxHealth = 40;
       enemy.health = 40;
+      enemy.speed = 4;
       enemy.name = 'Zombie ' + (i + 1);
       enemies.push(enemy); 
     }

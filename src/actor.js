@@ -19,7 +19,7 @@ let Actor = new Phaser.Class({
         y: this.tileY
       }
       this.path = null;      
-      this.speed = 4;
+      this.speed = 6;
       this.health = 120;
       this.maxHealth = 120;
       this.fov = scene.fov;
