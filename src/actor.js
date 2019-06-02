@@ -36,7 +36,7 @@ let Actor = new Phaser.Class({
     if (this.isPlayer) {
       engine.lock();
       isAcceptingOrders = false;
-      this.scene.time.delayedCall(150, function () {
+      this.scene.time.delayedCall(1000 / game.speed, function () {
         if (this.target.x === this.getX() && this.target.y === this.getY()) { 
           this.showFOV();   
           player = this;
@@ -125,7 +125,7 @@ let Actor = new Phaser.Class({
       targets: this,
       scaleX: 1.1,
       scaleY: 1.1,
-      duration: 50,
+      duration: 450 / game.speed,
       ease: 'Quad.easeOut',
       yoyo: true
     });
@@ -137,7 +137,7 @@ let Actor = new Phaser.Class({
           x: this.layer.tileToWorldX(this.path[0].x),
           y: this.layer.tileToWorldY(this.path[0].y),
           ease: 'Quad.easeInOut',
-          duration: 50,
+          duration: 450 / game.speed,
           yoyo: true
         });
         this.damage(actor);
@@ -151,7 +151,7 @@ let Actor = new Phaser.Class({
           x: this.layer.tileToWorldX(this.path[0].x),
           y: this.layer.tileToWorldY(this.path[0].y),
           ease: 'Quad.easeInOut',
-          duration: 50,
+          duration: 450 / game.speed,
           yoyo: true
         });
         this.damage(actor);
@@ -162,7 +162,7 @@ let Actor = new Phaser.Class({
         x: this.layer.tileToWorldX(this.path[0].x),
         y: this.layer.tileToWorldY(this.path[0].y),
         ease: 'Quad.easeInOut',
-        duration: 100,
+        duration: 900 / game.speed,
         onComplete: function () {
           this.scene.events.emit('playerMoved');
         }.bind(this)

@@ -8,3 +8,5 @@ const game = new Phaser.Game({
   roundPixels: true,
   scene: [MenuScene, GameScene, InfiniteScene, GUIScene, DeathScene]
 });
+
+game.speed = 2;
