@@ -170,6 +170,13 @@ class GUIScene extends Phaser.Scene {
       this.healthBar.fillRect(5, 48, Math.max(1, 118 * player.health/player.maxHealth), 19);
     }, this);
 
+    game.events.on('playerEarnedXP', function () {
+      this.XPLabel.text = player.xp + '/' + player.maxXP;
+      this.levelLabel.text = player.level;
+      this.XPBar.clear();
+      this.XPBar.fillRect(5, 27, Math.max(1, 118 * player.xp / player.maxXP), 19);
+    }, this);
+
     /**
     * Create inventory
     */

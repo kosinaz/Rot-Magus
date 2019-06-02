@@ -20,6 +20,9 @@ let Actor = new Phaser.Class({
       }
       this.path = null;      
       this.speed = 6;
+      this.xp = 0;
+      this.maxXP = 50;
+      this.level = 0;
       this.health = 120;
       this.maxHealth = 120;
       this.fov = scene.fov;
@@ -209,11 +212,21 @@ let Actor = new Phaser.Class({
       actor.die();
     }
   },
+  earnXP: function (amount) {
+    this.xp += amount;
+    if (this.xp >= this.maxXP) {
+      this.xp -= this.maxXP;
+      this.maxXP *= 2;
+      this.level += 1;
+    }
+    this.scene.events.emit('playerEarnedXP');
+  },
   die: function () {
     if (this === player) {
       scheduler.clear();
       this.scene.events.emit('playerDied');
     } else {
+      player.earnXP(10);
       let effect = this.scene.add.sprite(
         this.x + 12,
         this.y + 11,
