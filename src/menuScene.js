@@ -1,28 +1,32 @@
 class MenuScene extends Phaser.Scene {
   constructor() {
-    super('MenuScene');
+    super({
+      key: 'MenuScene',
+      active: true
+    });
   }
   create() {
-    this.add.existing(new TextButton({
+
+    let title = this.add.text(512, 100, 'ROT MAGUS', {
+      fontFamily: 'font',
+      fontSize: '64px',
+      fill: '#ff0000'
+    });
+    title.setStroke('#000000', 8);
+    title.setOrigin(0.5);
+
+    let button = this.add.existing(new TextButton({
       onPointerUp: function () {
         this.scene.start('GameScene');
         this.scene.start('GUIScene');
       }.bind(this),
-      origin: 0,
+      origin: 0.5,
       scene: this,
-      text: 'New game',
-      x: 100,
-      y: 100
-    }));
-    this.add.existing(new TextButton({
-      onPointerUp: function () {
-        this.scene.start('InfiniteScene');
-      }.bind(this),
-      origin: 0,
-      scene: this,
-      text: 'Infinite mode',
-      x: 100,
+      text: 'Start game',
+      x: 512,
       y: 200
     }));
+    button.setFill('#ffff00');
+    button.setStroke('#000000', 6);
   }
 }
