@@ -56,7 +56,11 @@ class GameScene extends Phaser.Scene {
     this.noise = new ROT.Noise.Simplex();
 
     // create player at the center of the map
-    player = new Actor(this, 40, 40, 'tilesetImage', 25, layer, true);
+    let grassTiles = layer.filterTiles(function (tile) {
+      return !this.getTileIndexAt(tile.x, tile.y);
+    }, this);
+    let tile = ROT.RNG.getItem(grassTiles);
+    player = new Actor(this, tile.x, tile.y, 'tilesetImage', 25, layer, true);
     player.name = 'Bonthar';
     layer.on('pointerdown', function (pointer, x, y) {
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
@@ -64,14 +68,8 @@ class GameScene extends Phaser.Scene {
     
     // create zombies
     for (let i = 0; i < 10; i += 1) {
-      let enemy = new Actor(
-        this, 
-        ROT.RNG.getUniformInt(0, 81), 
-        ROT.RNG.getUniformInt(0, 81), 
-        'tilesetImage', 
-        50, 
-        layer
-      );
+      tile = ROT.RNG.getItem(grassTiles);
+      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', 50, layer);
       enemy.maxHealth = 40;
       enemy.health = 40;
       enemy.name = 'Zombie ' + (i + 1);
