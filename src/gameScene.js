@@ -52,16 +52,17 @@ class GameScene extends Phaser.Scene {
     // create a FOV calculator
     this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
 
-    // generate a noise to use it throughout the whole procedural map generation
-    this.noise = new ROT.Noise.Simplex();
+    // generate a map based on simplex noise
+    this.noiseMap = new SimplexMap;
 
     // create player at the center of the map
     let grassTiles = layer.filterTiles(function (tile) {
-      return !this.getTileIndexAt(tile.x, tile.y);
+      return !this.noiseMap.getTileIndexAt(tile.x, tile.y);
     }, this);
     let tile = ROT.RNG.getItem(grassTiles);
-    player = new Actor(this, tile.x, tile.y, 'tilesetImage', 25, layer, true);
-    player.name = 'Bonthar';
+    player = new Actor(this, tile.x, tile.y, 'tilesetImage', 37, layer, true);
+    player.name = 'Aian';
+    player.walksOn = [13, 16];
     layer.on('pointerdown', function (pointer, x, y) {
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
     });
@@ -128,54 +129,10 @@ class GameScene extends Phaser.Scene {
     playerXY = this.groundLayer.worldToTileXY(player.x, player.y);
     tile = this.groundLayer.getTileAt(x, y);
     if (!tile) {
-      tile = this.groundLayer.putTileAt(this.getTileIndexAt(x, y), x, y);
+      tile = this.groundLayer.putTileAt(this.noiseMap.getTileIndexAt(x, y), x, y);
     }
     return (x === playerXY.x && y === playerXY.y)
       || tile && (tile.index !== 16 && tile.index !== 17 && tile.index !== 21);
   };
   
-  getTileIndexAt = function (x, y) {
-
-    // set the tile as grass by default
-    let tileIndex = 0;
-
-    // set a position-based low-frequency noise 
-    // increase its amplitude to narrow down its median to one tile 
-    // round it to the nearest integer
-    // return the median
-    if (!~~(this.noise.get(x / 48, y / 48) * 16)) {
-
-      // set the tile as dirt
-      tileIndex = 4;
-
-      // set a position-based low-frequency noise 
-      // increase its amplitude to narrow down its median to a few tiles 
-      // round it to the nearest integer
-      // return the median
-    } else if (!~~(this.noise.get(x / 96, y / 96) * 8)) {
-
-      // set the tile as rock
-      tileIndex = 21;
-
-      // set a position-based noise 
-      // increase its amplitude
-      // round it to the nearest integer
-      // return the median
-    } else if (!~~(this.noise.get(x, y) * 16)) {
-
-      // set the tile as tree or bush or flowers
-      let n = this.noise.get(x, y);
-      if (n === 0) {
-        tileIndex = 17;
-      } else if (n < -0.01) {
-        tileIndex = 1;
-      } else if (n > 0.01) {
-        tileIndex = 2;
-      } else {
-        tileIndex = 16;
-      }
-    }
-
-    return tileIndex;
-  };
 }

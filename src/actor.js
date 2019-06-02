@@ -25,6 +25,7 @@ let Actor = new Phaser.Class({
       this.level = 0;
       this.health = 120;
       this.maxHealth = 120;
+      this.walksOn = [];
       this.fov = scene.fov;
       this.noise = scene.noise;
       this.scene = scene;
@@ -71,7 +72,14 @@ let Actor = new Phaser.Class({
       return;
     }
     let tile = this.layer.getTileAt(x, y);
-    if (tile && (tile.index !== 17 && tile.index !== 21)) {
+    if (tile && (
+      this.walksOn.includes(tile.index) 
+      || tile.index !== 12 
+      && tile.index !== 13 
+      && tile.index !== 16 
+      && tile.index !== 17 
+      && tile.index !== 21
+    )) {
       this.target = {
         x: x,
         y: y
@@ -245,7 +253,14 @@ let Actor = new Phaser.Class({
   addPath: function (x, y) {
     let a = new ROT.Path.AStar(x, y, function (x, y) {
       let tile = this.layer.getTileAt(x, y);
-      return tile && (tile.index !== 16 && tile.index !== 17 && tile.index !== 21);
+      return tile && (
+        this.walksOn.includes(tile.index) ||
+        tile.index !== 12 &&
+        tile.index !== 13 &&
+        tile.index !== 16 &&
+        tile.index !== 17 &&
+        tile.index !== 21
+      )
     }.bind(this));
     this.path = [];
     a.compute(this.tileX, this.tileY, function (x, y) {

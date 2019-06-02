@@ -12,8 +12,8 @@ class InfiniteScene extends Phaser.Scene {
   }
   create() {
 
-    // initialize a simplex noise
-    const noise = new ROT.Noise.Simplex();
+    // generate a map based on simplex noise
+    const map = new SimplexMap;
 
     // set the start position
     let x = 0;
@@ -29,36 +29,7 @@ class InfiniteScene extends Phaser.Scene {
       for (let j = 0; j < 28; j += 1) {
         for (let i = 0; i < 43; i += 1) {
 
-          // set the tile as grass by default
-          let tileIndex = 0;
-
-          // set a position-based low-frequency noise 
-          // increase its amplitude to narrow down its median to one tile 
-          // round it to the nearest integer
-          // return the median
-          if (!~~(noise.get((x + i) / 48, (y + j) / 48) * 16)) {
-
-            // set the tile as dirt
-            tileIndex = 4;
-
-          // set a position-based low-frequency noise 
-          // increase its amplitude to narrow down its median to a few tiles 
-          // round it to the nearest integer
-          // return the median
-          } else if (!~~(noise.get((x + i) / 96, (y + j) / 96) * 8)) {
-
-            // set the tile as rock
-            tileIndex = 21;
-
-          // set a position-based noise 
-          // increase its amplitude
-          // round it to the nearest integer
-          // return the median
-          } else if (!~~(noise.get(x + i, y + j) * 32)) {
-
-            // set the tile as tree
-            tileIndex = 17;
-          }
+          let tileIndex = map.getTileIndexAt(x + i, y + j);
 
           // draw the tile
           scene.add.image(i * 24, j * 21, 'tilesetImage', tileIndex);
