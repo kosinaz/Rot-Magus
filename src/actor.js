@@ -27,7 +27,9 @@ let Actor = new Phaser.Class({
       scene.add.existing(this);
       scheduler.add(this, true);
       this.setOrigin(0);
+      this.visible = false;
       if (isPlayer) {
+        this.visible = true;
         this.scene.cameras.main.startFollow(this, true, 1, 1, -12, -10);
       }
     },
@@ -76,9 +78,8 @@ let Actor = new Phaser.Class({
   showFOV: function () {
     
     // hide all tiles
-    this.layer.forEachTile(function (tile) {
-      tile.visible = false;
-    });
+    this.layer.forEachTile(tile => tile.visible = false);
+    enemies.forEach(enemy => enemy.visible = false);
 
     // find the currently visible tiles
     this.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
@@ -88,6 +89,12 @@ let Actor = new Phaser.Class({
       if (tile) {
         tile.visible = true;
       }
+      enemies.forEach(function (enemy) {
+        if (enemy.tileX == x && enemy.tileY == y) {
+          enemy.visible = true;
+        }
+      });
+
     }.bind(this));
   },
   scanFOV: function () {
