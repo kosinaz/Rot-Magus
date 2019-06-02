@@ -245,7 +245,7 @@ let Actor = new Phaser.Class({
   addPath: function (x, y) {
     let a = new ROT.Path.AStar(x, y, function (x, y) {
       let tile = this.layer.getTileAt(x, y);
-      return tile && (tile.index !== 17 && tile.index !== 21);
+      return tile && (tile.index !== 16 && tile.index !== 17 && tile.index !== 21);
     }.bind(this));
     this.path = [];
     a.compute(this.tileX, this.tileY, function (x, y) {

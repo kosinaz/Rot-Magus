@@ -131,7 +131,7 @@ class GameScene extends Phaser.Scene {
       tile = this.groundLayer.putTileAt(this.getTileIndexAt(x, y), x, y);
     }
     return (x === playerXY.x && y === playerXY.y)
-      || tile && (tile.index !== 17 && tile.index !== 21);
+      || tile && (tile.index !== 16 && tile.index !== 17 && tile.index !== 21);
   };
   
   getTileIndexAt = function (x, y) {
@@ -161,10 +161,19 @@ class GameScene extends Phaser.Scene {
       // increase its amplitude
       // round it to the nearest integer
       // return the median
-    } else if (!~~(this.noise.get(x, y) * 32)) {
+    } else if (!~~(this.noise.get(x, y) * 16)) {
 
-      // set the tile as tree
-      tileIndex = 17;
+      // set the tile as tree or bush or flowers
+      let n = this.noise.get(x, y);
+      if (n === 0) {
+        tileIndex = 17;
+      } else if (n < -0.01) {
+        tileIndex = 1;
+      } else if (n > 0.01) {
+        tileIndex = 2;
+      } else {
+        tileIndex = 16;
+      }
     }
 
     return tileIndex;
