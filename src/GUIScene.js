@@ -112,14 +112,14 @@ class GUIScene extends Phaser.Scene {
     this.strengthLabel.setOrigin(1, 0.5);
 
     /**
-     * Add skill label
+     * Add agility label
      */
-    this.skillLabel = this.add.text(288, 58, player.skill, {
+    this.agilityLabel = this.add.text(288, 58, player.agility, {
       fontFamily: 'font',
       fontSize: '16px',
       fill: '#000000'
     });
-    this.skillLabel.setOrigin(1, 0.5);
+    this.agilityLabel.setOrigin(1, 0.5);
 
     /**
      * Add wisdom label
