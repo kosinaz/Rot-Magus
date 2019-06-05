@@ -72,7 +72,7 @@ class GameScene extends Phaser.Scene {
     let grassTiles = layer.filterTiles(function (tile) {
       return !this.noiseMap.getTileIndexAt(tile.x, tile.y);
     }, this);
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 40; i += 1) {
       tile = ROT.RNG.getItem(grassTiles);
       let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', 50, layer);
       enemy.maxHealth = 40;

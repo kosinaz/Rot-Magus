@@ -36,6 +36,7 @@ let Actor = new Phaser.Class({
       this.fov = scene.fov;
       this.noise = scene.noise;
       this.scene = scene;
+      this.gui = this.scene.scene.get('GUIScene');
       scene.add.existing(this);
       scheduler.add(this, true);
       this.setOrigin(0);
@@ -46,6 +47,7 @@ let Actor = new Phaser.Class({
       }
     },
   act: function () {
+    scheduler.setDuration(1.0 / this.speed);
     // the engine needs to be locked, even if the player has a target and does
     // not need additional orders, because every action takes time, and no one
     // should move in the meantime
@@ -53,14 +55,14 @@ let Actor = new Phaser.Class({
       engine.lock();
       isAcceptingOrders = false;
       this.scene.time.delayedCall(1000 / game.speed, function () {
-        if (this.target.x === this.tileX && this.target.y === this.tileY) { 
-          this.showFOV();   
+        this.showFOV();   
+        let targetActor = this.getActorAt(this.target.x, this.target.y);
+        if (targetActor === this) {
           player = this;
           this.path = null;
           isAcceptingOrders = true;
         } else {
           this.move();
-          this.showFOV();   
         }
       }.bind(this));
     } else {
@@ -78,20 +80,32 @@ let Actor = new Phaser.Class({
     if (!isAcceptingOrders) {
       return;
     }
-    let tile = this.layer.getTileAt(x, y);
-    if (tile && (
-      this.walksOn.includes(tile.index) 
-      || tile.index !== 12 
-      && tile.index !== 13 
-      && tile.index !== 16 
-      && tile.index !== 17 
-      && tile.index !== 21
-    )) {
+    let targetActor = this.getActorAt(x, y);
+    if (targetActor &&
+      this.gui.inventory &&
+      this.gui.inventory.getTileAt(6, 3) &&
+      this.gui.inventory.getTileAt(6, 3).index === 108) {
       this.target = {
-        x: x,
-        y: y
-      };
-      this.move();
+        x: this.tileX,
+        y: this.tileY
+      }
+      this.damage(targetActor);
+    } else {
+      let tile = this.layer.getTileAt(x, y);
+      if (tile && (
+        this.walksOn.includes(tile.index) 
+        || tile.index !== 12 
+        && tile.index !== 13 
+        && tile.index !== 16 
+        && tile.index !== 17 
+        && tile.index !== 21
+      )) {
+        this.target = {
+          x: x,
+          y: y
+        };
+        this.move();
+      }
     }
   },
   showFOV: function () {
@@ -137,7 +151,6 @@ let Actor = new Phaser.Class({
   },
 
   move: function () {
-    scheduler.setDuration(1.0 / this.speed);
     if (!this.path) {
       this.addPath(this.target.x, this.target.y);
     }
@@ -195,8 +208,8 @@ let Actor = new Phaser.Class({
         ease: 'Quad.easeInOut',
         duration: 900 / game.speed
       });
+      engine.unlock();
     }
-    engine.unlock();
   },
   damage: function (actor) {
     let damage = ROT.RNG.getUniformInt(1, 10)
@@ -227,6 +240,7 @@ let Actor = new Phaser.Class({
     if (actor.health < 1) {
       actor.die();
     }
+    engine.unlock();
   },
   earnXP: function (amount) {
     this.xp += amount;

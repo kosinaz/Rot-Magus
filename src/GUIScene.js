@@ -302,7 +302,7 @@ class GUIScene extends Phaser.Scene {
     switch (this.hold.frame.name) {
       case 100: heldItemType = 'weapon'; break;
       case 101: heldItemType = 'armor'; break;
-      case 102: heldItemType = 'shield'; break;
+      case 102: heldItemType = ''; break;
       case 103: heldItemType = 'weapon'; break;
       case 104: heldItemType = 'helmet'; break;
       case 105: heldItemType = 'shield'; break;
