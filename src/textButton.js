@@ -6,13 +6,17 @@ class TextButton extends Phaser.GameObjects.Text {
       config.y,
       config.text,
       {
-        'fill': config.fill || '#000',
         'fontFamily': config.font || 'font',
-        'fontSize': config.size || '48px'
+        'fontSize': config.size || '48px',
+        'fill': config.fill !== undefined ? config.fill : '#ffff00',
+        'stroke': config.stroke !== undefined ? config.stroke : '#000000',
+        'strokeThickness': 
+          config.strokeThickness !== undefined ? config.strokeThickness : 6
       }
     );
     this.setOrigin(config.origin);
     this.setInteractive();
     this.on('pointerup', config.onPointerUp);
+    config.scene.add.existing(this);
   }
 }

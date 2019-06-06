@@ -6,16 +6,14 @@ class MenuScene extends Phaser.Scene {
     });
   }
   create() {
-
-    let title = this.add.text(512, 100, 'ROT MAGUS', {
+    this.add.text(512, 100, 'ROT MAGUS', {
       fontFamily: 'font',
       fontSize: '64px',
-      fill: '#ff0000'
-    });
-    title.setStroke('#000000', 8);
-    title.setOrigin(0.5);
-
-    let button = this.add.existing(new TextButton({
+      fill: '#ff0000',
+      stroke: '000000',
+      strokeThickness: 8
+    }).setOrigin(0.5);
+    new TextButton({
       onPointerUp: function () {
         this.scene.start('GameScene');
         this.scene.start('GUIScene');
@@ -25,8 +23,6 @@ class MenuScene extends Phaser.Scene {
       text: 'Start game',
       x: 512,
       y: 200
-    }));
-    button.setFill('#ffff00');
-    button.setStroke('#000000', 6);
+    });
   }
 }
