@@ -1,37 +1,38 @@
 let Actor = new Phaser.Class({
   Extends: Phaser.GameObjects.Image,
   initialize:
-    function Actor(scene, x, y, texture, frame, layer, isPlayer) {
+    function Actor(scene, x, y, texture, layer, config) {
       Phaser.GameObjects.Image.call(
         this, 
         scene, 
         x * 24, 
         y * 21, 
         texture, 
-        frame
+        config.tileIndex
       );
       this.layer = layer;
-      this.isPlayer = isPlayer;
+      this.name = config.name;
+      this.isPlayer = config.player;
       this.tileX = x;
       this.tileY = y;
-      this.tileIndex = frame;
+      this.tileIndex = config.tileIndex;
       this.target = {
         x: this.tileX,
         y: this.tileY
       }
       this.path = null;      
-      this.speed = 6;
+      this.speed = config.speed;
       this.xp = 0;
       this.maxXP = 50;
       this.level = 0;
-      this.health = 120;
-      this.maxHealth = 120;
-      this.mana = 10;
-      this.maxMana = 10;
-      this.strength = 17;
+      this.health = config.health;
+      this.maxHealth = this.health;
+      this.mana = config.mana;
+      this.maxMana = this.mana;
+      this.strength = config.strength;
       this.load = 14;
-      this.agility = 15;
-      this.wisdom = 1;
+      this.agility = config.agility;
+      this.wisdom = config.wisdom;
       this.walksOn = [];
       this.fov = scene.fov;
       this.noise = scene.noise;
@@ -41,7 +42,7 @@ let Actor = new Phaser.Class({
       scheduler.add(this, true);
       this.setOrigin(0);
       this.visible = false;
-      if (isPlayer) {
+      if (this.isPlayer) {
         this.visible = true;
         this.scene.cameras.main.startFollow(this, true, 1, 1, -12, -10);
       }

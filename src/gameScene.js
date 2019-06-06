@@ -24,6 +24,8 @@ class GameScene extends Phaser.Scene {
       frameWidth: 24,
       frameHeight: 21
     });
+
+    this.load.json('actors','data/actors.json');
   };
 
   create = function () {
@@ -55,14 +57,17 @@ class GameScene extends Phaser.Scene {
     // generate a map based on simplex noise
     this.noiseMap = new SimplexMap;
 
+    let actors = this.cache.json.get('actors');
+    console.log(actors.elf);
+
     // create player at the center of the map
     let startTiles = layer.filterTiles(function (tile) {
       return !this.noiseMap.getTileIndexAt(tile.x, tile.y);
     }, this, 108, 108, 27, 27);
     
     let tile = ROT.RNG.getItem(startTiles);
-    player = new Actor(this, tile.x, tile.y, 'tilesetImage', 37, layer, true);
-    player.name = 'Aian';
+    player = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.elf);
+    player.name = 'Atlian';
     player.walksOn = [13, 16];
     layer.on('pointerdown', function (pointer, x, y) {
       player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
@@ -74,11 +79,8 @@ class GameScene extends Phaser.Scene {
     }, this);
     for (let i = 0; i < 40; i += 1) {
       tile = ROT.RNG.getItem(grassTiles);
-      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', 50, layer);
-      enemy.maxHealth = 40;
-      enemy.health = 40;
-      enemy.speed = 4;
-      enemy.name = 'Zombie ' + (i + 1);
+      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.zombie);
+      enemy.name += ' ' + (i + 1);
       enemies.push(enemy); 
     }
 

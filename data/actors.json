@@ -1,0 +1,75 @@
+{
+  "elf": {
+    "name": "Elf",
+    "tileIndex": 37,
+    "chance": 0,
+    "health": 90,
+    "mana": 100,
+    "strength": 14,
+    "wisdom": 0,
+    "speed": 6,
+    "agility": 15,
+    "inventory": [
+      "arrows",
+      "bow",
+      "dagger",
+      "elvenCloak"
+    ],
+    "player": true
+  },
+  "zombie": {
+    "name": "Zombie",
+    "tileIndex": 50,
+    "chance": 6,
+    "health": 10,
+    "mana": 0,
+    "strength": 12,
+    "wisdom": 0,
+    "speed": 4,
+    "agility": 10
+  },
+  "skeleton": {
+    "name": "Skeleton",
+    "tileIndex": 51,
+    "chance": 5,
+    "health": 30,
+    "mana": 0,
+    "strength": 7,
+    "wisdom": 0,
+    "speed": 4,
+    "agility": 7
+  },
+  "goblin": {
+    "name": "Goblin",
+    "tileIndex": 52,
+    "chance": 4,
+    "health": 30,
+    "mana": 0,
+    "strength": 15,
+    "wisdom": 0,
+    "speed": 4,
+    "agility": 12
+  },
+  "hobgoblin": {
+    "name": "Hobgoblin",
+    "tileIndex": 53,
+    "chance": 3,
+    "health": 10,
+    "mana": 0,
+    "strength": 10,
+    "wisdom": 0,
+    "speed": 4,
+    "agility": 15
+  },
+  "troll": {
+    "name": "Troll",
+    "tileIndex": 54,
+    "chance": 2,
+    "health": 100,
+    "mana": 0,
+    "strength": 20,
+    "wisdom": 0,
+    "speed": 4,
+    "agility": 7
+  }
+}
