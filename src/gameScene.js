@@ -83,6 +83,30 @@ class GameScene extends Phaser.Scene {
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy); 
     }
+    for (let i = 0; i < 30; i += 1) {
+      tile = ROT.RNG.getItem(grassTiles);
+      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.skeleton);
+      enemy.name += ' ' + (i + 1);
+      enemies.push(enemy);
+    }
+    for (let i = 0; i < 20; i += 1) {
+      tile = ROT.RNG.getItem(grassTiles);
+      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.goblin);
+      enemy.name += ' ' + (i + 1);
+      enemies.push(enemy);
+    }
+    for (let i = 0; i < 10; i += 1) {
+      tile = ROT.RNG.getItem(grassTiles);
+      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.hobgoblin);
+      enemy.name += ' ' + (i + 1);
+      enemies.push(enemy);
+    }
+    for (let i = 0; i < 5; i += 1) {
+      tile = ROT.RNG.getItem(grassTiles);
+      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.troll);
+      enemy.name += ' ' + (i + 1);
+      enemies.push(enemy);
+    }
 
     // create pointer marker
     marker = this.add.graphics();

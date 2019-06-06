@@ -58,7 +58,7 @@
     "mana": 0,
     "strength": 10,
     "wisdom": 0,
-    "speed": 4,
+    "speed": 5,
     "agility": 15
   },
   "troll": {
@@ -69,7 +69,7 @@
     "mana": 0,
     "strength": 20,
     "wisdom": 0,
-    "speed": 4,
+    "speed": 3,
     "agility": 7
   }
 }
