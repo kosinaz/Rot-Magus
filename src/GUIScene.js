@@ -22,23 +22,24 @@ class GUIScene extends Phaser.Scene {
     /**
      * Add experience level indicator
      */
-    this.levelLabel = this.add.text(40, 16, '0', {
-      fontFamily: 'font',
-      fontSize: '14px',
-      fill: '#ffffff'
+    this.levelLabel = new TextLabelStroked({
+      scene: this,
+      text: '0',
+      x: 40,
+      y: 16
     });
-    this.levelLabel.setStroke('#000000', 3);
-    this.levelLabel.setOrigin(0.5);
 
     /**
      * Add player name
      */
-    this.nameLabel = this.add.text(56, 16, player.name, {
-      fontFamily: 'font',
-      fontSize: '16px',
-      fill: '#000000'
+    this.nameLabel = new TextLabel({
+      originX: 0,
+      originY: 0.5,
+      scene: this,
+      text: player.name,
+      x: 56,
+      y: 16
     });
-    this.nameLabel.setOrigin(0, 0.5);
 
     /**
      * Add experience bar
