@@ -44,93 +44,95 @@ class GUIScene extends Phaser.Scene {
     /**
      * Add experience bar
      */
-    this.XPBar = this.add.graphics({
-      fillStyle: {
-        color: 0xe30000
-      }
+    this.xpBar = new TextLabelStrokedBar({
+      color: 0xe30000,
+      rectHeight: 19,
+      rectX: 5,
+      rectY: 27,
+      rectWidth: 1,
+      scene: this,
+      text: player.xp + '/' + player.maxXP,
+      x: 64,
+      y: 37
     });
-    this.XPBar.fillRect(5, 27, 1, 19);
-    this.XPLabel = this.add.text(64, 37, player.xp + '/' + player.maxXP, {
-      fontFamily: 'font',
-      fontSize: '14px',
-      fill: '#ffffff'
-    });
-    this.XPLabel.setStroke('#000000', 3);
-    this.XPLabel.setOrigin(0.5);
     
     /**
      * Add health bar
      */
-    this.healthBar = this.add.graphics({
-      fillStyle: {
-        color: 0x00e300
-      }
+    this.healthBar = new TextLabelStrokedBar({
+      color: 0x00e300,
+      rectHeight: 19,
+      rectX: 5,
+      rectY: 48,
+      rectWidth: 118,
+      scene: this,
+      text: player.health + '/' + player.maxHealth,
+      x: 64,
+      y: 58
     });
-    this.healthBar.fillRect(5, 48, 118, 19);
-    this.healthLabel = this.add.text(64, 58, player.health + '/' + player.maxHealth, {
-      fontFamily: 'font',
-      fontSize: '14px',
-      fill: '#ffffff'
-    });
-    this.healthLabel.setStroke('#000000', 3);
-    this.healthLabel.setOrigin(0.5);
 
     /**
      * Add mana bar
      */
-    this.manaBar = this.add.graphics({
-      fillStyle: {
-        color: 0x4261e7
-      }
+    this.manaBar = new TextLabelStrokedBar({
+      color: 0x4261e7,
+      rectHeight: 19,
+      rectX: 5,
+      rectY: 69,
+      rectWidth: 118,
+      scene: this,
+      text: player.mana + '/' + player.maxMana,
+      x: 64,
+      y: 79
     });
-    this.manaBar.fillRect(5, 69, 118, 19);
-    this.manaLabel = this.add.text(64, 79, player.mana + '/' + player.maxMana, {
-      fontFamily: 'font',
-      fontSize: '14px',
-      fill: '#ffffff'
-    });
-    this.manaLabel.setStroke('#000000', 3);
-    this.manaLabel.setOrigin(0.5);
 
     /**
      * Add speed label
      */
-    this.speedLabel = this.add.text(288, 16, player.speed, {
-      fontFamily: 'font',
-      fontSize: '16px',
-      fill: '#000000'
+    this.nameLabel = new TextLabel({
+      originX: 1,
+      originY: 0.5,
+      scene: this,
+      text: player.speed,
+      x: 288,
+      y: 16
     });
-    this.speedLabel.setOrigin(1, 0.5);
 
     /**
      * Add strength label
      */
-    this.strengthLabel = this.add.text(288, 37, player.load + '/' + player.strength, {
-      fontFamily: 'font',
-      fontSize: '16px',
-      fill: '#000000'
+    this.strengthLabel = new TextLabel({
+      originX: 1,
+      originY: 0.5,
+      scene: this,
+      text: player.load + '/' + player.strength,
+      x: 288,
+      y: 37
     });
-    this.strengthLabel.setOrigin(1, 0.5);
 
     /**
      * Add agility label
      */
-    this.agilityLabel = this.add.text(288, 58, player.agility, {
-      fontFamily: 'font',
-      fontSize: '16px',
-      fill: '#000000'
+    this.agilityLabel = new TextLabel({
+      originX: 1,
+      originY: 0.5,
+      scene: this,
+      text: player.agility,
+      x: 288,
+      y: 58
     });
-    this.agilityLabel.setOrigin(1, 0.5);
 
     /**
      * Add wisdom label
      */
-    this.wisdomLabel = this.add.text(288, 79, player.wisdom, {
-      fontFamily: 'font',
-      fontSize: '16px',
-      fill: '#000000'
+    this.wisdomLabel = new TextLabel({
+      originX: 1,
+      originY: 0.5,
+      scene: this,
+      text: player.wisdom,
+      x: 288,
+      y: 79
     });
-    this.wisdomLabel.setOrigin(1, 0.5);
 
     /**
      * Grab a reference to the Game Scene
@@ -138,6 +140,7 @@ class GUIScene extends Phaser.Scene {
     var game = this.scene.get('GameScene');
     this.groundLayer = game.groundLayer;
     this.itemLayer = game.itemLayer;
+    
     /**
      * Listen for events from it
      */
@@ -174,8 +177,8 @@ class GUIScene extends Phaser.Scene {
     game.events.on('playerEarnedXP', function () {
       this.XPLabel.text = player.xp + '/' + player.maxXP;
       this.levelLabel.text = player.level;
-      this.XPBar.clear();
-      this.XPBar.fillRect(5, 27, Math.max(1, 118 * player.xp / player.maxXP), 19);
+      this.xpBar.clear();
+      this.xpBar.fillRect(5, 27, Math.max(1, 118 * player.xp / player.maxXP), 19);
     }, this);
 
     /**
