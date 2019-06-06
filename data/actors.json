@@ -10,8 +10,8 @@
     "speed": 6,
     "agility": 15,
     "inventory": [
-      "arrows",
       "bow",
+      "arrows",
       "dagger",
       "elvenCloak"
     ],

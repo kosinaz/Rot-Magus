@@ -26,6 +26,7 @@ class GameScene extends Phaser.Scene {
     });
 
     this.load.json('actors','data/actors.json');
+    this.load.json('items','data/items.json');
   };
 
   create = function () {
@@ -58,7 +59,7 @@ class GameScene extends Phaser.Scene {
     this.noiseMap = new SimplexMap;
 
     let actors = this.cache.json.get('actors');
-    console.log(actors.elf);
+    this.items = this.cache.json.get('items');
 
     // create player at the center of the map
     let startTiles = layer.filterTiles(function (tile) {
