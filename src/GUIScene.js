@@ -5,170 +5,17 @@ class GUIScene extends Phaser.Scene {
 
   preload = function () {
     this.load.image('ingame', 'assets/images/gui/ingame.png');
+    this.load.json('gui', 'data/gui.json');
   };
   
   create = function () {
+
+    let guiElements = this.cache.json.get('gui');
+    for (let i in guiElements) {
+      GUIBuilder.create(guiElements[i]);
+    }
+
     
-    /** 
-     * Show GUI background
-     */
-    GUIBuilder.create({
-      texture: 'ingame',
-      type: 'Image',
-      sceneGUI: 'GUIScene',
-      x: 512,
-      y: 288
-    });
-
-    /**
-     * Add player character image
-     */
-    GUIBuilder.create({
-      frame: 'tileIndex',
-      texture: 'tilesetImage',
-      type: 'Image',
-      sceneGUI: 'GUIScene',
-      x: 16,
-      y: 16
-    });
-
-    /**
-     * Add experience level indicator
-     */
-    GUIBuilder.create({
-      event: 'updateAttribute',
-      type: 'TextLabelStroked',
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'level',
-      x: 40,
-      y: 16
-    });
-
-    /**
-     * Add player name
-     */
-    this.nameLabel = new TextLabel({
-      event: 'updateAttribute',
-      originX: 0,
-      originY: 0.5,
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'name',
-      x: 56,
-      y: 16
-    });
-
-    /**
-     * Add experience bar
-     */
-    this.xpBar = new TextLabelStrokedBar({
-      color: 0xe30000,
-      event: 'updateAttribute',
-      rectHeight: 19,
-      rectX: 5,
-      rectY: 27,
-      rectWidth: 118,
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'xp',
-      valueMax: 'xpMax',
-      x: 64,
-      y: 37
-    });
-    
-    /**
-     * Add health bar
-     */
-    this.healthBar = new TextLabelStrokedBar({
-      color: 0x00e300,
-      event: 'updateAttribute',
-      rectHeight: 19,
-      rectX: 5,
-      rectY: 48,
-      rectWidth: 118,
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'health',
-      valueMax: 'healthMax',
-      x: 64,
-      y: 58
-    });
-
-    /**
-     * Add mana bar
-     */
-    this.manaBar = new TextLabelStrokedBar({
-      color: 0x4261e7,
-      event: 'updateAttribute',
-      rectHeight: 19,
-      rectX: 5,
-      rectY: 69,
-      rectWidth: 118,
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'mana',
-      valueMax: 'manaMax',
-      x: 64,
-      y: 79
-    });
-
-    /**
-     * Add speed label
-     */
-    this.nameLabel = new TextLabel({
-      event: 'updateAttribute',
-      originX: 1,
-      originY: 0.5,
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'speed',
-      x: 288,
-      y: 16
-    });
-
-    /**
-     * Add strength label
-     */
-    this.strengthLabel = new TextLabel({
-      event: 'updateAttribute',
-      originX: 1,
-      originY: 0.5,
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'load',
-      valueMax: 'strength',
-      x: 288,
-      y: 37
-    });
-
-    /**
-     * Add agility label
-     */
-    this.agilityLabel = new TextLabel({
-      event: 'updateAttribute',
-      originX: 1,
-      originY: 0.5,
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'agility',
-      x: 288,
-      y: 58
-    });
-
-    /**
-     * Add wisdom label
-     */
-    this.wisdomLabel = new TextLabel({
-      event: 'updateAttribute',
-      originX: 1,
-      originY: 0.5,
-      sceneGame: 'GameScene',
-      sceneGUI: 'GUIScene',
-      value: 'wisdom',
-      x: 288,
-      y: 79
-    });
 
     /**
      * Grab a reference to the Game Scene
