@@ -12,18 +12,32 @@ class GUIScene extends Phaser.Scene {
     /** 
      * Show GUI background
      */
-    this.add.image(512, 288, 'ingame');
+    GUIBuilder.create({
+      texture: 'ingame',
+      type: 'Image',
+      sceneGUI: 'GUIScene',
+      x: 512,
+      y: 288
+    });
 
     /**
      * Add player character image
      */
-    this.add.image(16, 16, 'tilesetImage', player.tileIndex);
+    GUIBuilder.create({
+      frame: 'tileIndex',
+      texture: 'tilesetImage',
+      type: 'Image',
+      sceneGUI: 'GUIScene',
+      x: 16,
+      y: 16
+    });
 
     /**
      * Add experience level indicator
      */
-    this.levelLabel = new TextLabelStroked({
+    GUIBuilder.create({
       event: 'updateAttribute',
+      type: 'TextLabelStroked',
       sceneGame: 'GameScene',
       sceneGUI: 'GUIScene',
       value: 'level',
