@@ -1,7 +1,7 @@
 class TextLabel extends Phaser.GameObjects.Text {
   constructor(config) {
     super(
-      config.scene,
+      game.scene.getScene(config.sceneGUI),
       config.x,
       config.y,
       config.text, 
@@ -17,9 +17,10 @@ class TextLabel extends Phaser.GameObjects.Text {
       config.originX !== undefined ? config.originX : 0.5, 
       config.originY !== undefined ? config.originY : undefined
     );
-    let game = config.scene.scene.get('GameScene');
-    game.events.on(config.event, this.draw.bind(this));
-    config.scene.add.existing(this);
+    this.sceneGUI = game.scene.getScene(config.sceneGUI)
+    this.sceneGame = game.scene.getScene(config.sceneGame);
+    this.sceneGame.events.on(config.event, this.draw.bind(this));
+    this.sceneGUI.add.existing(this);
     this.draw();
   }
   draw() {
