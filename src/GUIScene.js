@@ -23,8 +23,9 @@ class GUIScene extends Phaser.Scene {
      * Add experience level indicator
      */
     this.levelLabel = new TextLabelStroked({
+      event: 'updateAttribute',
       scene: this,
-      text: '0',
+      value: 'level',
       x: 40,
       y: 16
     });
@@ -33,10 +34,11 @@ class GUIScene extends Phaser.Scene {
      * Add player name
      */
     this.nameLabel = new TextLabel({
+      event: 'updateAttribute',
       originX: 0,
       originY: 0.5,
       scene: this,
-      text: player.name,
+      value: 'name',
       x: 56,
       y: 16
     });
@@ -46,12 +48,14 @@ class GUIScene extends Phaser.Scene {
      */
     this.xpBar = new TextLabelStrokedBar({
       color: 0xe30000,
+      event: 'updateAttribute',
       rectHeight: 19,
       rectX: 5,
       rectY: 27,
-      rectWidth: 1,
+      rectWidth: 118,
       scene: this,
-      text: player.xp + '/' + player.maxXP,
+      value: 'xp',
+      valueMax: 'xpMax',
       x: 64,
       y: 37
     });
@@ -61,12 +65,14 @@ class GUIScene extends Phaser.Scene {
      */
     this.healthBar = new TextLabelStrokedBar({
       color: 0x00e300,
+      event: 'updateAttribute',
       rectHeight: 19,
       rectX: 5,
       rectY: 48,
       rectWidth: 118,
       scene: this,
-      text: player.health + '/' + player.maxHealth,
+      value: 'health',
+      valueMax: 'healthMax',
       x: 64,
       y: 58
     });
@@ -76,12 +82,14 @@ class GUIScene extends Phaser.Scene {
      */
     this.manaBar = new TextLabelStrokedBar({
       color: 0x4261e7,
+      event: 'updateAttribute',
       rectHeight: 19,
       rectX: 5,
       rectY: 69,
       rectWidth: 118,
       scene: this,
-      text: player.mana + '/' + player.maxMana,
+      value: 'mana',
+      valueMax: 'manaMax',
       x: 64,
       y: 79
     });
@@ -90,10 +98,11 @@ class GUIScene extends Phaser.Scene {
      * Add speed label
      */
     this.nameLabel = new TextLabel({
+      event: 'updateAttribute',
       originX: 1,
       originY: 0.5,
       scene: this,
-      text: player.speed,
+      value: 'speed',
       x: 288,
       y: 16
     });
@@ -102,10 +111,12 @@ class GUIScene extends Phaser.Scene {
      * Add strength label
      */
     this.strengthLabel = new TextLabel({
+      event: 'updateAttribute',
       originX: 1,
       originY: 0.5,
       scene: this,
-      text: player.load + '/' + player.strength,
+      value: 'load',
+      valueMax: 'strength',
       x: 288,
       y: 37
     });
@@ -114,10 +125,11 @@ class GUIScene extends Phaser.Scene {
      * Add agility label
      */
     this.agilityLabel = new TextLabel({
+      event: 'updateAttribute',
       originX: 1,
       originY: 0.5,
       scene: this,
-      text: player.agility,
+      value: 'agility',
       x: 288,
       y: 58
     });
@@ -126,10 +138,11 @@ class GUIScene extends Phaser.Scene {
      * Add wisdom label
      */
     this.wisdomLabel = new TextLabel({
+      event: 'updateAttribute',
       originX: 1,
       originY: 0.5,
       scene: this,
-      text: player.wisdom,
+      value: 'wisdom',
       x: 288,
       y: 79
     });
@@ -168,22 +181,9 @@ class GUIScene extends Phaser.Scene {
       this.currentGround.alpha = 1;
     }, this);
 
-    game.events.on('playerDamaged', function () {
-      this.healthLabel.text = player.health + '/' + player.maxHealth;
-      this.healthBar.clear();
-      this.healthBar.fillRect(5, 48, Math.max(1, 118 * player.health/player.maxHealth), 19);
-    }, this);
-
-    game.events.on('playerEarnedXP', function () {
-      this.XPLabel.text = player.xp + '/' + player.maxXP;
-      this.levelLabel.text = player.level;
-      this.xpBar.clear();
-      this.xpBar.fillRect(5, 27, Math.max(1, 118 * player.xp / player.maxXP), 19);
-    }, this);
-
     /**
-    * Create inventory
-    */
+     * Create inventory
+     */
     this.inventory = createInventory(this);
     this.inventory.putTileAt(116, 0, 5);
     this.inventory.putTileAt(118, 1, 5);

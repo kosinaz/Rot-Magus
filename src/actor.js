@@ -23,12 +23,12 @@ let Actor = new Phaser.Class({
       this.path = null;      
       this.speed = config.speed;
       this.xp = 0;
-      this.maxXP = 50;
+      this.xpMax = 50;
       this.level = 0;
       this.health = config.health;
-      this.maxHealth = this.health;
+      this.healthMax = this.health;
       this.mana = config.mana;
-      this.maxMana = this.mana;
+      this.manaMax = this.mana;
       this.strength = config.strength;
       this.load = 14;
       this.agility = config.agility;
@@ -242,6 +242,7 @@ let Actor = new Phaser.Class({
       actor.die();
     }
     engine.unlock();
+    this.scene.events.emit('updateAttribute', this);
   },
   earnXP: function (amount) {
     this.xp += amount;
@@ -250,7 +251,7 @@ let Actor = new Phaser.Class({
       this.maxXP *= 2;
       this.level += 1;
     }
-    this.scene.events.emit('playerEarnedXP');
+    this.scene.events.emit('updateAttribute', this);
   },
   die: function () {
     if (this === player) {
