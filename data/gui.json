@@ -1,6 +1,10 @@
 {
+  "default": {
+    "event": "updateAttribute",
+    "sceneGame": "GameScene",
+    "sceneGUI": "GUIScene"
+  },
   "background": {
-    "sceneGUI": "GUIScene",
     "texture": "ingame",
     "type": "Image",
     "x": 512,
@@ -8,27 +12,20 @@
   },
   "image": {
     "frame": "tileIndex",
-    "sceneGUI": "GUIScene",
     "texture": "tilesetImage",
     "type": "Image",
     "x": 16,
     "y": 16
   },
   "level": {
-    "event": "updateAttribute",
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabelStroked",
     "value": "level",
     "x": 40,
     "y": 16
   },
   "name": {
-    "event": "updateAttribute",
     "originX": 0,
     "originY": 0.5,
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabel",
     "value": "name",
     "x": 56,
@@ -36,13 +33,10 @@
   },
   "xp": {
     "color": "0xe30000",
-    "event": "updateAttribute",
     "rectHeight": 19,
     "rectX": 5,
     "rectY": 27,
     "rectWidth": 118,
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabelStrokedBar",
     "value": "xp",
     "valueMax": "xpMax",
@@ -51,13 +45,10 @@
   },
   "health": {
     "color": "0x00e300",
-    "event": "updateAttribute",
     "rectHeight": 19,
     "rectX": 5,
     "rectY": 48,
     "rectWidth": 118,
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabelStrokedBar",
     "value": "health",
     "valueMax": "healthMax",
@@ -66,13 +57,10 @@
   },
   "mana": {
     "color": "0x4261e7",
-    "event": "updateAttribute",
     "rectHeight": 19,
     "rectX": 5,
     "rectY": 69,
     "rectWidth": 118,
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabelStrokedBar",
     "value": "mana",
     "valueMax": "manaMax",
@@ -80,22 +68,16 @@
     "y": 79
   },
   "speed": {
-    "event": "updateAttribute",
     "originX": 1,
     "originY": 0.5,
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabel",
     "value": "speed",
     "x": 288,
     "y": 16
   },
   "strength": {
-    "event": "updateAttribute",
     "originX": 1,
     "originY": 0.5,
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabel",
     "value": "load",
     "valueMax": "strength",
@@ -103,22 +85,16 @@
     "y": 37
   },
   "agility": {
-    "event": "updateAttribute",
     "originX": 1,
     "originY": 0.5,
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabel",
     "value": "agility",
     "x": 288,
     "y": 58
   },
   "wisdom": {
-    "event": "updateAttribute",
     "originX": 1,
     "originY": 0.5,
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene",
     "type": "TextLabel",
     "value": "wisdom",
     "x": 288,

@@ -11,6 +11,7 @@ class GUIScene extends Phaser.Scene {
   create = function () {
 
     let guiElements = this.cache.json.get('gui');
+    GUIBuilder.init(guiElements.default);
     for (let i in guiElements) {
       GUIBuilder.create(guiElements[i]);
     }
