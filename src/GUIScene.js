@@ -46,7 +46,7 @@ class GUIScene extends Phaser.Scene {
         );
       };
       if (!this.grounds[player.tileX + ',' + player.tileY]) {
-        this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, this.groundLayer);
+        this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, player.tileX, player.tileY);
       }
       this.currentGround = this.grounds[player.tileX + ',' + player.tileY];
       this.currentGround.alpha = 1;
@@ -63,8 +63,18 @@ class GUIScene extends Phaser.Scene {
 
     this.ground = createGround(this);
     this.grounds = {};
-    this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, this.groundLayer);
+    this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, player.tileX, player.tileY);
     this.currentGround = this.grounds[player.tileX + ',' + player.tileY];
+
+    for (let i = 0; i < 50; i += 1) {
+      let tile = ROT.RNG.getItem(game.grassTiles);
+      let ground = createGround(this);
+      let tileIndex = ROT.RNG.getUniformInt(100, 149);
+      this.grounds[tile.x + ',' + tile.y] = addGround(ground, tile.x, tile.y);
+      this.grounds[tile.x + ',' + tile.y].putTileAt(tileIndex, 0, 5);
+      this.grounds[tile.x + ',' + tile.y].alpha = 0;
+      this.itemLayer.putTileAt(tileIndex, tile.x, tile.y);
+    }
   };
 
   update = function () {
@@ -331,16 +341,16 @@ function createGround(scene) {
   });
 }
 
-function addGround(map, groundLayer) {
+function addGround(map, tileX, tileY) {
   var layer = map.createBlankDynamicLayer(
-    'ground ' + player.tileX + ',' + player.tileY,
+    'ground ' + tileX + ',' + tileY,
     map.addTilesetImage('tilesetImage'),
     4,
     341
   );
   layer.data = {
-    x: player.tileX, 
-    y: player.tileY
+    x: tileX, 
+    y: tileY
   };
   return layer;
 }

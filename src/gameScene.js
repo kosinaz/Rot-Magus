@@ -75,35 +75,35 @@ class GameScene extends Phaser.Scene {
     });
     
     // create zombies
-    let grassTiles = layer.filterTiles(function (tile) {
+    this.grassTiles = layer.filterTiles(function (tile) {
       return !this.noiseMap.getTileIndexAt(tile.x, tile.y);
     }, this);
     for (let i = 0; i < 40; i += 1) {
-      tile = ROT.RNG.getItem(grassTiles);
+      tile = ROT.RNG.getItem(this.grassTiles);
       let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.zombie);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy); 
     }
     for (let i = 0; i < 30; i += 1) {
-      tile = ROT.RNG.getItem(grassTiles);
+      tile = ROT.RNG.getItem(this.grassTiles);
       let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.skeleton);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy);
     }
     for (let i = 0; i < 20; i += 1) {
-      tile = ROT.RNG.getItem(grassTiles);
+      tile = ROT.RNG.getItem(this.grassTiles);
       let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.goblin);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy);
     }
     for (let i = 0; i < 10; i += 1) {
-      tile = ROT.RNG.getItem(grassTiles);
+      tile = ROT.RNG.getItem(this.grassTiles);
       let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.hobgoblin);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy);
     }
     for (let i = 0; i < 5; i += 1) {
-      tile = ROT.RNG.getItem(grassTiles);
+      tile = ROT.RNG.getItem(this.grassTiles);
       let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.troll);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy);
