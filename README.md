@@ -53,4 +53,4 @@ This is the first real pre-release of the game, featuring:
 * essential melee and ranged weapons
 * regeneration, damage, death, XP, leveling
 
- #rpg #roguelike #retro #phaser #rot.js #2d #8-bit #classic #turn-based
+ #rpg #roguelike #retro #phaser #2d #classic
