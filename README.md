@@ -1,6 +1,6 @@
 # Rot Magus
 
-Rot Magus is classic 8-bit roguelike turn-based RPG about a lone adventurer who has to face the endless hordes of monsters in the realm of the Dark One. Featuring dozens of different creatures, items and spells and an infinite, procedurally generated map filled with deep forests, winding mountains, hidden caves, and tranquilizing lakes.
+Rot Magus is classic 8-bit roguelike turn-based RPG about a lone adventurer who has to face the endless hordes of monsters in the realm of the Dark One — featuring dozens of different creatures, items, and spells and an infinite, procedurally generated map filled with deep forests, winding mountains, hidden caves, and tranquilizing lakes.
 
 An extended, browser-based remake of Ronny Wester's Magus built with rot.js and Phaser.
 
@@ -11,13 +11,13 @@ Traverse the mysterious lands, acquire powerful weapons and magical artifacts, d
 * Tap on terrain: move
 * Tap on the adventurer: rest
 * Tap on monster next to the adventurer: melee attack
-* Tap on monster in the distance: ranged attack
+* Tap on a monster in the distance: ranged attack
 * Tap on a cell of the top inventory section: pick up or put down an item in your inventory
 * Tap on a cell of the bottom ground section: pick up or put down an item on the ground
 
 ## Current features
 
-* 243*243 tile sized simplex noise-based procedurally generated map with forests, mountains, caves and lakes
+* 243*243 tile sized simplex noise-based procedurally generated map with forests, mountains, caves, and lakes
 * 5 different monsters, melee attackers, approaching on sight, remembering the last seen spot of the adventurer
 * 1 adventurer, gaining levels, regenerating
 * starting equipment
@@ -30,7 +30,7 @@ Traverse the mysterious lands, acquire powerful weapons and magical artifacts, d
 * infinite map with towns, inns, castles, mage towers, roads, rivers, lakes, deserts, mountains, caves, dungeons
 * 9 different adventurers
 * 32 different monsters
-* 90 different items, including 8 types of equipments, and 31 magic spells
+* 90 different items, including 8 types of equipment, and 31 magic spells
 * sound effects
 * music
 
@@ -38,7 +38,7 @@ Traverse the mysterious lands, acquire powerful weapons and magical artifacts, d
 
 ### v0.4.0 (Jun 16 2019) - A new phase
 
-* 243*243 tile sized simplex noise-based procedurally generated map with forests, mountains, caves and lakes
+* 243*243 tile sized simplex noise-based procedurally generated map with forests, mountains, caves, and lakes
 * simple movement and attack animations, special effects
 * improved inventory
 
@@ -51,4 +51,6 @@ This is the first real pre-release of the game, featuring:
 * starting equipment
 * a couple of items on the ground
 * essential melee and ranged weapons
-* regeneration, damage, death, xp, leveling
+* regeneration, damage, death, XP, leveling
+
+ #rpg #roguelike #retro #phaser #rot.js #2d #8-bit #classic #turn-based
