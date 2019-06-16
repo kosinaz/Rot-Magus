@@ -246,9 +246,9 @@ let Actor = new Phaser.Class({
   },
   earnXP: function (amount) {
     this.xp += amount;
-    if (this.xp >= this.maxXP) {
-      this.xp -= this.maxXP;
-      this.maxXP *= 2;
+    if (this.xp >= this.xpMax) {
+      this.xp -= this.xpMax;
+      this.xpMax *= 2;
       this.level += 1;
     }
     this.scene.events.emit('updateAttribute', this);
