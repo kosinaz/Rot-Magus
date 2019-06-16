@@ -78,6 +78,9 @@ let Actor = new Phaser.Class({
     }
   },
   orderTo: function (x, y) {
+    if (x === this.tileX && y === this.tileY) {
+      this.rest();
+    }
     if (!isAcceptingOrders) {
       return;
     }
@@ -211,6 +214,12 @@ let Actor = new Phaser.Class({
       });
       engine.unlock();
     }
+  },
+  rest: function () {
+    this.health = Math.min(this.healthMax, this.health + 1);
+    console.log(this.name, this.health);
+    engine.unlock();
+    this.scene.events.emit('updateAttribute', this);
   },
   damage: function (actor) {
     let damage = ROT.RNG.getUniformInt(1, 10)
