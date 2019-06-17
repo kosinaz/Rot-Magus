@@ -1,9 +1,6 @@
 class MenuScene extends Phaser.Scene {
   constructor() {
-    super({
-      key: 'MenuScene',
-      active: true
-    });
+    super('MenuScene');
   }
   create() {
     this.add.text(512, 100, 'ROT MAGUS', {

@@ -17,18 +17,6 @@ class GameScene extends Phaser.Scene {
   itemLayer = {};
   fov = {};
 
-  preload = function () {
-
-    // preload the tileset image that contains all the tiles of the map
-    this.load.spritesheet('tilesetImage', 'assets/images/tiles.png', {
-      frameWidth: 24,
-      frameHeight: 21
-    });
-
-    this.load.json('actors','data/actors.json');
-    this.load.json('items','data/items.json');
-  };
-
   create = function () {
 
     this.cameras.main.setBackgroundColor('#000000');

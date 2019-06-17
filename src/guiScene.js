@@ -2,11 +2,6 @@ class GUIScene extends Phaser.Scene {
   constructor() {
     super('GUIScene');
   }
-
-  preload = function () {
-    this.load.image('ingame', 'assets/images/gui/ingame.png');
-    this.load.json('gui', 'data/gui.json');
-  };
   
   create = function () {
 
