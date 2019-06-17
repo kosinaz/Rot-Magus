@@ -6,16 +6,16 @@ class LoadScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor('#000000');
 
-    let hourglass = this.add.text(512, 200, '⏳', {
-      fontSize: '64px',
-    }).setOrigin(0.5);
+    let hourglass = this.add.text(400, 200, 'Loading', {
+      fontSize: '32px',
+    });
     hourglass.data = 0;
 
     this.time.addEvent({
       delay: 500,
       callback: function () {
-        hourglass.data = (hourglass.data + 1) % 2;
-        hourglass.text = '⏳⌛' [hourglass.data];
+        hourglass.data = (hourglass.data + 1) % 4;
+        hourglass.text = 'Loading' + ['', '.', '..', '...'][hourglass.data];
       },
       callbackScope: this,
       loop: true
