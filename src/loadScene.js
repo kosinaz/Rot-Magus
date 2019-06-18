@@ -34,7 +34,7 @@ class LoadScene extends Phaser.Scene {
   };
 
   create() {
-    //this.scene.start('InfiniteScene');
-    //this.scene.start('MenuScene');
+    this.scene.start('InfiniteScene');
+    this.scene.start('MenuScene');
   }
 }

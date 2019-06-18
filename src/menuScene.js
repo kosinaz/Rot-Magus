@@ -14,6 +14,7 @@ class MenuScene extends Phaser.Scene {
       onPointerUp: function () {
         this.scene.start('GameScene');
         this.scene.start('GUIScene');
+        this.scene.stop('InfiniteScene');
       }.bind(this),
       origin: 0.5,
       scene: this,
