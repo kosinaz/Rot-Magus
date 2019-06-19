@@ -13,7 +13,7 @@ class InfiniteScene extends Phaser.Scene {
         let tileIndex = map.getTileIndexAt(i, row);
         
         // draw the tile
-        this.add.image(i * 24 + 12, row * 21 + 10, 'tilesetImage', tileIndex);
+        this.add.image(i * 24 + 12, row * 21 + 10, 'tiles', tileIndex);
       }
     }
     

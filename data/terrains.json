@@ -1,0 +1,33 @@
+{
+  "grass": {
+    "tile": 102,
+    "weight": 0,
+    "count": 50,
+    "category": "ammunition"
+  },
+  "bow": {
+    "tile": 108,
+    "damage": 3,
+    "weight": 3,
+    "twoHanded": true,
+    "ranged": true,
+    "usesArrows": true,
+    "category": "weapon"
+  },
+  "dagger": {
+    "tile": 116,
+    "damage": 3,
+    "weight": 1,
+    "oneHanded": true,
+    "melee": true,
+    "ranged": true,
+    "throwable": true,
+    "category": "weapon"
+  },
+  "elvenCloak": {
+    "tile": 118,
+    "weight": 1,
+    "armour": 1,
+    "category": "cloak"
+  }
+}
