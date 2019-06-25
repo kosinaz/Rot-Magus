@@ -10,8 +10,20 @@ class SimplexMap {
     // the Simplex noise that serve as the base of the map
     this.noise = new ROT.Noise.Simplex();
 
-    // the container of visible and invisible, unused tiles of this map
+    // the container of visible tiles of this map
     this.tiles = this.scene.add.container();
+    
+    // the container of the invisible, unused tiles of this map
+    this.hiddenTiles = this.scene.add.container();
+    //this.hiddenTiles.visible = false;
+
+    /*this.remained = 0;
+    this.reused = 0;
+    this.named = 0;
+    this.added = 0;
+    this.removed = 0;*/
+
+    this.map = {};
   }
 
   // the core of the script: tiles are added from the pool or created on the fly
@@ -21,63 +33,115 @@ class SimplexMap {
     let tile;
 
     // the key of the tile that should be displayed at the given position
-    let tileName = this.getTileNameAt(x, y);
+    let tileName;
 
-    // get all the unused tiles
-    let unusedTiles = this.tiles.getAll('visible', false);
-    
-    // if there is any unused tile
-    if (unusedTiles.length) {
-      
-      // get the first tile that looks like the one to be displayed
-      tile = unusedTiles.filter(tile => tile.frame.name === tileName)[0];
+    // if this is the first time a tile is set to be added at this position
+    if (this.map[x + ',' + y] === undefined) {      
 
-      // if there is a unused tile that looks like the one to be displayed
-      if (tile) {
+      // generate the key of the tile
+      tileName = this.getTileNameAt(x, y);
 
-        // move it to the given position
-        tile.x = x * 24;
-        tile.y = y * 21;
-
-        // activate it
-        tile.active = true;
-
-        // show it
-        tile.visible = true;
-
-      // if there is no unused tile that looks like the one to be displayed
-      } else {
-
-        // add the image of the tile
-        tile = this.scene.add.image(x * 24, y * 21, this.tilesetImage, tileName);
-
-        // add the tile to the container of tiles
-        this.tiles.add(tile);
+      // save the key of the tile at the given position for further use
+      this.map[x + ',' + y] = {
+        name: tileName
       }
 
-    // if there is no unused tile
+      this.named += 1;
+
+    // if this tile has been requested before
     } else {
 
-      // add the image of the tile
-      tile = this.scene.add.image(x * 24, y * 21, this.tilesetImage, tileName);
+      // if the image of the tile is still displayed
+      if (this.map[x + ',' + y].image) {
 
+        this.remained += 1;
+
+        this.map[x + ',' + y].image.alpha = 1;
+        // keep the tile as is
+        return;
+      }
+
+      // else get the previously saved key of the tile
+      tileName = this.map[x + ',' + y].name;
+    }
+    
+    // if there is any unused tile
+    if (this.hiddenTiles.length) {
+      
+      // get the first unused tile
+      tile = this.hiddenTiles.first;
+
+      // add the tile to the list of tiles to be displayed
+      this.tiles.add(tile);
+
+      // remove the tile from the list of unused tiles
+      this.hiddenTiles.remove(tile);
+
+      // make the previously unused tile look like the one to be displayed
+      tile.setFrame(tileName);
+
+      // save the image of the tile at its new position
+      this.map[x + ',' + y].image = tile;
+      
+      // move it to the new position
+      tile.x = x * 24;
+      tile.y = y * 21;
+      
+      // activate it
+      tile.active = true;
+      
+      // show it
+      tile.visible = true;
+
+      tile.alpha = 0.5;
+
+      this.reused += 1;
+      
+    // if there is no unused tile
+    } else {
+      
+      // display the image of the tile
+      tile = this.scene.add.image(x * 24, y * 21, this.tilesetImage, tileName);
+      tile.setOrigin(0);
+
+      // save the image of the tile at the defined position
+      this.map[x + ',' + y].image = tile;
+      
       // add the tile to the container of tiles
       this.tiles.add(tile);
+      
+      this.added += 1;
     }
   }
-
-  // hide all tiles before showing the ones that are visible currently
+  
+  // hide all tiles out of camera bounds
   hide() {
     
     // iterate through all tiles    
     this.tiles.iterate(function (tile) {
       
-      // deactive it
-      tile.active = false;
+      if (tile.x < -this.scene.cameras.main.x - 24
+        || tile.x > -this.scene.cameras.main.y + 1056
+        || tile.y < -this.scene.cameras.main.y - 21
+        || tile.y > -this.scene.cameras.main.y + 588
+        ) {
 
-      // hide it
-      tile.visible = false;
-    });
+        this.map[tile.x / 24 + ',' + tile.y / 21].image = null;
+        
+        this.hiddenTiles.add(tile);
+        
+        this.tiles.remove(tile);
+
+        // deactive it
+        tile.active = false;
+
+        // hide it
+        tile.visible = false;
+
+        this.removed += 1;
+      }
+
+    }, this);
   }
 
   getTileNameAt(x, y) {
