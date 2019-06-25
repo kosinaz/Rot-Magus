@@ -5,11 +5,9 @@ class MenuScene extends Phaser.Scene {
   create() {
     this.bg = this.scene.get('InfiniteScene');
 
-    this.log = this.add.text(100, 100, '');
+    this.log = this.add.text(200, 200, '');
     this.panX = ['+=24', '+=0', '-=24'][~~(Math.random() * 3)];
     this.panY = ['+=21', '+=0', '-=21'][~~(Math.random() * 3)];
-    // this.panX = 0;
-    // this.panY = 0;
     this.pan = function () {
       this.bg.map.hide();
       this.bg.draw();

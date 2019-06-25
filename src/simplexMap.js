@@ -121,9 +121,9 @@ class SimplexMap {
     this.tiles.iterate(function (tile) {
       
       if (tile.x < -this.scene.cameras.main.x - 24
-        || tile.x > -this.scene.cameras.main.y + 1056
+        || tile.x > -this.scene.cameras.main.x + 43 * 24
         || tile.y < -this.scene.cameras.main.y - 21
-        || tile.y > -this.scene.cameras.main.y + 588
+        || tile.y > -this.scene.cameras.main.y + 28 * 21
         ) {
 
         this.map[tile.x / 24 + ',' + tile.y / 21].image = null;

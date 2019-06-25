@@ -9,7 +9,7 @@ class InfiniteScene extends Phaser.Scene {
 
     // draw all the tiles currently on the screen
     this.draw = function () {
-      for (let i = -1; i < 45; i += 1) {
+      for (let i = -1; i < 44; i += 1) {
         for (let j = -1; j < 29; j += 1) {
           
           // draw the tile
