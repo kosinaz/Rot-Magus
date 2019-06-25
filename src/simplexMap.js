@@ -15,13 +15,6 @@ class SimplexMap {
     
     // the container of the invisible, unused tiles of this map
     this.hiddenTiles = this.scene.add.container();
-    //this.hiddenTiles.visible = false;
-
-    /*this.remained = 0;
-    this.reused = 0;
-    this.named = 0;
-    this.added = 0;
-    this.removed = 0;*/
 
     this.map = {};
   }
@@ -46,17 +39,12 @@ class SimplexMap {
         name: tileName
       }
 
-      this.named += 1;
-
     // if this tile has been requested before
     } else {
 
       // if the image of the tile is still displayed
       if (this.map[x + ',' + y].image) {
-
-        this.remained += 1;
-
-        this.map[x + ',' + y].image.alpha = 1;
+        
         // keep the tile as is
         return;
       }
@@ -92,10 +80,6 @@ class SimplexMap {
       
       // show it
       tile.visible = true;
-
-      tile.alpha = 0.5;
-
-      this.reused += 1;
       
     // if there is no unused tile
     } else {
@@ -109,8 +93,6 @@ class SimplexMap {
       
       // add the tile to the container of tiles
       this.tiles.add(tile);
-      
-      this.added += 1;
     }
   }
   
@@ -137,8 +119,6 @@ class SimplexMap {
 
         // hide it
         tile.visible = false;
-
-        this.removed += 1;
       }
 
     }, this);
