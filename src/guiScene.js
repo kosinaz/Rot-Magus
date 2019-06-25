@@ -51,10 +51,10 @@ class GUIScene extends Phaser.Scene {
      * Create inventory
      */
     this.inventory = createInventory(this);
-    this.inventory.putTileAt(116, 0, 5);
-    this.inventory.putTileAt(118, 1, 5);
-    this.inventory.putTileAt(108, 2, 5);
-    this.inventory.putTileAt(102, 3, 5);
+    this.inventory.putTileAt('bow', 0, 5);
+    this.inventory.putTileAt('arrow', 1, 5);
+    this.inventory.putTileAt('dagger', 2, 5);
+    this.inventory.putTileAt('elvenCloak', 3, 5);
 
     this.ground = createGround(this);
     this.grounds = {};
@@ -267,7 +267,7 @@ class GUIScene extends Phaser.Scene {
         /**
          * If there is an item there pick up
          */
-        this.hold = this.add.image(x, y, 'tilesetImage', tile.index);
+        this.hold = this.add.image(x, y, 'tiles', tile.index);
       }
       else {
 
@@ -298,7 +298,7 @@ class GUIScene extends Phaser.Scene {
       /**
        * If the player does not hold anything pick up the item
        */
-      this.hold = this.add.image(x, y, 'tilesetImage', tile.index);
+      this.hold = this.add.image(x, y, 'tiles', tile.index);
       layer.removeTileAt(tileXY.x, tileXY.y);
     }
   };
@@ -317,7 +317,7 @@ function createInventory(scene) {
   });
   return map.createBlankDynamicLayer(
     'inventory', 
-    map.addTilesetImage('tilesetImage'),
+    map.addTilesetImage('tiles'),
     4, 
     5
   );
@@ -339,7 +339,7 @@ function createGround(scene) {
 function addGround(map, tileX, tileY) {
   var layer = map.createBlankDynamicLayer(
     'ground ' + tileX + ',' + tileY,
-    map.addTilesetImage('tilesetImage'),
+    map.addTilesetImage('tiles'),
     4,
     341
   );

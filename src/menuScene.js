@@ -3,6 +3,28 @@ class MenuScene extends Phaser.Scene {
     super('MenuScene');
   }
   create() {
+    this.bg = this.scene.get('InfiniteScene');
+
+    this.log = this.add.text(100, 100, '');
+      this.pan = function () {
+        this.bg.map.hide();
+        this.bg.draw();
+        this.log.text = this.bg.map.tiles.length;
+        this.tweens.add({
+          targets: this.bg.cameras.main,
+          x: '-= 24',
+          y: '-= 21',
+          ease: 'Linear',
+          duration: 500,
+          //completeDelay: 3000,
+          onComplete: this.pan
+        });
+      }.bind(this);
+      this.pan();
+
+
+    this.bg.cameras.main.setSize(-1, -1);
+    
     this.add.text(512, 100, 'ROT MAGUS', {
       fontFamily: 'font',
       fontSize: '64px',

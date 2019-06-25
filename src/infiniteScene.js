@@ -5,28 +5,25 @@ class InfiniteScene extends Phaser.Scene {
   create() {
 
     // generate a map based on simplex noise
-    const map = new SimplexMap;    
-    
-    this.draw = function (row) {
-      for (let i = 0; i < 43; i += 1) {
-        
-        let tileIndex = map.getTileIndexAt(i, row);
-        
-        // draw the tile
-        this.add.image(i * 24 + 12, row * 21 + 10, 'tiles', tileIndex);
-      }
-    }
-    
+    const map = new SimplexMap(this, 'tiles');
+
     // draw all the tiles currently on the screen
-    for (let i = 0; i < 29; i += 1) {
-      this.draw(i);
+    this.draw = function () {
+      for (let i = 0; i < 45; i += 1) {
+        for (let j = 0; j < 29; j += 1) {
+
+          // draw the tile
+          map.addTile(
+            /*16 + */i - ~~(this.cameras.main.x / 24), 
+            /*8 + */j - ~~(this.cameras.main.y / 21)
+          );
+        }
+      }
+      //console.log(~~this.cameras.main.x, ~~this.cameras.main.y);
     }
-    this.y = 28;
-  }
-  update() {
-    this.cameras.main.scrollY += 1;
-    if (this.cameras.main.scrollY % 21 === 0) {
-      this.draw(++this.y);
-    }
+
+    this.draw();
+    this.map = map;
+    
   }
 }

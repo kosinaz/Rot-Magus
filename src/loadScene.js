@@ -21,13 +21,7 @@ class LoadScene extends Phaser.Scene {
       loop: true
     });
 
-    // preload the tileset image that contains all the tiles of the map
-    // this.load.spritesheet('tilesetImage', 'assets/images/tiles.png', {
-    //   frameWidth: 24,
-    //   frameHeight: 21
-    // });
-
-    game.load.atlas('tiles', 'assets/images/tiles.png', 'assets/images/tiles.json');
+    this.load.atlas('tiles', 'assets/images/tiles.png', 'assets/images/tiles.json');
 
     this.load.image('ingame', 'assets/images/gui/ingame.png');
     this.load.json('actors', 'data/actors.json');

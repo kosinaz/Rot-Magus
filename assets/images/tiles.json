@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "Air",
+	"filename": "2HSword",
 	"frame": {"x":0,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Armour",
+	"filename": "air",
 	"frame": {"x":24,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -17,7 +17,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Arrows",
+	"filename": "armour",
 	"frame": {"x":48,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -25,7 +25,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Axe",
+	"filename": "arrows",
 	"frame": {"x":72,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -33,7 +33,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Bam",
+	"filename": "axe",
 	"frame": {"x":96,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -41,7 +41,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "BarbarianFemale",
+	"filename": "bam",
 	"frame": {"x":120,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -49,7 +49,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "BarbarianMale",
+	"filename": "barbarianFemale",
 	"frame": {"x":144,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -57,7 +57,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Berzerk",
+	"filename": "barbarianMale",
 	"frame": {"x":168,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -65,7 +65,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Bif",
+	"filename": "berzerk",
 	"frame": {"x":192,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -73,7 +73,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "BigHelmet",
+	"filename": "bif",
 	"frame": {"x":216,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -81,7 +81,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "BigShield",
+	"filename": "bigHelmet",
 	"frame": {"x":240,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -89,7 +89,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "BloodTaste",
+	"filename": "bigShield",
 	"frame": {"x":264,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -97,7 +97,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Bom",
+	"filename": "bloodTaste",
 	"frame": {"x":288,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -105,7 +105,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Bow",
+	"filename": "bom",
 	"frame": {"x":312,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -113,7 +113,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "BrickWall",
+	"filename": "bow",
 	"frame": {"x":336,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -121,7 +121,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Bubble",
+	"filename": "brickWall",
 	"frame": {"x":360,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -129,7 +129,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Bush",
+	"filename": "bubble",
 	"frame": {"x":384,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -137,7 +137,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Chainmail",
+	"filename": "bush",
 	"frame": {"x":408,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -145,7 +145,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ChainNBall",
+	"filename": "chainmail",
 	"frame": {"x":432,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -153,7 +153,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Chaos",
+	"filename": "chainNBall",
 	"frame": {"x":456,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -161,7 +161,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ChaosKnight",
+	"filename": "chaos",
 	"frame": {"x":480,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -169,7 +169,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ChaosWarrior",
+	"filename": "chaosKnight",
 	"frame": {"x":0,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -177,7 +177,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Chock",
+	"filename": "chaosWarrior",
 	"frame": {"x":24,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -185,7 +185,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Cloak",
+	"filename": "chock",
 	"frame": {"x":48,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -193,7 +193,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Club",
+	"filename": "cloak",
 	"frame": {"x":72,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -201,7 +201,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Cobblestone",
+	"filename": "club",
 	"frame": {"x":96,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -209,7 +209,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Confusion",
+	"filename": "cobblestone",
 	"frame": {"x":120,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -217,7 +217,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Crossbow",
+	"filename": "confusion",
 	"frame": {"x":144,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -225,7 +225,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Dagger",
+	"filename": "crossbow",
 	"frame": {"x":168,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -233,7 +233,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Darkness",
+	"filename": "dagger",
 	"frame": {"x":192,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -241,7 +241,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DeathKnight",
+	"filename": "darkness",
 	"frame": {"x":216,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -249,7 +249,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DeathLord",
+	"filename": "deathKnight",
 	"frame": {"x":240,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -257,7 +257,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Delay",
+	"filename": "deathLord",
 	"frame": {"x":264,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -265,7 +265,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Demon",
+	"filename": "delay",
 	"frame": {"x":288,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -273,7 +273,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DemonPrince",
+	"filename": "demon",
 	"frame": {"x":312,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -281,7 +281,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DemonSpell",
+	"filename": "demonPrince",
 	"frame": {"x":336,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -289,7 +289,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Dirt",
+	"filename": "demonSpell",
 	"frame": {"x":360,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -297,7 +297,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Djinn",
+	"filename": "dirt",
 	"frame": {"x":384,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -305,7 +305,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Door",
+	"filename": "djinn",
 	"frame": {"x":408,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -313,7 +313,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Dragon",
+	"filename": "door",
 	"frame": {"x":432,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -321,7 +321,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DragonTooth",
+	"filename": "dragon",
 	"frame": {"x":456,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -329,7 +329,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DruidFemale",
+	"filename": "dragonTooth",
 	"frame": {"x":480,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -337,7 +337,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DruidMale",
+	"filename": "druidFemale",
 	"frame": {"x":0,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -345,7 +345,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DuckMageMale",
+	"filename": "druidMale",
 	"frame": {"x":24,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -353,7 +353,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DuckMale",
+	"filename": "duckMageMale",
 	"frame": {"x":48,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -361,7 +361,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DuckMonkMale",
+	"filename": "duckMale",
 	"frame": {"x":72,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -369,7 +369,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DwarfFemale",
+	"filename": "duckMonkMale",
 	"frame": {"x":96,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -377,7 +377,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "DwarfMale",
+	"filename": "dwarfFemale",
 	"frame": {"x":120,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -385,7 +385,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Earth",
+	"filename": "dwarfMale",
 	"frame": {"x":144,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -393,7 +393,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Eh",
+	"filename": "earth",
 	"frame": {"x":168,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -401,7 +401,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ElfFemale",
+	"filename": "eh",
 	"frame": {"x":192,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -409,7 +409,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ElfMale",
+	"filename": "elfFemale",
 	"frame": {"x":216,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -417,7 +417,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ElvenCloak",
+	"filename": "elfMale",
 	"frame": {"x":240,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -425,7 +425,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Emerald",
+	"filename": "elvenCloak",
 	"frame": {"x":264,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -433,7 +433,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "EmeraldRing",
+	"filename": "emerald",
 	"frame": {"x":288,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -441,7 +441,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Enchant",
+	"filename": "emeraldRing",
 	"frame": {"x":312,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -449,7 +449,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Faithful",
+	"filename": "enchant",
 	"frame": {"x":336,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -457,7 +457,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "FastFeet",
+	"filename": "faithful",
 	"frame": {"x":360,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -465,7 +465,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Fenix",
+	"filename": "fastFeet",
 	"frame": {"x":384,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -473,7 +473,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Fire",
+	"filename": "fenix",
 	"frame": {"x":408,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -481,7 +481,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "FireBall",
+	"filename": "fire",
 	"frame": {"x":432,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -489,7 +489,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Fireblade",
+	"filename": "fireBall",
 	"frame": {"x":456,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -497,7 +497,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Focus",
+	"filename": "fireblade",
 	"frame": {"x":480,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -505,7 +505,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Ford",
+	"filename": "focus",
 	"frame": {"x":0,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -513,7 +513,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Gate",
+	"filename": "ford",
 	"frame": {"x":24,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -521,7 +521,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Ghost",
+	"filename": "gate",
 	"frame": {"x":48,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -529,7 +529,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Ghostblade",
+	"filename": "ghost",
 	"frame": {"x":72,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -537,7 +537,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Gloves",
+	"filename": "ghostblade",
 	"frame": {"x":96,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -545,7 +545,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Goblin",
+	"filename": "gloves",
 	"frame": {"x":120,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -553,7 +553,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Golem",
+	"filename": "goblin",
 	"frame": {"x":144,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -561,7 +561,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Grass",
+	"filename": "golem",
 	"frame": {"x":168,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -569,7 +569,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Gravel",
+	"filename": "grass",
 	"frame": {"x":192,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -577,7 +577,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Guardian",
+	"filename": "gravel",
 	"frame": {"x":216,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -585,7 +585,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "H-Sword",
+	"filename": "guardian",
 	"frame": {"x":240,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -593,7 +593,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Heal",
+	"filename": "heal",
 	"frame": {"x":264,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -601,7 +601,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Helmet",
+	"filename": "helmet",
 	"frame": {"x":288,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -609,7 +609,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Hobgoblin",
+	"filename": "hobgoblin",
 	"frame": {"x":312,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -617,7 +617,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "HyperSpace",
+	"filename": "hyperSpace",
 	"frame": {"x":336,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -625,7 +625,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Inferno",
+	"filename": "inferno",
 	"frame": {"x":360,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -633,7 +633,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "KnightFemale",
+	"filename": "knightFemale",
 	"frame": {"x":384,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -641,7 +641,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "KnightMale",
+	"filename": "knightMale",
 	"frame": {"x":408,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -649,7 +649,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Leadball",
+	"filename": "leadball",
 	"frame": {"x":432,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -657,7 +657,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Leather",
+	"filename": "leather",
 	"frame": {"x":456,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -665,7 +665,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Lightning",
+	"filename": "lightning",
 	"frame": {"x":480,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -673,7 +673,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "LightningBolt",
+	"filename": "lightningBolt",
 	"frame": {"x":0,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -681,7 +681,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "LightningSpell",
+	"filename": "lightningSpell",
 	"frame": {"x":24,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -689,7 +689,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Magician",
+	"filename": "magician",
 	"frame": {"x":48,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -697,7 +697,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Marsh",
+	"filename": "marsh",
 	"frame": {"x":72,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -705,7 +705,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Minotaur",
+	"filename": "minotaur",
 	"frame": {"x":96,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -713,7 +713,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Monk",
+	"filename": "monk",
 	"frame": {"x":120,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -721,7 +721,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Mountain",
+	"filename": "mountain",
 	"frame": {"x":144,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -729,7 +729,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Negate",
+	"filename": "negate",
 	"frame": {"x":168,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -737,7 +737,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Negator",
+	"filename": "negator",
 	"frame": {"x":192,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -745,7 +745,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Nhg",
+	"filename": "nhg",
 	"frame": {"x":216,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -753,7 +753,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Opal",
+	"filename": "opal",
 	"frame": {"x":240,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -761,7 +761,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "OpalRing",
+	"filename": "opalRing",
 	"frame": {"x":264,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -769,7 +769,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Orch",
+	"filename": "orch",
 	"frame": {"x":288,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -777,7 +777,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "OrchArcher",
+	"filename": "orchArcher",
 	"frame": {"x":312,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -785,7 +785,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "OrchMagician",
+	"filename": "orchMagician",
 	"frame": {"x":336,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -793,7 +793,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "OrchWarrior",
+	"filename": "orchWarrior",
 	"frame": {"x":360,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -801,7 +801,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Paf",
+	"filename": "paf",
 	"frame": {"x":384,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -809,7 +809,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Palm",
+	"filename": "palm",
 	"frame": {"x":408,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -817,7 +817,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Panic",
+	"filename": "panic",
 	"frame": {"x":432,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -825,7 +825,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Phantom",
+	"filename": "phantom",
 	"frame": {"x":456,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -833,7 +833,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Planks",
+	"filename": "planks",
 	"frame": {"x":480,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -841,7 +841,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Portal",
+	"filename": "portal",
 	"frame": {"x":0,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -849,7 +849,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "PortalTile",
+	"filename": "portalTile",
 	"frame": {"x":24,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -857,7 +857,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Potion",
+	"filename": "potion",
 	"frame": {"x":48,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -865,7 +865,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Protection",
+	"filename": "protection",
 	"frame": {"x":72,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -873,7 +873,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Purify",
+	"filename": "purify",
 	"frame": {"x":96,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -881,7 +881,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "RedFlower",
+	"filename": "redFlower",
 	"frame": {"x":120,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -889,7 +889,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Sabre",
+	"filename": "sabre",
 	"frame": {"x":144,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -897,7 +897,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Sand",
+	"filename": "sand",
 	"frame": {"x":168,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -905,7 +905,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Shadowbeast",
+	"filename": "shadowbeast",
 	"frame": {"x":192,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -913,7 +913,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ShadowCloak",
+	"filename": "shadowCloak",
 	"frame": {"x":216,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -921,7 +921,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ShamanFemale",
+	"filename": "shamanFemale",
 	"frame": {"x":240,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -929,7 +929,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ShamanMale",
+	"filename": "shamanMale",
 	"frame": {"x":264,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -937,7 +937,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Shield",
+	"filename": "shield",
 	"frame": {"x":288,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -945,7 +945,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ShootingStar",
+	"filename": "shootingStar",
 	"frame": {"x":312,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -953,7 +953,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SilverBow",
+	"filename": "silverBow",
 	"frame": {"x":336,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -961,7 +961,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Skeleton",
+	"filename": "skeleton",
 	"frame": {"x":360,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -969,7 +969,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SkeletonSpell",
+	"filename": "skeletonSpell",
 	"frame": {"x":384,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -977,7 +977,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Slayer",
+	"filename": "slayer",
 	"frame": {"x":408,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -985,7 +985,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Sleep",
+	"filename": "sleep",
 	"frame": {"x":432,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -993,7 +993,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SmallOneFemale",
+	"filename": "smallOneFemale",
 	"frame": {"x":456,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1001,7 +1001,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SmallOneMale",
+	"filename": "smallOneMale",
 	"frame": {"x":480,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1009,7 +1009,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Sorcerer",
+	"filename": "sorcerer",
 	"frame": {"x":0,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1017,7 +1017,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Spirit",
+	"filename": "spirit",
 	"frame": {"x":24,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1025,7 +1025,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Staff",
+	"filename": "staff",
 	"frame": {"x":48,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1033,7 +1033,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "StoneAxe",
+	"filename": "stoneAxe",
 	"frame": {"x":72,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1041,7 +1041,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "StoneFloor",
+	"filename": "stoneFloor",
 	"frame": {"x":96,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1049,7 +1049,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Stonefoot",
+	"filename": "stonefoot",
 	"frame": {"x":120,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1057,7 +1057,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "StoneWall",
+	"filename": "stoneWall",
 	"frame": {"x":144,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1065,7 +1065,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "StuddedLeather",
+	"filename": "studdedLeather",
 	"frame": {"x":168,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1073,7 +1073,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SunArmour",
+	"filename": "sunArmour",
 	"frame": {"x":192,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1081,7 +1081,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SunBow",
+	"filename": "sunBow",
 	"frame": {"x":216,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1089,7 +1089,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SunGloves",
+	"filename": "sunGloves",
 	"frame": {"x":240,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1097,7 +1097,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SunHelmet",
+	"filename": "sunHelmet",
 	"frame": {"x":264,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1105,7 +1105,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SunsEdge",
+	"filename": "sunsEdge",
 	"frame": {"x":288,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1113,7 +1113,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "SunShield",
+	"filename": "sunShield",
 	"frame": {"x":312,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1121,7 +1121,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Sword",
+	"filename": "sword",
 	"frame": {"x":336,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1129,7 +1129,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Terror",
+	"filename": "terror",
 	"frame": {"x":360,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1137,7 +1137,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "TheDarkOne",
+	"filename": "theDarkOne",
 	"frame": {"x":384,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1145,7 +1145,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ThrowingStar",
+	"filename": "throwingStar",
 	"frame": {"x":408,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1153,7 +1153,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ThunderStorm",
+	"filename": "thunderStorm",
 	"frame": {"x":432,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1161,7 +1161,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Topaz",
+	"filename": "topaz",
 	"frame": {"x":456,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1169,7 +1169,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Tree",
+	"filename": "tree",
 	"frame": {"x":480,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1177,7 +1177,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Troll",
+	"filename": "troll",
 	"frame": {"x":0,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1185,7 +1185,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Uh",
+	"filename": "uh",
 	"frame": {"x":24,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1193,7 +1193,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Undead",
+	"filename": "undead",
 	"frame": {"x":48,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1201,7 +1201,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Undine",
+	"filename": "undine",
 	"frame": {"x":72,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1209,7 +1209,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Vision",
+	"filename": "vision",
 	"frame": {"x":96,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1217,7 +1217,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Wakizashi",
+	"filename": "wakizashi",
 	"frame": {"x":120,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1225,7 +1225,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Warrior",
+	"filename": "warrior",
 	"frame": {"x":144,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1233,7 +1233,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Water",
+	"filename": "water",
 	"frame": {"x":168,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1241,7 +1241,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "WaterTile",
+	"filename": "waterTile",
 	"frame": {"x":192,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1249,7 +1249,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Witchlord",
+	"filename": "witchlord",
 	"frame": {"x":216,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1257,7 +1257,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "WizardFemale",
+	"filename": "wizardFemale",
 	"frame": {"x":240,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1265,7 +1265,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "WizardMale",
+	"filename": "wizardMale",
 	"frame": {"x":264,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1273,7 +1273,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "WoodenFloor",
+	"filename": "woodenFloor",
 	"frame": {"x":288,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1281,7 +1281,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "WoodenShield",
+	"filename": "woodenShield",
 	"frame": {"x":312,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1289,7 +1289,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "WoodenWall",
+	"filename": "woodenWall",
 	"frame": {"x":336,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1297,7 +1297,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "YellowFlower",
+	"filename": "yellowFlower",
 	"frame": {"x":360,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1305,7 +1305,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Zap",
+	"filename": "zap",
 	"frame": {"x":384,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1313,7 +1313,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Zok",
+	"filename": "zok",
 	"frame": {"x":408,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1321,7 +1321,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "Zombie",
+	"filename": "zombie",
 	"frame": {"x":432,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1329,7 +1329,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ZombieSpell",
+	"filename": "zombieSpell",
 	"frame": {"x":456,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1343,6 +1343,6 @@
 	"format": "RGBA8888",
 	"size": {"w":504,"h":168},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:edce855814d8bf76c929158dec70620f:aab24d53180110a881938a1070893f6d:accbe1e7e294ded8391337fc1c446319$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6486bc66e44aa5a3a184867585d5c599:f88cbe29724b0bb25b915df74d1dd9a5:accbe1e7e294ded8391337fc1c446319$"
 }
 }

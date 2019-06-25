@@ -30,7 +30,7 @@ class GameScene extends Phaser.Scene {
     });
 
     // add a tileset to the game map based on the preloaded tileset image
-    const tilemap = map.addTilesetImage('tilesetImage');
+    const tilemap = map.addTilesetImage('tiles');
 
     // create a blank ground layer that will be filled with random map features
     this.groundLayer = map.createBlankDynamicLayer('tiles', tilemap);
@@ -51,11 +51,11 @@ class GameScene extends Phaser.Scene {
 
     // create player at the center of the map
     let startTiles = layer.filterTiles(function (tile) {
-      return !this.noiseMap.getTileIndexAt(tile.x, tile.y);
+      return this.noiseMap.getTileIndexAt(tile.x, tile.y) == 'grass';
     }, this, 108, 108, 27, 27);
     
     let tile = ROT.RNG.getItem(startTiles);
-    player = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.elf);
+    player = new Actor(this, tile.x, tile.y, 'tiles', layer, actors.elf);
     player.name = 'Atlian';
     player.walksOn = [13, 16];
     layer.on('pointerdown', function (pointer, x, y) {
@@ -64,35 +64,35 @@ class GameScene extends Phaser.Scene {
     
     // create zombies
     this.grassTiles = layer.filterTiles(function (tile) {
-      return !this.noiseMap.getTileIndexAt(tile.x, tile.y);
+      return this.noiseMap.getTileIndexAt(tile.x, tile.y) == 'grass';
     }, this);
     for (let i = 0; i < 40; i += 1) {
       tile = ROT.RNG.getItem(this.grassTiles);
-      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.zombie);
+      let enemy = new Actor(this, tile.x, tile.y, 'tiles', layer, actors.zombie);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy); 
     }
     for (let i = 0; i < 30; i += 1) {
       tile = ROT.RNG.getItem(this.grassTiles);
-      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.skeleton);
+      let enemy = new Actor(this, tile.x, tile.y, 'tiles', layer, actors.skeleton);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy);
     }
     for (let i = 0; i < 20; i += 1) {
       tile = ROT.RNG.getItem(this.grassTiles);
-      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.goblin);
+      let enemy = new Actor(this, tile.x, tile.y, 'tiles', layer, actors.goblin);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy);
     }
     for (let i = 0; i < 10; i += 1) {
       tile = ROT.RNG.getItem(this.grassTiles);
-      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.hobgoblin);
+      let enemy = new Actor(this, tile.x, tile.y, 'tiles', layer, actors.hobgoblin);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy);
     }
     for (let i = 0; i < 5; i += 1) {
       tile = ROT.RNG.getItem(this.grassTiles);
-      let enemy = new Actor(this, tile.x, tile.y, 'tilesetImage', layer, actors.troll);
+      let enemy = new Actor(this, tile.x, tile.y, 'tiles', layer, actors.troll);
       enemy.name += ' ' + (i + 1);
       enemies.push(enemy);
     }
@@ -146,12 +146,14 @@ class GameScene extends Phaser.Scene {
      * Return true if the position is the player's position or if it is not opaque
      */
     playerXY = this.groundLayer.worldToTileXY(player.x, player.y);
-    tile = this.groundLayer.getTileAt(x, y);
+    tile = this.noiseMap.getTileIndexAt(x, y);
     if (!tile) {
+      this.add.image(x * 24 + 12, y * 21 + 10, 'tiles', tile);
       tile = this.groundLayer.putTileAt(this.noiseMap.getTileIndexAt(x, y), x, y);
+      //console.log(tile)
     }
     return (x === playerXY.x && y === playerXY.y)
-      || tile && (tile.index !== 16 && tile.index !== 17 && tile.index !== 21);
+      || tile && (tile.index !== 'bush' && tile.index !== 'tree' && tile.index !== 'mountain');
   };
   
 }

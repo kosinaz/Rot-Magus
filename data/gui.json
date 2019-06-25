@@ -12,7 +12,7 @@
   },
   "image": {
     "frame": "tileIndex",
-    "texture": "tilesetImage",
+    "texture": "tiles",
     "type": "Image",
     "x": 16,
     "y": 16

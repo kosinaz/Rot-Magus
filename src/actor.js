@@ -88,7 +88,7 @@ let Actor = new Phaser.Class({
     if (targetActor &&
       this.gui.inventory &&
       this.gui.inventory.getTileAt(6, 3) &&
-      this.gui.inventory.getTileAt(6, 3).index === 108) {
+      this.gui.inventory.getTileAt(6, 3).index === 'bow') {
       this.target = {
         x: this.tileX,
         y: this.tileY
@@ -98,11 +98,11 @@ let Actor = new Phaser.Class({
       let tile = this.layer.getTileAt(x, y);
       if (tile && (
         this.walksOn.includes(tile.index) 
-        || tile.index !== 12 
-        && tile.index !== 13 
-        && tile.index !== 16 
-        && tile.index !== 17 
-        && tile.index !== 21
+        || tile.index !== 'water' 
+        && tile.index !== 'marsh' 
+        && tile.index !== 'bush' 
+        && tile.index !== 'tree' 
+        && tile.index !== 'mountain'
       )) {
         this.target = {
           x: x,
@@ -125,6 +125,7 @@ let Actor = new Phaser.Class({
       // show the visible tiles
       let tile = this.layer.getTileAt(x, y);
       if (tile) {
+        console.log(tile);
         tile.visible = true;
       }
       tile = this.scene.itemLayer.getTileAt(x, y);
@@ -290,11 +291,11 @@ let Actor = new Phaser.Class({
       let tile = this.layer.getTileAt(x, y);
       return tile && (
         this.walksOn.includes(tile.index) ||
-        tile.index !== 12 &&
-        tile.index !== 13 &&
-        tile.index !== 16 &&
-        tile.index !== 17 &&
-        tile.index !== 21
+        tile.index !== 'water' &&
+        tile.index !== 'marsh' &&
+        tile.index !== 'bush' &&
+        tile.index !== 'tree' &&
+        tile.index !== 'mountain'
       )
     }.bind(this));
     this.path = [];
