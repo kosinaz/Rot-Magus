@@ -46,7 +46,7 @@ class SimplexMap {
       if (this.map[x + ',' + y].image) {
         
         // keep the tile as is
-        return;
+        return tile;
       }
 
       // else get the previously saved key of the tile
@@ -94,6 +94,8 @@ class SimplexMap {
       // add the tile to the container of tiles
       this.tiles.add(tile);
     }
+
+    return tile;
   }
   
   // hide all tiles out of camera bounds

@@ -61,15 +61,15 @@ class GUIScene extends Phaser.Scene {
     this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, player.tileX, player.tileY);
     this.currentGround = this.grounds[player.tileX + ',' + player.tileY];
 
-    for (let i = 0; i < 50; i += 1) {
-      let tile = ROT.RNG.getItem(game.grassTiles);
-      let ground = createGround(this);
-      let tileIndex = ROT.RNG.getUniformInt(100, 149);
-      this.grounds[tile.x + ',' + tile.y] = addGround(ground, tile.x, tile.y);
-      this.grounds[tile.x + ',' + tile.y].putTileAt(tileIndex, 0, 5);
-      this.grounds[tile.x + ',' + tile.y].alpha = 0;
-      this.itemLayer.putTileAt(tileIndex, tile.x, tile.y);
-    }
+    // for (let i = 0; i < 50; i += 1) {
+    //   let tile = ROT.RNG.getItem(game.grassTiles);
+    //   let ground = createGround(this);
+    //   let tileIndex = ROT.RNG.getUniformInt(100, 149);
+    //   this.grounds[tile.x + ',' + tile.y] = addGround(ground, tile.x, tile.y);
+    //   this.grounds[tile.x + ',' + tile.y].putTileAt(tileIndex, 0, 5);
+    //   this.grounds[tile.x + ',' + tile.y].alpha = 0;
+    //   this.itemLayer.putTileAt(tileIndex, tile.x, tile.y);
+    // }
   };
 
   update = function () {

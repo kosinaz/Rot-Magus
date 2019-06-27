@@ -1,7 +1,7 @@
 let Actor = new Phaser.Class({
   Extends: Phaser.GameObjects.Image,
   initialize:
-    function Actor(scene, x, y, texture, layer, config) {
+    function Actor(scene, x, y, texture, map, config) {
       Phaser.GameObjects.Image.call(
         this, 
         scene, 
@@ -10,7 +10,7 @@ let Actor = new Phaser.Class({
         texture, 
         config.tileIndex
       );
-      this.layer = layer;
+      this.map = map;
       this.name = config.name;
       this.isPlayer = config.player;
       this.tileX = x;
@@ -95,7 +95,7 @@ let Actor = new Phaser.Class({
       }
       this.damage(targetActor);
     } else {
-      let tile = this.layer.getTileAt(x, y);
+      let tile = this.map.getTileAt(x, y);
       if (tile && (
         this.walksOn.includes(tile.index) 
         || tile.index !== 'water' 
@@ -115,28 +115,21 @@ let Actor = new Phaser.Class({
   showFOV: function () {
     
     // hide all tiles
-    this.layer.forEachTile(tile => tile.visible = false);
-    this.scene.itemLayer.forEachTile(tile => tile.visible = false);
-    enemies.forEach(enemy => enemy.visible = false);
+    //this.layer.forEachTile(tile => tile.visible = false);
+    //this.scene.itemLayer.forEachTile(tile => tile.visible = false);
+    //enemies.forEach(enemy => enemy.visible = false);
 
     // find the currently visible tiles
     this.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
       
       // show the visible tiles
-      let tile = this.layer.getTileAt(x, y);
-      if (tile) {
-        console.log(tile);
-        tile.visible = true;
-      }
-      tile = this.scene.itemLayer.getTileAt(x, y);
-      if (tile) {
-        tile.visible = true;
-      }
-      enemies.forEach(function (enemy) {
-        if (enemy.tileX == x && enemy.tileY == y) {
-          enemy.visible = true;
-        }
-      });
+      let tile = this.map.addTile(x, y);
+      tile.setInteractive();
+      tile.on('pointerup', function () {
+        console.log('pointerup');
+      })
+      console.log(tile);
+      
 
     }.bind(this));
   },
@@ -179,8 +172,8 @@ let Actor = new Phaser.Class({
       if (this.isPlayer) {
         this.scene.tweens.add({
           targets: this,
-          x: this.layer.tileToWorldX(this.path[0].x),
-          y: this.layer.tileToWorldY(this.path[0].y),
+          x: this.map.tileToWorldX(this.path[0].x),
+          y: this.map.tileToWorldY(this.path[0].y),
           ease: 'Quad.easeInOut',
           duration: 450 / game.speed,
           yoyo: true
@@ -193,8 +186,8 @@ let Actor = new Phaser.Class({
       } else if (actor.isPlayer) {        
         this.scene.tweens.add({
           targets: this,
-          x: this.layer.tileToWorldX(this.path[0].x),
-          y: this.layer.tileToWorldY(this.path[0].y),
+          x: this.map.tileToWorldX(this.path[0].x),
+          y: this.map.tileToWorldY(this.path[0].y),
           ease: 'Quad.easeInOut',
           duration: 450 / game.speed,
           yoyo: true
@@ -210,8 +203,8 @@ let Actor = new Phaser.Class({
       }
       this.scene.tweens.add({
         targets: this,
-        x: this.layer.tileToWorldX(this.tileX),
-        y: this.layer.tileToWorldY(this.tileY),
+        x: this.map.tileToWorldX(this.tileX),
+        y: this.map.tileToWorldY(this.tileY),
         ease: 'Quad.easeInOut',
         duration: 900 / game.speed
       });
@@ -232,8 +225,8 @@ let Actor = new Phaser.Class({
     }
     this.scene.time.delayedCall(450 / game.speed, function () {
       let effect = this.scene.add.sprite(
-        this.layer.tileToWorldX(actor.tileX) + 12, 
-        this.layer.tileToWorldY(actor.tileY) + 11, 
+        this.map.tileToWorldX(actor.tileX) + 12, 
+        this.map.tileToWorldY(actor.tileY) + 11, 
         'tilesetImage', 
         damage === 10 ? 201 : 200
       );
@@ -288,7 +281,7 @@ let Actor = new Phaser.Class({
   },
   addPath: function (x, y) {
     let a = new ROT.Path.AStar(x, y, function (x, y) {
-      let tile = this.layer.getTileAt(x, y);
+      let tile = this.map.getTileAt(x, y);
       return tile && (
         this.walksOn.includes(tile.index) ||
         tile.index !== 'water' &&
