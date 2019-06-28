@@ -33,7 +33,7 @@ let Actor = new Phaser.Class({
       this.load = 14;
       this.agility = config.agility;
       this.wisdom = config.wisdom;
-      this.walksOn = [];
+      this.walksOn = config.walksOn;
       this.fov = scene.fov;
       this.noise = scene.noise;
       this.scene = scene;
@@ -94,14 +94,14 @@ let Actor = new Phaser.Class({
       }
       this.damage(targetActor);
     } else {
-      let tile = this.map.getTileAt(x, y);
+      let tile = this.map.getTileNameAt(x, y);
       if (tile && (
-        this.walksOn.includes(tile.index) 
-        || tile.index !== 'water' 
-        && tile.index !== 'marsh' 
-        && tile.index !== 'bush' 
-        && tile.index !== 'tree' 
-        && tile.index !== 'mountain'
+        this.walksOn.includes(tile) 
+        || tile !== 'water' 
+        && tile !== 'marsh' 
+        && tile !== 'bush' 
+        && tile !== 'tree' 
+        && tile !== 'mountain'
       )) {
         this.target = {
           x: x,
@@ -125,12 +125,11 @@ let Actor = new Phaser.Class({
       let tile = this.map.addTile(x, y);
       tile.setInteractive();
       tile.on('pointerup', function () {
-        console.log(this.tileX, this.tileY);
+        player.orderTo(this.tileX, this.tileY);
       })
       tile.on('pointerover', function () {
         marker.x = this.x - 12;
         marker.y = this.y - 11;
-        console.log(marker.x, marker.y);
       })
 
     }.bind(this));
@@ -200,13 +199,13 @@ let Actor = new Phaser.Class({
       this.tileX = this.path[0].x;
       this.tileY = this.path[0].y;
       if (this.isPlayer) {
-        this.scene.events.emit('playerMoved');
+        //this.scene.events.emit('playerMoved');
         console.log(player.name + ' moved to ' + this.tileX + ', ' + this.tileY);
       }
       this.scene.tweens.add({
         targets: this,
-        x: this.map.tileToWorldX(this.tileX),
-        y: this.map.tileToWorldY(this.tileY),
+        x: this.tileX * 24 + 12,
+        y: this.tileY * 21 + 11,
         ease: 'Quad.easeInOut',
         duration: 900 / game.speed
       });
@@ -283,14 +282,14 @@ let Actor = new Phaser.Class({
   },
   addPath: function (x, y) {
     let a = new ROT.Path.AStar(x, y, function (x, y) {
-      let tile = this.map.getTileAt(x, y);
+      let tile = this.map.getTileNameAt(x, y);
       return tile && (
-        this.walksOn.includes(tile.index) ||
-        tile.index !== 'water' &&
-        tile.index !== 'marsh' &&
-        tile.index !== 'bush' &&
-        tile.index !== 'tree' &&
-        tile.index !== 'mountain'
+        this.walksOn.includes(tile) ||
+        tile !== 'water' &&
+        tile !== 'marsh' &&
+        tile !== 'bush' &&
+        tile !== 'tree' &&
+        tile !== 'mountain'
       )
     }.bind(this));
     this.path = [];

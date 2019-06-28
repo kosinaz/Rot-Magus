@@ -29,7 +29,6 @@ class GameScene extends Phaser.Scene {
 
     player = new Actor(this, 10, 0, 'tiles', this.ground, actors.elf);
     player.name = 'Atlian';
-    player.walksOn = [13, 16];
     
     // // create zombies
     // this.grassTiles = layer.filterTiles(function (tile) {

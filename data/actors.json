@@ -15,6 +15,10 @@
       "dagger",
       "elvenCloak"
     ],
+    "walksOn": [
+      "bush",
+      "marsh"
+    ],
     "player": true
   },
   "zombie": {

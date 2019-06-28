@@ -44,9 +44,9 @@ class SimplexMap {
 
       // if the image of the tile is still displayed
       if (this.map[x + ',' + y].image) {
-        
+
         // keep the tile as is
-        return tile;
+        return this.map[x + ',' + y].image;
       }
 
       // else get the previously saved key of the tile
@@ -72,8 +72,8 @@ class SimplexMap {
       this.map[x + ',' + y].image = tile;
       
       // move it to the new position
-      tile.x = x * 24;
-      tile.y = y * 21;
+      tile.x = x * 24 + 12;
+      tile.y = y * 21 + 11;
       tile.tileX = x;
       tile.tileY = y;
       
@@ -114,7 +114,7 @@ class SimplexMap {
         || tile.y > -this.scene.cameras.main.y + 28 * 21
         ) {
 
-        this.map[tile.x / 24 + ',' + tile.y / 21].image = null;
+        this.map[(tile.x - 12) / 24 + ',' + (tile.y - 11) / 21].image = null;
         
         this.hiddenTiles.add(tile);
         
