@@ -7,7 +7,7 @@ class MenuScene extends Phaser.Scene {
     this.panX = ['+=24', '+=0', '-=24'][~~(Math.random() * 3)];
     this.panY = ['+=21', '+=0', '-=21'][~~(Math.random() * 3)];
     this.pan = function () {
-      this.bg.map.hide();
+      this.bg.map.hideOutOfBounds();
       this.bg.draw();
       this.tweens.add({
         targets: this.bg.cameras.main,

@@ -117,6 +117,7 @@ let Actor = new Phaser.Class({
     //this.layer.forEachTile(tile => tile.visible = false);
     //this.scene.itemLayer.forEachTile(tile => tile.visible = false);
     //enemies.forEach(enemy => enemy.visible = false);
+    this.map.tiles.setAll('toHide', true);
 
     // find the currently visible tiles
     this.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
@@ -124,6 +125,7 @@ let Actor = new Phaser.Class({
       // show the visible tiles
       let tile = this.map.addTile(x, y);
       tile.setInteractive();
+      tile.toHide = false;
       tile.on('pointerup', function () {
         player.orderTo(this.tileX, this.tileY);
       })
@@ -133,6 +135,12 @@ let Actor = new Phaser.Class({
       })
 
     }.bind(this));
+
+    this.map.tiles.each(function (tile) {
+      if (tile.toHide) {
+        this.map.hide(tile);
+      }
+    }, this);
   },
   scanFOV: function () {
 

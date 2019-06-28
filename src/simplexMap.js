@@ -103,7 +103,7 @@ class SimplexMap {
   }
   
   // hide all tiles out of camera bounds
-  hide() {
+  hideOutOfBounds() {
     
     // iterate through all tiles    
     this.tiles.iterate(function (tile) {
@@ -114,20 +114,25 @@ class SimplexMap {
         || tile.y > -this.scene.cameras.main.y + 28 * 21
         ) {
 
-        this.map[(tile.x - 12) / 24 + ',' + (tile.y - 11) / 21].image = null;
+        this.hide(tile);
         
-        this.hiddenTiles.add(tile);
-        
-        this.tiles.remove(tile);
-
-        // deactive it
-        tile.active = false;
-
-        // hide it
-        tile.visible = false;
       }
 
     }, this);
+  }
+
+  hide(tile) {
+    this.map[(tile.x - 12) / 24 + ',' + (tile.y - 11) / 21].image = null;
+
+    this.hiddenTiles.add(tile);
+
+    this.tiles.remove(tile);
+
+    // deactive it
+    tile.active = false;
+
+    // hide it
+    tile.visible = false;
   }
 
   getTileNameAt(x, y) {
