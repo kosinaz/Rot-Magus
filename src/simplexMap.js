@@ -74,6 +74,8 @@ class SimplexMap {
       // move it to the new position
       tile.x = x * 24;
       tile.y = y * 21;
+      tile.tileX = x;
+      tile.tileY = y;
       
       // activate it
       tile.active = true;
@@ -85,8 +87,10 @@ class SimplexMap {
     } else {
       
       // display the image of the tile
-      tile = this.scene.add.image(x * 24, y * 21, this.tilesetImage, tileName);
-      tile.setOrigin(0);
+      tile = this.scene.add.image(x * 24 + 12, y * 21 + 11, this.tilesetImage, tileName);
+      //tile.setOrigin(0);
+      tile.tileX = x;
+      tile.tileY = y;
 
       // save the image of the tile at the defined position
       this.map[x + ',' + y].image = tile;

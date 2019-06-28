@@ -15,11 +15,8 @@ class GameScene extends Phaser.Scene {
 
   create = function () {
 
-    
-
     // create a map based on Simplex noise
     this.ground = new SimplexMap(this, 'tiles');
-    //this.ground.tiles.setInteractive();
 
     // create a blank item layer to show items on top of the ground
     this.items = {};
@@ -30,13 +27,9 @@ class GameScene extends Phaser.Scene {
     let actors = this.cache.json.get('actors');
     this.items = this.cache.json.get('items');
 
-    player = new Actor(this, 0, 0, 'tiles', this.ground, actors.elf);
+    player = new Actor(this, 10, 0, 'tiles', this.ground, actors.elf);
     player.name = 'Atlian';
     player.walksOn = [13, 16];
-    this.ground.tiles.on('pointerdown', function (pointer, x, y) {
-      //player.orderTo(layer.worldToTileX(x), layer.worldToTileY(y));
-      console.log(x, y);
-    });
     
     // // create zombies
     // this.grassTiles = layer.filterTiles(function (tile) {
@@ -79,7 +72,7 @@ class GameScene extends Phaser.Scene {
     marker.strokeRect(0, 0, 24, 21);
 
     // set the camera
-    this.cameras.main.setViewport(372 + 13 * 24 + 13, 5 + 13 * 21 + 11, -1, -1);
+    this.cameras.main.setViewport(372, 5, 27 * 24, 27 * 21);
 
     // set the background black, the color of invisible areas
     this.cameras.main.setBackgroundColor('#000000');
@@ -91,36 +84,13 @@ class GameScene extends Phaser.Scene {
     }.bind(this));
   };
 
-  update = function () {
-
-    var x, y;
-
-    // ignore GUI input
-    if (this.input.activePointer.x < 372) {
-      return;
-    }
-
-    // convert the mouse position to world position within the camera
-    const worldPoint =
-      this.input.activePointer.positionToCamera(this.cameras.main);
-
-    // define the target of the player based on the position of the pointer
-    x = worldPoint.x - worldPoint.x % 24;
-    y = worldPoint.y - worldPoint.y % 21;
-
-    // move the pointer marker to the next position
-    marker.x = x;
-    marker.y = y;
-
-  };
-
+  // check if the tile is transparent for the player at the given position
   isTransparent = function (x, y) {
+
+    // get the tile at the given position
     let tile = this.ground.getTileNameAt(x, y);
 
-    /**
-     * Return true if the position is the player's position or if it is not opaque
-     */
-    //console.log(tile, x, y);
+    // return true if it is the player's position or if it is not opaque
     return (x === player.tileX && y === player.tileY)
       || (tile !== 'bush' && tile !== 'tree' && tile !== 'mountain');
   };

@@ -5,8 +5,8 @@ let Actor = new Phaser.Class({
       Phaser.GameObjects.Image.call(
         this, 
         scene, 
-        x * 24, 
-        y * 21, 
+        x * 24 + 12, 
+        y * 21 + 11, 
         texture, 
         config.tileIndex
       );
@@ -40,11 +40,10 @@ let Actor = new Phaser.Class({
       this.gui = this.scene.scene.get('GUIScene');
       scene.add.existing(this);
       scheduler.add(this, true);
-      this.setOrigin(0);
       this.visible = false;
       if (this.isPlayer) {
         this.visible = true;
-        this.scene.cameras.main.startFollow(this, true, 1, 1, -12, -10);
+        this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
       }
     },
   act: function () {
@@ -126,10 +125,13 @@ let Actor = new Phaser.Class({
       let tile = this.map.addTile(x, y);
       tile.setInteractive();
       tile.on('pointerup', function () {
-        console.log('pointerup');
+        console.log(this.tileX, this.tileY);
       })
-      console.log(tile);
-      
+      tile.on('pointerover', function () {
+        marker.x = this.x - 12;
+        marker.y = this.y - 11;
+        console.log(marker.x, marker.y);
+      })
 
     }.bind(this));
   },
