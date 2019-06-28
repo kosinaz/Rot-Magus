@@ -8,14 +8,14 @@ let Actor = new Phaser.Class({
         x * 24 + 12, 
         y * 21 + 11, 
         texture, 
-        config.tileIndex
+        config.tileName
       );
       this.map = map;
       this.name = config.name;
       this.isPlayer = config.player;
       this.tileX = x;
       this.tileY = y;
-      this.tileIndex = config.tileIndex;
+      this.tileName = config.tileName;
       this.target = {
         x: this.tileX,
         y: this.tileY

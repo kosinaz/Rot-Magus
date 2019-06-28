@@ -27,6 +27,12 @@ class SimplexMap {
 
     // the key of the tile that should be displayed at the given position
     let tileName;
+    
+    // the enemy generated at the given position
+    let enemy;
+
+    // the noise that determines the probability of the enemy generation
+    let n = this.noise.get(x, y);
 
     // if this is the first time a tile is set to be added at this position
     if (this.map[x + ',' + y] === undefined) {      
@@ -37,6 +43,29 @@ class SimplexMap {
       // save the key of the tile at the given position for further use
       this.map[x + ',' + y] = {
         name: tileName
+      }
+
+      if (tileName === 'redFlower' && n < -0.05) {
+        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.zombie);
+      } else if (tileName === 'yellowFlower' && n > 0.05) {
+        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.skeleton);
+      } else if (tileName === 'bush' && n < -0.025) {
+        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.hobgoblin);
+      } else if (tileName === 'gravel' && n < -0.7) {
+        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.goblin);
+      } else if (tileName === 'gravel' && n > 0.8) {
+        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.troll);
+      } else if (tileName === 'ford' && n > 0.4) {
+        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orch);
+      } else if (tileName === 'ford' && n > 0.3) {
+        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orchArcher);
+      }
+      if (enemy) {
+        enemies.push(enemy); 
+        enemy.name 
+          += ' ' + enemies.filter(e => e.tileName === enemy.tileName).length;
+        enemy.visible = true;
+        console.log(enemy.name);
       }
 
     // if this tile has been requested before
@@ -88,7 +117,6 @@ class SimplexMap {
       
       // display the image of the tile
       tile = this.scene.add.image(x * 24 + 12, y * 21 + 11, this.tilesetImage, tileName);
-      //tile.setOrigin(0);
       tile.tileX = x;
       tile.tileY = y;
 
@@ -152,11 +180,6 @@ class SimplexMap {
 
         if (n > -0.6 && n < 0.6) {
           tileName = 'ford';
-          if (n < -0.3) {
-            tileName = 'orch';
-          } else if (n > 0.3) {
-            tileName = 'orchArcher';
-          }
         } else if (n < -0.7) {
           tileName = 'bush';
         } else if (n > 0.7) {
@@ -190,12 +213,6 @@ class SimplexMap {
 
         // set the tile as gravel
         tileName = 'gravel';
-        let n = this.noise.get(x, y);
-        if (n < -0.9) {
-          tileName = 'troll';
-        } else if (n > 0.9) {
-          tileName = 'goblin';
-        }
        
       } else {
 
@@ -225,19 +242,10 @@ class SimplexMap {
         tileName = 'tree';
       } else if (n < -0.03) {
         tileName = 'redFlower';
-        if (n < -0.055) {
-          tileName = 'zombie';
-        }
       } else if (n > 0.03) {
         tileName = 'yellowFlower';
-        if (n > 0.055) {
-          tileName = 'skeleton';
-        }
       } else {
         tileName = 'bush';    
-        if (n > 0.025) {
-          tileName = 'hobgoblin';
-        }
       }
     }
     return tileName;

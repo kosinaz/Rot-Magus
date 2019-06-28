@@ -4,6 +4,7 @@ let map;
 let heightmap;
 let player;
 let marker;
+let actors;
 let enemies = [];
 let engineLocked = false;
 let isAcceptingOrders = false;
@@ -24,7 +25,6 @@ class GameScene extends Phaser.Scene {
     // create a FOV calculator
     this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
 
-    let actors = this.cache.json.get('actors');
     this.items = this.cache.json.get('items');
 
     player = new Actor(this, 10, 0, 'tiles', this.ground, actors.elf);

@@ -30,6 +30,7 @@ class LoadScene extends Phaser.Scene {
   };
 
   create() {
+    actors = this.cache.json.get('actors');
     this.scene.start('InfiniteScene');
     this.scene.start('MenuScene');
   }
