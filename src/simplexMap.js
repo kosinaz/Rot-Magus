@@ -152,6 +152,11 @@ class SimplexMap {
 
         if (n > -0.6 && n < 0.6) {
           tileName = 'ford';
+          if (n < -0.3) {
+            tileName = 'orch';
+          } else if (n > 0.3) {
+            tileName = 'orchArcher';
+          }
         } else if (n < -0.7) {
           tileName = 'bush';
         } else if (n > 0.7) {
@@ -159,6 +164,7 @@ class SimplexMap {
         } else {
           tileName = 'grass';
         }
+
       } else {
 
         if (n > -0.6 && n < 0.6) {
@@ -184,6 +190,12 @@ class SimplexMap {
 
         // set the tile as gravel
         tileName = 'gravel';
+        let n = this.noise.get(x, y);
+        if (n < -0.9) {
+          tileName = 'troll';
+        } else if (n > 0.9) {
+          tileName = 'goblin';
+        }
        
       } else {
 
@@ -209,14 +221,23 @@ class SimplexMap {
 
       // set the tile as tree or bush or flowers
       let n = this.noise.get(x, y);
-      if (n > -0.01 && n < 0.01) {
+      if (n > -0.001 && n < 0.001) {
         tileName = 'tree';
       } else if (n < -0.03) {
         tileName = 'redFlower';
+        if (n < -0.055) {
+          tileName = 'zombie';
+        }
       } else if (n > 0.03) {
         tileName = 'yellowFlower';
+        if (n > 0.055) {
+          tileName = 'skeleton';
+        }
       } else {
-        tileName = 'bush';
+        tileName = 'bush';    
+        if (n > 0.025) {
+          tileName = 'hobgoblin';
+        }
       }
     }
     return tileName;

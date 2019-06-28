@@ -24,7 +24,6 @@
   "zombie": {
     "name": "Zombie",
     "tileIndex": "zombie",
-    "chance": 6,
     "health": 10,
     "mana": 0,
     "strength": 12,
@@ -35,7 +34,6 @@
   "skeleton": {
     "name": "Skeleton",
     "tileIndex": "skeleton",
-    "chance": 5,
     "health": 30,
     "mana": 0,
     "strength": 7,
@@ -46,7 +44,6 @@
   "goblin": {
     "name": "Goblin",
     "tileIndex": "goblin",
-    "chance": 4,
     "health": 30,
     "mana": 0,
     "strength": 15,
@@ -57,7 +54,6 @@
   "hobgoblin": {
     "name": "Hobgoblin",
     "tileIndex": "hobgoblin",
-    "chance": 3,
     "health": 10,
     "mana": 0,
     "strength": 10,
@@ -68,12 +64,31 @@
   "troll": {
     "name": "Troll",
     "tileIndex": "troll",
-    "chance": 2,
     "health": 100,
     "mana": 0,
     "strength": 20,
     "wisdom": 0,
     "speed": 3,
     "agility": 7
+  },
+  "orch": {
+    "name": "Orch",
+    "tileIndex": "orch",
+    "health": 50,
+    "mana": 0,
+    "strength": 14,
+    "wisdom": 0,
+    "speed": 4,
+    "agility": 9
+  },
+  "orchArcher": {
+    "name": "Orch Archer",
+    "tileIndex": "orchArcher",
+    "health": 50,
+    "mana": 0,
+    "strength": 13,
+    "wisdom": 0,
+    "speed": 4,
+    "agility": 10
   }
 }
