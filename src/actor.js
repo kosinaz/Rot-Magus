@@ -1,121 +1,184 @@
-let Actor = new Phaser.Class({
-  Extends: Phaser.GameObjects.Image,
-  initialize:
-    function Actor(scene, x, y, texture, map, config) {
-      Phaser.GameObjects.Image.call(
-        this, 
-        scene, 
-        x * 24 + 12, 
-        y * 21 + 11, 
-        texture, 
-        config.tileName
-      );
-      this.map = map;
-      this.name = config.name;
-      this.isPlayer = config.player;
-      this.tileX = x;
-      this.tileY = y;
-      this.tileName = config.tileName;
-      this.target = {
-        x: this.tileX,
-        y: this.tileY
-      }
-      this.path = null;      
-      this.speed = config.speed;
-      this.xp = 0;
-      this.xpMax = 50;
-      this.level = 0;
-      this.health = config.health;
-      this.healthMax = this.health;
-      this.mana = config.mana;
-      this.manaMax = this.mana;
-      this.strength = config.strength;
-      this.load = 14;
-      this.agility = config.agility;
-      this.wisdom = config.wisdom;
-      this.walksOn = config.walksOn;
-      this.fov = scene.fov;
-      this.noise = scene.noise;
-      this.scene = scene;
-      this.gui = this.scene.scene.get('GUIScene');
-      scene.add.existing(this);
-      scheduler.add(this, true);
-      if (this.isPlayer) {
-        this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
-      }
-    },
-  act: function () {
-    // the engine needs to be locked, even if the player has a target and does
-    // not need additional orders, because every action takes time, and no one
-    // should move in the meantime
+class Actor extends Phaser.GameObjects.Image {
+  constructor(scene, x, y, texture, map, config) {
+    super(
+      scene, 
+      x * 24 + 12, 
+      y * 21 + 11, 
+      texture, 
+      config.tileName
+    );
+    this.map = map;
+    this.name = config.name;
+    this.isPlayer = config.player;
+    this.tileX = x;
+    this.tileY = y;
+    this.tileName = config.tileName;
+    this.target = {
+      x: this.tileX,
+      y: this.tileY
+    }
+    this.path = null;      
+    this.speed = config.speed;
+    this.xp = 0;
+    this.xpMax = 50;
+    this.level = 0;
+    this.health = config.health;
+    this.healthMax = this.health;
+    this.mana = config.mana;
+    this.manaMax = this.mana;
+    this.strength = config.strength;
+    this.load = 14;
+    this.agility = config.agility;
+    this.wisdom = config.wisdom;
+    this.walksOn = config.walksOn || [];
+    this.fov = scene.fov;
+    this.noise = scene.noise;
+    this.scene = scene;
+    this.gui = this.scene.scene.get('GUIScene');
+    scene.add.existing(this);
+    scheduler.add(this, true);
     if (this.isPlayer) {
+      this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
+    }
+  }
+  act() {
+
+    // if the actor is controlled by the player
+    if (this.isPlayer) {
+
+      // the engine needs to be locked, even if the player has a target and does
+      // not need additional orders, because every action takes time, and no one
+      // should move in the meantime
       engine.lock();
+
+      // the player should not accept orders while the actors are in motion
       isAcceptingOrders = false;
+
+      // as the result of his last action the player's position is already 
+      // updated, but the image of the player will be moved to its new position
+      // paralelly with all the other actors
+      // the time delay - calculated from the game speed - is there to let all
+      // the animation finish before the next move
       this.scene.time.delayedCall(1000 / game.speed, function () {
-        this.showFOV();   
-        let targetActor = this.getActorAt(this.target.x, this.target.y);
-        if (targetActor === this) {
-          player = this;
+
+        // when every actor has arrived the field of view of the player will be
+        // calculated and then displayed
+        this.showFOV();
+
+        // if the actor has reached his target
+        if (this.isAtXY(this.target.x, this.target.y)) {
+          
+          // reset his path of movement
           this.path = null;
+
+          // start accepting orders
           isAcceptingOrders = true;
+
+        // if the actor hasn't reached his target yet
         } else {
+
+          // make him move towards his target
           this.move();
         }
-      }.bind(this));
+      }, undefined, this);
+
+    // if the actor isn't controlled by the player
     } else {
-      //this.scanFOV();
+
+      // the engine needs to be locked the same way as it would in case of an
+      // actor controlled by the player because the move function ends with an
+      // engine unlock
       engine.lock();
-        if (this.target.x === this.tileX && this.target.y === this.tileY) {
-          this.path = null;
-          engine.unlock();
-        } else {
-          this.move();
-        }
-    }
-  },
-  getSpeed: function () {
-    return this.speed;
-  },
-  orderTo: function (x, y) {
-    if (x === this.tileX && y === this.tileY) {
-      //this.rest();
-    }
-    if (!isAcceptingOrders) {
-      return;
-    }
-    let targetActor = this.getActorAt(x, y);
-    if (targetActor &&
-      this.gui.inventory &&
-      this.gui.inventory.getTileAt(6, 3) &&
-      this.gui.inventory.getTileAt(6, 3).index === 'bow') {
-      this.target = {
-        x: this.tileX,
-        y: this.tileY
-      }
-      this.damage(targetActor);
-    } else {
-      let tile = this.map.getTileNameAt(x, y);
-      if (tile && (
-        this.walksOn.includes(tile) 
-        || tile !== 'water' 
-        && tile !== 'marsh' 
-        && tile !== 'bush' 
-        && tile !== 'tree' 
-        && tile !== 'mountain'
-      )) {
-        this.target = {
-          x: x,
-          y: y
-        };
+
+      // if the actor has reached his target
+      if (this.isAtXY(this.target.x, this.target.y)) {
+
+        // reset his path of movement
+        this.path = null;
+
+        // unlock the engine and continue without finding a new target
+        engine.unlock();
+
+      // if the actor hasn't reached his target yet
+      } else {
+
+        // make him move towards his target
         this.move();
       }
     }
-  },
-  showFOV: function () {
+  }
+
+  // this function is required for the Speed scheduler to determine the sequence
+  // of actor actions
+  getSpeed() {
+
+    // return the speed of the actor
+    return this.speed;
+  }
+
+  // orderTo: function (x, y) {
+  //   if (!isAcceptingOrders) {
+  //     return;
+  //   }
+  //   if (this.isAtXY(x, y)) {
+  //     this.rest();
+  //     return;
+  //   }
+  //   let targetActor = this.getActorAt(x, y);
+  //   if (targetActor &&
+  //     this.gui.inventory &&
+  //     this.gui.inventory.getTileAt(6, 3) &&
+  //     this.gui.inventory.getTileAt(6, 3).index === 'bow') {
+  //     this.target = {
+  //       x: this.tileX,
+  //       y: this.tileY
+  //     }
+  //     this.damage(targetActor);
+  //   } else {
+  //     let tile = this.map.getTileNameAt(x, y);
+  //     if (tile && (
+  //       this.walksOn.includes(tile) 
+  //       || tile !== 'water' 
+  //       && tile !== 'marsh' 
+  //       && tile !== 'bush' 
+  //       && tile !== 'tree' 
+  //       && tile !== 'mountain'
+  //     )) {
+  //       this.target = {
+  //         x: x,
+  //         y: y
+  //       };
+  //       this.move();
+  //     }
+  //   }
+  // },
+
+  // return if the target tile is walkable by the actor
+  walksOnXY(x, y) {
+
+    // get the tile at the given position
+    let tile = this.map.getTileNameAt(x, y);
+
+    // return true if the actor can walk on it or if it is walkable by default
+    return this.walksOn.includes(tile) || (
+        tile !== 'water' &&
+        tile !== 'marsh' &&
+        tile !== 'bush' &&
+        tile !== 'tree' &&
+        tile !== 'mountain'
+      )
+  }
+
+  // show the current field of view of the player
+  showFOV() {
     
-    // hide all tiles
+    // hide all items
     //this.scene.itemLayer.forEachTile(tile => tile.visible = false);
+
+    // hide all enemies
     enemies.forEach(enemy => enemy.visible = false);
+
+    // set all tiles to be hidden by default
     this.map.tiles.setAll('toHide', true);
 
     // find the currently visible tiles
@@ -123,42 +186,70 @@ let Actor = new Phaser.Class({
       
       // show the visible tiles
       let tile = this.map.addTile(x, y);
-      tile.setInteractive();
+
+      // make sure that the tile won't be hidden after the FOV calculations
       tile.toHide = false;
-      tile.on('pointerup', function () {
-        player.orderTo(this.tileX, this.tileY);
-      })
-      tile.on('pointerover', function () {
-        marker.x = this.x - 12;
-        marker.y = this.y - 11;
-      })
-      enemies.forEach(function (enemy) {
-        if (enemy.tileX === x && enemy.tileY === y) {
+
+      // if the actor can walk on the tile
+      if (this.walksOnXY(x, y)) {
+
+        // set tile as a possible target of the player's next action
+        tile.setInteractive();
+
+        // if the player clicks on the tile
+        tile.on('pointerup', function (a, b, c) {
+
+          // set that tile as the new target of the player
+          this.target.x = x;
+          this.target.y = y;
+          this.move();
+        }, this);
+
+        // if the player's pointer is over the tile
+        tile.on('pointerover', function () {
+
+          // move the marker over the tile
+          marker.x = this.x - 12;
+          marker.y = this.y - 11;
+        });
+
+        // get the enemy at the tile
+        let enemy = this.getActorAt(x, y);
+
+        // if there is an enemy at the tile
+        if (enemy) {
+
+          // show the enemy
           enemy.visible = true;
+
+          // make the enemy target the player
           enemy.target = {
             x: this.tileX,
             y: this.tileY
           };
           console.log(enemy.name + ' target: ' + enemy.target.x + ', ' + enemy.target.y)
         }
-      }, this);
+      }
 
     }.bind(this));
 
+    // iterate through all the currently visible tiles of the map
     this.map.tiles.each(function (tile) {
+
+      // if the tile is not in the current FOV of the player
       if (tile.toHide) {
+
+        // hide the tile that is not visible anymore
         this.map.hide(tile);
       }
     }, this);
-  },
+  }
 
-  move: function () {
-    console.log(scheduler.getTime(), this.name + ' moves towards ' + this.target.x + ', ' + this.target.y);
+  move() {
     if (!this.path) {
-      console.log(this.name + ' adds a path');
       this.addPath(this.target.x, this.target.y);
     }
-    if (this.path.length < 2) {    
+    if (this.path.length < 2) {
       this.path = null;
       engine.unlock();
       return;
@@ -167,8 +258,8 @@ let Actor = new Phaser.Class({
     this.path.shift();
     this.scene.tweens.add({
       targets: this,
-      scaleX: 1.1,
-      scaleY: 1.1,
+      scaleX: 1.2,
+      scaleY: 1.2,
       duration: 450 / game.speed,
       ease: 'Quad.easeOut',
       yoyo: true
@@ -178,8 +269,8 @@ let Actor = new Phaser.Class({
       if (this.isPlayer) {
         this.scene.tweens.add({
           targets: this,
-          x: this.map.tileToWorldX(this.path[0].x),
-          y: this.map.tileToWorldY(this.path[0].y),
+          x: this.tileX * 24 + 12,
+          y: this.tileY * 21 + 11,
           ease: 'Quad.easeInOut',
           duration: 450 / game.speed,
           yoyo: true
@@ -192,8 +283,8 @@ let Actor = new Phaser.Class({
       } else if (actor.isPlayer) {        
         this.scene.tweens.add({
           targets: this,
-          x: this.map.tileToWorldX(this.path[0].x),
-          y: this.map.tileToWorldY(this.path[0].y),
+          x: this.tileX * 24 + 12,
+          y: this.tileY * 21 + 11,
           ease: 'Quad.easeInOut',
           duration: 450 / game.speed,
           yoyo: true
@@ -216,14 +307,14 @@ let Actor = new Phaser.Class({
       });
       engine.unlock();
     }
-  },
-  rest: function () {
+  }
+  rest() {
     this.health = Math.min(this.healthMax, this.health + 1);
     console.log(this.name, this.health);
     engine.unlock();
     this.scene.events.emit('updateAttribute', this);
-  },
-  damage: function (actor) {
+  }
+  damage(actor) {
     let damage = ROT.RNG.getUniformInt(1, 10)
     actor.health -= damage;
     if (actor === player) {
@@ -254,8 +345,8 @@ let Actor = new Phaser.Class({
     }
     engine.unlock();
     this.scene.events.emit('updateAttribute', this);
-  },
-  earnXP: function (amount) {
+  }
+  earnXP(amount) {
     this.xp += amount;
     if (this.xp >= this.xpMax) {
       this.xp -= this.xpMax;
@@ -263,8 +354,8 @@ let Actor = new Phaser.Class({
       this.level += 1;
     }
     this.scene.events.emit('updateAttribute', this);
-  },
-  die: function () {
+  }
+  die() {
     if (this === player) {
       scheduler.clear();
       this.scene.events.emit('playerDied');
@@ -284,8 +375,8 @@ let Actor = new Phaser.Class({
       scheduler.remove(this);
       this.destroy();
     }
-  },
-  addPath: function (x, y) {
+  }
+  addPath(x, y) {
     let a = new ROT.Path.AStar(x, y, function (x, y) {
       let tile = this.map.getTileNameAt(x, y);
       return tile 
@@ -306,11 +397,11 @@ let Actor = new Phaser.Class({
       });
     }.bind(this));
     console.log(this.name + ' first step: ' + this.path[1].x + ', ' + this.path[1].y);
-  },
-  isAtXY: function (x, y) {
+  }
+  isAtXY(x, y) {
     return this.tileX === x && this.tileY === y;
-  },
-  getActorAt: function (x, y) {
+  }
+  getActorAt(x, y) {
     if (player.isAtXY(x, y)) {
       return player;
     }
@@ -320,4 +411,4 @@ let Actor = new Phaser.Class({
       }
     }
   }
-});
+}

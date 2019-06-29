@@ -45,21 +45,21 @@ class SimplexMap {
         name: tileName
       }
 
-      if (tileName === 'redFlower' && n < -0.05) {
-        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.zombie);
-      } else if (tileName === 'yellowFlower' && n > 0.05) {
-        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.skeleton);
-      } else if (tileName === 'bush' && n < -0.025) {
-        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.hobgoblin);
-      } else if (tileName === 'gravel' && n < -0.7) {
-        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.goblin);
-      } else if (tileName === 'gravel' && n > 0.8) {
-        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.troll);
-      } else if (tileName === 'ford' && n > 0.4) {
-        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orch);
-      } else if (tileName === 'ford' && n > 0.3) {
-        enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orchArcher);
-      }
+      // if (tileName === 'redFlower' && n < -0.05) {
+      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.zombie);
+      // } else if (tileName === 'yellowFlower' && n > 0.05) {
+      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.skeleton);
+      // } else if (tileName === 'bush' && n < -0.025) {
+      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.hobgoblin);
+      // } else if (tileName === 'gravel' && n < -0.7) {
+      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.goblin);
+      // } else if (tileName === 'gravel' && n > 0.8) {
+      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.troll);
+      // } else if (tileName === 'ford' && n > 0.4) {
+      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orch);
+      // } else if (tileName === 'ford' && n > 0.3) {
+      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orchArcher);
+      // }
       if (enemy) {
         enemies.push(enemy); 
         enemy.name 
