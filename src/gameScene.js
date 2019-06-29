@@ -1,4 +1,4 @@
-const scheduler = new ROT.Scheduler.Action();
+const scheduler = new ROT.Scheduler.Speed();
 const engine = new ROT.Engine(scheduler)
 let map;
 let heightmap;
@@ -29,6 +29,8 @@ class GameScene extends Phaser.Scene {
 
     player = new Actor(this, 10, 0, 'tiles', this.ground, actors.elf);
     player.name = 'Atlian';
+
+    enemies = [];
     
     // // create zombies
     // this.grassTiles = layer.filterTiles(function (tile) {

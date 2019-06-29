@@ -64,7 +64,6 @@ class SimplexMap {
         enemies.push(enemy); 
         enemy.name 
           += ' ' + enemies.filter(e => e.tileName === enemy.tileName).length;
-        enemy.visible = true;
         console.log(enemy.name);
       }
 

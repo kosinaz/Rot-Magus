@@ -40,14 +40,11 @@ let Actor = new Phaser.Class({
       this.gui = this.scene.scene.get('GUIScene');
       scene.add.existing(this);
       scheduler.add(this, true);
-      this.visible = false;
       if (this.isPlayer) {
-        this.visible = true;
         this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
       }
     },
   act: function () {
-    scheduler.setDuration(1.0 / this.speed);
     // the engine needs to be locked, even if the player has a target and does
     // not need additional orders, because every action takes time, and no one
     // should move in the meantime
@@ -66,7 +63,7 @@ let Actor = new Phaser.Class({
         }
       }.bind(this));
     } else {
-      this.scanFOV();
+      //this.scanFOV();
       engine.lock();
         if (this.target.x === this.tileX && this.target.y === this.tileY) {
           this.path = null;
@@ -76,9 +73,12 @@ let Actor = new Phaser.Class({
         }
     }
   },
+  getSpeed: function () {
+    return this.speed;
+  },
   orderTo: function (x, y) {
     if (x === this.tileX && y === this.tileY) {
-      this.rest();
+      //this.rest();
     }
     if (!isAcceptingOrders) {
       return;
@@ -114,9 +114,8 @@ let Actor = new Phaser.Class({
   showFOV: function () {
     
     // hide all tiles
-    //this.layer.forEachTile(tile => tile.visible = false);
     //this.scene.itemLayer.forEachTile(tile => tile.visible = false);
-    //enemies.forEach(enemy => enemy.visible = false);
+    enemies.forEach(enemy => enemy.visible = false);
     this.map.tiles.setAll('toHide', true);
 
     // find the currently visible tiles
@@ -133,6 +132,16 @@ let Actor = new Phaser.Class({
         marker.x = this.x - 12;
         marker.y = this.y - 11;
       })
+      enemies.forEach(function (enemy) {
+        if (enemy.tileX === x && enemy.tileY === y) {
+          enemy.visible = true;
+          enemy.target = {
+            x: this.tileX,
+            y: this.tileY
+          };
+          console.log(enemy.name + ' target: ' + enemy.target.x + ', ' + enemy.target.y)
+        }
+      }, this);
 
     }.bind(this));
 
@@ -142,23 +151,11 @@ let Actor = new Phaser.Class({
       }
     }, this);
   },
-  scanFOV: function () {
-
-    // find the currently visible tiles
-    this.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
-      
-      if (player.tileX === x && player.tileY === y) {
-        this.target = {
-          x: x,
-          y: y
-        };
-        this.path = null;
-       }
-    }.bind(this));
-  },
 
   move: function () {
+    console.log(scheduler.getTime(), this.name + ' moves towards ' + this.target.x + ', ' + this.target.y);
     if (!this.path) {
+      console.log(this.name + ' adds a path');
       this.addPath(this.target.x, this.target.y);
     }
     if (this.path.length < 2) {    
@@ -291,14 +288,15 @@ let Actor = new Phaser.Class({
   addPath: function (x, y) {
     let a = new ROT.Path.AStar(x, y, function (x, y) {
       let tile = this.map.getTileNameAt(x, y);
-      return tile && (
-        this.walksOn.includes(tile) ||
-        tile !== 'water' &&
-        tile !== 'marsh' &&
-        tile !== 'bush' &&
-        tile !== 'tree' &&
-        tile !== 'mountain'
-      )
+      return tile 
+        && (
+          (this.walksOn && this.walksOn.includes(tile)) ||
+          tile !== 'water' &&
+          tile !== 'marsh' &&
+          tile !== 'bush' &&
+          tile !== 'tree' &&
+          tile !== 'mountain'
+        )
     }.bind(this));
     this.path = [];
     a.compute(this.tileX, this.tileY, function (x, y) {
@@ -307,6 +305,7 @@ let Actor = new Phaser.Class({
         y: y
       });
     }.bind(this));
+    console.log(this.name + ' first step: ' + this.path[1].x + ', ' + this.path[1].y);
   },
   isAtXY: function (x, y) {
     return this.tileX === x && this.tileY === y;
@@ -315,7 +314,7 @@ let Actor = new Phaser.Class({
     if (player.isAtXY(x, y)) {
       return player;
     }
-    for (var i = 0; i < enemies.length; i += 1) {      
+    for (let i = 0; i < enemies.length; i += 1) {      
       if (enemies[i].isAtXY(x, y)) {
         return enemies[i];
       }

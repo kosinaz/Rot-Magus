@@ -59,7 +59,10 @@
     "strength": 10,
     "wisdom": 0,
     "speed": 5,
-    "agility": 15
+    "agility": 15,
+    "walksOn": [
+      "bush"
+    ]
   },
   "troll": {
     "name": "Troll",
