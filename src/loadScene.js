@@ -24,13 +24,12 @@ class LoadScene extends Phaser.Scene {
     this.load.atlas('tiles', 'assets/images/tiles.png', 'assets/images/tiles.json');
 
     this.load.image('ingame', 'assets/images/gui/ingame.png');
-    this.load.json('actors', 'data/actors.json');
-    this.load.json('items', 'data/items.json');
+    this.load.json('actorTypes', 'data/actorTypes.json');
+    this.load.json('itemTypes', 'data/itemTypes.json');
     this.load.json('gui', 'data/gui.json');
   };
 
-  create() {
-    actors = this.cache.json.get('actors');
+  create() {    
     this.scene.start('InfiniteScene');
     this.scene.start('MenuScene');
   }

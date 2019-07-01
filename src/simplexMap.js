@@ -60,18 +60,23 @@ class SimplexMap {
       // } else if (tileName === 'ford' && n > 0.3) {
       //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orchArcher);
       // }
-      if (enemy) {
-        enemies.push(enemy); 
-        enemy.name 
-          += ' ' + enemies.filter(e => e.tileName === enemy.tileName).length;
-        console.log(enemy.name);
-      }
+      // if (enemy) {
+      //   enemies.push(enemy); 
+      //   enemy.name 
+      //     += ' ' + enemies.filter(e => e.tileName === enemy.tileName).length;
+      //   console.log(enemy.name);
+      // }
 
     // if this tile has been requested before
     } else {
 
       // if the image of the tile is still displayed
       if (this.map[x + ',' + y].image) {
+
+        // As the first step of the scene update all the already visible tiles were set to hide, but if a tile is still in the current field of view of the player, that tile will be removed from the list of tiles to hide.
+        this.scene.objectsToHide.splice(
+          this.scene.objectsToHide.indexOf(tile), 1
+        );
 
         // keep the tile as is
         return this.map[x + ',' + y].image;
@@ -125,6 +130,9 @@ class SimplexMap {
       // add the tile to the container of tiles
       this.tiles.add(tile);
     }
+
+    // Add the tile to the list of objects to show, so it can be displayed during the FOV update of the scene.
+    this.scene.objectsToShow.push(tile);
 
     return tile;
   }
