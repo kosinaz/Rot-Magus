@@ -10,16 +10,10 @@ class Player extends Actor {
     this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
   }
 
-  // The act is getting called by the scheduler every time when this actor is 
-  // the next to act.
+  // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
 
-    // The first step is to lock the engine before it calls the next actor,
-    // so the screen can be updated and the player can have plenty of time to
-    // perform his next action. 
-    // The engine needs to be locked even if the player's actor has a target
-    // and does not need additional orders, because every action takes time
-    // and no one should move in the meantime.
+    // The first step is to lock the engine before it calls the next actor, so the screen can be updated and the player can have plenty of time to perform his next action. The engine needs to be locked even if the player's actor has a target and does not need additional orders, because every action takes time and no one should move in the meantime.
     this.scene.engine.lock();
 
     // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible and to hide. Make the visible enemies notice the player.
@@ -36,8 +30,7 @@ class Player extends Actor {
     }
   }
 
-  // This function is required for the Speed scheduler to determine the sequence
-  // of actor actions.
+  // This function is required for the Speed scheduler to determine the sequence of actor actions.
   getSpeed() {
 
     // Return the speed of the actor.
