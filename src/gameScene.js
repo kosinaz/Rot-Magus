@@ -118,25 +118,25 @@ class GameScene extends Phaser.Scene {
         tile.on('pointerup', function () {
 
           // Set that tile as the new target of the player.
-          this.player.target.x = x;
-          this.player.target.y = y;
+          this.scene.player.target.x = x;
+          this.scene.player.target.y = y;
 
           // Move the player towards the new target.
-          this.player.move();
-        }, this);
+          this.scene.player.move();
+        });
 
         // If the player's pointer is over the tile.
         tile.on('pointerover', function () {
 
           // Move the marker over the tile.
-          this.tweens.add({
-            targets: this.marker,
-            x: this.player.x - 12,
-            y: this.player.y - 11,
-            ease: 'Quad.easeInOut',
-            duration: 500 / game.speed
+          this.scene.tweens.add({
+            targets: this.scene.marker,
+            x: this.x - 12,
+            y: this.y - 11,
+            ease: 'Quad.easeOut',
+            duration: 100 / game.speed
           });
-        }, this);
+        });
 
         // Get the enemy at the tile if there is one.
         let enemy = this.getActorAt(x, y);

@@ -28,10 +28,10 @@ class Player extends Actor {
     // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
     this.scene.updateFOV();
 
-    // if the actor hasn't reached his target yet
+    // If the player hasn't reached his target yet.
     if (!this.isAtXY(this.target.x, this.target.y)) {
 
-      // make him move towards his target
+      // Make him move towards his target.
       this.move();
     }
   }
@@ -60,7 +60,20 @@ class Player extends Actor {
       );
   }
 
+  // Order the player to move towards the specified position or make him rest if it is the player's current position. This action can be called as a direct result of a click on a tile walkable by the player or during every upcoming action of the player before he reaches his destination.
   move() {
+
+    // If the player has been ordered to move to his current position that means the player would like to have some rest.
+    
+    if (this.isAtXY(this.target.x, this.target.y)) {
+
+      // Make the player rest until his next action and get back a health point.
+      this.rest();
+
+      // Since the player only wanted to rest there is no need for further actions.
+      return;
+    }
+
     if (!this.path) {
       this.addPath(this.target.x, this.target.y);
     }
@@ -123,11 +136,22 @@ class Player extends Actor {
       engine.unlock();
     }
   }
+
+  // Make the player rest until the his action and get back a health point.
   rest() {
-    this.health = Math.min(this.healthMax, this.health + 1);
-    console.log(this.name, this.health);
-    engine.unlock();
-    this.scene.events.emit('updateAttribute', this);
+
+    // If the player's health did not reach the maximum yet.
+    if (this.health < this.healthMax) {
+
+      // Make the player get back one health point. 
+      this.health += 1;
+
+      // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor. If the player would have been already on full health, these steps were skipped, and the player would have been able to try something else as part of his current action.
+      this.scene.engine.unlock();
+
+      // The scene should also emit an event that one of the player's attributes has been updated, and the GUI should react to that.
+      this.scene.events.emit('updateAttribute', this);
+    }
   }
   damage(actor) {
     let damage = ROT.RNG.getUniformInt(1, 10)
@@ -213,7 +237,11 @@ class Player extends Actor {
     }.bind(this));
     console.log(this.name + ' first step: ' + this.path[1].x + ', ' + this.path[1].y);
   }
+
+  // Check if the player is at the given position.
   isAtXY(x, y) {
+
+    // Return true if the player's tileX and tileY attributes are matching with the given x and y values.
     return this.tileX === x && this.tileY === y;
   }
   getActorAt(x, y) {
