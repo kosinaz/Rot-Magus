@@ -63,8 +63,7 @@ class Player extends Actor {
   // Order the player to move towards the specified position or make him rest if it is the player's current position. This action can be called as a direct result of a click on a tile walkable by the player or during every upcoming action of the player before he reaches his destination.
   move() {
 
-    // If the player has been ordered to move to his current position that means the player would like to have some rest.
-    
+    // If the player has been ordered to move to his current position that means the player would like to have some rest. This action can't be reached as part of a continues movement towards a target further away, since that option has been already handled as part of the act function, and this function can be reached from there only if the player is not standing at the target position.
     if (this.isAtXY(this.target.x, this.target.y)) {
 
       // Make the player rest until his next action and get back a health point.
@@ -73,67 +72,54 @@ class Player extends Actor {
       // Since the player only wanted to rest there is no need for further actions.
       return;
     }
-
+    
+    // If the player has been ordered to a different position and just started to move towards that position there can't be an already calculated path for him. So if the player does not have a path towards his target yet.
     if (!this.path) {
+
+      // Calculate a new path for the player towards his new target.
       this.addPath(this.target.x, this.target.y);
     }
-    if (this.path.length < 2) {
-      this.path = null;
-      engine.unlock();
-      return;
-    }
-    isAcceptingOrders = false;
+
+    // Remove the first element of the path because that's the player's current position.
     this.path.shift();
-    this.scene.tweens.add({
-      targets: this,
-      scaleX: 1.2,
-      scaleY: 1.2,
-      duration: 450 / game.speed,
-      ease: 'Quad.easeOut',
-      yoyo: true
-    });
+
+    // Get the actor at the previously second, now first element of the path, that will be the next step of the player.
     let actor = this.getActorAt(this.path[0].x, this.path[0].y);
-    if (actor) {
-      if (this.isPlayer) {
-        this.scene.tweens.add({
-          targets: this,
-          x: this.tileX * 24 + 12,
-          y: this.tileY * 21 + 11,
-          ease: 'Quad.easeInOut',
-          duration: 450 / game.speed,
-          yoyo: true
-        });
-        this.damage(actor);
-        this.target = {
-          x: this.tileX,
-          y: this.tileY
-        };
-      } else if (actor.isPlayer) {        
-        this.scene.tweens.add({
-          targets: this,
-          x: this.tileX * 24 + 12,
-          y: this.tileY * 21 + 11,
-          ease: 'Quad.easeInOut',
-          duration: 450 / game.speed,
-          yoyo: true
-        });
-        this.damage(actor);
-      }
+
+    // If there is an actor at the next step. 
+    if (actor) {    
+      
+      // Damage that actor.
+      this.damage(actor);
+
+      // Set the current position of the player as his current target to prevent him attacking the enemy automatically as his next actions.
+      this.target = {
+        x: this.tileX,
+        y: this.tileY
+      };
+
+      // Set the enemy as the current victim of the player so the attack animation can be targetted correctly.
+      this.victimX = this.path[0].x;
+      this.victimY = this.path[0].y;
+
+      // Add the player to the list of attacking actors so he can be properly animated as part of the next screen update.
+      this.scene.attackingActors.push(this);
+    
+    // If there isn't any actor in the way of the player.
     } else {
+
+      // Move the player.
       this.tileX = this.path[0].x;
       this.tileY = this.path[0].y;
-      if (this.isPlayer) {
-        //this.scene.events.emit('playerMoved');
-        console.log(player.name + ' moved to ' + this.tileX + ', ' + this.tileY);
-      }
-      this.scene.tweens.add({
-        targets: this,
-        x: this.tileX * 24 + 12,
-        y: this.tileY * 21 + 11,
-        ease: 'Quad.easeInOut',
-        duration: 900 / game.speed
-      });
-      engine.unlock();
+
+      // Add the player to the list of moving actors so he can be properly animated as part of the next screen update.
+      this.scene.movingActors.push(this);
+
+      // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
+      this.scene.engine.unlock();
+
+      // The scene should also emit an event that one of the player's attributes has been updated, and the ground section of the GUI should react to that.
+      this.scene.events.emit('playerMoved', this);
     }
   }
 
@@ -215,27 +201,37 @@ class Player extends Actor {
       this.destroy();
     }
   }
+
+  // Calculate the shortest path between the player's current position and the given target position.
   addPath(x, y) {
+
+    // Initialize a new astar pathmap based on the given target.
     let a = new ROT.Path.AStar(x, y, function (x, y) {
-      let tile = this.map.getTileNameAt(x, y);
-      return tile 
-        && (
-          (this.walksOn && this.walksOn.includes(tile)) ||
+
+      // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its walkabilty.
+      let tile = this.scene.map.getTileNameAt(x, y);
+
+      // Return true if the player is able to walk on that type of tiles or if it is generally walkable by every actor.
+      return this.walksOn && this.walksOn.includes(tile) ||
           tile !== 'water' &&
           tile !== 'marsh' &&
           tile !== 'bush' &&
           tile !== 'tree' &&
-          tile !== 'mountain'
-        )
+          tile !== 'mountain';
     }.bind(this));
+
+    // After generated the pathmap create a new path for the player.
     this.path = [];
+
+    // Compute the shortest path between the player's current position and the given target position based on the astar map.
     a.compute(this.tileX, this.tileY, function (x, y) {
+
+      // Add the next position of the shortest path to the player's path.
       this.path.push({
         x: x,
         y: y
       });
     }.bind(this));
-    console.log(this.name + ' first step: ' + this.path[1].x + ', ' + this.path[1].y);
   }
 
   // Check if the player is at the given position.
@@ -244,13 +240,25 @@ class Player extends Actor {
     // Return true if the player's tileX and tileY attributes are matching with the given x and y values.
     return this.tileX === x && this.tileY === y;
   }
+
+  // Get the actor at the given position if there is one.
   getActorAt(x, y) {
-    if (player.isAtXY(x, y)) {
-      return player;
+
+    // If the player is at the given position.
+    if (this.isAtXY(x, y)) {
+
+      // Return the player as the actor at the given position.
+      return this;
     }
-    for (let i = 0; i < enemies.length; i += 1) {      
-      if (enemies[i].isAtXY(x, y)) {
-        return enemies[i];
+
+    // Else iterate through all the enemies.
+    for (let i = 0; i < this.scene.enemies.length; i += 1) {
+      
+      // If that enemy is at the given position.
+      if (this.scene.enemies[i].isAtXY(x, y)) {
+
+        // Return that enemy as the actor at the given position and skip the remaining part of the search.
+        return this.scene.enemies[i];
       }
     }
   }
