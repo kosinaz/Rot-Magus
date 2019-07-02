@@ -21,12 +21,18 @@ class GameScene extends Phaser.Scene {
       let tile = this.map.getTileNameAt(x, y);
 
       // Return true if it is the player's position or if it is not opaque.
-      return this.player.isAt(x, y) ||
+      return this.player.isAtXY(x, y) ||
         (tile !== 'bush' && tile !== 'tree' && tile !== 'mountain');
     }.bind(this));    
 
+    // Create a scheduler specific to the game scene and set it up as a speed scheduler because all the different actions of a specific actor takes the same amount of time based only on the speed of that actor, so there is no need for a more complex scheduler. The scheduler has to be created before any actor, because every actor will be added to scheduler on creation.
+    this.scheduler = new ROT.Scheduler.Speed();
+
+    // Create an engine using the previously created scheduler that will keep calling all the actors to perform their next action in a sequence based on their current speed.
+    this.engine = new ROT.Engine(this.scheduler);
+
     // Create the special actor that will be controlled by the player. Unique to the game scene and referred to by several functions of the scene and the enemies.
-    this.player = new Player(this, 10, 0, 'tiles', this.actorTypes.elf);
+    this.player = new Player(this, 10, 0, 'tiles', this.actorTypes.elfMale);
 
     // Create a list for the enemies to track their activity.
     this.enemies = [];
@@ -54,12 +60,6 @@ class GameScene extends Phaser.Scene {
     // Set the background black, the color of currently invisible areas.
     this.cameras.main.setBackgroundColor('#000000');
 
-    // Create a scheduler specific to the game scene and set it up as a speed scheduler because all the different actions of a specific actor takes the same amount of time based only on the speed of that actor, so there is no need for a more complex scheduler.
-    this.scheduler = new ROT.Scheduler.Speed();
-
-    // Create an engine using the previously created scheduler that will keep calling all the actors to perform their next action in a sequence based on their current speed.
-    this.engine = new ROT.Engine(this.scheduler);
-
     // Start the engine, start the game.
     this.engine.start();
 
@@ -71,11 +71,33 @@ class GameScene extends Phaser.Scene {
     }.bind(this));
   }
 
+  // Returns the actor who is at the given position of the map.
+  getActorAt(x, y) {
+
+    // If the player is at the given position.
+    if (this.player.isAtXY(x, y)) {
+
+      // Return the player.
+      return this.player;
+    }
+
+    // Else iterate through all the enemies.
+    for (let i = 0; i < this.enemies.length; i += 1) {
+
+      // If an enemy is at the given position.
+      if (this.enemies[i].isAtXY(x, y)) {
+
+        // Return that enemy.
+        return this.enemies[i];
+      }
+    }
+  }
+
   // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible and to hide. Make the visible enemies notice the player.
   calculateFOVforXY() {
 
-    // As the show and hide animations of the objects are already played during the previous FOV update, it is safe to remove them and start collecting the objects to show and hide in the next FOV update. All the objects that were displayed in the last update are possible tiles to be hidden during the current update, so we copy all of the to the list of objects to hide. If any of those should be displayed in the current update, it will be simply removed from the list of objects to hide.
-    this.objectsToHide = [...this.objectsToShow];
+    // As the show and hide animations of the objects are already played during the previous FOV update, it is safe to remove them and start collecting the objects to show and hide in the next FOV update. All the objects that were displayed in the last update are possible tiles to be hidden during the current update, so we copy all of the to the list of objects to hide. If any of those should be displayed in the current update, it will be simply removed from the list of objects to hide. In the very first update, when there is no objects to show from previous updates, the list objects to hide will be also empty.
+    this.objectsToHide = this.objectsToShow ? [...this.objectsToShow] : [];
 
     // After that it is safe to reset the list of objects to show.
     this.objectsToShow = [];
@@ -136,13 +158,7 @@ class GameScene extends Phaser.Scene {
           };
         }
       }
-    });
-    
-    // After computed the current FOV and determined the objects to show, the next step is to determine the objects that are not visible anymore.
-    
-
-
-
+    }.bind(this));
   }
 
   // Update the screen in a speed-based amount of time to show the player what happened since his last action.
@@ -190,7 +206,7 @@ class GameScene extends Phaser.Scene {
     // All the inner state changes have their own special effect, that will be added to the actor and will be played from the second half of the screen update and will be removed long after all the other animations have ended to help the player follow the events. These effects have been collected during the actions of the triggering actors.
     this.time.delayedCall(500 / game.speed, function () {
       this.effects.forEach(effect => effect.visible = true);
-    });
+    }.bind(this));
     this.tweens.add({
       targets: this.effects,
       alpha: 0,

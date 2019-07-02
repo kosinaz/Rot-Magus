@@ -1,5 +1,5 @@
 class Actor extends Phaser.GameObjects.Image {
-  constructor(scene, x, y, texture, map, config) {
+  constructor(scene, x, y, texture, config) {
     super(
       scene, 
       x * 24 + 12, 
@@ -7,7 +7,6 @@ class Actor extends Phaser.GameObjects.Image {
       texture, 
       config.tileName
     );
-    this.map = map;
     this.name = config.name;
     this.isPlayer = config.player;
     this.tileX = x;
@@ -35,8 +34,8 @@ class Actor extends Phaser.GameObjects.Image {
     this.noise = scene.noise;
     this.scene = scene;
     this.gui = this.scene.scene.get('GUIScene');
-    scene.add.existing(this);
-    scheduler.add(this, true);
+    this.scene.add.existing(this);
+    this.scene.scheduler.add(this, true);
   }
 
   // the act is getting called by the scheduler every time when this actor is 
@@ -400,15 +399,5 @@ class Actor extends Phaser.GameObjects.Image {
   }
   isAtXY(x, y) {
     return this.tileX === x && this.tileY === y;
-  }
-  getActorAt(x, y) {
-    if (player.isAtXY(x, y)) {
-      return player;
-    }
-    for (let i = 0; i < enemies.length; i += 1) {      
-      if (enemies[i].isAtXY(x, y)) {
-        return enemies[i];
-      }
-    }
   }
 }

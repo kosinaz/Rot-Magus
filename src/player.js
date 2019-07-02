@@ -1,11 +1,10 @@
 class Player extends Actor {
-  constructor(scene, x, y, texture, map, config) {
+  constructor(scene, x, y, texture, config) {
     super(
       scene, 
       x, 
       y, 
-      texture, 
-      map,
+      texture,
       config,
     );
     this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
@@ -49,7 +48,7 @@ class Player extends Actor {
   walksOnXY(x, y) {
 
     // get the tile at the given position
-    let tile = this.map.getTileNameAt(x, y);
+    let tile = this.scene.map.getTileNameAt(x, y);
 
     // return true if the actor can walk on it or if it is walkable by default
     return this.walksOn.includes(tile) || (
@@ -59,82 +58,6 @@ class Player extends Actor {
         tile !== 'tree' &&
         tile !== 'mountain'
       );
-  }
-
-  // show the current field of view of the player
-  calculateFOV() {
-    
-    // hide all items
-    //this.scene.itemLayer.forEachTile(tile => tile.visible = false);
-
-    // hide all enemies
-    enemies.forEach(enemy => enemy.visible = false);
-
-    // set all tiles to be hidden by default
-    this.map.tiles.setAll('toHide', true);
-
-    // find the currently visible tiles
-    this.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
-      
-      // show the visible tiles
-      let tile = this.map.addTile(x, y);
-
-      // make sure that the tile won't be hidden after the FOV calculations
-      tile.toHide = false;
-
-      // if the actor can walk on the tile
-      if (this.walksOnXY(x, y)) {
-
-        // set tile as a possible target of the player's next action
-        tile.setInteractive();
-
-        // if the player clicks on the tile
-        tile.on('pointerup', function (a, b, c) {
-
-          // set that tile as the new target of the player
-          this.target.x = x;
-          this.target.y = y;
-          this.move();
-        }, this);
-
-        // if the player's pointer is over the tile
-        tile.on('pointerover', function () {
-
-          // move the marker over the tile
-          marker.x = this.x - 12;
-          marker.y = this.y - 11;
-        });
-
-        // get the enemy at the tile
-        let enemy = this.getActorAt(x, y);
-
-        // if there is an enemy at the tile
-        if (enemy) {
-
-          // show the enemy
-          enemy.visible = true;
-
-          // make the enemy target the player
-          enemy.target = {
-            x: this.tileX,
-            y: this.tileY
-          };
-          console.log(enemy.name + ' target: ' + enemy.target.x + ', ' + enemy.target.y)
-        }
-      }
-
-    }.bind(this));
-
-    // iterate through all the currently visible tiles of the map
-    this.map.tiles.each(function (tile) {
-
-      // if the tile is not in the current FOV of the player
-      if (tile.toHide) {
-
-        // hide the tile that is not visible anymore
-        this.map.hide(tile);
-      }
-    }, this);
   }
 
   move() {
