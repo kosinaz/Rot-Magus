@@ -36,21 +36,21 @@ class Player extends Actor {
     }
   }
 
-  // this function is required for the Speed scheduler to determine the sequence
-  // of actor actions
+  // This function is required for the Speed scheduler to determine the sequence
+  // of actor actions.
   getSpeed() {
 
-    // return the speed of the actor
+    // Return the speed of the actor.
     return this.speed;
   }
 
-  // return if the target tile is walkable by the actor
+  // Return true if the target tile is walkable by the actor. This is called by the calculate shortest path function and by the GUI when determining where the pointer marker can be displayed.
   walksOnXY(x, y) {
 
-    // get the tile at the given position
+    // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its walkabilty.
     let tile = this.scene.map.getTileNameAt(x, y);
 
-    // return true if the actor can walk on it or if it is walkable by default
+    // Return true if the player is able to walk on that type of tiles or if it is generally walkable by every actor.
     return this.walksOn.includes(tile) || (
         tile !== 'water' &&
         tile !== 'marsh' &&
@@ -206,19 +206,7 @@ class Player extends Actor {
   addPath(x, y) {
 
     // Initialize a new astar pathmap based on the given target.
-    let a = new ROT.Path.AStar(x, y, function (x, y) {
-
-      // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its walkabilty.
-      let tile = this.scene.map.getTileNameAt(x, y);
-
-      // Return true if the player is able to walk on that type of tiles or if it is generally walkable by every actor.
-      return this.walksOn && this.walksOn.includes(tile) ||
-          tile !== 'water' &&
-          tile !== 'marsh' &&
-          tile !== 'bush' &&
-          tile !== 'tree' &&
-          tile !== 'mountain';
-    }.bind(this));
+    let a = new ROT.Path.AStar(x, y, this.walksOnXY.bind(this));
 
     // After generated the pathmap create a new path for the player.
     this.path = [];
