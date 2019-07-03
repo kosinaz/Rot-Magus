@@ -111,9 +111,6 @@ class GameScene extends Phaser.Scene {
       // If the tile is walkable by the player.
       if (this.player.walksOnXY(x, y)) {
 
-        // Set the tile as a possible target of the player's next action.
-        tile.setInteractive();
-
         // If the player clicks on the tile.
         tile.on('pointerup', function () {
 
@@ -163,6 +160,13 @@ class GameScene extends Phaser.Scene {
 
   // Update the screen in a speed-based amount of time to show the player what happened since his last action.
   updateFOV() {
+
+    // Iterate through all the tiles.
+    this.map.tiles.each(function (tile) {
+
+      // Disable the interactivity of every reused and new tiles during the FOV update to prevent any player interaction with the yet to be updated scene.
+      tile.disableInteractive();
+    });
 
     // The position of all the actors that moved since the player did something has been already updated, but their image still needs to be moved to its new position. These actors have been collected during the actions of the moving actors.
     this.tweens.add({
@@ -252,5 +256,25 @@ class GameScene extends Phaser.Scene {
       alpha: 1,
       duration: 1000 / game.speed
     });
+
+    // Delay the next call until all the tweens are complete.
+    this.time.delayedCall(1000 / game.speed, function () {
+
+      // Iterate through all the tiles.
+      this.map.tiles.each(function (tile) {
+
+        // Set the tiles interactive only after the tweens are complete so the player can react only to the current state of the scene.
+        tile.setInteractive();
+      });
+
+      // If the player hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
+      if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {
+
+        console.log('move');
+
+        // Make him move towards his target.
+        this.player.move();
+      }
+    }.bind(this));
   }
 }

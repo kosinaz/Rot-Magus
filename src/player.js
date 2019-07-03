@@ -24,20 +24,7 @@ class Player extends Actor {
     this.scene.computeFOV();
     
     // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
-    // this.scene.map.tiles.disableInteractive();
-    this.scene.map.tiles.each(function (tile) {
-      tile.disableInteractive();
-    });
-    this.scene.updateFOV();
-    
-    // If the player hasn't reached his target yet.
-    if (!this.isAtXY(this.target.x, this.target.y)) {
-
-      console.log('move');
-
-      // Make him move towards his target.
-      this.move();
-    }
+    this.scene.updateFOV();    
   }
 
   // This function is required for the Speed scheduler to determine the sequence of actor actions.
@@ -76,8 +63,8 @@ class Player extends Actor {
       return;
     }
     
-    // If the player has been ordered to a different position and just started to move towards that position there can't be an already calculated path for him. So if the player does not have a path towards his target yet.
-    if (!this.path) {
+    // If the player has been ordered to a different position and just started to move towards that position there can't be an already calculated path for him. Or if the player just arrived to its destination during his last action, the last step will be still there, as the last remaining element of the path, and that will be the player's current position. That path can be ignored and no further automatic action should be performed. So in both cases this part of the code has been reached because the player gave a new order to his actor.
+    if (!this.path || this.path.length === 1) {
 
       // Calculate a new path for the player towards his new target.
       this.addPath(this.target.x, this.target.y);
