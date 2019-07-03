@@ -7,23 +7,33 @@ class Player extends Actor {
       texture,
       config,
     );
+    this.health = 10;
+
+    // Make the camera follow the player.
     this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
   }
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
 
+    
     // The first step is to lock the engine before it calls the next actor, so the screen can be updated and the player can have plenty of time to perform his next action. The engine needs to be locked even if the player's actor has a target and does not need additional orders, because every action takes time and no one should move in the meantime.
     this.scene.engine.lock();
-
-    // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible and to hide. Make the visible enemies notice the player.
-    this.scene.calculateFOVforXY();
-
+    
+    // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible, and to hide. Make the visible enemies notice the player.
+    this.scene.computeFOV();
+    
     // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
+    // this.scene.map.tiles.disableInteractive();
+    this.scene.map.tiles.each(function (tile) {
+      tile.disableInteractive();
+    });
     this.scene.updateFOV();
-
+    
     // If the player hasn't reached his target yet.
     if (!this.isAtXY(this.target.x, this.target.y)) {
+
+      console.log('move');
 
       // Make him move towards his target.
       this.move();
@@ -116,7 +126,7 @@ class Player extends Actor {
     }
   }
 
-  // Make the player rest until the his action and get back a health point.
+  // Make the player rest until the his next action and get back a health point.
   rest() {
 
     // If the player's health did not reach the maximum yet.

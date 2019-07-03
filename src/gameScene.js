@@ -94,7 +94,7 @@ class GameScene extends Phaser.Scene {
   }
 
   // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible and to hide. Make the visible enemies notice the player.
-  calculateFOVforXY() {
+  computeFOV() {
 
     // As the show and hide animations of the objects are already played during the previous FOV update, it is safe to remove them and start collecting the objects to show and hide in the next FOV update. All the objects that were displayed in the last update are possible tiles to be hidden during the current update, so we copy all of the to the list of objects to hide. If any of those should be displayed in the current update, it will be simply removed from the list of objects to hide. In the very first update, when there is no objects to show from previous updates, the list objects to hide will be also empty.
     this.objectsToHide = this.objectsToShow ? [...this.objectsToShow] : [];
@@ -103,7 +103,7 @@ class GameScene extends Phaser.Scene {
     this.objectsToShow = [];
     
     // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
-    this.fov.compute(this.player.tileX, this.player.tileY, 13, function (x, y) {
+    this.fov.compute(this.player.tileX, this.player.tileY, 3, function (x, y) {
 
       // Keep the visible tile or add the tile that become visible to the scene possibly from the unused tile pool. Newly visible tiles will be added to the list of objects to show as part of the add tile function. Already visible tiles will be removed from the list of objects to hide.
       let tile = this.map.addTile(x, y);
@@ -141,9 +141,9 @@ class GameScene extends Phaser.Scene {
         // Get the enemy at the tile if there is one.
         let enemy = this.getActorAt(x, y);
 
-        // If there is an enemy at the tile.
-        if (enemy) {
-
+        // If there is an enemy at the tile and not the player.
+        if (enemy && enemy !== this.player) {
+          
           // If the enemy is not visible in result of an earlier hide animation that reduced his alpha to 0.
           if (enemy.alpha === 0) {
 
@@ -167,10 +167,33 @@ class GameScene extends Phaser.Scene {
     // The position of all the actors that moved since the player did something has been already updated, but their image still needs to be moved to its new position. These actors have been collected during the actions of the moving actors.
     this.tweens.add({
       targets: this.movingActors,
-      x: this.tileX * 24 + 12,
-      y: this.tileY * 21 + 11,
-      ease: 'Quad.easeInOut',
-      duration: 1000 / game.speed
+      props: {
+        x: {
+          ease: 'Quad.easeInOut',
+          duration: 1000 / game.speed,
+          value: {
+            getEnd: function (target, key, value) {
+              return target.tileX * 24 + 12;
+            },
+            getStart: function (target, key, value) {
+              return value;
+            }
+          }
+        },
+        y: {
+          ease: 'Quad.easeInOut',
+          duration: 1000 / game.speed,
+          value: {
+            getEnd: function (target, key, value) {
+              return target.tileY * 21 + 11;
+            },
+            getStart: function (target, key, value) {
+              return value;
+            }
+          }
+        }
+      },
+      
     });
 
     // To add some depth to the animation, the actors who moved will be scaled a little bit up and then back to normal like a yoyo.
