@@ -32,7 +32,7 @@ class GameScene extends Phaser.Scene {
     this.engine = new ROT.Engine(this.scheduler);
 
     // Create the special actor that will be controlled by the player. Unique to the game scene and referred to by several functions of the scene and the enemies.
-    this.player = new Player(this, 10, 0, 'tiles', this.actorTypes.elfMale);
+    this.player = new Player(this, 0, 0, 'tiles', this.actorTypes.elfMale);
 
     // Create a list for the enemies to track their activity.
     this.enemies = [];
@@ -97,16 +97,21 @@ class GameScene extends Phaser.Scene {
   computeFOV() {
 
     // As the show and hide animations of the objects are already played during the previous FOV update, it is safe to remove them and start collecting the objects to show and hide in the next FOV update. All the objects that were displayed in the last update are possible tiles to be hidden during the current update, so we copy all of the to the list of objects to hide. If any of those should be displayed in the current update, it will be simply removed from the list of objects to hide. In the very first update, when there is no objects to show from previous updates, the list objects to hide will be also empty.
-    this.objectsToHide = this.objectsToShow ? [...this.objectsToShow] : [];
+    this.objectsToHide = [...this.map.visibleTiles];
 
     // After that it is safe to reset the list of objects to show.
     this.objectsToShow = [];
     
     // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
-    this.fov.compute(this.player.tileX, this.player.tileY, 3, function (x, y) {
+    this.fov.compute(this.player.tileX, this.player.tileY, 13, function (x, y) {
 
       // Keep the visible tile or add the tile that become visible to the scene possibly from the unused tile pool. Newly visible tiles will be added to the list of objects to show as part of the add tile function. Already visible tiles will be removed from the list of objects to hide.
       let tile = this.map.addTile(x, y);
+
+      // As the first step of the scene update all the already visible tiles were set to hide, but if a tile is still in the current field of view of the player, that tile will be removed from the list of tiles to hide. These also don't need to be added to the tiles to show because they are already visible.
+      this.objectsToHide.splice(
+        this.objectsToHide.indexOf(tile), 1
+      );
 
       // If the tile is walkable by the player.
       if (this.player.walksOnXY(x, y)) {
@@ -162,7 +167,7 @@ class GameScene extends Phaser.Scene {
   updateFOV() {
 
     // Iterate through all the tiles.
-    this.map.tiles.each(function (tile) {
+    this.map.visibleTiles.forEach(function (tile) {
 
       // Disable the interactivity of every reused and new tiles during the FOV update to prevent any player interaction with the yet to be updated scene.
       tile.disableInteractive();
@@ -260,8 +265,15 @@ class GameScene extends Phaser.Scene {
     // Delay the next call until all the tweens are complete.
     this.time.delayedCall(1000 / game.speed, function () {
 
+      // After computed the FOV and removed all the tiles that don't need to be hidden from the list of tiles to hide, these tiles also need to be removed from the map.
+      this.objectsToHide.forEach(function (tile) {
+
+        // Hide the tile remained to be hidden.
+        this.map.hide(tile);
+      }, this);
+
       // Iterate through all the tiles.
-      this.map.tiles.each(function (tile) {
+      this.map.visibleTiles.forEach(function (tile) {
 
         // Set the tiles interactive only after the tweens are complete so the player can react only to the current state of the scene.
         tile.setInteractive();

@@ -15,7 +15,6 @@ class Player extends Actor {
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
-
     
     // The first step is to lock the engine before it calls the next actor, so the screen can be updated and the player can have plenty of time to perform his next action. The engine needs to be locked even if the player's actor has a target and does not need additional orders, because every action takes time and no one should move in the meantime.
     this.scene.engine.lock();
@@ -74,7 +73,7 @@ class Player extends Actor {
     this.path.shift();
 
     // Get the actor at the previously second, now first element of the path, that will be the next step of the player.
-    let actor = this.getActorAt(this.path[0].x, this.path[0].y);
+    let actor = this.scene.getActorAt(this.path[0].x, this.path[0].y);
 
     // If there is an actor at the next step. 
     if (actor) {    
@@ -217,27 +216,5 @@ class Player extends Actor {
 
     // Return true if the player's tileX and tileY attributes are matching with the given x and y values.
     return this.tileX === x && this.tileY === y;
-  }
-
-  // Get the actor at the given position if there is one.
-  getActorAt(x, y) {
-
-    // If the player is at the given position.
-    if (this.isAtXY(x, y)) {
-
-      // Return the player as the actor at the given position.
-      return this;
-    }
-
-    // Else iterate through all the enemies.
-    for (let i = 0; i < this.scene.enemies.length; i += 1) {
-      
-      // If that enemy is at the given position.
-      if (this.scene.enemies[i].isAtXY(x, y)) {
-
-        // Return that enemy as the actor at the given position and skip the remaining part of the search.
-        return this.scene.enemies[i];
-      }
-    }
   }
 }
