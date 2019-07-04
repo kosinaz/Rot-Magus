@@ -10,20 +10,11 @@ class SimplexMap {
     // The Simplex noise that serve as the base of the map.
     this.noise = new ROT.Noise.Simplex();
 
-    // The list of visible tiles of this map.
-    this.visibleTiles = [];
-    
-    // The list of the invisible, unused tiles of this map.
-    this.hiddenTiles = [];
+    // The container of terrain tiles of this map. This will help to display every terrain tile under the actors. Without this, the player would be displayed under the terrain making him invisible.
+    this.terrain = this.scene.add.container();
 
     // The collection of positions containing a tile image and a unique key that determines the attributes of that tile and the image to be displayed in case the previously used image object of this tile has been reused elsewhere while this tile was hidden.
-    this.map = {};
-
-    // The container that will keep all the terrain tiles together, displayed under the items and actors.
-    this.terrainLayer = this.scene.add.container();    
-
-    // The container that will keep all the items together, displayed over the terrain tiles and under the actors.
-    this.itemLayer = this.scene.add.container();   
+    this.tiles = {}; 
   }
 
   // Tiles are added from the pool or created on the fly.
@@ -42,15 +33,45 @@ class SimplexMap {
     //let n = this.noise.get(x, y);
 
     // If this is the first time a tile is set to be added at this position.
-    if (this.map[x + ',' + y] === undefined) {      
+    if (this.tiles[x + ',' + y] === undefined) {      
 
       // Generate the key of the tile.
       tileName = this.getTileNameAt(x, y);
 
-      // Save the key of the tile at the given position for later use.
-      this.map[x + ',' + y] = {
+      // Save the key of the tile at the given position for later use, when this tile becames visible again, and the original image of this tile has been reused elsewere since then. Saving this value means that no tile name of a specific position will be requested from the simplex map more than once.
+      this.tiles[x + ',' + y] = {
         name: tileName
       }
+    }
+
+    // If the image of the tile is not displayed at the given position.
+    if (this.tiles[x + ',' + y].image === undefined) {
+
+      // Create the image of the tile.
+      tile = this.scene.add.image(x * 24 + 12, y * 21 + 11, this.tilesetImage, this.tiles[x + ',' + y].name);
+
+      // Save the image of the tile at the given position for later use during every upcoming update when this tile is still visible. 
+      this.tiles[x + ',' + y].image = tile;
+
+      // Save its tile position to make the translation to tile positions easier when this tile is interacted with.
+      this.tiles[x + ',' + y].image.tileX = x;
+      this.tiles[x + ',' + y].image.tileY = y;
+
+      // Set the tile to start the show animation from a full transparency.
+      this.tiles[x + ',' + y].image.alpha = 0;
+
+      // Add the tile to the container of terrain tiles to show it under the actor.
+      this.terrain.add(this.tiles[x + ',' + y].image)
+
+      // Set the tile to show in the current update.
+      this.tiles[x + ',' + y].toShow = true;
+    }
+
+    // Set the tile not to hide in the current update.
+    this.tiles[x + ',' + y].toHide = false;
+    
+    // Return the just created or already displayed tile. 
+    return this.tiles[x + ',' + y].image;
 
       // if (tileName === 'redFlower' && n < -0.05) {
       //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.zombie);
@@ -72,81 +93,7 @@ class SimplexMap {
       //   enemy.name 
       //     += ' ' + enemies.filter(e => e.tileName === enemy.tileName).length;
       //   console.log(enemy.name);
-      // }
-
-    // If this tile has been requested before it already has a name and maybe even the correct image.
-    } else {
-
-      // If the image of the tile is still displayed.
-      if (this.map[x + ',' + y].image) {
-
-        // Keep the tile as is.
-        return this.map[x + ',' + y].image;
-      }
-
-      // Else get the previously saved key of the tile.
-      tileName = this.map[x + ',' + y].name;
-    }
-    
-    // If there is any unused tile.
-    if (this.hiddenTiles.length) {
-      
-      // Get the first unused tile.
-      tile = this.hiddenTiles[0];
-
-      // Make the previously unused tile look like the one to be displayed.
-      tile.setFrame(tileName);
-
-      // Add the tile to the list of tiles to be displayed.
-      this.visibleTiles.push(tile);
-
-      // Remove the tile from the list of unused tiles.
-      this.hiddenTiles.splice(
-        this.hiddenTiles.indexOf(tile), 1
-      );      
-
-      // Save the image of the tile at its new position.
-      this.map[x + ',' + y].image = tile;
-      
-      // Move it to the new position.
-      tile.x = x * 24 + 12;
-      tile.y = y * 21 + 11;
-
-      // Save its tile position.
-      tile.tileX = x;
-      tile.tileY = y;
-      
-      // Activate it.
-      tile.active = true;
-      
-      // Show it.
-      tile.visible = true;
-      
-    // If there is no unused tile.
-    } else {
-      
-      // Display the image of the tile.
-      tile = this.scene.add.image(x * 24 + 12, y * 21 + 11, this.tilesetImage, tileName);
-
-      // Add the tile to the terrain layer to display it under the actors and items.
-      this.scene.map.terrainLayer.add(tile);
-
-      // Save its tile position.
-      tile.tileX = x;
-      tile.tileY = y;
-
-      // Save the image of the tile at the defined position.
-      this.map[x + ',' + y].image = tile;
-      
-      // Add the tile to the list of visible tiles.
-      this.visibleTiles.push(tile);
-    }
-
-    // Add the tile to the list of objects to show, so it can be displayed during the FOV update of the scene.
-    this.scene.objectsToShow.push(tile);
-    tile.alpha = 0;
-
-    return tile;
+      // }  
   }
   
   // hide all tiles out of camera bounds
@@ -170,19 +117,15 @@ class SimplexMap {
 
   // Hide the tile that is not visible currently for the player.
   hide(tile) {
-    this.map[(tile.x - 12) / 24 + ',' + (tile.y - 11) / 21].image = null;
 
-    this.hiddenTiles.push(tile);
+    // Destroy the tile so it won't show up in the next update but keep its name so it can be recreated easily.
+    tile.image.destroy();
 
-    this.visibleTiles.splice(
-      this.visibleTiles.indexOf(tile), 1
-    );
+    // Set its reference undefined so further updates won't pick it up.
+    tile.image = undefined;
 
-    // deactive it
-    tile.active = false;
-
-    // hide it
-    tile.visible = false;
+    // Set the tile as not to hide to prevent it trying to play the hide animation again in the next update.
+    tile.toHide = false;
   }
 
   getTileNameAt(x, y) {
