@@ -65,6 +65,36 @@ class SimplexMap {
 
       // Set the tile to show in the current update.
       this.tiles[x + ',' + y].toShow = true;
+
+      // If the tile is walkable by the player.
+      if (this.scene.player.walksOnXY(x, y)) {
+
+        // Set the tile to react to clicks.
+        this.tiles[x + ',' + y].image.on('pointerup', function () {
+
+          // Set that tile as the new target of the player.
+          this.scene.player.target.x = x;
+          this.scene.player.target.y = y;
+
+          // Move the player towards the new target.
+          this.scene.player.move();
+
+          console.log(x, y);
+        });
+
+        // Set the tile to react to mouse over events.
+        this.tiles[x + ',' + y].image.on('pointerover', function () {
+
+          // Move the marker over the tile.
+          this.scene.tweens.add({
+            targets: this.scene.marker,
+            x: this.x - 12,
+            y: this.y - 11,
+            ease: 'Quad.easeOut',
+            duration: 100 / game.speed
+          });
+        });
+      }
     }
 
     // Set the tile not to hide in the current update.

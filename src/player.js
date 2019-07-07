@@ -8,6 +8,10 @@ class Player extends Actor {
       config,
     );
     this.health = 10;
+    this.action = 0;
+    this.compute = 0;
+    this.update = 0;
+    this.delayed = 0;
 
     // Make the camera follow the player.
     this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
