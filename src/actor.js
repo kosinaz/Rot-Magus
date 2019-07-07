@@ -109,7 +109,7 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     // If the actor has been ordered to a different position and just started to move towards that position there can't be an already calculated path for him. Or if the actor just arrived to its destination during his last action, the last step will be still there as the last remaining element of the path, and that will be the actor's current position. That path can be ignored and no further automatic action should be performed. So in both cases this part of the code has been reached because the actor has been given a new order.
-    if (!this.path || this.path.length === 1) {
+    if (!this.path || this.path.length < 2) {
 
       // Calculate a new path for the actor towards his new target.
       this.addPath(this.target.x, this.target.y);
@@ -124,7 +124,7 @@ class Actor extends Phaser.GameObjects.Image {
     // If there is an actor at the next step. 
     if (actor) {
 
-      // If that actor is in the same team, this will be only a friendly bump, that still counts as a valid action so this actor can be skipped, but if they are in different teams, they moving actor will damage his victim.
+      // If that actor is in a different team, the moving actor will damage his victim.
       if (
         this.scene.enemies.includes(this) && 
         !this.scene.enemies.includes(actor)) {
@@ -144,6 +144,18 @@ class Actor extends Phaser.GameObjects.Image {
 
         // Add the actor to the list of attacking actors so he can be properly animated as part of the next screen update.
         this.scene.attackingActors.push(this);
+      
+      // If that actor is in the same team, this will be only a friendly bump, that still counts as a valid action so this actor can be skipped.
+      } else {
+
+        // Stop the blocked actor.
+        this.target = {
+          x: this.tileX,
+          y: this.tileY
+        };
+
+        // Reset his path and let him recalculate it as his next action.
+        this.path = [];
       }
 
     // If there isn't any actor in the way of the actor.

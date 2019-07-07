@@ -25,12 +25,6 @@ class SimplexMap {
 
     // The key of the tile that should be displayed at the given position.
     let tileName;
-    
-    // the enemy generated at the given position
-    //let enemy;
-
-    // the noise that determines the probability of the enemy generation
-    //let n = this.noise.get(x, y);
 
     // If this is the first time a tile is set to be added at this position.
     if (this.tiles[x + ',' + y] === undefined) {      
@@ -42,6 +36,9 @@ class SimplexMap {
       this.tiles[x + ',' + y] = {
         name: tileName
       }
+
+      // If this is the first time this tile is displayed there is a chance that it was hiding an enemy.
+      this.addEnemy(x, y);
     }
 
     // If the image of the tile is not displayed at the given position.
@@ -97,31 +94,66 @@ class SimplexMap {
 
     // Set the tile not to hide in the current update.
     this.tiles[x + ',' + y].toHide = false;
+
+    // Get the actor at the given position.
+    let actor = this.scene.getActorAt(x, y);
+
+    // If there is an actor and he is not the player, it means that he is an enemy.
+    if (actor && actor !== this.scene.player) {
+      
+      // If the enemy is not visible in result of an earlier hide animation that reduced his alpha to 0.
+      if (actor.alpha === 0) {
+
+        // Add the enemy to the list of objects to show.
+        this.scene.objectsToShow.push(actor);
+      }
+
+      // Make the enemy target the player.
+      actor.target = {
+        x: this.scene.player.tileX,
+        y: this.scene.player.tileY
+      };
+
+      // Reset the path of the enemy to let him start moving towards the player's new position.
+      actor.path = [];
+    }
     
     // Return the just created or already displayed tile. 
     return this.tiles[x + ',' + y].image;
+  }
 
-      // if (tileName === 'redFlower' && n < -0.05) {
-      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.zombie);
-      // } else if (tileName === 'yellowFlower' && n > 0.05) {
-      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.skeleton);
-      // } else if (tileName === 'bush' && n < -0.025) {
-      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.hobgoblin);
-      // } else if (tileName === 'gravel' && n < -0.7) {
-      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.goblin);
-      // } else if (tileName === 'gravel' && n > 0.8) {
-      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.troll);
-      // } else if (tileName === 'ford' && n > 0.4) {
-      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orch);
-      // } else if (tileName === 'ford' && n > 0.3) {
-      //   enemy = new Actor(this.scene, x, y, 'tiles', this, actors.orchArcher);
-      // }
-      // if (enemy) {
-      //   enemies.push(enemy); 
-      //   enemy.name 
-      //     += ' ' + enemies.filter(e => e.tileName === enemy.tileName).length;
-      //   console.log(enemy.name);
-      // }  
+  // Check if an enemy should be added at the given position and add it if needed.
+  addEnemy(x, y) {
+
+    // The enemy generated at the given position.
+    let enemy;
+
+    // The noise that determines the probability of the enemy generation.
+    let n = this.noise.get(x, y);
+
+    // The name of the tile at the given position that will determine the type of the enemy.
+    let tileName = this.tiles[x + ',' + y].name;
+
+    if (tileName === 'redFlower' && n < -0.05) {
+      enemy = new Actor(this.scene, x, y, 'tiles', this.scene.actorTypes.zombie);
+    } else if (tileName === 'yellowFlower' && n > 0.05) {
+      enemy = new Actor(this.scene, x, y, 'tiles', this.scene.actorTypes.skeleton);
+    } else if (tileName === 'bush' && n < -0.025) {
+      enemy = new Actor(this.scene, x, y, 'tiles', this.scene.actorTypes.hobgoblin);
+    } else if (tileName === 'gravel' && n < -0.7) {
+      enemy = new Actor(this.scene, x, y, 'tiles', this.scene.actorTypes.goblin);
+    } else if (tileName === 'gravel' && n > 0.8) {
+      enemy = new Actor(this.scene, x, y, 'tiles', this.scene.actorTypes.troll);
+    } else if (tileName === 'ford' && n > 0.4) {
+      enemy = new Actor(this.scene, x, y, 'tiles', this.scene.actorTypes.orch);
+    } else if (tileName === 'ford' && n > 0.3) {
+      enemy = new Actor(this.scene, x, y, 'tiles', this.scene.actorTypes.orchArcher);
+    }
+    if (enemy) {
+      this.scene.enemies.push(enemy);
+      enemy.name += ' ' + this.scene.enemies.filter(e => e.tileName === enemy.tileName).length;
+      console.log(enemy.name);
+    }
   }
   
   // hide all tiles out of camera bounds

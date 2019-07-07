@@ -118,56 +118,6 @@ class GameScene extends Phaser.Scene {
 
       // Keep the visible tile or add the tile that become visible to the scene. Tiles that became visible just now will be set to show as part of the add tile function. As the first step of the scene update all the already visible tiles were set to hide, but if a tile is still in the current field of view of the player, that tile will be set to not to hide. These also don't need to be set to show because they are already visible.
       this.map.addTile(x, y);
-
-      // // If the tile is walkable by the player.
-      // if (this.player.walksOnXY(x, y)) {
-
-      //   // If the player clicks on the tile.
-      //   tile.on('pointerup', function () {
-
-      //     // Set that tile as the new target of the player.
-      //     this.scene.player.target.x = x;
-      //     this.scene.player.target.y = y;
-
-      //     // Move the player towards the new target.
-      //     this.scene.player.move();
-
-      //     console.log(x, y);
-      //   });
-
-      //   // If the player's pointer is over the tile.
-      //   tile.on('pointerover', function () {
-
-      //     // Move the marker over the tile.
-      //     this.scene.tweens.add({
-      //       targets: this.scene.marker,
-      //       x: this.x - 12,
-      //       y: this.y - 11,
-      //       ease: 'Quad.easeOut',
-      //       duration: 100 / game.speed
-      //     });
-      //   });
-
-        // // Get the enemy at the tile if there is one.
-        // let enemy = this.getActorAt(x, y);
-
-        // // If there is an enemy at the tile and not the player.
-        // if (enemy && enemy !== this.player) {
-          
-        //   // If the enemy is not visible in result of an earlier hide animation that reduced his alpha to 0.
-        //   if (enemy.alpha === 0) {
-
-        //     // Add the enemy to the list of objects to show.
-        //     this.objectsToShow.push(enemy);
-        //   }
-
-        //   // Make the enemy target the player.
-        //   enemy.target = {
-        //     x: this.player.tileX,
-        //     y: this.player.tileY
-        //   };
-        // }
-      //}
     }.bind(this));
   }
 
