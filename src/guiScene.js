@@ -16,9 +16,7 @@ class GUIScene extends Phaser.Scene {
     /**
      * Grab a reference to the Game Scene
      */
-    var game = this.scene.get('GameScene');
-    this.groundLayer = game.groundLayer;
-    this.itemLayer = game.itemLayer;
+    this.gameScene = this.scene.get('GameScene');
     
     /**
      * Listen for events from it
@@ -58,8 +56,8 @@ class GUIScene extends Phaser.Scene {
 
     this.ground = createGround(this);
     this.grounds = {};
-    this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, player.tileX, player.tileY);
-    this.currentGround = this.grounds[player.tileX + ',' + player.tileY];
+    this.grounds[this.gameScene.player.tileX + ',' + this.gameScene.player.tileY] = addGround(this.ground, this.gameScene.player.tileX, this.gameScene.player.tileY);
+    this.currentGround = this.grounds[this.gameScene.player.tileX + ',' + this.gameScene.player.tileY];
 
     // for (let i = 0; i < 50; i += 1) {
     //   let tile = ROT.RNG.getItem(game.grassTiles);

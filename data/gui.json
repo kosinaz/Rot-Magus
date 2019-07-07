@@ -1,8 +1,8 @@
 {
   "default": {
     "event": "updateAttribute",
-    "sceneGame": "GameScene",
-    "sceneGUI": "GUIScene"
+    "gameScene": "GameScene",
+    "guiScene": "GUIScene"
   },
   "background": {
     "texture": "ingame",
@@ -11,7 +11,7 @@
     "y": 288
   },
   "image": {
-    "frame": "tileIndex",
+    "frame": "tileName",
     "texture": "tiles",
     "type": "Image",
     "x": 16,

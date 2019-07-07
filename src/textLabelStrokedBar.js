@@ -26,7 +26,7 @@ class TextLabelStrokedBar extends TextLabelStroked {
     this.bar.fillRect(
       this.rectX,
       this.rectY,
-      Math.max(1, this.rectWidth * player[this.value] / player[this.valueMax]),
+      Math.max(1, this.rectWidth * this.gameScene.player[this.value] / this.gameScene.player[this.valueMax]),
       this.rectHeight
     );
   }

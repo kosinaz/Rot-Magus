@@ -78,8 +78,6 @@ class SimplexMap {
 
           // Move the player towards the new target.
           this.scene.player.move();
-
-          console.log(x, y);
         });
 
         // Set the tile to react to mouse over events.

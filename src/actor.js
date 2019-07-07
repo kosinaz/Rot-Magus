@@ -8,7 +8,6 @@ class Actor extends Phaser.GameObjects.Image {
       config.tileName
     );
     this.name = config.name;
-    this.isPlayer = config.player;
     this.tileX = x;
     this.tileY = y;
     this.tileName = config.tileName;
@@ -30,293 +29,149 @@ class Actor extends Phaser.GameObjects.Image {
     this.agility = config.agility;
     this.wisdom = config.wisdom;
     this.walksOn = config.walksOn || [];
-    this.fov = scene.fov;
-    this.noise = scene.noise;
     this.scene = scene;
-    this.gui = this.scene.scene.get('GUIScene');
     this.scene.add.existing(this);
     this.scene.scheduler.add(this, true);
   }
 
-  // the act is getting called by the scheduler every time when this actor is 
-  // the next to act
+  // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
 
-    // if the actor is controlled by the player
-    if (this.isPlayer) {
+    // If the actor hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
+    if (!this.isAtXY(this.target.x, this.target.y)) {
 
-      // the engine needs to be locked, even if the player has a target and does
-      // not need additional orders, because every action takes time, and no one
-      // should move in the meantime
-      engine.lock();
-
-      // the player should not accept orders while the actors are in motion
-      isAcceptingOrders = false;
-
-      // as the result of his last action the player's position is already 
-      // updated, but the image of the player will be moved to its new position
-      // paralelly with all the other actors
-      // the time delay - calculated from the game speed - is there to let all
-      // the animation finish before the next move
-      this.scene.time.delayedCall(1000 / game.speed, function () {
-
-        // when every actor has arrived the field of view of the player will be
-        // calculated and then displayed
-        this.showFOV();
-
-        // if the actor has reached his target
-        if (this.isAtXY(this.target.x, this.target.y)) {
-          
-          // reset his path of movement
-          this.path = null;
-
-          // start accepting orders
-          isAcceptingOrders = true;
-
-        // if the actor hasn't reached his target yet
-        } else {
-
-          // make him move towards his target
-          this.move();
-        }
-      }, undefined, this);
-
-    // if the actor isn't controlled by the player
-    } else {
-
-      // the engine needs to be locked the same way as it would in case of an
-      // actor controlled by the player because the move function ends with an
-      // engine unlock
-      engine.lock();
-
-      // if the actor has reached his target
-      if (this.isAtXY(this.target.x, this.target.y)) {
-
-        // reset his path of movement
-        this.path = null;
-
-        // unlock the engine and continue without finding a new target
-        engine.unlock();
-
-      // if the actor hasn't reached his target yet
-      } else {
-
-        // make him move towards his target
-        this.move();
-      }
+      // Make him move towards his target.
+      this.move();
     }
   }
 
-  // this function is required for the Speed scheduler to determine the sequence
-  // of actor actions
+  // This function is required for the Speed scheduler to determine the sequence of actor actions.
   getSpeed() {
 
-    // return the speed of the actor
+    // Return the speed of the actor.
     return this.speed;
   }
 
-  // orderTo: function (x, y) {
-  //   if (!isAcceptingOrders) {
-  //     return;
-  //   }
-  //   if (this.isAtXY(x, y)) {
-  //     this.rest();
-  //     return;
-  //   }
-  //   let targetActor = this.getActorAt(x, y);
-  //   if (targetActor &&
-  //     this.gui.inventory &&
-  //     this.gui.inventory.getTileAt(6, 3) &&
-  //     this.gui.inventory.getTileAt(6, 3).index === 'bow') {
-  //     this.target = {
-  //       x: this.tileX,
-  //       y: this.tileY
-  //     }
-  //     this.damage(targetActor);
-  //   } else {
-  //     let tile = this.map.getTileNameAt(x, y);
-  //     if (tile && (
-  //       this.walksOn.includes(tile) 
-  //       || tile !== 'water' 
-  //       && tile !== 'marsh' 
-  //       && tile !== 'bush' 
-  //       && tile !== 'tree' 
-  //       && tile !== 'mountain'
-  //     )) {
-  //       this.target = {
-  //         x: x,
-  //         y: y
-  //       };
-  //       this.move();
-  //     }
-  //   }
-  // },
-
-  // return if the target tile is walkable by the actor
+  // Return true if the target tile is walkable by the actor. This is called by the calculate shortest path function and by the GUI when determining where the pointer marker can be displayed.
   walksOnXY(x, y) {
 
-    // get the tile at the given position
-    let tile = this.map.getTileNameAt(x, y);
+    // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its walkabilty.
+    let tile = this.scene.map.getTileNameAt(x, y);
 
-    // return true if the actor can walk on it or if it is walkable by default
+    // Return true if the actor is able to walk on that type of tiles or if it is generally walkable by every actor.
     return this.walksOn.includes(tile) || (
-        tile !== 'water' &&
-        tile !== 'marsh' &&
-        tile !== 'bush' &&
-        tile !== 'tree' &&
-        tile !== 'mountain'
-      )
+      tile !== 'water' &&
+      tile !== 'marsh' &&
+      tile !== 'bush' &&
+      tile !== 'tree' &&
+      tile !== 'mountain'
+    );
   }
 
-  // show the current field of view of the player
-  showFOV() {
-    
-    // hide all items
-    //this.scene.itemLayer.forEachTile(tile => tile.visible = false);
+  // Calculate the shortest path between the actor's current position and the given target position.
+  addPath(x, y) {
 
-    // hide all enemies
-    enemies.forEach(enemy => enemy.visible = false);
+    // Initialize a new astar pathmap based on the given target.
+    let a = new ROT.Path.AStar(x, y, this.walksOnXY.bind(this));
 
-    // set all tiles to be hidden by default
-    this.map.tiles.setAll('toHide', true);
+    // After generated the pathmap create a new path for the actor.
+    this.path = [];
 
-    // find the currently visible tiles
-    this.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
-      
-      // show the visible tiles
-      let tile = this.map.addTile(x, y);
+    // Compute the shortest path between the actor's current position and the given target position based on the astar map.
+    a.compute(this.tileX, this.tileY, function (x, y) {
 
-      // make sure that the tile won't be hidden after the FOV calculations
-      tile.toHide = false;
-
-      // if the actor can walk on the tile
-      if (this.walksOnXY(x, y)) {
-
-        // set tile as a possible target of the player's next action
-        tile.setInteractive();
-
-        // if the player clicks on the tile
-        tile.on('pointerup', function (a, b, c) {
-
-          // set that tile as the new target of the player
-          this.target.x = x;
-          this.target.y = y;
-          this.move();
-        }, this);
-
-        // if the player's pointer is over the tile
-        tile.on('pointerover', function () {
-
-          // move the marker over the tile
-          marker.x = this.x - 12;
-          marker.y = this.y - 11;
-        });
-
-        // get the enemy at the tile
-        let enemy = this.getActorAt(x, y);
-
-        // if there is an enemy at the tile
-        if (enemy) {
-
-          // show the enemy
-          enemy.visible = true;
-
-          // make the enemy target the player
-          enemy.target = {
-            x: this.tileX,
-            y: this.tileY
-          };
-          console.log(enemy.name + ' target: ' + enemy.target.x + ', ' + enemy.target.y)
-        }
-      }
-
+      // Add the next position of the shortest path to the actor's path.
+      this.path.push({
+        x: x,
+        y: y
+      });
     }.bind(this));
-
-    // iterate through all the currently visible tiles of the map
-    this.map.tiles.each(function (tile) {
-
-      // if the tile is not in the current FOV of the player
-      if (tile.toHide) {
-
-        // hide the tile that is not visible anymore
-        this.map.hide(tile);
-      }
-    }, this);
   }
 
+  // Check if the actor is at the given position.
+  isAtXY(x, y) {
+
+    // Return true if the actor's tileX and tileY attributes are matching with the given x and y values.
+    return this.tileX === x && this.tileY === y;
+  }
+
+  // Order the actor to move towards the specified position or make him rest if it is the actor's current position. This action can be called during every action of the actor before he reaches his destination.
   move() {
-    if (!this.path) {
-      this.addPath(this.target.x, this.target.y);
-    }
-    if (this.path.length < 2) {
-      this.path = null;
-      engine.unlock();
+
+    // If the actor has been ordered to move to his current position that means the actor would like to have some rest. This action can't be reached as part of a continues movement towards a target further away, since that option has been already handled as part of the act function, and this function can be reached from there only if the actor is not standing at the target position.
+    if (this.isAtXY(this.target.x, this.target.y)) {
+
+      // Make the actor rest until his next action and get back a health point.
+      this.rest();
+
+      // Since the actor only wanted to rest there is no need for further actions.
       return;
     }
-    isAcceptingOrders = false;
+
+    // If the actor has been ordered to a different position and just started to move towards that position there can't be an already calculated path for him. Or if the actor just arrived to its destination during his last action, the last step will be still there as the last remaining element of the path, and that will be the actor's current position. That path can be ignored and no further automatic action should be performed. So in both cases this part of the code has been reached because the actor has been given a new order.
+    if (!this.path || this.path.length === 1) {
+
+      // Calculate a new path for the actor towards his new target.
+      this.addPath(this.target.x, this.target.y);
+    }
+
+    // Remove the first element of the path because that's the actor's current position.
     this.path.shift();
-    this.scene.tweens.add({
-      targets: this,
-      scaleX: 1.2,
-      scaleY: 1.2,
-      duration: 450 / game.speed,
-      ease: 'Quad.easeOut',
-      yoyo: true
-    });
-    let actor = this.getActorAt(this.path[0].x, this.path[0].y);
+
+    // Get any actor at the previously second, now first element of the path, that will be the next step of this actor.
+    let actor = this.scene.getActorAt(this.path[0].x, this.path[0].y);
+
+    // If there is an actor at the next step. 
     if (actor) {
-      if (this.isPlayer) {
-        this.scene.tweens.add({
-          targets: this,
-          x: this.tileX * 24 + 12,
-          y: this.tileY * 21 + 11,
-          ease: 'Quad.easeInOut',
-          duration: 450 / game.speed,
-          yoyo: true
-        });
+
+      // If that actor is in the same team, this will be only a friendly bump, that still counts as a valid action so this actor can be skipped, but if they are in different teams, they moving actor will damage his victim.
+      if (
+        this.scene.enemies.includes(this) && 
+        !this.scene.enemies.includes(actor)) {
+
+        // Damage that actor.
         this.damage(actor);
+
+        // Set the current position of the actor as his current target to prevent him attacking the enemy automatically as his next actions.
         this.target = {
           x: this.tileX,
           y: this.tileY
         };
-      } else if (actor.isPlayer) {        
-        this.scene.tweens.add({
-          targets: this,
-          x: this.tileX * 24 + 12,
-          y: this.tileY * 21 + 11,
-          ease: 'Quad.easeInOut',
-          duration: 450 / game.speed,
-          yoyo: true
-        });
-        this.damage(actor);
+
+        // Set the enemy as the current victim of the actor so the attack animation can be targetted correctly.
+        this.victimX = this.path[0].x;
+        this.victimY = this.path[0].y;
+
+        // Add the actor to the list of attacking actors so he can be properly animated as part of the next screen update.
+        this.scene.attackingActors.push(this);
       }
+
+    // If there isn't any actor in the way of the actor.
     } else {
+
+      // Move the actor.
       this.tileX = this.path[0].x;
       this.tileY = this.path[0].y;
-      if (this.isPlayer) {
-        //this.scene.events.emit('playerMoved');
-        console.log(player.name + ' moved to ' + this.tileX + ', ' + this.tileY);
-      }
-      this.scene.tweens.add({
-        targets: this,
-        x: this.tileX * 24 + 12,
-        y: this.tileY * 21 + 11,
-        ease: 'Quad.easeInOut',
-        duration: 900 / game.speed
-      });
-      engine.unlock();
+
+      // Add the actor to the list of moving actors so he can be properly animated as part of the next screen update.
+      this.scene.movingActors.push(this);
     }
   }
+
+  // Make the actor rest until the his next action and get back a health point.
   rest() {
-    this.health = Math.min(this.healthMax, this.health + 1);
-    console.log(this.name, this.health);
-    engine.unlock();
-    this.scene.events.emit('updateAttribute', this);
+
+    // If the actor's health did not reach the maximum yet.
+    if (this.health < this.healthMax) {
+
+      // Make the actor get back one health point. 
+      this.health += 1;
+    }
   }
   damage(actor) {
     let damage = ROT.RNG.getUniformInt(1, 10)
     actor.health -= damage;
-    if (actor === player) {
+    if (actor === this.scene.player) {
       this.scene.events.emit('playerDamaged');
     }
     this.scene.time.delayedCall(450 / game.speed, function () {
@@ -374,30 +229,5 @@ class Actor extends Phaser.GameObjects.Image {
       scheduler.remove(this);
       this.destroy();
     }
-  }
-  addPath(x, y) {
-    let a = new ROT.Path.AStar(x, y, function (x, y) {
-      let tile = this.map.getTileNameAt(x, y);
-      return tile 
-        && (
-          (this.walksOn && this.walksOn.includes(tile)) ||
-          tile !== 'water' &&
-          tile !== 'marsh' &&
-          tile !== 'bush' &&
-          tile !== 'tree' &&
-          tile !== 'mountain'
-        )
-    }.bind(this));
-    this.path = [];
-    a.compute(this.tileX, this.tileY, function (x, y) {
-      this.path.push({
-        x: x,
-        y: y
-      });
-    }.bind(this));
-    console.log(this.name + ' first step: ' + this.path[1].x + ', ' + this.path[1].y);
-  }
-  isAtXY(x, y) {
-    return this.tileX === x && this.tileY === y;
   }
 }

@@ -315,6 +315,12 @@ class GameScene extends Phaser.Scene {
         }
       }
 
+      // Reset the list of moving actors so the actors that were moving only in the last update won't be animated in the next update.
+      this.movingActors = [];
+
+      // Reset the list of attacking actors so the actors that were attacking only in the last update won't be animated in the next update.
+      this.attackingActors = [];
+
       // If the player hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
       if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {
 
