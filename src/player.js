@@ -47,66 +47,34 @@ class Player extends Actor {
     // The scene should also emit an event that one of the player's attributes has been updated, and the GUI should react to that.
     this.scene.events.emit('updateAttribute', this);
   }
-  damage(actor) {
-    let damage = ROT.RNG.getUniformInt(1, 10)
-    actor.health -= damage;
-    if (actor === player) {
-      this.scene.events.emit('playerDamaged');
-    }
-    this.scene.time.delayedCall(450 / game.speed, function () {
-      let effect = this.scene.add.sprite(
-        this.map.tileToWorldX(actor.tileX) + 12, 
-        this.map.tileToWorldY(actor.tileY) + 11, 
-        'tilesetImage', 
-        damage === 10 ? 201 : 200
-      );
-      this.scene.tweens.add({
-        targets: effect,
-        alpha: 0,
-        scaleX: 1.5,
-        scaleY: 1.5,
-        duration: 900 / game.speed,
-        delay: 450 / game.speed,
-        onComplete: function () {
-          effect.destroy();
-        }
-      });
-    }.bind(this));
-    console.log(actor.name, actor.health);
-    if (actor.health < 1) {
-      actor.die();
-    }
-    engine.unlock();
-    this.scene.events.emit('updateAttribute', this);
-  }
+
+  // Give some XP to the player for killing an enemy.
   earnXP(amount) {
+
+    // Increase the XP of the player with the given amount.
     this.xp += amount;
+
+    // If the player collected enough XP to level up.
     if (this.xp >= this.xpMax) {
+
+      // Decrease his XP with the target amount.
       this.xp -= this.xpMax;
+
+      // Increase to target XP.
       this.xpMax *= 2;
+
+      // Increase the level of the player.
       this.level += 1;
     }
+
+    // Emit an GUI update event.
     this.scene.events.emit('updateAttribute', this);
   }
+
+  // Kill the player.
   die() {
-    if (this === player) {
-      scheduler.clear();
-      this.scene.events.emit('playerDied');
-    } else {
-      player.earnXP(10);
-      let effect = this.scene.add.sprite(
-        this.x + 12,
-        this.y + 11,
-        'tilesetImage',
-        this.frame.name
-      );
-      this.scene.time.delayedCall(450 / game.speed, function () {
-        effect.destroy();
-      });
-      console.log(this.name, 'died');
-      enemies.splice(enemies.indexOf(this), 1);
-      scheduler.remove(this);
-      this.destroy();
-    }
+
+    // Emit the player died event.
+    this.scene.events.emit('playerDied');
   }
 }

@@ -126,8 +126,9 @@ class Actor extends Phaser.GameObjects.Image {
 
       // If that actor is in a different team, the moving actor will damage his victim.
       if (
-        this.scene.enemies.includes(this) && 
-        !this.scene.enemies.includes(actor)) {
+        this.scene.enemies.includes(this) === 
+        !this.scene.enemies.includes(actor)
+      ) {
 
         // Damage that actor.
         this.damage(actor);
@@ -141,6 +142,9 @@ class Actor extends Phaser.GameObjects.Image {
         // Set the enemy as the current victim of the actor so the attack animation can be targetted correctly.
         this.victimX = this.path[0].x;
         this.victimY = this.path[0].y;
+
+        // Reset his path and let him decide about his next action.
+        this.path = [];
 
         // Add the actor to the list of attacking actors so he can be properly animated as part of the next screen update.
         this.scene.attackingActors.push(this);
@@ -180,66 +184,60 @@ class Actor extends Phaser.GameObjects.Image {
       this.health += 1;
     }
   }
+
+  // Decrease the current health of the target actor.
   damage(actor) {
+
+    // Generate a random damage.
     let damage = ROT.RNG.getUniformInt(1, 10)
+
+    // Decrease the health of the target actor with that random damage.
     actor.health -= damage;
-    if (actor === this.scene.player) {
-      this.scene.events.emit('playerDamaged');
-    }
-    this.scene.time.delayedCall(450 / game.speed, function () {
-      let effect = this.scene.add.sprite(
-        this.map.tileToWorldX(actor.tileX) + 12, 
-        this.map.tileToWorldY(actor.tileY) + 11, 
-        'tilesetImage', 
-        damage === 10 ? 201 : 200
-      );
-      this.scene.tweens.add({
-        targets: effect,
-        alpha: 0,
-        scaleX: 1.5,
-        scaleY: 1.5,
-        duration: 900 / game.speed,
-        delay: 450 / game.speed,
-        onComplete: function () {
-          effect.destroy();
-        }
-      });
-    }.bind(this));
+
+    // Add a new effect to the list of effects to be displayed during this update based on the amount of damage.
+    this.scene.effects.push(this.scene.add.sprite(
+      actor.x, actor.y, 'tiles', damage === 10 ? 'zok' : 'bif'
+    ));
+    
     console.log(actor.name, actor.health);
+
+    // If the target actor's health reached zero.
     if (actor.health < 1) {
+
+      // Kill the actor.
       actor.die();
     }
-    engine.unlock();
+
+    // Emit the GUI update just in case the target is the player.
     this.scene.events.emit('updateAttribute', this);
   }
-  earnXP(amount) {
-    this.xp += amount;
-    if (this.xp >= this.xpMax) {
-      this.xp -= this.xpMax;
-      this.xpMax *= 2;
-      this.level += 1;
-    }
-    this.scene.events.emit('updateAttribute', this);
-  }
+
+  // Kill this actor.
   die() {
-    if (this === player) {
-      scheduler.clear();
-      this.scene.events.emit('playerDied');
-    } else {
-      player.earnXP(10);
-      let effect = this.scene.add.sprite(
-        this.x + 12,
-        this.y + 11,
-        'tilesetImage',
-        this.frame.name
-      );
-      this.scene.time.delayedCall(450 / game.speed, function () {
-        effect.destroy();
-      });
-      console.log(this.name, 'died');
-      enemies.splice(enemies.indexOf(this), 1);
-      scheduler.remove(this);
-      this.destroy();
-    }
+
+    // Give some XP to the player.
+    this.scene.player.earnXP(10);
+
+    // Show the remains of the enemy.
+    let remains = 
+      this.scene.add.sprite(this.x, this.y, 'tiles', this.tileName);
+
+    // Wait until the damage effect is emitted
+    this.scene.time.delayedCall(500 / game.speed, function () {
+
+      // Destroy the remains.
+      remains.destroy();
+    });
+
+    console.log(this.name, 'died');
+
+    // Remove the enemy from the list of enemies.
+    this.scene.enemies.splice(this.scene.enemies.indexOf(this), 1);
+
+    // Remove the enemy from the sceduler.
+    this.scene.scheduler.remove(this);
+
+    // Destroy the enemy.
+    this.destroy();
   }
 }

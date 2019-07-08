@@ -52,7 +52,7 @@ class GameScene extends Phaser.Scene {
     // Create pointer marker that will show where the player can go.
     this.marker = this.add.graphics();
     this.marker.lineStyle(1, 0xffff00, 1);
-    this.marker.strokeRect(0, 0, 24, 21);
+    this.marker.strokeRect(0, 0, 23, 20);
 
     // Set the main camera viewport to the left side of the screen with the size of the player's maximum field of view.
     this.cameras.main.setViewport(372, 5, 27 * 24, 27 * 21);
@@ -193,39 +193,65 @@ class GameScene extends Phaser.Scene {
               return value;
             }
           }
-        }
-      },
-      
-    });
-
-    // To add some depth to the animation, the actors who moved will be scaled a little bit up and then back to normal like a yoyo.
-    this.tweens.add({
-      targets: this.movingActors,
-      scaleX: 1.2,
-      scaleY: 1.2,
-      duration: 500 / game.speed,
-      ease: 'Quad.easeOut',
-      yoyo: true
+        },
+        scaleX: {
+          ease: 'Quad.easeOut',
+          duration: 500 / game.speed,
+          yoyo: true,
+          value: 1.2
+        },
+        scaleY: {
+          ease: 'Quad.easeOut',
+          duration: 500 / game.speed,
+          yoyo: true,
+          value: 1.2
+        },
+      },      
     });
 
     // Those actors who attacked someone in close combat since the last move of the player will jump towards their victim and then they go back to their original position like a yoyo. These actors have been collected during the actions of the attacking actors.
     this.tweens.add({
       targets: this.attackingActors,
-      x: this.victimX * 24 + 12,
-      y: this.victimY * 21 + 11,
-      ease: 'Quad.easeInOut',
-      duration: 500 / game.speed,
-      yoyo: true
-    });
-
-    // To add some depth to the animation, the actors who attacked someone will be scaled a little bit up and then back to normal like a yoyo.
-    this.tweens.add({
-      targets: this.attackingActors,
-      scaleX: 1.2,
-      scaleY: 1.2,
-      duration: 500 / game.speed,
-      ease: 'Quad.easeOut',
-      yoyo: true
+      props: {
+        x: {
+          ease: 'Quad.easeInOut',
+          duration: 500 / game.speed,
+          yoyo: true,
+          value: {
+            getEnd: function (target, key, value) {
+              return target.victimX * 24 + 12;
+            },
+            getStart: function (target, key, value) {
+              return value;
+            }
+          }
+        },
+        y: {
+          ease: 'Quad.easeInOut',
+          duration: 500 / game.speed,
+          yoyo: true,
+          value: {
+            getEnd: function (target, key, value) {
+              return target.victimY * 21 + 11;
+            },
+            getStart: function (target, key, value) {
+              return value;
+            }
+          }
+        },
+        scaleX: {
+          ease: 'Quad.easeOut',
+          duration: 500 / game.speed,
+          yoyo: true,
+          value: 1.2
+        },
+        scaleY: {
+          ease: 'Quad.easeOut',
+          duration: 500 / game.speed,
+          yoyo: true,
+          value: 1.2
+        },
+      }
     });
 
     // All the inner state changes have their own special effect, that will be added to the actor and will be played from the second half of the screen update and will be removed long after all the other animations have ended to help the player follow the events. These effects have been collected during the actions of the triggering actors.
