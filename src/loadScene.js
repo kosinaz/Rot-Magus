@@ -27,10 +27,9 @@ class LoadScene extends Phaser.Scene {
     this.load.json('actorTypes', 'data/actorTypes.json');
     this.load.json('itemTypes', 'data/itemTypes.json');
     this.load.json('gui', 'data/gui.json');
-  };
+  }
 
-  create() {    
-    //this.scene.start('InfiniteScene');
+  create() {
     this.scene.start('MenuScene');
   }
 }

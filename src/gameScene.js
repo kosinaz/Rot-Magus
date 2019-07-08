@@ -67,7 +67,7 @@ class GameScene extends Phaser.Scene {
     this.events.on('playerDied', function () {
 
       // Load the death scene.
-      this.start('DeathScene');
+      this.scene.start('DeathScene');
     }.bind(this));
   }
 
