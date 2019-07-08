@@ -116,6 +116,9 @@ class SimplexMap {
 
       // Reset the path of the enemy to let him start moving towards the player's new position.
       actor.path = [];
+
+      // Make the enemy not to hide in the next update as it was already set to hide in the beginning of the compute FOV.
+      actor.toHide = false;
     }
     
     // Return the just created or already displayed tile. 

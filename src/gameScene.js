@@ -113,6 +113,9 @@ class GameScene extends Phaser.Scene {
       }
     }
 
+    // Iterate through all the visible enemies and set them to hide.
+    this.enemies.forEach(enemy => enemy.toHide = true);
+
     // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
     this.fov.compute(this.player.tileX, this.player.tileY, 13, function (x, y) {
 
@@ -151,6 +154,17 @@ class GameScene extends Phaser.Scene {
         }
       }
     }
+
+    // Iterate through all the enemies.
+    this.enemies.forEach(function (enemy) {
+
+      // If the actor is set to hide.
+      if (enemy.toHide) {
+
+        // Add the enemy to the list of objects to hide, and also set the enemy as not to hide anymore right know because enemies won't be destroyed until they are killed, so we don't need the list of them after the update to automatically destroy all of them.
+        this.objectsToHide.push(enemy);
+      }
+    }.bind(this));
 
     // The position of all the actors that moved since the player did something has been already updated, but their image still needs to be moved to its new position. These actors have been collected during the actions of the moving actors.
     this.tweens.add({
