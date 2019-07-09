@@ -31,3 +31,3127 @@
     "category": "cloak"
   }
 }
+{
+  "2HSword": {
+    "damage": 15,
+    "equips": "hands",
+    "price": 75,
+    "weight": 8
+  },
+  "air": {
+    "equips": "hand",
+    "mana": 7
+  },
+  "armour": {
+    "defense": 6,
+    "equips": "body",
+    "price": 75,
+    "weight": 7
+  },
+  "arrows": {
+    "amount": 50,
+    "arrow": true,
+    "price": 10
+  },
+  "axe": {
+    "damage": 10,
+    "equips": "hand",
+    "price": 20,
+    "weight": 5
+  },
+  "berzerk": {
+    "equips": "hand",
+    "mana": 3
+  },
+  "bigHelmet": {
+    "defense": 2,
+    "equips": "head",
+    "price": 20,
+    "weight": 3
+  },
+  "bigShield": {
+    "defense": 6,
+    "equips": "hand",
+    "price": 20,
+    "weight": 6
+  },
+  "bloodTaste": {
+    "damage": 19,
+    "equips": "hands",
+    "price": 200,
+    "weight": 9
+  },
+  "bow": {
+    "damage": 9,
+    "equips": "hands",
+    "price": 20,
+    "ranged": true,
+    "usesArrow": true,
+    "weight": 3
+  },
+  "bubble": {
+    "price": 150,
+    "weight": -3
+  },
+  "chainmail": {
+    "defense": 65,
+    "equips": "body",
+    "price": 60,
+    "weight": 6
+  },
+  "chainNBall": {
+    "damage": 10,
+    "equips": "hands",
+    "weight": 5
+  },
+  "chaos": {
+    "equips": "hand",
+    "mana": 20
+  },
+  "chock": {
+    "damage": 24,
+    "damageRanged": 2,
+    "equips": "hand",
+    "price": 150,
+    "ranged": true,
+    "weight": 4
+  },
+
+  {
+    "filename": "chock",
+    "frame": {
+      "x": 48,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "cloak",
+    "frame": {
+      "x": 72,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "club",
+    "frame": {
+      "x": 96,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "cobblestone",
+    "frame": {
+      "x": 120,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "confusion",
+    "frame": {
+      "x": 144,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "crossbow",
+    "frame": {
+      "x": 168,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "dagger",
+    "frame": {
+      "x": 192,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "darkness",
+    "frame": {
+      "x": 216,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "deathKnight",
+    "frame": {
+      "x": 240,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "deathLord",
+    "frame": {
+      "x": 264,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "delay",
+    "frame": {
+      "x": 288,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "demon",
+    "frame": {
+      "x": 312,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "demonPrince",
+    "frame": {
+      "x": 336,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "demonSpell",
+    "frame": {
+      "x": 360,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "dirt",
+    "frame": {
+      "x": 384,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "djinn",
+    "frame": {
+      "x": 408,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "door",
+    "frame": {
+      "x": 432,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "dragon",
+    "frame": {
+      "x": 456,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "dragonTooth",
+    "frame": {
+      "x": 480,
+      "y": 21,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "druidFemale",
+    "frame": {
+      "x": 0,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "druidMale",
+    "frame": {
+      "x": 24,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "duckMageMale",
+    "frame": {
+      "x": 48,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "duckMale",
+    "frame": {
+      "x": 72,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "duckMonkMale",
+    "frame": {
+      "x": 96,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "dwarfFemale",
+    "frame": {
+      "x": 120,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "dwarfMale",
+    "frame": {
+      "x": 144,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "earth",
+    "frame": {
+      "x": 168,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "eh",
+    "frame": {
+      "x": 192,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "elfFemale",
+    "frame": {
+      "x": 216,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "elfMale",
+    "frame": {
+      "x": 240,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "elvenCloak",
+    "frame": {
+      "x": 264,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "emerald",
+    "frame": {
+      "x": 288,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "emeraldRing",
+    "frame": {
+      "x": 312,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "enchant",
+    "frame": {
+      "x": 336,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "faithful",
+    "frame": {
+      "x": 360,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "fastFeet",
+    "frame": {
+      "x": 384,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "fenix",
+    "frame": {
+      "x": 408,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "fire",
+    "frame": {
+      "x": 432,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "fireBall",
+    "frame": {
+      "x": 456,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "fireblade",
+    "frame": {
+      "x": 480,
+      "y": 42,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "focus",
+    "frame": {
+      "x": 0,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "ford",
+    "frame": {
+      "x": 24,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "gate",
+    "frame": {
+      "x": 48,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "ghost",
+    "frame": {
+      "x": 72,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "ghostblade",
+    "frame": {
+      "x": 96,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "gloves",
+    "frame": {
+      "x": 120,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "goblin",
+    "frame": {
+      "x": 144,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "golem",
+    "frame": {
+      "x": 168,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "grass",
+    "frame": {
+      "x": 192,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "gravel",
+    "frame": {
+      "x": 216,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "guardian",
+    "frame": {
+      "x": 240,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "heal",
+    "frame": {
+      "x": 264,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "helmet",
+    "frame": {
+      "x": 288,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "hobgoblin",
+    "frame": {
+      "x": 312,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "hyperSpace",
+    "frame": {
+      "x": 336,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "inferno",
+    "frame": {
+      "x": 360,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "knightFemale",
+    "frame": {
+      "x": 384,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "knightMale",
+    "frame": {
+      "x": 408,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "leadball",
+    "frame": {
+      "x": 432,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "leather",
+    "frame": {
+      "x": 456,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "lightning",
+    "frame": {
+      "x": 480,
+      "y": 63,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "lightningBolt",
+    "frame": {
+      "x": 0,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "lightningSpell",
+    "frame": {
+      "x": 24,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "magician",
+    "frame": {
+      "x": 48,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "marsh",
+    "frame": {
+      "x": 72,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "minotaur",
+    "frame": {
+      "x": 96,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "monk",
+    "frame": {
+      "x": 120,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "mountain",
+    "frame": {
+      "x": 144,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "negate",
+    "frame": {
+      "x": 168,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "negator",
+    "frame": {
+      "x": 192,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "nhg",
+    "frame": {
+      "x": 216,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "opal",
+    "frame": {
+      "x": 240,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "opalRing",
+    "frame": {
+      "x": 264,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "orch",
+    "frame": {
+      "x": 288,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "orchArcher",
+    "frame": {
+      "x": 312,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "orchMagician",
+    "frame": {
+      "x": 336,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "orchWarrior",
+    "frame": {
+      "x": 360,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "paf",
+    "frame": {
+      "x": 384,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "palm",
+    "frame": {
+      "x": 408,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "panic",
+    "frame": {
+      "x": 432,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "phantom",
+    "frame": {
+      "x": 456,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "planks",
+    "frame": {
+      "x": 480,
+      "y": 84,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "portal",
+    "frame": {
+      "x": 0,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "portalTile",
+    "frame": {
+      "x": 24,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "potion",
+    "frame": {
+      "x": 48,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "protection",
+    "frame": {
+      "x": 72,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "purify",
+    "frame": {
+      "x": 96,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "redFlower",
+    "frame": {
+      "x": 120,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sabre",
+    "frame": {
+      "x": 144,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sand",
+    "frame": {
+      "x": 168,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "shadowbeast",
+    "frame": {
+      "x": 192,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "shadowCloak",
+    "frame": {
+      "x": 216,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "shamanFemale",
+    "frame": {
+      "x": 240,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "shamanMale",
+    "frame": {
+      "x": 264,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "shield",
+    "frame": {
+      "x": 288,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "shootingStar",
+    "frame": {
+      "x": 312,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "silverBow",
+    "frame": {
+      "x": 336,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "skeleton",
+    "frame": {
+      "x": 360,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "skeletonSpell",
+    "frame": {
+      "x": 384,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "slayer",
+    "frame": {
+      "x": 408,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sleep",
+    "frame": {
+      "x": 432,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "smallOneFemale",
+    "frame": {
+      "x": 456,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "smallOneMale",
+    "frame": {
+      "x": 480,
+      "y": 105,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sorcerer",
+    "frame": {
+      "x": 0,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "spirit",
+    "frame": {
+      "x": 24,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "staff",
+    "frame": {
+      "x": 48,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "stoneAxe",
+    "frame": {
+      "x": 72,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "stoneFloor",
+    "frame": {
+      "x": 96,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "stonefoot",
+    "frame": {
+      "x": 120,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "stoneWall",
+    "frame": {
+      "x": 144,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "studdedLeather",
+    "frame": {
+      "x": 168,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sunArmour",
+    "frame": {
+      "x": 192,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sunBow",
+    "frame": {
+      "x": 216,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sunGloves",
+    "frame": {
+      "x": 240,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sunHelmet",
+    "frame": {
+      "x": 264,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sunsEdge",
+    "frame": {
+      "x": 288,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sunShield",
+    "frame": {
+      "x": 312,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "sword",
+    "frame": {
+      "x": 336,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "terror",
+    "frame": {
+      "x": 360,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "theDarkOne",
+    "frame": {
+      "x": 384,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "throwingStar",
+    "frame": {
+      "x": 408,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "thunderStorm",
+    "frame": {
+      "x": 432,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "topaz",
+    "frame": {
+      "x": 456,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "tree",
+    "frame": {
+      "x": 480,
+      "y": 126,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "troll",
+    "frame": {
+      "x": 0,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "uh",
+    "frame": {
+      "x": 24,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "undead",
+    "frame": {
+      "x": 48,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "undine",
+    "frame": {
+      "x": 72,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "vision",
+    "frame": {
+      "x": 96,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "wakizashi",
+    "frame": {
+      "x": 120,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "warrior",
+    "frame": {
+      "x": 144,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "water",
+    "frame": {
+      "x": 168,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "waterTile",
+    "frame": {
+      "x": 192,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "witchlord",
+    "frame": {
+      "x": 216,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "wizardFemale",
+    "frame": {
+      "x": 240,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "wizardMale",
+    "frame": {
+      "x": 264,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "woodenFloor",
+    "frame": {
+      "x": 288,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "woodenShield",
+    "frame": {
+      "x": 312,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "woodenWall",
+    "frame": {
+      "x": 336,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "yellowFlower",
+    "frame": {
+      "x": 360,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "zap",
+    "frame": {
+      "x": 384,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "zok",
+    "frame": {
+      "x": 408,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "zombie",
+    "frame": {
+      "x": 432,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  },
+  {
+    "filename": "zombieSpell",
+    "frame": {
+      "x": 456,
+      "y": 147,
+      "w": 24,
+      "h": 21
+    },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 21
+    },
+    "sourceSize": {
+      "w": 24,
+      "h": 21
+    }
+  }
+],
+"meta": {
+  "app": "https://www.codeandweb.com/texturepacker",
+  "version": "1.0",
+  "image": "tiles.png",
+  "format": "RGBA8888",
+  "size": {
+    "w": 504,
+    "h": 168
+  },
+  "scale": "1",
+  "smartupdate": "$TexturePacker:SmartUpdate:6486bc66e44aa5a3a184867585d5c599:f88cbe29724b0bb25b915df74d1dd9a5:accbe1e7e294ded8391337fc1c446319$"
+}
+}
