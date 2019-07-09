@@ -32,7 +32,7 @@ class GameScene extends Phaser.Scene {
     this.engine = new ROT.Engine(this.scheduler);
 
     // Create the special actor that will be controlled by the player. Unique to the game scene and referred to by several functions of the scene and the enemies.
-    this.player = new Player(this, 0, 0, 'tiles', this.actorTypes.elfMale);
+    this.player = new Player(this, 0, 0, 'tiles', 'elfMale');
 
     // Create a list for the enemies to track their activity.
     this.enemies = [];

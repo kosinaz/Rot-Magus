@@ -1,16 +1,12 @@
 class Actor extends Phaser.GameObjects.Image {
-  constructor(scene, x, y, texture, config) {
-    super(
-      scene, 
-      x * 24 + 12, 
-      y * 21 + 11, 
-      texture, 
-      config.tileName
-    );
+  constructor(scene, x, y, texture, frame) {
+    super(scene, x * 24 + 12, y * 21 + 11, texture, frame);
+    let config = this.scene.actorTypes[frame];
+    console.log(this.scene.actorTypes, frame);
     this.name = config.name;
     this.tileX = x;
     this.tileY = y;
-    this.tileName = config.tileName;
+    this.tileName = frame;
     this.target = {
       x: this.tileX,
       y: this.tileY
@@ -25,11 +21,10 @@ class Actor extends Phaser.GameObjects.Image {
     this.mana = config.mana;
     this.manaMax = this.mana;
     this.strength = config.strength;
-    this.load = 14;
+    this.load = 0;
     this.agility = config.agility;
     this.wisdom = config.wisdom;
     this.walksOn = config.walksOn || [];
-    this.scene = scene;
     this.scene.add.existing(this);
     this.scene.scheduler.add(this, true);
   }

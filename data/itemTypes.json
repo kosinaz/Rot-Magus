@@ -1,12 +1,12 @@
 {
   "arrows": {
-    "tile": 102,
+    "tileName": "arrows",
     "weight": 0,
-    "count": 50,
+    "amount": 50,
     "category": "ammunition"
   },
   "bow": {
-    "tile": 108,
+    "tileName": "bow",
     "damage": 3,
     "weight": 3,
     "twoHanded": true,
@@ -15,7 +15,7 @@
     "category": "weapon"
   },
   "dagger": {
-    "tile": 116,
+    "tileName": "dagger",
     "damage": 3,
     "weight": 1,
     "oneHanded": true,
@@ -25,7 +25,7 @@
     "category": "weapon"
   },
   "elvenCloak": {
-    "tile": 118,
+    "tileName": "elvenCloak",
     "weight": 1,
     "armour": 1,
     "category": "cloak"

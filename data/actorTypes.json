@@ -1,7 +1,6 @@
 {
   "elfMale": {
     "name": "Atlian",
-    "tileName": "elfMale",
     "chance": 0,
     "health": 90,
     "mana": 100,
@@ -23,7 +22,6 @@
   },
   "zombie": {
     "name": "Zombie",
-    "tileName": "zombie",
     "health": 10,
     "mana": 0,
     "strength": 12,
@@ -33,7 +31,6 @@
   },
   "skeleton": {
     "name": "Skeleton",
-    "tileName": "skeleton",
     "health": 30,
     "mana": 0,
     "strength": 7,
@@ -43,7 +40,6 @@
   },
   "goblin": {
     "name": "Goblin",
-    "tileName": "goblin",
     "health": 30,
     "mana": 0,
     "strength": 15,
@@ -53,7 +49,6 @@
   },
   "hobgoblin": {
     "name": "Hobgoblin",
-    "tileName": "hobgoblin",
     "health": 10,
     "mana": 0,
     "strength": 10,
@@ -66,7 +61,6 @@
   },
   "troll": {
     "name": "Troll",
-    "tileName": "troll",
     "health": 100,
     "mana": 0,
     "strength": 20,
@@ -76,7 +70,6 @@
   },
   "orch": {
     "name": "Orch",
-    "tileName": "orch",
     "health": 50,
     "mana": 0,
     "strength": 14,
@@ -86,7 +79,6 @@
   },
   "orchArcher": {
     "name": "Orch Archer",
-    "tileName": "orchArcher",
     "health": 50,
     "mana": 0,
     "strength": 13,

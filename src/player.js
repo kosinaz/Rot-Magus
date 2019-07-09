@@ -1,12 +1,6 @@
 class Player extends Actor {
-  constructor(scene, x, y, texture, config) {
-    super(
-      scene, 
-      x, 
-      y, 
-      texture,
-      config,
-    );
+  constructor(scene, x, y, texture, frame) {
+    super(scene, x, y, texture, frame);
 
     // Make the camera follow the player.
     this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
