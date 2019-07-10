@@ -27,11 +27,11 @@ class LoadScene extends Phaser.Scene {
     }
     addDot(stars[0], 0x808080);
     addSmallCross(stars[1], 0x808080);
-    addDot(stars[1], 0xffffff);
+    addDot(stars[1], 0xe0e0e0);
     addBigCross(stars[2], 0x808080);
-    addSmallCross(stars[2], 0xffffff);
+    addSmallCross(stars[2], 0xe0e0e0);
     addSmallCross(stars[3], 0x808080);
-    addDot(stars[3], 0xffffff);
+    addDot(stars[3], 0xe0e0e0);
     addDot(stars[4], 0x808080);
     this.time.addEvent({
       delay: 150,

@@ -1,8 +1,9 @@
 {
   "default": {
     "event": "updateAttribute",
-    "gameScene": "GameScene",
-    "guiScene": "GUIScene"
+    "scene": "GUIScene",
+    "sourceScene": "GameScene",
+    "target": "player"
   },
   "image": {
     "frame": "tileName",
@@ -27,10 +28,10 @@
   },
   "xp": {
     "color": "0xe30000",
-    "rectHeight": 19,
-    "rectX": 5,
-    "rectY": 27,
-    "rectWidth": 118,
+    "rectHeight": 21,
+    "rectX": 4,
+    "rectY": 26,
+    "rectWidth": 120,
     "type": "TextLabelStrokedBar",
     "value": "xp",
     "valueMax": "xpMax",
@@ -39,10 +40,10 @@
   },
   "health": {
     "color": "0x00e300",
-    "rectHeight": 19,
-    "rectX": 5,
-    "rectY": 48,
-    "rectWidth": 118,
+    "rectHeight": 21,
+    "rectX": 4,
+    "rectY": 47,
+    "rectWidth": 120,
     "type": "TextLabelStrokedBar",
     "value": "health",
     "valueMax": "healthMax",
@@ -51,10 +52,10 @@
   },
   "mana": {
     "color": "0x4261e7",
-    "rectHeight": 19,
-    "rectX": 5,
-    "rectY": 69,
-    "rectWidth": 118,
+    "rectHeight": 21,
+    "rectX": 4,
+    "rectY": 68,
+    "rectWidth": 120,
     "type": "TextLabelStrokedBar",
     "value": "mana",
     "valueMax": "manaMax",

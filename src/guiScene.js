@@ -51,7 +51,6 @@ class GUIScene extends Phaser.Scene {
     /**
      * Create inventory
      */
-    console.log(this.gameScene.player.inventory);
     this.gameScene.player.inventory.forEach(function (tileName, i) {
       let item = this.add.image(16 + i * 24, 121, 'tiles', tileName);
       item.setInteractive();

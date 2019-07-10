@@ -12,7 +12,7 @@ class TextLabelStrokedBar extends TextLabelStroked {
         color: config.color
       }
     });
-    this.depth += 1;
+    this.depth = 1;
     this.drawBar();
   }
   draw() {
@@ -23,11 +23,60 @@ class TextLabelStrokedBar extends TextLabelStroked {
   }
   drawBar() {
     this.bar.clear();
-    this.bar.fillRect(
+    this.bar.lineStyle(1, 0x404040, 1);
+
+    // Top line.
+    this.bar.lineBetween(
       this.rectX,
       this.rectY,
-      Math.max(1, this.rectWidth * this.gameScene.player[this.value] / this.gameScene.player[this.valueMax]),
-      this.rectHeight
+      this.rectX + this.rectWidth - 1,
+      this.rectY
+    );
+
+    // Left line.
+    this.bar.lineBetween(
+      this.rectX + 1,
+      this.rectY + 1,
+      this.rectX + 1,
+      this.rectY + this.rectHeight - 1
+    );
+    this.bar.lineStyle(1, 0x808080, 1);
+
+    // Bottom line.
+    this.bar.lineBetween(
+      this.rectX + 1, 
+      this.rectY + this.rectHeight - 1, 
+      this.rectX + this.rectWidth - 1, 
+      this.rectY + this.rectHeight - 1
+    );
+
+    // Right line.
+    this.bar.lineBetween(
+      this.rectX + this.rectWidth, 
+      this.rectY + 1, 
+      this.rectX + this.rectWidth, 
+      this.rectY + this.rectHeight - 1
+    );
+    this.bar.lineStyle(1, 0xe0e0e0, 1);
+
+    // Bottom-right corner.
+    this.bar.lineBetween(
+      this.rectX + this.rectWidth,
+      this.rectY + this.rectHeight - 1,
+      this.rectX + this.rectWidth,
+      this.rectY + this.rectHeight
+    );
+
+    // Bar.
+    this.bar.fillRect(
+      this.rectX + 1,
+      this.rectY + 1,
+      Math.max(
+        1, 
+        (this.rectWidth - 2) * this.sourceScene[this.target][this.value] / 
+          this.sourceScene[this.target][this.valueMax]
+      ),
+      this.rectHeight - 2
     );
   }
 }

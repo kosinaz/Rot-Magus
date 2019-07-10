@@ -155,7 +155,6 @@ class SimplexMap {
     if (enemy) {
       this.scene.enemies.push(enemy);
       enemy.name += ' ' + this.scene.enemies.filter(e => e.tileName === enemy.tileName).length;
-      console.log(enemy.name);
     }
   }
 

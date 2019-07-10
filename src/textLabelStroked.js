@@ -6,6 +6,6 @@ class TextLabelStroked extends TextLabel {
       config.strokeThickness !== undefined ? config.strokeThickness : 3
     );
     this.setFontSize(config.size || '14px');
-    this.setFill(config.fill !== undefined ? config.fill : '#ffffff');
+    this.setFill(config.fill !== undefined ? config.fill : '#e0e0e0');
   }
 }
