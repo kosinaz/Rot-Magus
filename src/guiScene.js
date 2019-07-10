@@ -48,6 +48,26 @@ class GUIScene extends Phaser.Scene {
     /**
      * Create inventory
      */
+    console.log(this.gameScene.player.inventory);
+    this.gameScene.player.inventory.forEach(function (tileName, i) {
+      let item = this.add.image(16 + i * 24, 121, 'tiles', tileName);
+      item.setInteractive();
+      item.on('pointerup', function () {
+        if (this.scene.hold) {
+          let x = ~~((this.x - 4) / 24);
+          let y = ~~((this.y - 110) / 21);
+          this.scene.hold = null;
+          item.x = 16 + x * 24;
+          item.y = 121 + y * 21;
+          this.scene.gameScene.player.inventory[y * 15 + x] = tileName;
+          console.log(this.scene.gameScene.player.inventory);
+        } else {
+          this.scene.hold = item;
+          this.scene.gameScene.player.inventory[i] = null;
+          console.log(this.scene.gameScene.player.inventory);
+        }
+      });
+    }.bind(this));
     this.inventory = createInventory(this);
     this.inventory.putTileAt('bow', 0, 5);
     this.inventory.putTileAt('arrow', 1, 5);
@@ -74,93 +94,93 @@ class GUIScene extends Phaser.Scene {
 
     var x, y, tileXY;
 
-    /**
-     * Ignore world input
-     */
-    if (this.input.activePointer.x > 370) {
-      return;
-    }
+    // /**
+    //  * Ignore world input
+    //  */
+    // if (this.input.activePointer.x > 370) {
+    //   return;
+    // }
     
     x = this.input.activePointer.x;
     y = this.input.activePointer.y;
 
-    /**
-     * If the player clicked
-     */
-    if (this.input.activePointer.justDown) {
-      tileXY = this.inventory.worldToTileXY(x, y);      
-      if (tileXY.y < 4) {
+    // /**
+    //  * If the player clicked
+    //  */
+    // if (this.input.activePointer.justDown) {
+    //   tileXY = this.inventory.worldToTileXY(x, y);      
+    //   if (tileXY.y < 4) {
         
-        /**
-         * If the player clicked on the equipment
-         */
-        if (tileXY.x === 7 && tileXY.y === 0) {
+    //     /**
+    //      * If the player clicked on the equipment
+    //      */
+    //     if (tileXY.x === 7 && tileXY.y === 0) {
 
-          /**
-           * If the player clicked on the helmet
-           */
-          this.pickUpOrPutDownType('helmet', tileXY, x, y);
-        } else if (tileXY.x === 7 && tileXY.y === 1) {
+    //       /**
+    //        * If the player clicked on the helmet
+    //        */
+    //       this.pickUpOrPutDownType('helmet', tileXY, x, y);
+    //     } else if (tileXY.x === 7 && tileXY.y === 1) {
 
-          /**
-           * If the player clicked on the necklace
-           */
-          this.pickUpOrPutDownType('necklace', tileXY, x, y);
-        } else if (tileXY.x === 6 && tileXY.y === 2) {
+    //       /**
+    //        * If the player clicked on the necklace
+    //        */
+    //       this.pickUpOrPutDownType('necklace', tileXY, x, y);
+    //     } else if (tileXY.x === 6 && tileXY.y === 2) {
 
-          /**
-           * If the player clicked on the ring
-           */
-          this.pickUpOrPutDownType('ring', tileXY, x, y);
-        } else if (tileXY.x === 7 && tileXY.y === 2) {
+    //       /**
+    //        * If the player clicked on the ring
+    //        */
+    //       this.pickUpOrPutDownType('ring', tileXY, x, y);
+    //     } else if (tileXY.x === 7 && tileXY.y === 2) {
 
-          /**
-           * If the player clicked on the cloak
-           */
-          this.pickUpOrPutDownType('cloak', tileXY, x, y);
-        } else if (tileXY.x === 8 && tileXY.y === 2) {
+    //       /**
+    //        * If the player clicked on the cloak
+    //        */
+    //       this.pickUpOrPutDownType('cloak', tileXY, x, y);
+    //     } else if (tileXY.x === 8 && tileXY.y === 2) {
 
-          /**
-           * If the player clicked on the gloves
-           */
-          this.pickUpOrPutDownType('gloves', tileXY, x, y);
-        } else if (tileXY.x === 6 && tileXY.y === 3) {
+    //       /**
+    //        * If the player clicked on the gloves
+    //        */
+    //       this.pickUpOrPutDownType('gloves', tileXY, x, y);
+    //     } else if (tileXY.x === 6 && tileXY.y === 3) {
 
-          /**
-           * If the player clicked on the weapon
-           */
-          this.pickUpOrPutDownType('weapon', tileXY, x, y);
-        } else if (tileXY.x === 7 && tileXY.y === 3) {
+    //       /**
+    //        * If the player clicked on the weapon
+    //        */
+    //       this.pickUpOrPutDownType('weapon', tileXY, x, y);
+    //     } else if (tileXY.x === 7 && tileXY.y === 3) {
 
-          /**
-           * If the player clicked on the armor
-           */
-          this.pickUpOrPutDownType('armor', tileXY, x, y);
+    //       /**
+    //        * If the player clicked on the armor
+    //        */
+    //       this.pickUpOrPutDownType('armor', tileXY, x, y);
           
-        } else if (tileXY.x === 8 && tileXY.y === 3) {
+    //     } else if (tileXY.x === 8 && tileXY.y === 3) {
 
-          /**
-           * If the player clicked on the shield
-           */
-          this.pickUpOrPutDownType('shield', tileXY, x, y);
-        }         
-      } else if (tileXY.x > -1 && tileXY.x < 15) {
-        if (tileXY.y > 4 && tileXY.y < 15) {
+    //       /**
+    //        * If the player clicked on the shield
+    //        */
+    //       this.pickUpOrPutDownType('shield', tileXY, x, y);
+    //     }         
+    //   } else if (tileXY.x > -1 && tileXY.x < 15) {
+    //     if (tileXY.y > 4 && tileXY.y < 15) {
 
-          /**
-           * If the player clicked on the inventory
-           */
-          this.pickUpOrPutDown(this.inventory, tileXY, x, y);
-        } else if (tileXY.y > 15 && tileXY.y < 26) {
-          tileXY.y -= 16;
+    //       /**
+    //        * If the player clicked on the inventory
+    //        */
+    //       this.pickUpOrPutDown(this.inventory, tileXY, x, y);
+    //     } else if (tileXY.y > 15 && tileXY.y < 26) {
+    //       tileXY.y -= 16;
 
-          /**
-           * If the player clicked on the ground
-           */
-          this.pickUpOrPutDown(this.currentGround, tileXY, x, y - 16);
-        }
-      }
-    }
+    //       /**
+    //        * If the player clicked on the ground
+    //        */
+    //       this.pickUpOrPutDown(this.currentGround, tileXY, x, y - 16);
+    //     }
+    //   }
+    // }
 
     /**
      * Move the held item to the pointer

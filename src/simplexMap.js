@@ -158,25 +158,6 @@ class SimplexMap {
       console.log(enemy.name);
     }
   }
-  
-  // hide all tiles out of camera bounds
-  hideOutOfBounds() {
-    
-    // iterate through all tiles    
-    this.visibleTiles.iterate(function (tile) {
-      
-      if (tile.x < -this.scene.cameras.main.x - 24
-        || tile.x > -this.scene.cameras.main.x + 43 * 24
-        || tile.y < -this.scene.cameras.main.y - 21
-        || tile.y > -this.scene.cameras.main.y + 28 * 21
-        ) {
-
-        this.hide(tile);
-        
-      }
-
-    }, this);
-  }
 
   // Hide the tile that is not visible currently for the player.
   hide(tile) {
