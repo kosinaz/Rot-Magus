@@ -6,18 +6,45 @@ class LoadScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor('#000000');
 
-    let hourglass = this.add.text(400, 200, 'Loading', {
-      fontSize: '32px',
-    });
-    hourglass.data = 0;
-
+    this.add.text(400, 250, 'Traversing Hyperspace...');
+    let stars = [];
+    for (let i = 0; i < 5; i += 1) {
+      stars.push(this.add.graphics());
+      stars[i].x = 487 + ~~(Math.random() * 50);
+      stars[i].y = 280 + ~~(Math.random() * 50);
+    }
+    let addDot = function (graphics, color) {
+      graphics.lineStyle(1, color, 1);
+      graphics.lineBetween(3, 2, 3, 3);
+    }
+    let addSmallCross = function (graphics, color) {
+      graphics.lineStyle(1, color, 1);
+      graphics.lineBetween(3, 1, 3, 4);
+      graphics.lineBetween(1, 2, 4, 2);
+    }
+    let addBigCross = function (graphics, color) {
+      graphics.lineStyle(1, color, 1);
+      graphics.lineBetween(3, 0, 3, 5);
+      graphics.lineBetween(0, 2, 5, 2);
+    }
+    addDot(stars[0], 0x808080);
+    addSmallCross(stars[1], 0x808080);
+    addDot(stars[1], 0xffffff);
+    addBigCross(stars[2], 0x808080);
+    addSmallCross(stars[2], 0xffffff);
+    addSmallCross(stars[3], 0x808080);
+    addDot(stars[3], 0xffffff);
+    addDot(stars[4], 0x808080);
     this.time.addEvent({
-      delay: 500,
+      delay: 150,
       callback: function () {
-        hourglass.data = (hourglass.data + 1) % 4;
-        hourglass.text = 'Loading' + ['', '.', '..', '...'][hourglass.data];
+        for (let i = 0; i < 4; i += 1) {
+          stars[i].x = stars[i + 1].x;
+          stars[i].y = stars[i + 1].y;
+        }     
+        stars[4].x = 487 + ~~(Math.random() * 50);
+        stars[4].y = 280 + ~~(Math.random() * 50);
       },
-      callbackScope: this,
       loop: true
     });
 
