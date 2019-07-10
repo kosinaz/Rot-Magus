@@ -4,12 +4,13 @@ class GUIBuilder {
   }
   static create(config) {
     if (config.type === 'Image') {
+      console.log()
       let sourceScene = game.scene.getScene(this.defaultConfig.sourceScene);
       game.scene.getScene(this.defaultConfig.scene).add.image(
         config.x,
         config.y,
         config.texture,
-        sourceScene[this.defaultConfig.target][config.frame]
+        config.target ? sourceScene[config.target][config.frame] : config.frame
       );
     }
     if (config.type === 'TextLabel') {

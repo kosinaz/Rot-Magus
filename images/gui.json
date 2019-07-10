@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "agility.png",
+	"filename": "agility",
 	"frame": {"x":48,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "back.png",
+	"filename": "back",
 	"frame": {"x":0,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -17,7 +17,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "body.png",
+	"filename": "body",
 	"frame": {"x":96,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -25,7 +25,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "finger.png",
+	"filename": "finger",
 	"frame": {"x":72,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -33,7 +33,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "funeral.png",
+	"filename": "funeral",
 	"frame": {"x":0,"y":186,"w":98,"h":51},
 	"rotated": false,
 	"trimmed": false,
@@ -41,7 +41,7 @@
 	"sourceSize": {"w":98,"h":51}
 },
 {
-	"filename": "head.png",
+	"filename": "head",
 	"frame": {"x":24,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -49,7 +49,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "heroes.png",
+	"filename": "heroes",
 	"frame": {"x":0,"y":63,"w":25,"h":22},
 	"rotated": false,
 	"trimmed": false,
@@ -57,7 +57,7 @@
 	"sourceSize": {"w":25,"h":22}
 },
 {
-	"filename": "leftHand.png",
+	"filename": "leftHand",
 	"frame": {"x":48,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -65,7 +65,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "level.png",
+	"filename": "level",
 	"frame": {"x":0,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -73,7 +73,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "loseHehehe.png",
+	"filename": "loseHehehe",
 	"frame": {"x":40,"y":97,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
@@ -81,7 +81,7 @@
 	"sourceSize": {"w":40,"h":34}
 },
 {
-	"filename": "neck.png",
+	"filename": "neck",
 	"frame": {"x":24,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -89,7 +89,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "palm.png",
+	"filename": "palm",
 	"frame": {"x":48,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -97,7 +97,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "rightHand.png",
+	"filename": "rightHand",
 	"frame": {"x":24,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -105,7 +105,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "ronny.png",
+	"filename": "ronny",
 	"frame": {"x":46,"y":131,"w":75,"h":45},
 	"rotated": false,
 	"trimmed": false,
@@ -113,7 +113,7 @@
 	"sourceSize": {"w":75,"h":45}
 },
 {
-	"filename": "socket.png",
+	"filename": "socket",
 	"frame": {"x":96,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -121,7 +121,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "speed.png",
+	"filename": "speed",
 	"frame": {"x":72,"y":42,"w":25,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -129,7 +129,7 @@
 	"sourceSize": {"w":25,"h":21}
 },
 {
-	"filename": "strength.png",
+	"filename": "strength",
 	"frame": {"x":0,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -137,7 +137,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "title.png",
+	"filename": "title",
 	"frame": {"x":0,"y":131,"w":46,"h":55},
 	"rotated": false,
 	"trimmed": false,
@@ -145,7 +145,7 @@
 	"sourceSize": {"w":46,"h":55}
 },
 {
-	"filename": "winAaargh.png",
+	"filename": "winAaargh",
 	"frame": {"x":80,"y":97,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
@@ -153,7 +153,7 @@
 	"sourceSize": {"w":40,"h":34}
 },
 {
-	"filename": "winBlah.png",
+	"filename": "winBlah",
 	"frame": {"x":25,"y":63,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
@@ -161,7 +161,7 @@
 	"sourceSize": {"w":40,"h":34}
 },
 {
-	"filename": "winHorray.png",
+	"filename": "winHorray",
 	"frame": {"x":0,"y":97,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
@@ -169,7 +169,7 @@
 	"sourceSize": {"w":40,"h":34}
 },
 {
-	"filename": "winPlease.png",
+	"filename": "winPlease",
 	"frame": {"x":65,"y":63,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
@@ -177,7 +177,7 @@
 	"sourceSize": {"w":40,"h":34}
 },
 {
-	"filename": "wisdom.png",
+	"filename": "wisdom",
 	"frame": {"x":72,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -191,6 +191,6 @@
 	"format": "RGBA8888",
 	"size": {"w":121,"h":237},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:1d479252661d431056f9e4c51df15191:27cc699368e8c4faf7cd51a3af0c8e22:788b34ed4e778d63c84b2c3df4d44949$"
+	"smartupdate": "$TexturePacker:SmartUpdate:74f63449035fa327c20e74ffbbcecf0d:27cc699368e8c4faf7cd51a3af0c8e22:788b34ed4e778d63c84b2c3df4d44949$"
 }
 }

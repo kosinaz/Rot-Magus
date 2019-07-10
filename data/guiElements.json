@@ -5,11 +5,19 @@
     "sourceScene": "GameScene",
     "target": "player"
   },
-  "image": {
+  "portrait": {
     "frame": "tileName",
+    "target": "player",
     "texture": "tiles",
     "type": "Image",
     "x": 16,
+    "y": 16
+  },
+  "levelImage": {
+    "frame": "level",
+    "texture": "gui",
+    "type": "Image",
+    "x": 40,
     "y": 16
   },
   "level": {
@@ -62,6 +70,69 @@
     "x": 64,
     "y": 79
   },
+  "head": {
+    "frame": "head",
+    "texture": "gui",
+    "type": "Image",
+    "x": 184,
+    "y": 16
+  },
+  "neck": {
+    "frame": "neck",
+    "texture": "gui",
+    "type": "Image",
+    "x": 184,
+    "y": 37
+  },
+  "finger": {
+    "frame": "finger",
+    "texture": "gui",
+    "type": "Image",
+    "x": 160,
+    "y": 58
+  },
+  "back": {
+    "frame": "back",
+    "texture": "gui",
+    "type": "Image",
+    "x": 184,
+    "y": 58
+  },
+  "palm": {
+    "frame": "palm",
+    "texture": "gui",
+    "type": "Image",
+    "x": 208,
+    "y": 58
+  },
+  "rightHand": {
+    "frame": "rightHand",
+    "texture": "gui",
+    "type": "Image",
+    "x": 160,
+    "y": 79
+  },
+  "body": {
+    "frame": "body",
+    "texture": "gui",
+    "type": "Image",
+    "x": 184,
+    "y": 79
+  },
+  "leftHand": {
+    "frame": "leftHand",
+    "texture": "gui",
+    "type": "Image",
+    "x": 208,
+    "y": 79
+  },
+  "speedImage": {
+    "frame": "speed",
+    "texture": "gui",
+    "type": "Image",
+    "x": 304,
+    "y": 16
+  },
   "speed": {
     "originX": 1,
     "originY": 0.5,
@@ -69,6 +140,13 @@
     "value": "speed",
     "x": 288,
     "y": 16
+  },
+  "strengthImage": {
+    "frame": "strength",
+    "texture": "gui",
+    "type": "Image",
+    "x": 304,
+    "y": 37
   },
   "strength": {
     "originX": 1,
@@ -79,6 +157,13 @@
     "x": 288,
     "y": 37
   },
+  "agilityImage": {
+    "frame": "agility",
+    "texture": "gui",
+    "type": "Image",
+    "x": 304,
+    "y": 58
+  },
   "agility": {
     "originX": 1,
     "originY": 0.5,
@@ -86,6 +171,13 @@
     "value": "agility",
     "x": 288,
     "y": 58
+  },
+  "wisdomImage": {
+    "frame": "wisdom",
+    "texture": "gui",
+    "type": "Image",
+    "x": 304,
+    "y": 79
   },
   "wisdom": {
     "originX": 1,
