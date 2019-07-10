@@ -1,0 +1,196 @@
+{"frames": [
+
+{
+	"filename": "agility.png",
+	"frame": {"x":48,"y":42,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "back.png",
+	"frame": {"x":0,"y":42,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "body.png",
+	"frame": {"x":96,"y":21,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "finger.png",
+	"frame": {"x":72,"y":21,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "funeral.png",
+	"frame": {"x":0,"y":186,"w":98,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":51},
+	"sourceSize": {"w":98,"h":51}
+},
+{
+	"filename": "head.png",
+	"frame": {"x":24,"y":42,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "heroes.png",
+	"frame": {"x":0,"y":63,"w":25,"h":22},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":25,"h":22},
+	"sourceSize": {"w":25,"h":22}
+},
+{
+	"filename": "leftHand.png",
+	"frame": {"x":48,"y":0,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "level.png",
+	"frame": {"x":0,"y":0,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "loseHehehe.png",
+	"frame": {"x":40,"y":97,"w":40,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
+	"sourceSize": {"w":40,"h":34}
+},
+{
+	"filename": "neck.png",
+	"frame": {"x":24,"y":0,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "palm.png",
+	"frame": {"x":48,"y":21,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "rightHand.png",
+	"frame": {"x":24,"y":21,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "ronny.png",
+	"frame": {"x":46,"y":131,"w":75,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":45},
+	"sourceSize": {"w":75,"h":45}
+},
+{
+	"filename": "socket.png",
+	"frame": {"x":96,"y":0,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "speed.png",
+	"frame": {"x":72,"y":42,"w":25,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":25,"h":21},
+	"sourceSize": {"w":25,"h":21}
+},
+{
+	"filename": "strength.png",
+	"frame": {"x":0,"y":21,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "title.png",
+	"frame": {"x":0,"y":131,"w":46,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":55},
+	"sourceSize": {"w":46,"h":55}
+},
+{
+	"filename": "winAaargh.png",
+	"frame": {"x":80,"y":97,"w":40,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
+	"sourceSize": {"w":40,"h":34}
+},
+{
+	"filename": "winBlah.png",
+	"frame": {"x":25,"y":63,"w":40,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
+	"sourceSize": {"w":40,"h":34}
+},
+{
+	"filename": "winHorray.png",
+	"frame": {"x":0,"y":97,"w":40,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
+	"sourceSize": {"w":40,"h":34}
+},
+{
+	"filename": "winPlease.png",
+	"frame": {"x":65,"y":63,"w":40,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
+	"sourceSize": {"w":40,"h":34}
+},
+{
+	"filename": "wisdom.png",
+	"frame": {"x":72,"y":0,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "gui.png",
+	"format": "RGBA8888",
+	"size": {"w":121,"h":237},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:1d479252661d431056f9e4c51df15191:27cc699368e8c4faf7cd51a3af0c8e22:788b34ed4e778d63c84b2c3df4d44949$"
+}
+}

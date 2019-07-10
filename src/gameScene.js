@@ -53,12 +53,16 @@ class GameScene extends Phaser.Scene {
     this.marker = this.add.graphics();
     this.marker.lineStyle(1, 0xffff00, 1);
     this.marker.strokeRect(0, 0, 23, 20);
+    this.marker.depth = 1;
 
     // Set the main camera viewport to the left side of the screen with the size of the player's maximum field of view.
     this.cameras.main.setViewport(372, 5, 27 * 24, 27 * 21);
 
     // Set the background black, the color of currently invisible areas.
     this.cameras.main.setBackgroundColor('#000000');
+
+    // Show this scene above the GUI scene.
+    this.scene.bringToTop();
 
     // Start the engine, start the game.
     this.engine.start();

@@ -4,12 +4,6 @@
     "gameScene": "GameScene",
     "guiScene": "GUIScene"
   },
-  "background": {
-    "texture": "ingame",
-    "type": "Image",
-    "x": 512,
-    "y": 288
-  },
   "image": {
     "frame": "tileName",
     "texture": "tiles",

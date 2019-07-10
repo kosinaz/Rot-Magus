@@ -5,13 +5,16 @@ class GUIScene extends Phaser.Scene {
   
   create = function () {
 
-    let guiElements = this.cache.json.get('gui');
+    let guiElements = this.cache.json.get('guiElements');
     GUIBuilder.init(guiElements.default);
     for (let i in guiElements) {
       if (guiElements.hasOwnProperty(i)) {
         GUIBuilder.create(guiElements[i]);
       }
     }
+
+    // Set the background black, the color of currently invisible areas.
+    this.cameras.main.setBackgroundColor('#616161');
 
     /**
      * Grab a reference to the Game Scene
