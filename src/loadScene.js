@@ -3,9 +3,7 @@ class LoadScene extends Phaser.Scene {
     super('LoadScene');
   }
   preload() {
-
     this.cameras.main.setBackgroundColor('#000000');
-
     this.add.text(400, 250, 'Traversing Hyperspace...');
     let stars = [];
     for (let i = 0; i < 5; i += 1) {
@@ -47,14 +45,12 @@ class LoadScene extends Phaser.Scene {
       },
       loop: true
     });
-
     this.load.atlas('tiles', 'images/tiles.png', 'images/tiles.json');
     this.load.atlas('gui', 'images/gui.png', 'images/gui.json');
     this.load.json('actorTypes', 'data/actorTypes.json');
     this.load.json('itemTypes', 'data/itemTypes.json');
     this.load.json('guiElements', 'data/guiElements.json');
   }
-
   create() {
     this.scene.start('MenuScene');
   }
