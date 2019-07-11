@@ -62,17 +62,6 @@ class GUIScene extends Phaser.Scene {
       item.x = x;
       item.y = y;
     });
-    this.input.on('dragenter', function (pointer, item, dropZone) {
-      if (dropZone.frame.name === item.config.equips
-        || dropZone.frame.name === 'socket') {
-        dropZone.setTint(0x00ff00);
-      } else {
-        dropZone.setTint(0xff0000);
-      }
-    });
-    this.input.on('dragleave', function (pointer, item, dropZone) {
-      dropZone.setTint(0xffffff);
-    });
     this.input.on('drop', function (pointer, item, dropZone) {
       if (dropZone.frame.name === item.config.equips
         || dropZone.frame.name === 'socket') {
