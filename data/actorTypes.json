@@ -12,7 +12,10 @@
       "bow",
       "arrows",
       "dagger",
-      "elvenCloak"
+      "sword",
+      "elvenCloak",
+      "chainmail",
+      "leather"
     ],
     "walksOn": [
       "bush",
