@@ -31,8 +31,8 @@ class GUIBuilder {
         ...config
       });
     }
-    if (config.type === 'Socket') {
-      return new Socket({
+    if (config.type === 'Slot') {
+      return new Slot({
         ...this.defaultConfig,
         ...config
       });
@@ -41,7 +41,7 @@ class GUIBuilder {
       let inventory = [];
       for (let y = 0; y < config.columns; y += 1) {
         for (let x = 0; x < config.rows; x += 1) {
-          let socket = new Socket({
+          let socket = new Slot({
             ...this.defaultConfig,
             ...config
           });

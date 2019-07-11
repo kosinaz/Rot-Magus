@@ -1,4 +1,4 @@
-class Socket extends Phaser.GameObjects.Image {
+class Slot extends Phaser.GameObjects.Image {
   constructor(config) {
     super(
       game.scene.getScene(config.scene), 
@@ -9,7 +9,6 @@ class Socket extends Phaser.GameObjects.Image {
     );
     this.setOrigin(config.origin);
     this.setInteractive();
-    this.input.dropZone = true;
     this.scene.add.existing(this);
   }
 }

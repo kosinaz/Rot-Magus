@@ -191,7 +191,7 @@
             <key type="filename">gui/neck.png</key>
             <key type="filename">gui/palm.png</key>
             <key type="filename">gui/rightHand.png</key>
-            <key type="filename">gui/socket.png</key>
+            <key type="filename">gui/slot.png</key>
             <key type="filename">gui/strength.png</key>
             <key type="filename">gui/wisdom.png</key>
             <struct type="IndividualSpriteSettings">

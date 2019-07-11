@@ -15,7 +15,11 @@
       "sword",
       "elvenCloak",
       "chainmail",
-      "leather"
+      "leather",
+      "helmet",
+      "opal",
+      "emeraldRing",
+      "gloves"
     ],
     "walksOn": [
       "bush",

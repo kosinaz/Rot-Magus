@@ -113,7 +113,7 @@
 	"sourceSize": {"w":75,"h":45}
 },
 {
-	"filename": "socket",
+	"filename": "slot",
 	"frame": {"x":96,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -191,6 +191,6 @@
 	"format": "RGBA8888",
 	"size": {"w":121,"h":237},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:74f63449035fa327c20e74ffbbcecf0d:27cc699368e8c4faf7cd51a3af0c8e22:788b34ed4e778d63c84b2c3df4d44949$"
+	"smartupdate": "$TexturePacker:SmartUpdate:23cefc725cd1485cd93341fbbb9ce180:27cc699368e8c4faf7cd51a3af0c8e22:788b34ed4e778d63c84b2c3df4d44949$"
 }
 }
