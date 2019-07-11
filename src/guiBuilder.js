@@ -4,7 +4,6 @@ class GUIBuilder {
   }
   static create(config) {
     if (config.type === 'Image') {
-      console.log()
       let sourceScene = game.scene.getScene(this.defaultConfig.sourceScene);
       game.scene.getScene(this.defaultConfig.scene).add.image(
         config.x,
@@ -30,6 +29,24 @@ class GUIBuilder {
         ...this.defaultConfig,
         ...config
       });
+    }
+    if (config.type === 'Socket') {
+      return new Socket({
+        ...this.defaultConfig,
+        ...config
+      });
+    }
+    if (config.type === 'Inventory') {
+      for (let x = 0; x < config.columns; x += 1) {
+        for (let y = 0; y < config.rows; y += 1) {
+          let socket = new Socket({
+            ...this.defaultConfig,
+            ...config
+          });
+          socket.x += x * 24;
+          socket.y += y * 21;
+        }
+      }
     }
   }
 }

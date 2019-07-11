@@ -12,10 +12,10 @@ class GUIScene extends Phaser.Scene {
         GUIBuilder.create(guiElements[i]);
       }
     }
-
+    
     // Set the background black, the color of currently invisible areas.
     this.cameras.main.setBackgroundColor('#616161');
-
+    
     /**
      * Grab a reference to the Game Scene
      */
@@ -51,35 +51,56 @@ class GUIScene extends Phaser.Scene {
     /**
      * Create inventory
      */
+    this.itemTypes = this.cache.json.get('itemTypes');
     this.gameScene.player.inventory.forEach(function (tileName, i) {
-      let item = this.add.image(16 + i * 24, 121, 'tiles', tileName);
-      item.setInteractive();
-      item.on('pointerup', function () {
-        if (this.scene.hold) {
-          let x = ~~((this.x - 4) / 24);
-          let y = ~~((this.y - 110) / 21);
-          this.scene.hold = null;
-          item.x = 16 + x * 24;
-          item.y = 121 + y * 21;
-          this.scene.gameScene.player.inventory[y * 15 + x] = tileName;
-          console.log(this.scene.gameScene.player.inventory);
-        } else {
-          this.scene.hold = item;
-          this.scene.gameScene.player.inventory[i] = null;
-          console.log(this.scene.gameScene.player.inventory);
-        }
-      });
+      new Item(this, 16 + i * 24, 121, 'tiles', tileName);
     }.bind(this));
-    this.inventory = createInventory(this);
-    this.inventory.putTileAt('bow', 0, 5);
-    this.inventory.putTileAt('arrow', 1, 5);
-    this.inventory.putTileAt('dagger', 2, 5);
-    this.inventory.putTileAt('elvenCloak', 3, 5);
+    this.input.on('dragstart', function (pointer, item) {
+      this.children.bringToTop(item);
+    }, this);
+    this.input.on('drag', function (pointer, item, x, y) {
+      item.x = x;
+      item.y = y;
+    });
+    this.input.on('dragenter', function (pointer, item, dropZone) {
+      if (dropZone.frame.name === item.config.equips
+        || dropZone.frame.name === 'socket') {
+        dropZone.setTint(0x00ff00);
+      } else {
+        dropZone.setTint(0xff0000);
+      }
+    });
+    this.input.on('dragleave', function (pointer, item, dropZone) {
+      dropZone.setTint(0xffffff);
+    });
+    this.input.on('drop', function (pointer, item, dropZone) {
+      if (dropZone.frame.name === item.config.equips
+        || dropZone.frame.name === 'socket') {
+        item.x = dropZone.x;
+        item.y = dropZone.y;
+      } else {
+        item.x = item.input.dragStartX;
+        item.y = item.input.dragStartY;
+        dropZone.setTint(0xffffff);
+      }
+    });
+    this.input.on('dragend', function (pointer, item, dropped) {
+      if (!dropped) {
+        item.x = item.input.dragStartX;
+        item.y = item.input.dragStartY;
+      }
 
-    this.ground = createGround(this);
-    this.grounds = {};
-    this.grounds[this.gameScene.player.tileX + ',' + this.gameScene.player.tileY] = addGround(this.ground, this.gameScene.player.tileX, this.gameScene.player.tileY);
-    this.currentGround = this.grounds[this.gameScene.player.tileX + ',' + this.gameScene.player.tileY];
+    });
+    // this.inventory = createInventory(this);
+    // this.inventory.putTileAt('bow', 0, 5);
+    // this.inventory.putTileAt('arrow', 1, 5);
+    // this.inventory.putTileAt('dagger', 2, 5);
+    // this.inventory.putTileAt('elvenCloak', 3, 5);
+
+    // this.ground = createGround(this);
+    // this.grounds = {};
+    // this.grounds[this.gameScene.player.tileX + ',' + this.gameScene.player.tileY] = addGround(this.ground, this.gameScene.player.tileX, this.gameScene.player.tileY);
+    // this.currentGround = this.grounds[this.gameScene.player.tileX + ',' + this.gameScene.player.tileY];
 
     // for (let i = 0; i < 50; i += 1) {
     //   let tile = ROT.RNG.getItem(game.grassTiles);

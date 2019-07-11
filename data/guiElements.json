@@ -73,56 +73,56 @@
   "head": {
     "frame": "head",
     "texture": "gui",
-    "type": "Image",
+    "type": "Socket",
     "x": 184,
     "y": 16
   },
   "neck": {
     "frame": "neck",
     "texture": "gui",
-    "type": "Image",
+    "type": "Socket",
     "x": 184,
     "y": 37
   },
   "finger": {
     "frame": "finger",
     "texture": "gui",
-    "type": "Image",
+    "type": "Socket",
     "x": 160,
     "y": 58
   },
   "back": {
     "frame": "back",
     "texture": "gui",
-    "type": "Image",
+    "type": "Socket",
     "x": 184,
     "y": 58
   },
   "palm": {
     "frame": "palm",
     "texture": "gui",
-    "type": "Image",
+    "type": "Socket",
     "x": 208,
     "y": 58
   },
   "rightHand": {
     "frame": "rightHand",
     "texture": "gui",
-    "type": "Image",
+    "type": "Socket",
     "x": 160,
     "y": 79
   },
   "body": {
     "frame": "body",
     "texture": "gui",
-    "type": "Image",
+    "type": "Socket",
     "x": 184,
     "y": 79
   },
   "leftHand": {
     "frame": "leftHand",
     "texture": "gui",
-    "type": "Image",
+    "type": "Socket",
     "x": 208,
     "y": 79
   },
@@ -186,5 +186,14 @@
     "value": "wisdom",
     "x": 288,
     "y": 79
+  },
+  "inventory": {
+    "columns": 10,
+    "rows": 10,
+    "frame": "socket",
+    "texture": "gui",
+    "type": "Inventory",
+    "x": 16,
+    "y": 121
   }
 }
