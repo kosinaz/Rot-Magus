@@ -54,109 +54,108 @@ class GUIScene extends Phaser.Scene {
      */
     this.itemTypes = this.cache.json.get('itemTypes');
     this.gameScene.player.inventory.forEach(function (tileName, i) {
-      let item = new Item(
+      this.gui.inventory[i].item = new Item(
         this, 
         this.gui.inventory[i].x, 
         this.gui.inventory[i].y, 
         'tiles', 
         tileName
       );
-      item.i = i;
     }.bind(this));
-    this.input.on('dragstart', function (pointer, item) {
-      this.scene.children.bringToTop(item);
-      item.socket.item = null;
-      if (item.socket.i !== null) {
-        this.scene.gameScene.player.inventory[item.socket.i] = null;
-      } else if (item.socket.equipped !== null) {
-        this.scene.gameScene.player.equipped[item.socket.equipped] = null;
-      }
-    });
-    this.input.on('drag', function (pointer, item, x, y) {
-      item.x = x;
-      item.y = y;
-    });
-    this.input.on('drop', function (pointer, item, dropZone) {
-      if (dropZone.frame.name === item.config.equips 
-        || item.config.equips === 'hand'
-        && (dropZone.frame.name === 'rightHand'
-        || dropZone.frame.name === 'leftHand')) {
-        if (dropZone.item) {
-          dropZone.item.x = item.input.dragStartX;
-          dropZone.item.y = item.input.dragStartY;
-          if (item.startI !== null) {
-            dropZone.item.i = item.startI;
-            this.scene.gameScene.player.inventory[dropZone.item.i] =
-              dropZone.item.frame.name;
-          } else if (item.startEquipped !== null) {
-            dropZone.item.equipped = item.startEquipped;
-            this.scene.gameScene.player.equipped[dropZone.item.equipped] =
-              dropZone.item.frame.name;
-          }
-        }
-        dropZone.item = item;
-        item.x = dropZone.x;
-        item.y = dropZone.y;
-        item.equipped = dropZone.frame.name;
-        this.scene.gameScene.player.equipped[item.equipped] =
-          item.frame.name;        
-      } else if (item.config.equips === 'hands'
-        && (dropZone.frame.name === 'rightHand' 
-        || dropZone.frame.name === 'leftHand')) {
-          console.log(this.scene);
-        item.x = dropZone.x;
-        item.y = dropZone.y;
-        item.equipped = dropZone.frame.name;
-        this.scene.gameScene.player.equipped[item.equipped] =
-          item.frame.name;        
-      } else if (dropZone.frame.name === 'socket') {
-        if (dropZone.item) {
-          dropZone.item.x = item.input.dragStartX;
-          dropZone.item.y = item.input.dragStartY;
-          if (item.startI !== null) {
-            dropZone.item.i = item.startI;
-            this.scene.gameScene.player.inventory[dropZone.item.i] =
-              dropZone.item.frame.name;
-          } else if (item.startEquipped !== null) {
-            dropZone.item.equipped = item.startEquipped;
-            this.scene.gameScene.player.equipped[dropZone.item.equipped] =
-              dropZone.item.frame.name;
-          }
-        }
-        dropZone.item = item;
-        item.x = dropZone.x;
-        item.y = dropZone.y;
-        item.i = dropZone.i;
-        this.scene.gameScene.player.inventory[item.i] = item.frame.name;
-      } else {
-        item.x = item.input.dragStartX;
-        item.y = item.input.dragStartY;
-        if (item.startI !== null) {
-          item.i = item.startI;
-          this.scene.gameScene.player.inventory[item.i] = item.frame.name;
-        } else if (item.startEquipped !== null) {
-          item.equipped = item.startEquipped;
-          this.scene.gameScene.player.equipped[item.equipped] =
-          item.frame.name;
-        }
-      }
-      console.log(this.scene.gameScene.player.equipped);
-      console.log(this.scene.gameScene.player.inventory);
-    });
-    this.input.on('dragend', function (pointer, item, dropped) {
-      if (!dropped) {
-        item.x = item.input.dragStartX;
-        item.y = item.input.dragStartY;
-        if (item.startI !== null) {
-          item.i = item.startI;
-          this.scene.gameScene.player.inventory[item.i] = item.frame.name;
-        } else if (item.startEquipped !== null) {
-          item.equipped = item.startEquipped;
-          this.scene.gameScene.player.equipped[item.equipped] =
-            item.frame.name;
-        }
-      }
-    });
+    // this.input.on('dragstart', function (pointer, item) {
+    //   this.scene.children.bringToTop(item);
+    //   item.socket.item = null;
+    //   if (item.socket.i !== null) {
+    //     this.scene.gameScene.player.inventory[item.socket.i] = null;
+    //   } else if (item.socket.equipped !== null) {
+    //     this.scene.gameScene.player.equipped[item.socket.equipped] = null;
+    //   }
+    // });
+    // this.input.on('drag', function (pointer, item, x, y) {
+    //   item.x = x;
+    //   item.y = y;
+    // });
+    // this.input.on('drop', function (pointer, item, dropZone) {
+    //   if (dropZone.frame.name === item.config.equips 
+    //     || item.config.equips === 'hand'
+    //     && (dropZone.frame.name === 'rightHand'
+    //     || dropZone.frame.name === 'leftHand')) {
+    //     if (dropZone.item) {
+    //       dropZone.item.x = item.input.dragStartX;
+    //       dropZone.item.y = item.input.dragStartY;
+    //       if (item.startI !== null) {
+    //         dropZone.item.i = item.startI;
+    //         this.scene.gameScene.player.inventory[dropZone.item.i] =
+    //           dropZone.item.frame.name;
+    //       } else if (item.startEquipped !== null) {
+    //         dropZone.item.equipped = item.startEquipped;
+    //         this.scene.gameScene.player.equipped[dropZone.item.equipped] =
+    //           dropZone.item.frame.name;
+    //       }
+    //     }
+    //     dropZone.item = item;
+    //     item.x = dropZone.x;
+    //     item.y = dropZone.y;
+    //     item.equipped = dropZone.frame.name;
+    //     this.scene.gameScene.player.equipped[item.equipped] =
+    //       item.frame.name;        
+    //   } else if (item.config.equips === 'hands'
+    //     && (dropZone.frame.name === 'rightHand' 
+    //     || dropZone.frame.name === 'leftHand')) {
+    //       console.log(this.scene);
+    //     item.x = dropZone.x;
+    //     item.y = dropZone.y;
+    //     item.equipped = dropZone.frame.name;
+    //     this.scene.gameScene.player.equipped[item.equipped] =
+    //       item.frame.name;        
+    //   } else if (dropZone.frame.name === 'socket') {
+    //     if (dropZone.item) {
+    //       dropZone.item.x = item.input.dragStartX;
+    //       dropZone.item.y = item.input.dragStartY;
+    //       if (item.startI !== null) {
+    //         dropZone.item.i = item.startI;
+    //         this.scene.gameScene.player.inventory[dropZone.item.i] =
+    //           dropZone.item.frame.name;
+    //       } else if (item.startEquipped !== null) {
+    //         dropZone.item.equipped = item.startEquipped;
+    //         this.scene.gameScene.player.equipped[dropZone.item.equipped] =
+    //           dropZone.item.frame.name;
+    //       }
+    //     }
+    //     dropZone.item = item;
+    //     item.x = dropZone.x;
+    //     item.y = dropZone.y;
+    //     item.i = dropZone.i;
+    //     this.scene.gameScene.player.inventory[item.i] = item.frame.name;
+    //   } else {
+    //     item.x = item.input.dragStartX;
+    //     item.y = item.input.dragStartY;
+    //     if (item.startI !== null) {
+    //       item.i = item.startI;
+    //       this.scene.gameScene.player.inventory[item.i] = item.frame.name;
+    //     } else if (item.startEquipped !== null) {
+    //       item.equipped = item.startEquipped;
+    //       this.scene.gameScene.player.equipped[item.equipped] =
+    //       item.frame.name;
+    //     }
+    //   }
+    //   console.log(this.scene.gameScene.player.equipped);
+    //   console.log(this.scene.gameScene.player.inventory);
+    // });
+    // this.input.on('dragend', function (pointer, item, dropped) {
+    //   if (!dropped) {
+    //     item.x = item.input.dragStartX;
+    //     item.y = item.input.dragStartY;
+    //     if (item.startI !== null) {
+    //       item.i = item.startI;
+    //       this.scene.gameScene.player.inventory[item.i] = item.frame.name;
+    //     } else if (item.startEquipped !== null) {
+    //       item.equipped = item.startEquipped;
+    //       this.scene.gameScene.player.equipped[item.equipped] =
+    //         item.frame.name;
+    //     }
+    //   }
+    // });
     // this.inventory = createInventory(this);
     // this.inventory.putTileAt('bow', 0, 5);
     // this.inventory.putTileAt('arrow', 1, 5);
