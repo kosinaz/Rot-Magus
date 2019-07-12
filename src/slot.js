@@ -20,8 +20,27 @@ class Slot extends Phaser.GameObjects.Image {
       }
       this.scene.pointerdownTarget = null;
     });
-    this.on('click', function () {
+    this.on('click', function () {      
       if (this.scene.heldItem) {
+        if (!this.equips(this.scene.heldItem.config.equips)) {
+          return;
+        }
+        if (this.scene.heldItem.config.equips === 'hands'
+          && ((this.scene.gui.rightHand === this 
+          && this.scene.gui.leftHand.item)
+          || (this.scene.gui.leftHand === this 
+          && this.scene.gui.rightHand.item))) {
+          return;
+        }
+        if (this.scene.heldItem.config.equips === 'hand' 
+          && ((this.scene.gui.rightHand === this 
+          && this.scene.gui.leftHand.item
+          && this.scene.gui.leftHand.item.config.equips === 'hands') 
+          || (this.scene.gui.leftHand === this 
+          && this.scene.gui.rightHand.item
+          && this.scene.gui.rightHand.item.config.equips === 'hands'))) {
+          return;
+        }
         this.scene.heldItem.hold.paused = true;
         this.scene.heldItem.x = this.x;
         this.scene.heldItem.y = this.y;
@@ -42,5 +61,15 @@ class Slot extends Phaser.GameObjects.Image {
       }
     });
     this.scene.add.existing(this);
+  }
+  equips(item) {
+    if (this.frame.name === 'slot') {
+      return true;
+    }
+    if (item === this.frame.name) {
+      return true;
+    }
+    return (this.frame.name === 'leftHand' || this.frame.name === 'rightHand')
+      && (item === 'hand' || item === 'hands');
   }
 }
