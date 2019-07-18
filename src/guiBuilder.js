@@ -37,7 +37,7 @@ class GUIBuilder {
         ...config
       });
     }
-    if (config.type === 'Inventory') {
+    if (config.type === 'Inventory' || config.type === 'Ground') {
       let inventory = [];
       for (let y = 0; y < config.columns; y += 1) {
         for (let x = 0; x < config.rows; x += 1) {
@@ -48,6 +48,7 @@ class GUIBuilder {
           slot.x += x * 24;
           slot.y += y * 21;
           slot.i = x + y * 10;
+          slot.type = config.type;
           inventory.push(slot);
         }
       }

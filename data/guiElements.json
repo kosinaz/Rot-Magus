@@ -195,5 +195,14 @@
     "type": "Inventory",
     "x": 16,
     "y": 121
+  },
+  "ground": {
+    "columns": 10,
+    "rows": 10,
+    "frame": "slot",
+    "texture": "gui",
+    "type": "Ground",
+    "x": 16,
+    "y": 352
   }
 }

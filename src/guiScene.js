@@ -25,28 +25,29 @@ class GUIScene extends Phaser.Scene {
     /**
      * Listen for events from it
      */
-    game.events.on('playerMoved', function () {
-      this.currentGround.alpha = 0;
-      var topTile = this.currentGround.getTilesWithin(0, 0, 15, 10, {
-        isNotEmpty: true
-      })[0];
-      if (topTile) {
-        this.itemLayer.putTileAt(
-          topTile.index,
-          this.currentGround.data.x, 
-          this.currentGround.data.y
+    this.gameScene.events.on('playerMoved', function () {
+      if (!this.ground) {
+        return;
+      }
+      console.log('moved');
+      this.gui.inventory.forEach(function () {
+
+      })
+      console.log(this.ground);
+      let topItem = this.ground.filter(slot => slot !== null)[0];
+      console.log(topItem);
+      if (topItem) {
+        this.gameScene.map.addItem(
+          this.gameScene.player.tileX, 
+          this.gameScene.player.tileY,
+          topItem
         );
       } else {
-        this.itemLayer.removeTileAt(
-          this.currentGround.data.x,
-          this.currentGround.data.y
+        this.gameScene.map.removeItem(
+          this.gameScene.player.tileX,
+          this.gameScene.player.tileY
         );
       };
-      if (!this.grounds[player.tileX + ',' + player.tileY]) {
-        this.grounds[player.tileX + ',' + player.tileY] = addGround(this.ground, player.tileX, player.tileY);
-      }
-      this.currentGround = this.grounds[player.tileX + ',' + player.tileY];
-      this.currentGround.alpha = 1;
     }, this);
 
     /**

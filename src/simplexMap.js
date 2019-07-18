@@ -158,6 +158,17 @@ class SimplexMap {
     }
   }
 
+  // Put an item on the map.
+  addItem(x, y, frame) {
+    let item = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
+    this.scene.items.push(item);
+  }
+
+  // Put an item on the map.
+  removeItem(x, y) {
+   
+  }
+
   // Hide the tile that is not visible currently for the player.
   hide(tile) {
 
