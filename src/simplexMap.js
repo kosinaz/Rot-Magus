@@ -159,14 +159,22 @@ class SimplexMap {
   }
 
   // Put an item on the map.
-  addItem(x, y, frame) {
-    let item = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
-    this.scene.items.push(item);
+  addItem(x, y, frame, itemList) {
+    if (!this.tiles[x + ',' + y].itemImage) {
+      this.tiles[x + ',' + y].itemImage = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
+    } else if (this.tiles[x + ',' + y].itemImage.frame.name !== frame) {
+      this.tiles[x + ',' + y].itemImage.frame.name = frame;
+    }
+    this.tiles[x + ',' + y].itemList = itemList;
   }
 
-  // Put an item on the map.
+  // Remove an item from the map.
   removeItem(x, y) {
-   
+    if (this.tiles[x + ',' + y].itemImage) {
+      this.tiles[x + ',' + y].itemImage.destroy();
+      this.tiles[x + ',' + y].itemImage = undefined;
+      this.tiles[x + ',' + y].itemList = null;
+    }
   }
 
   // Hide the tile that is not visible currently for the player.

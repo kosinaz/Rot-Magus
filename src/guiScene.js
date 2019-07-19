@@ -25,7 +25,7 @@ class GUIScene extends Phaser.Scene {
     /**
      * Listen for events from it
      */
-    this.gameScene.events.on('playerMoved', function () {
+    this.gameScene.events.on('playerStartedMoving', function () {
       if (!this.ground) {
         return;
       }
@@ -40,7 +40,8 @@ class GUIScene extends Phaser.Scene {
         this.gameScene.map.addItem(
           this.gameScene.player.tileX, 
           this.gameScene.player.tileY,
-          topItem
+          topItem,
+          this.ground
         );
       } else {
         this.gameScene.map.removeItem(
@@ -48,6 +49,33 @@ class GUIScene extends Phaser.Scene {
           this.gameScene.player.tileY
         );
       };
+      this.gui.ground.forEach(function (slot) {
+        if (!slot.item) {
+          return;
+        }
+        slot.item.destroy();
+        slot.item = null;
+      });
+    }, this);
+
+    this.gameScene.events.on('playerMoved', function () {
+      let x = this.gameScene.player.tileX;
+      let y = this.gameScene.player.tileY;
+      console.log('itemList', x, y, this.gameScene.map.tiles[x + ',' + y].itemList);
+      this.ground = this.gameScene.map.tiles[x + ',' + y].itemList || [];
+      console.log('ground', x, y, this.ground);
+      if (this.ground.length) {
+        console.log('ground', x, y, this.ground);
+        this.ground.forEach(function (tileName, i) {
+          this.gui.ground[i].item = new Item(
+            this,
+            this.gui.ground[i].x,
+            this.gui.ground[i].y,
+            'tiles',
+            tileName
+          );
+        }.bind(this));
+      }
     }, this);
 
     /**
@@ -63,66 +91,5 @@ class GUIScene extends Phaser.Scene {
         tileName
       );
     }.bind(this));
-
-    // this.ground = createGround(this);
-    // this.grounds = {};
-    // this.grounds[this.gameScene.player.tileX + ',' + this.gameScene.player.tileY] = addGround(this.ground, this.gameScene.player.tileX, this.gameScene.player.tileY);
-    // this.currentGround = this.grounds[this.gameScene.player.tileX + ',' + this.gameScene.player.tileY];
-
-    // for (let i = 0; i < 50; i += 1) {
-    //   let tile = ROT.RNG.getItem(game.grassTiles);
-    //   let ground = createGround(this);
-    //   let tileIndex = ROT.RNG.getUniformInt(100, 149);
-    //   this.grounds[tile.x + ',' + tile.y] = addGround(ground, tile.x, tile.y);
-    //   this.grounds[tile.x + ',' + tile.y].putTileAt(tileIndex, 0, 5);
-    //   this.grounds[tile.x + ',' + tile.y].alpha = 0;
-    //   this.itemLayer.putTileAt(tileIndex, tile.x, tile.y);
-    // }
   };
 };
-
-/**
- * Create the inventory of the player
- * @param {*} scene 
- */
-function createInventory(scene) {
-  var map = scene.make.tilemap({
-    tileWidth: 24,
-    tileHeight: 21,
-    width: 15,
-    height: 15
-  });
-  return map.createBlankDynamicLayer(
-    'inventory', 
-    map.addTilesetImage('tiles'),
-    4, 
-    5
-  );
-}
-
-/**
- * Create the collection of items on the ground
- * @param {*} scene 
- */
-function createGround(scene) {
-  return scene.make.tilemap({
-    tileWidth: 24,
-    tileHeight: 21,
-    width: 15,
-    height: 10
-  });
-}
-
-function addGround(map, tileX, tileY) {
-  var layer = map.createBlankDynamicLayer(
-    'ground ' + tileX + ',' + tileY,
-    map.addTilesetImage('tiles'),
-    4,
-    341
-  );
-  layer.data = {
-    x: tileX, 
-    y: tileY
-  };
-  return layer;
-}

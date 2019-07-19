@@ -22,11 +22,14 @@ class Player extends Actor {
   // Order the player to move towards the specified position or make him rest if it is the player's current position. This action can be called as a direct result of a click on a tile walkable by the player or during every upcoming action of the player before he reaches his destination.
   move() {
 
+    // The scene should also emit an event that one of the player's attributes has been updated, and the ground section of the GUI should react to that.
+    this.scene.events.emit('playerStartedMoving', this);
+
     // The player moves the same way as an actor, except the engine and the player moved event.
     super.move();
 
     // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
-    this.scene.engine.unlock();
+    this.scene.engine.unlock();    
 
     // The scene should also emit an event that one of the player's attributes has been updated, and the ground section of the GUI should react to that.
     this.scene.events.emit('playerMoved', this);
