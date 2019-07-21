@@ -29,13 +29,8 @@ class GUIScene extends Phaser.Scene {
       if (!this.ground) {
         return;
       }
-      console.log('moved');
-      this.gui.inventory.forEach(function () {
-
-      })
-      console.log(this.ground);
       let topItem = this.ground.filter(slot => slot !== null)[0];
-      console.log(topItem);
+      console.log('topItem', topItem);
       if (topItem) {
         this.gameScene.map.addItem(
           this.gameScene.player.tileX, 
@@ -61,12 +56,12 @@ class GUIScene extends Phaser.Scene {
     this.gameScene.events.on('playerMoved', function () {
       let x = this.gameScene.player.tileX;
       let y = this.gameScene.player.tileY;
-      console.log('itemList', x, y, this.gameScene.map.tiles[x + ',' + y].itemList);
       this.ground = this.gameScene.map.tiles[x + ',' + y].itemList || [];
-      console.log('ground', x, y, this.ground);
       if (this.ground.length) {
-        console.log('ground', x, y, this.ground);
         this.ground.forEach(function (tileName, i) {
+          if (tileName === null) {
+            return;
+          } 
           this.gui.ground[i].item = new Item(
             this,
             this.gui.ground[i].x,

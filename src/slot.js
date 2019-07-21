@@ -71,15 +71,17 @@ class Slot extends Phaser.GameObjects.Image {
         this.item.hold.paused = false;
         this.scene.heldItem = this.item;
         this.item = null;
-        if (this.frame.name !== 'slot') {
-          this.scene.gameScene.player.equipped[this.frame.name] = null;
-        } else {
+        if (this.type === 'Inventory') {
           this.scene.gameScene.player.inventory[this.i] = null;
+        } else if (this.type === 'Ground') {
+          this.scene.ground[this.i] = null;
+        } else {
+          this.scene.gameScene.player.equipped[this.frame.name] = null;
         }
       }
-      console.log(this.scene.gameScene.player.inventory);
-      console.log(this.scene.gameScene.player.equipped);
-      console.log(this.scene.ground);
+      console.log('inventory', this.scene.gameScene.player.inventory);
+      console.log('equipment', this.scene.gameScene.player.equipped);
+      console.log('ground', this.scene.ground);
     });
     this.scene.add.existing(this);
   }

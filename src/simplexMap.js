@@ -143,9 +143,9 @@ class SimplexMap {
       enemy = new Actor(this.scene, x, y, 'tiles', 'skeleton');
     } else if (tileName === 'bush' && n < -0.025) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'hobgoblin');
-    } else if (tileName === 'gravel' && n < -0.7) {
+    } else if (tileName === 'gravel' && n < -0.9) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'goblin');
-    } else if (tileName === 'gravel' && n > 0.8) {
+    } else if (tileName === 'gravel' && n > 0.95) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'troll');
     } else if (tileName === 'ford' && n > 0.4) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'orch');
@@ -163,7 +163,7 @@ class SimplexMap {
     if (!this.tiles[x + ',' + y].itemImage) {
       this.tiles[x + ',' + y].itemImage = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
     } else if (this.tiles[x + ',' + y].itemImage.frame.name !== frame) {
-      this.tiles[x + ',' + y].itemImage.frame.name = frame;
+      this.tiles[x + ',' + y].itemImage.setTexture('tiles', frame);
     }
     this.tiles[x + ',' + y].itemList = itemList;
   }
