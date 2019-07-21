@@ -146,6 +146,13 @@ class GameScene extends Phaser.Scene {
           // Add the tile to the list of objects to show.
           this.objectsToShow.push(this.map.tiles[i].image);
 
+          // If there is an item on the tile.
+          if (this.map.tiles[i].itemImage) {
+
+            // Add the item to the list of objects to show.
+            this.objectsToShow.push(this.map.tiles[i].itemImage);
+          }
+
           // Set the tile as not to show to prevent it playing the show animation again in the next update.
           this.map.tiles[i].toShow = false;
         }
@@ -155,6 +162,13 @@ class GameScene extends Phaser.Scene {
 
           // Add the tile to the list of objects to hide, but don't set the tile as not to hide to prevent it playing the hide animation again in the next update because it will be needed after the update to determine which tiles needs to be destroyed.
           this.objectsToHide.push(this.map.tiles[i].image);
+
+          // If there is an item on the tile.
+          if (this.map.tiles[i].itemImage) {
+
+            // Add the item to the list of objects to hide.
+            this.objectsToHide.push(this.map.tiles[i].itemImage);
+          }
         }
       }
     }
