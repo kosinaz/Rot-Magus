@@ -30,7 +30,6 @@ class GUIScene extends Phaser.Scene {
         return;
       }
       let topItem = this.ground.filter(slot => slot !== null)[0];
-      console.log('topItem', topItem);
       if (topItem) {
         this.gameScene.map.addItem(
           this.gameScene.player.tileX, 

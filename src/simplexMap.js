@@ -138,6 +138,10 @@ class SimplexMap {
     // The name of the tile at the given position that will determine the type of the enemy.
     let tileName = this.tiles[x + ',' + y].name;
 
+    let items = Object.keys(this.scene.itemTypes);
+
+    let item = items[~~(Math.random() * items.length)];
+
     if (tileName === 'redFlower' && n < -0.05) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'zombie');
     } else if (tileName === 'yellowFlower' && n > 0.05) {
@@ -146,6 +150,8 @@ class SimplexMap {
       enemy = new Actor(this.scene, x, y, 'tiles', 'hobgoblin');
     } else if (tileName === 'gravel' && n < -0.9) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'goblin');
+    } else if (tileName === 'gravel' && n > 0.99) {
+      this.addItem(x, y, item, [item]);
     } else if (tileName === 'gravel' && n > 0.95) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'troll');
     } else if (tileName === 'ford' && n > 0.4) {
