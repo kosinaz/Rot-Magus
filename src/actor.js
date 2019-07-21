@@ -28,6 +28,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.equipped = {};
     this.scene.add.existing(this);
     this.scene.scheduler.add(this, true);
+    this.depth = 3;
   }
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
@@ -191,9 +192,11 @@ class Actor extends Phaser.GameObjects.Image {
     actor.health -= damage;
 
     // Add a new effect to the list of effects to be displayed during this update based on the amount of damage.
-    this.scene.effects.push(this.scene.add.sprite(
+    let effect = this.scene.add.sprite(
       actor.x, actor.y, 'tiles', damage === 10 ? 'zok' : 'bif'
-    ));
+    );
+    effect.depth = 4;
+    this.scene.effects.push(effect);
     
     console.log(actor.name, actor.health);
 

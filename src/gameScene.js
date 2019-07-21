@@ -53,7 +53,7 @@ class GameScene extends Phaser.Scene {
     this.marker = this.add.graphics();
     this.marker.lineStyle(1, 0xffff00, 1);
     this.marker.strokeRect(0, 0, 23, 20);
-    this.marker.depth = 1;
+    this.marker.depth = 5;
 
     // Set the main camera viewport to the left side of the screen with the size of the player's maximum field of view.
     this.cameras.main.setViewport(372, 5, 27 * 24, 27 * 21);

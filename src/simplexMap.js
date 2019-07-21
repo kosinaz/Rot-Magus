@@ -58,7 +58,8 @@ class SimplexMap {
       this.tiles[x + ',' + y].image.alpha = 0;
 
       // Add the tile to the container of terrain tiles to show it under the actor.
-      this.terrain.add(this.tiles[x + ',' + y].image)
+      //this.terrain.add(this.tiles[x + ',' + y].image)
+      this.tiles[x + ',' + y].image.depth = 1;
 
       // Set the tile to show in the current update.
       this.tiles[x + ',' + y].toShow = true;
@@ -162,6 +163,7 @@ class SimplexMap {
   addItem(x, y, frame, itemList) {
     if (!this.tiles[x + ',' + y].itemImage) {
       this.tiles[x + ',' + y].itemImage = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
+      this.tiles[x + ',' + y].itemImage.depth = 2;
     } else if (this.tiles[x + ',' + y].itemImage.frame.name !== frame) {
       this.tiles[x + ',' + y].itemImage.setTexture('tiles', frame);
     }
