@@ -47,7 +47,24 @@ class Actor extends Phaser.GameObjects.Image {
     // If the actor hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
     if (!this.isAtXY(this.target.x, this.target.y)) {
 
-      // Make him move towards his target.
+      // Make him move towards his target or attack from afar if possible.
+      this.order();
+    }
+  }
+
+  order() {
+    if (this.isEquippedForRangedAttack()) {
+      let actor = this.scene.getActorAt(this.target.x, this.target.y);
+      if (this.isEnemyFor(actor)) {
+        this.rangedAttack(actor);
+        this.target = {
+          x: this.tileX,
+          y: this.tileY
+        }
+      } else {
+        this.move();
+      }
+    } else {
       this.move();
     }
   }
@@ -73,6 +90,21 @@ class Actor extends Phaser.GameObjects.Image {
       tile !== 'tree' &&
       tile !== 'mountain'
     );
+  }
+
+  isEquippedForRangedAttack() {
+    let leftHand = this.equipped.leftHand;
+    let rightHand = this.equipped.rightHand;
+    if (leftHand && this.scene.itemTypes[leftHand].usesArrow ||
+      rightHand && this.scene.itemTypes[rightHand].usesArrow) {
+      return true;
+    }
+    return false;
+  }
+
+  isEnemyFor(actor) {
+    return this.scene.enemies.includes(this) 
+    === !this.scene.enemies.includes(actor)
   }
 
   // Calculate the shortest path between the actor's current position and the given target position.
@@ -132,10 +164,7 @@ class Actor extends Phaser.GameObjects.Image {
     if (actor) {
 
       // If that actor is in a different team, the moving actor will damage his victim.
-      if (
-        this.scene.enemies.includes(this) === 
-        !this.scene.enemies.includes(actor)
-      ) {
+      if (this.isEnemyFor(actor)) {
 
         // Damage that actor.
         this.damage(actor);
@@ -219,6 +248,12 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Emit the GUI update just in case the target is the player.
     this.scene.events.emit('updateAttribute', this);
+  }
+
+  rangedAttack(actor) {
+
+    // Damage that actor.
+    this.damage(actor);
   }
 
   // Kill this actor.

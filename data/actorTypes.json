@@ -27,7 +27,10 @@
     "strength": 12,
     "wisdom": 0,
     "speed": 4,
-    "agility": 10
+    "agility": 10,
+    "inventory": [
+      "sabre"
+    ]
   },
   "skeleton": {
     "name": "Skeleton",
@@ -36,7 +39,10 @@
     "strength": 7,
     "wisdom": 0,
     "speed": 4,
-    "agility": 7
+    "agility": 7,
+    "inventory": [
+      "chainNBall"
+    ]
   },
   "goblin": {
     "name": "Goblin",
@@ -45,7 +51,11 @@
     "strength": 15,
     "wisdom": 0,
     "speed": 4,
-    "agility": 12
+    "agility": 12,
+    "inventory": [
+      "sword",
+      "leather"
+    ]
   },
   "hobgoblin": {
     "name": "Hobgoblin",
@@ -55,6 +65,12 @@
     "wisdom": 0,
     "speed": 5,
     "agility": 15,
+    "inventory": [
+      "throwingStar",
+      "dagger",
+      "dagger",
+      "cloak"
+    ],
     "walksOn": [
       "bush"
     ]
@@ -66,7 +82,10 @@
     "strength": 20,
     "wisdom": 0,
     "speed": 3,
-    "agility": 7
+    "agility": 7,
+    "inventory": [
+      "stoneAxe"
+    ]
   },
   "orch": {
     "name": "Orch",
@@ -75,7 +94,11 @@
     "strength": 14,
     "wisdom": 0,
     "speed": 4,
-    "agility": 9
+    "agility": 9,
+    "inventory": [
+      "sabre",
+      "leather"
+    ]
   },
   "orchArcher": {
     "name": "Orch Archer",
@@ -84,6 +107,10 @@
     "strength": 13,
     "wisdom": 0,
     "speed": 4,
-    "agility": 10
+    "agility": 10,
+    "inventory": [
+      "bow",
+      "arrows"
+    ]
   }
 }

@@ -35,6 +35,15 @@ class Player extends Actor {
     this.scene.events.emit('playerMoved', this);
   }
 
+  rangedAttack(actor) {
+
+    // Damage that actor.
+    super.damage(actor);
+
+    // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
+    this.scene.engine.unlock();
+  }
+
   // Make the player rest until the his next action and get back a health point.
   rest() {
     
