@@ -26,14 +26,16 @@ class Actor extends Phaser.GameObjects.Image {
     this.inventory = config.inventory;
     this.equipped = {};
     this.load = 0;
-    this.inventory.forEach(function (item) {
-      if (item) {
-        let weight = this.scene.itemTypes[item].weight;
-        if (weight) {
-          this.load += weight;
+    if (this.inventory) {
+      this.inventory.forEach(function (item) {
+        if (item) {
+          let weight = this.scene.itemTypes[item].weight;
+          if (weight) {
+            this.load += weight;
+          }
         }
-      }
-    }.bind(this));
+      }.bind(this));
+    }
     this.scene.add.existing(this);
     this.scene.scheduler.add(this, true);
     this.depth = 3;
