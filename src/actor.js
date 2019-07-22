@@ -44,6 +44,9 @@ class Actor extends Phaser.GameObjects.Image {
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
 
+    this.autoEquip();
+    console.log(this.name, this.equipped.rightHand, this.inventory);
+
     // If the actor hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
     if (!this.isAtXY(this.target.x, this.target.y)) {
 
@@ -52,10 +55,24 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
+  autoEquip() {
+    if (this.inventory) {
+      this.inventory.forEach(function (item, i) {
+        if (item 
+          && !this.equipped.rightHand
+          && (this.scene.itemTypes[item].equips === 'hands' 
+          || this.scene.itemTypes[item].equips === 'hand')) {
+            this.equipped.rightHand = item;
+            this.inventory[i] = null;
+        }
+      }.bind(this));
+    }
+  }
+
   order() {
     if (this.isEquippedForRangedAttack()) {
       let actor = this.scene.getActorAt(this.target.x, this.target.y);
-      if (this.isEnemyFor(actor)) {
+      if (actor && this.isEnemyFor(actor)) {
         this.rangedAttack(actor);
         this.target = {
           x: this.tileX,
@@ -95,8 +112,10 @@ class Actor extends Phaser.GameObjects.Image {
   isEquippedForRangedAttack() {
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
-    if (leftHand && this.scene.itemTypes[leftHand].usesArrow ||
-      rightHand && this.scene.itemTypes[rightHand].usesArrow) {
+    if (leftHand && this.scene.itemTypes[leftHand].usesArrow 
+      || rightHand && this.scene.itemTypes[rightHand].usesArrow
+      || leftHand && this.scene.itemTypes[leftHand].throwable
+      || rightHand && this.scene.itemTypes[rightHand].throwable) {
       return true;
     }
     return false;
@@ -254,6 +273,24 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Damage that actor.
     this.damage(actor);
+    let leftHand = this.equipped.leftHand;
+    let rightHand = this.equipped.rightHand;
+    if (leftHand && this.scene.itemTypes[leftHand].throwable) {
+      this.equipped.leftHand = null;  
+      if (this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList) {
+        this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList.push(leftHand);
+      } else {
+        this.scene.map.addItem(actor.tileX, actor.tileY, leftHand, [leftHand]);
+      }
+    }
+    if (rightHand && this.scene.itemTypes[rightHand].throwable) {
+      this.equipped.rightHand = null;
+      if (this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList) {
+        this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList.push(rightHand);
+      } else {
+        this.scene.map.addItem(actor.tileX, actor.tileY, rightHand, [rightHand]);
+      }
+    }
   }
 
   // Kill this actor.

@@ -72,6 +72,39 @@ class GUIScene extends Phaser.Scene {
       }
     }, this);
 
+    this.gameScene.events.on('playerThrew', function () {
+      if (this.gameScene.player.equipped.leftHand === null) {
+        this.gui.leftHand.item.destroy();
+      }
+      if (this.gameScene.player.equipped.rightHand === null) {
+        this.gui.rightHand.item.destroy();
+      }
+      this.gameScene.player.load = 0;
+      let equipment = Object.keys(this.gameScene.player.equipped);
+      equipment.forEach(function (equips) {
+        let item = this.gameScene.player.equipped[equips];
+        if (item) {
+          let weight = this.gameScene.itemTypes[item].weight;
+          if (weight) {
+            this.gameScene.player.load += weight;
+          }
+        }
+      }.bind(this));
+      this.gameScene.player.inventory.forEach(function (item) {
+        if (item) {
+          let weight = this.gameScene.itemTypes[item].weight;
+          if (weight) {
+            this.gameScene.player.load += weight;
+          }
+        }
+      }.bind(this));
+      console.log('inventory', this.gameScene.player.inventory);
+      console.log('equipment', this.gameScene.player.equipped);
+      console.log('ground', this.scene.ground);
+      console.log('load', this.gameScene.player.load);
+      this.gameScene.events.emit('updateAttribute', this);
+    }, this);
+
     /**
      * Create inventory
      */
