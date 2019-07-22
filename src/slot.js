@@ -79,9 +79,30 @@ class Slot extends Phaser.GameObjects.Image {
           this.scene.gameScene.player.equipped[this.frame.name] = null;
         }
       }
+      this.scene.gameScene.player.load = 0;
+      let equipment = Object.keys(this.scene.gameScene.player.equipped);
+      equipment.forEach(function (equips) {
+        let item = this.scene.gameScene.player.equipped[equips];
+        if (item) {
+          let weight = this.scene.gameScene.itemTypes[item].weight;
+          if (weight) {
+            this.scene.gameScene.player.load += weight;
+          }
+        }
+      }.bind(this));
+      this.scene.gameScene.player.inventory.forEach(function (item) {
+        if (item) {
+          let weight = this.scene.gameScene.itemTypes[item].weight;
+          if (weight) {
+            this.scene.gameScene.player.load += weight;
+          }
+        }
+      }.bind(this));
       console.log('inventory', this.scene.gameScene.player.inventory);
       console.log('equipment', this.scene.gameScene.player.equipped);
       console.log('ground', this.scene.ground);
+      console.log('load', this.scene.gameScene.player.load);
+      this.scene.gameScene.events.emit('updateAttribute', this);
     });
     this.scene.add.existing(this);
   }
