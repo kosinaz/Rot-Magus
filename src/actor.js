@@ -277,19 +277,11 @@ class Actor extends Phaser.GameObjects.Image {
     let rightHand = this.equipped.rightHand;
     if (leftHand && this.scene.itemTypes[leftHand].throwable) {
       this.equipped.leftHand = null;  
-      if (this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList) {
-        this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList.push(leftHand);
-      } else {
-        this.scene.map.addItem(actor.tileX, actor.tileY, leftHand, [leftHand]);
-      }
+      this.scene.map.addItem(actor.tileX, actor.tileY, leftHand, [leftHand]);
     }
     if (rightHand && this.scene.itemTypes[rightHand].throwable) {
       this.equipped.rightHand = null;
-      if (this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList) {
-        this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList.push(rightHand);
-      } else {
-        this.scene.map.addItem(actor.tileX, actor.tileY, rightHand, [rightHand]);
-      }
+      this.scene.map.addItem(actor.tileX, actor.tileY, rightHand, [rightHand]);
     }
   }
 
@@ -298,6 +290,16 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Give some XP to the player.
     this.scene.player.earnXP(10);
+    if (this.equipped) {
+      for (let i in this.equipped) {
+        this.inventory.push(this.equipped[i]);
+      }      
+    }
+    this.inventory = this.inventory.filter(item => item !== null);
+    if (this.inventory) {
+      console.log(this.inventory);
+      this.scene.map.addItem(this.tileX, this.tileY, this.inventory[0], this.inventory);
+    }
 
     // Show the remains of the enemy.
     let remains = 

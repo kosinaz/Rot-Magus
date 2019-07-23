@@ -44,20 +44,12 @@ class Player extends Actor {
     if (leftHand && this.scene.itemTypes[leftHand].throwable) {
       this.equipped.leftHand = null;
       this.scene.events.emit('playerThrew', this);
-      if (this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList) {
-        this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList.push(leftHand);
-      } else {
-        this.scene.map.addItem(actor.tileX, actor.tileY, leftHand, [leftHand]);
-      }
+      this.scene.map.addItem(actor.tileX, actor.tileY, leftHand);
     }
     if (rightHand && this.scene.itemTypes[rightHand].throwable) {
       this.equipped.rightHand = null;
       this.scene.events.emit('playerThrew', this);
-      if (this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList) {
-        this.scene.map.tiles[actor.tileX + ',' + actor.tileY].itemList.push(rightHand);
-      } else {
-        this.scene.map.addItem(actor.tileX, actor.tileY, rightHand, [rightHand]);
-      }
+      this.scene.map.addItem(actor.tileX, actor.tileY, rightHand);
     }
 
     // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.

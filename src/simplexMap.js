@@ -165,8 +165,8 @@ class SimplexMap {
     }
   }
 
-  // Put an item on the map.
-  addItem(x, y, frame, itemList) {
+  // Put a list of items on the map.
+  putItem(x, y, frame, itemList) {
     if (!this.tiles[x + ',' + y].itemImage) {
       this.tiles[x + ',' + y].itemImage = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
       this.tiles[x + ',' + y].itemImage.depth = 2;
@@ -174,6 +174,16 @@ class SimplexMap {
       this.tiles[x + ',' + y].itemImage.setTexture('tiles', frame);
     }
     this.tiles[x + ',' + y].itemList = itemList;
+  }
+
+  // Add a list of items to a list of items on the map.
+  addItem(x, y, frame, itemList) {
+    if (this.tiles[x + ',' + y].itemList) {
+      this.tiles[x + ',' + y].itemList = 
+        this.tiles[x + ',' + y].itemList.concat(itemList);
+    } else {
+      this.scene.map.putItem(x, y, frame, itemList);
+    }
   }
 
   // Remove an item from the map.

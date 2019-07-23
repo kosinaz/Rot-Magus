@@ -31,7 +31,7 @@ class GUIScene extends Phaser.Scene {
       }
       let topItem = this.ground.filter(slot => slot !== null)[0];
       if (topItem) {
-        this.gameScene.map.addItem(
+        this.gameScene.map.putItem(
           this.gameScene.player.tileX, 
           this.gameScene.player.tileY,
           topItem,
