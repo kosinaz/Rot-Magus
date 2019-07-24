@@ -43,9 +43,7 @@ class Actor extends Phaser.GameObjects.Image {
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
-
     this.autoEquip();
-    console.log(this.name, this.equipped.rightHand, this.inventory);
 
     // If the actor hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
     if (!this.isAtXY(this.target.x, this.target.y)) {
@@ -251,9 +249,10 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Add a new effect to the list of effects to be displayed during this update based on the amount of damage.
     let effect = this.scene.add.sprite(
-      actor.x, actor.y, 'tiles', damage === 10 ? 'zok' : 'bif'
+      actor.tileX * 24 + 12, actor.tileY * 21 + 11, 'tiles', damage === 10 ? 'zok' : 'bif'
     );
     effect.depth = 4;
+    effect.visible = false;
     this.scene.effects.push(effect);
     
     console.log(actor.name, actor.health);

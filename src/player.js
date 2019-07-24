@@ -12,7 +12,7 @@ class Player extends Actor {
     // The first step is to lock the engine before it calls the next actor, so the screen can be updated and the player can have plenty of time to perform his next action. The engine needs to be locked even if the player's actor has a target and does not need additional orders, because every action takes time and no one should move in the meantime.
     this.scene.engine.lock();
     
-    // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible, and to hide. Make the visible enemies notice the player.
+    // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible, and to hide.
     this.scene.computeFOV();
     
     // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
@@ -26,13 +26,16 @@ class Player extends Actor {
     this.scene.events.emit('playerStartedMoving', this);
 
     // The player moves the same way as an actor, except the engine and the player moved event.
-    super.move();
-
-    // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
-    this.scene.engine.unlock();    
+    super.move();     
 
     // The scene should also emit an event that one of the player's attributes has been updated, and the ground section of the GUI should react to that.
     this.scene.events.emit('playerMoved', this);
+
+    // Make the currently visible enemies notice the player.
+    this.scene.updateEnemyTargets();
+
+    // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
+    this.scene.engine.unlock();
   }
 
   rangedAttack(actor) {

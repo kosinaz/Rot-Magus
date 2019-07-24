@@ -109,15 +109,6 @@ class SimplexMap {
         this.scene.objectsToShow.push(actor);
       }
 
-      // Make the enemy target the player.
-      actor.target = {
-        x: this.scene.player.tileX,
-        y: this.scene.player.tileY
-      };
-
-      // Reset the path of the enemy to let him start moving towards the player's new position.
-      actor.path = [];
-
       // Make the enemy not to hide in the next update as it was already set to hide in the beginning of the compute FOV.
       actor.toHide = false;
     }

@@ -128,6 +128,30 @@ class GameScene extends Phaser.Scene {
     }.bind(this));
   }
 
+  // Make the currently visible enemies notice the player.
+  updateEnemyTargets() {
+
+    // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
+    this.fov.compute(this.player.tileX, this.player.tileY, 13, function (x, y) {
+
+      // Get the actor at the given position.
+      let actor = this.getActorAt(x, y);
+
+      // If there is an actor and he is not the player, it means that he is an enemy.
+      if (actor && actor !== this.player) {
+
+        // Make the enemy target the player.
+        actor.target = {
+          x: this.player.tileX,
+          y: this.player.tileY
+        };
+
+        // Reset the path of the enemy to let him start moving towards the player's new position.
+        actor.path = [];
+      }
+    }.bind(this));
+  }
+
   // Update the screen in a speed-based amount of time to show the player what happened since his last action.
   updateFOV() {
     
@@ -273,7 +297,7 @@ class GameScene extends Phaser.Scene {
     });
 
     // All the inner state changes have their own special effect, that will be added to the actor and will be played from the second half of the screen update and will be removed long after all the other animations have ended to help the player follow the events. These effects have been collected during the actions of the triggering actors.
-    this.time.delayedCall(500 / game.speed, function () {
+    this.time.delayedCall(750 / game.speed, function () {
       this.effects.forEach(effect => effect.visible = true);
     }.bind(this));
     this.tweens.add({
