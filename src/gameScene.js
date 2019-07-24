@@ -140,14 +140,18 @@ class GameScene extends Phaser.Scene {
       // If there is an actor and he is not the player, it means that he is an enemy.
       if (actor && actor !== this.player) {
 
-        // Make the enemy target the player.
-        actor.target = {
-          x: this.player.tileX,
-          y: this.player.tileY
-        };
+        // If the player stands on a tile that is walkable by the actor.
+        if (actor.walksOnXY(this.player.tileX, this.player.tileY)) {
 
-        // Reset the path of the enemy to let him start moving towards the player's new position.
-        actor.path = [];
+          // Make the enemy target the player.
+          actor.target = {
+            x: this.player.tileX,
+            y: this.player.tileY
+          };
+
+          // Reset the path of the enemy to let him start moving towards the player's new position.
+          actor.path = [];
+        }
       }
     }.bind(this));
   }
