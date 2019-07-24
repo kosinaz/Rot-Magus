@@ -12,12 +12,40 @@ class Item extends Phaser.GameObjects.Image {
       loop: true,
       paused: true
     });
+    this.setInteractive();
     this.on('hold', function () {
       this.x = this.scene.input.activePointer.x;
       this.y = this.scene.input.activePointer.y;
     });
+    this.on('pointerdown', function () {
+      this.tint = 0xcccccc;
+      this.scene.pointerdownTarget = this;
+    });
+    this.on('pointerup', function () {
+      if (this.scene.pointerdownTarget === this) {
+        this.emit('click');
+      }
+      this.scene.pointerdownTarget = null;
+    });
     this.scene.input.on('pointerup', function () {
-      this.alpha = 1;
+      this.clearTint();
     }, this);
+    this.on('click', function () {
+      this.disableInteractive();
+      this.scene.children.bringToTop(this);
+      //this.scene.gui.inventory.forEach(slot => slot.setInteractive());
+      this.hold.paused = false;
+      this.scene.heldItem = this;
+      if (this.slot.type === 'Inventory') {
+        this.scene.gameScene.player.inventory[this.slot.i] = null;
+      } else if (this.type === 'Ground') {
+        let x = this.scene.gameScene.player.tileX;
+        let y = this.scene.gameScene.player.tileY;
+        this.scene.gameScene.map[x + ',' + y][this.slot.i] = null;
+      } else {
+        this.scene.gameScene.player.equipped[this.frame.name] = null;
+      }
+      this.slot = null;
+    });
   }
 }

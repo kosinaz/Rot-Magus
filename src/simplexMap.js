@@ -170,8 +170,10 @@ class SimplexMap {
   // Add a list of items to a list of items on the map.
   addItem(x, y, frame, itemList) {
     if (this.tiles[x + ',' + y].itemList) {
+      console.log(this.tiles[x + ',' + y].itemList);
       this.tiles[x + ',' + y].itemList = 
         this.tiles[x + ',' + y].itemList.concat(itemList);
+      console.log(this.tiles[x + ',' + y].itemList);
     } else {
       this.scene.map.putItem(x, y, frame, itemList);
     }

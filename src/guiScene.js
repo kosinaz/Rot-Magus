@@ -110,13 +110,14 @@ class GUIScene extends Phaser.Scene {
      */
     this.itemTypes = this.cache.json.get('itemTypes');
     this.gameScene.player.inventory.forEach(function (tileName, i) {
-      this.gui.inventory[i].item = new Item(
+      let item = new Item(
         this, 
         this.gui.inventory[i].x, 
         this.gui.inventory[i].y, 
         'tiles', 
         tileName
       );
+      item.slot = this.gui.inventory[i];
     }.bind(this));
   };
 };

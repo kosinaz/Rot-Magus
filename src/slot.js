@@ -9,9 +9,9 @@ class Slot extends Phaser.GameObjects.Image {
     );
     this.setInteractive();
     this.on('pointerdown', function () {
-      if (this.item) {
-        this.item.alpha = 0.5;
-      }
+
+      // Will be reverted in the items pointer up event.
+      this.tint = 0xcccccc;
       this.scene.pointerdownTarget = this;
     });
     this.on('pointerup', function () {
@@ -20,6 +20,9 @@ class Slot extends Phaser.GameObjects.Image {
       }
       this.scene.pointerdownTarget = null;
     });
+    this.scene.input.on('pointerup', function () {
+      this.clearTint();
+    }, this);
     this.on('click', function () {      
       if (this.scene.heldItem) {
         if (!this.equips(this.scene.heldItem.config.equips)) {
@@ -48,10 +51,12 @@ class Slot extends Phaser.GameObjects.Image {
           this.scene.gameScene.player.inventory[this.i] =
             this.scene.heldItem.frame.name;
         } else if (this.type === 'Ground') {
-          if (!this.scene.ground) {
-            this.scene.ground = [];
+          let x = this.scene.gameScene.player.tileX;
+          let y = this.scene.gameScene.player.tileY;
+          if (!this.scene.gameScene.map[x + ',' + y].itemList) {
+            this.scene.gameScene.map[x + ',' + y].itemList = [];
           }
-          this.scene.ground[this.i] =
+          this.scene.gameScene.map[x + ',' + y].itemList[this.i] =
             this.scene.heldItem.frame.name;
         } else {
           this.scene.gameScene.player.equipped[this.frame.name] =

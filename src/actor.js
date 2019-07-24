@@ -23,7 +23,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.agility = config.agility;
     this.wisdom = config.wisdom;
     this.walksOn = config.walksOn || [];
-    this.inventory = config.inventory;
+    this.inventory = [...config.inventory];
     this.equipped = {};
     this.load = 0;
     if (this.inventory) {
@@ -65,6 +65,7 @@ class Actor extends Phaser.GameObjects.Image {
         }
       }.bind(this));
     }
+    console.log(this.name, this.equipped.rightHand, this.inventory)
   }
 
   order() {
@@ -283,6 +284,9 @@ class Actor extends Phaser.GameObjects.Image {
       this.equipped.rightHand = null;
       this.scene.map.addItem(actor.tileX, actor.tileY, rightHand, [rightHand]);
     }
+
+    // Emit the GUI ground update just in case the target is the player.
+    this.scene.events.emit('playerMoved', this);
   }
 
   // Kill this actor.
