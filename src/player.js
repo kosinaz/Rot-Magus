@@ -54,6 +54,9 @@ class Player extends Actor {
       this.scene.events.emit('playerThrew', this);
       this.scene.map.addItem(actor.tileX, actor.tileY, rightHand);
     }
+    
+    // Make the currently visible enemies notice the player.
+    this.scene.updateEnemyTargets();
 
     // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
     this.scene.engine.unlock();

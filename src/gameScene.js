@@ -301,8 +301,13 @@ class GameScene extends Phaser.Scene {
     });
 
     // All the inner state changes have their own special effect, that will be added to the actor and will be played from the second half of the screen update and will be removed long after all the other animations have ended to help the player follow the events. These effects have been collected during the actions of the triggering actors.
-    this.time.delayedCall(750 / game.speed, function () {
-      this.effects.forEach(effect => effect.visible = true);
+    this.time.delayedCall(500 / game.speed, function () {
+    this.effects.forEach(function (effect) {
+      effect.visible = true;
+      effect.x = effect.actor.x;
+      effect.y = effect.actor.y;
+    });
+    
     }.bind(this));
     this.tweens.add({
       targets: this.effects,

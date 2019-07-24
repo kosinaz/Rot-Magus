@@ -249,8 +249,9 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Add a new effect to the list of effects to be displayed during this update based on the amount of damage.
     let effect = this.scene.add.sprite(
-      actor.tileX * 24 + 12, actor.tileY * 21 + 11, 'tiles', damage === 10 ? 'zok' : 'bif'
+      actor.x, actor.y, 'tiles', damage === 10 ? 'zok' : 'bif'
     );
+    effect.actor = actor;
     effect.depth = 4;
     effect.visible = false;
     this.scene.effects.push(effect);
