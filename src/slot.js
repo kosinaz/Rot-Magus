@@ -47,6 +47,8 @@ class Slot extends Phaser.GameObjects.Image {
         this.scene.heldItem.hold.paused = true;
         this.scene.heldItem.x = this.x;
         this.scene.heldItem.y = this.y;
+        this.scene.heldItem.setInteractive();
+        this.scene.heldItem.slot = this;
         if (this.type === 'Inventory') {
           this.scene.gameScene.player.inventory[this.i] =
             this.scene.heldItem.frame.name;
@@ -70,18 +72,6 @@ class Slot extends Phaser.GameObjects.Image {
           this.scene.heldItem = nextItem;
         } else {
           this.scene.heldItem = null;
-        }
-      } else if (this.item) {
-        this.scene.children.bringToTop(this.item);
-        this.item.hold.paused = false;
-        this.scene.heldItem = this.item;
-        this.item = null;
-        if (this.type === 'Inventory') {
-          this.scene.gameScene.player.inventory[this.i] = null;
-        } else if (this.type === 'Ground') {
-          this.scene.ground[this.i] = null;
-        } else {
-          this.scene.gameScene.player.equipped[this.frame.name] = null;
         }
       }
       this.scene.gameScene.player.load = 0;

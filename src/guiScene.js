@@ -118,6 +118,8 @@ class GUIScene extends Phaser.Scene {
         tileName
       );
       item.slot = this.gui.inventory[i];
+      this.gameScene.selected = item;
     }.bind(this));
+
   };
 };

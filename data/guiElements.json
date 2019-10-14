@@ -196,6 +196,13 @@
     "x": 16,
     "y": 121
   },
+  "selected": {
+    "frame": "",
+    "texture": "tiles",
+    "type": "Image",
+    "x": 280,
+    "y": 121
+  },
   "ground": {
     "columns": 10,
     "rows": 10,

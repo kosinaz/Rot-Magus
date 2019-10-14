@@ -32,8 +32,9 @@ class Item extends Phaser.GameObjects.Image {
     }, this);
     this.on('click', function () {
       this.disableInteractive();
+      console.log(this.scene.gui);
+      this.scene.gui.selected.setFrame(this.frame.name);
       this.scene.children.bringToTop(this);
-      //this.scene.gui.inventory.forEach(slot => slot.setInteractive());
       this.hold.paused = false;
       this.scene.heldItem = this;
       if (this.slot.type === 'Inventory') {

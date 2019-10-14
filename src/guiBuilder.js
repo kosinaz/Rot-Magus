@@ -6,7 +6,7 @@ class GUIBuilder {
   static create(config) {
     if (config.type === 'Image') {
       let sourceScene = game.scene.getScene(this.defaultConfig.sourceScene);
-      this.scene.add.image(
+      return this.scene.add.image(
         config.x,
         config.y,
         config.texture,
