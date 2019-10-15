@@ -1,4 +1,11 @@
-class Slot extends Phaser.GameObjects.Image {
+
+/**
+ * An interactive image that represents a single slot of an inventory and serves as a drop zone of picked up item images. It targets either the inventory or one of the equipment attributes of the player.
+ *
+ * @class SlotImage
+ * @extends {Phaser.GameObjects.Image}
+ */
+class SlotImage extends Phaser.GameObjects.Image {
   constructor(config) {
     super(
       game.scene.getScene(config.scene), 

@@ -5,8 +5,8 @@ class TextLabelStrokedBar extends TextLabelStroked {
     this.rectY = config.rectY;
     this.rectWidth = config.rectWidth;
     this.rectHeight = config.rectHeight;
-    this.value = config.value;
-    this.valueMax = config.valueMax;
+    this.targetAttribute = config.targetAttribute;
+    this.targetAttributeMax = config.targetAttributeMax;
     this.bar = this.scene.add.graphics({
       fillStyle: {
         color: config.color
@@ -73,8 +73,9 @@ class TextLabelStrokedBar extends TextLabelStroked {
       this.rectY + 1,
       Math.max(
         1, 
-        (this.rectWidth - 2) * this.sourceScene[this.target][this.value] / 
-          this.sourceScene[this.target][this.valueMax]
+        (this.rectWidth - 2) * 
+        this.sourceScene[this.target][this.targetAttribute] / 
+        this.sourceScene[this.target][this.targetAttributeMax]
       ),
       this.rectHeight - 2
     );

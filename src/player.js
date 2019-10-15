@@ -42,15 +42,13 @@ class Player extends Actor {
 
     // Damage that actor.
     this.damage(actor);
-    let leftHand = this.equipped.leftHand;
-    let rightHand = this.equipped.rightHand;
-    if (leftHand && this.scene.itemTypes[leftHand].throwable) {
-      this.equipped.leftHand = null;
+    if (this.leftHand && this.scene.itemTypes[this.leftHand].throwable) {
+      this.leftHand = null;
       this.scene.events.emit('playerThrew', this);
       this.scene.map.addItem(actor.tileX, actor.tileY, leftHand);
     }
-    if (rightHand && this.scene.itemTypes[rightHand].throwable) {
-      this.equipped.rightHand = null;
+    if (this.rightHand && this.scene.itemTypes[this.rightHand].throwable) {
+      this.rightHand = null;
       this.scene.events.emit('playerThrew', this);
       this.scene.map.addItem(actor.tileX, actor.tileY, rightHand);
     }

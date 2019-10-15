@@ -31,17 +31,17 @@ class GUIBuilder {
         ...config
       });
     }
-    if (config.type === 'Slot') {
-      return new Slot({
+    if (config.type === 'SlotImage') {
+      return new SlotImage({
         ...this.defaultConfig,
         ...config
       });
     }
-    if (config.type === 'Inventory' || config.type === 'Ground') {
+    if (config.type === 'SlotGrid') {
       let inventory = [];
       for (let y = 0; y < config.columns; y += 1) {
         for (let x = 0; x < config.rows; x += 1) {
-          let slot = new Slot({
+          let slot = new SlotImage({
             ...this.defaultConfig,
             ...config
           });

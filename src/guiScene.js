@@ -43,7 +43,7 @@ class GUIScene extends Phaser.Scene {
           this.gameScene.player.tileY
         );
       };
-      this.gui.ground.forEach(function (slot) {
+      this.gui.groundSlots.forEach(function (slot) {
         if (!slot.item) {
           return;
         }
@@ -53,21 +53,36 @@ class GUIScene extends Phaser.Scene {
     }, this);
 
     this.gameScene.events.on('playerMoved', function () {
+
+      // Grab the x coordinate of the player to use as the ID of the ground he is currently standing on.
       let x = this.gameScene.player.tileX;
+
+      // Grab the y coordinate of the player to use as the ID of the ground he is currently standing on.
       let y = this.gameScene.player.tileY;
+
+      // If the there are already items on the ground at the player's current position, set their list as the ground to be displayed on the UI.
       this.ground = this.gameScene.map.tiles[x + ',' + y].itemList || [];
+
+      // If there is any item on the ground.
       if (this.ground.length) {
+
+        
+        // Iterate through all the items on the ground.
         this.ground.forEach(function (tileName, i) {
+          
+          // Ignore the empty slots.
           if (tileName === null) {
             return;
           } 
-          this.gui.ground[i].item = new Item(
+          
+          // Create an interactive image for each of the items on the corresponding slot image of the ground.
+          this.gui.groundSlots[i].item = new ItemImage(
             this,
-            this.gui.ground[i].x,
-            this.gui.ground[i].y,
+            this.gui.groundSlots[i].x,
+            this.gui.groundSlots[i].y,
             'tiles',
             tileName
-          );
+            );
         }.bind(this));
       }
     }, this);
@@ -110,14 +125,14 @@ class GUIScene extends Phaser.Scene {
      */
     this.itemTypes = this.cache.json.get('itemTypes');
     this.gameScene.player.inventory.forEach(function (tileName, i) {
-      let item = new Item(
+      let item = new ItemImage(
         this, 
-        this.gui.inventory[i].x, 
-        this.gui.inventory[i].y, 
+        this.gui.inventorySlots[i].x, 
+        this.gui.inventorySlots[i].y,
         'tiles', 
         tileName
       );
-      item.slot = this.gui.inventory[i];
+      item.slot = this.gui.inventorySlots[i];
       this.gameScene.selected = item;
     }.bind(this));
 

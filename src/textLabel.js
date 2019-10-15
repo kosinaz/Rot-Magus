@@ -12,8 +12,8 @@ class TextLabel extends Phaser.GameObjects.Text {
       }
     );
     this.target = config.target;
-    this.value = config.value;
-    this.valueMax = config.valueMax;
+    this.targetAttribute = config.targetAttribute;
+    this.targetAttributeMax = config.targetAttributeMax;
     this.setOrigin(
       config.originX !== undefined ? config.originX : 0.5, 
       config.originY !== undefined ? config.originY : undefined
@@ -24,7 +24,7 @@ class TextLabel extends Phaser.GameObjects.Text {
     this.draw();
   }
   draw() {
-    this.text = this.sourceScene[this.target][this.value] +
-      (this.valueMax ? '/' + this.sourceScene[this.target][this.valueMax] : '');
+    this.text = this.sourceScene[this.target][this.targetAttribute] +
+      (this.targetAttributeMax ? '/' + this.sourceScene[this.target][this.targetAttributeMax] : '');
   }
 }
