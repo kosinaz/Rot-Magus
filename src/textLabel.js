@@ -6,25 +6,25 @@ class TextLabel extends Phaser.GameObjects.Text {
       config.y,
       config.text, 
       {
-        'fontFamily': config.font || 'font',
-        'fontSize': config.size || '16px',
-        'fill': config.fill !== undefined ? config.fill : '#000000'
+        'fontFamily': config.fontFamily,
+        'fontSize': config.fontSize,
+        'fill': config.fill
       }
     );
-    this.target = config.target;
+    this.targetActor = config.targetActor;
     this.targetAttribute = config.targetAttribute;
     this.targetAttributeMax = config.targetAttributeMax;
     this.setOrigin(
       config.originX !== undefined ? config.originX : 0.5, 
       config.originY !== undefined ? config.originY : undefined
     );    
-    this.sourceScene = game.scene.getScene(config.sourceScene);
-    this.sourceScene.events.on(config.event, this.draw.bind(this));
+    this.targetScene = game.scene.getScene(config.targetScene);
+    this.targetScene.events.on(config.event, this.draw.bind(this));
     this.scene.add.existing(this);
     this.draw();
   }
   draw() {
-    this.text = this.sourceScene[this.target][this.targetAttribute] +
-      (this.targetAttributeMax ? '/' + this.sourceScene[this.target][this.targetAttributeMax] : '');
+    this.text = this.targetScene[this.targetActor][this.targetAttribute] +
+      (this.targetAttributeMax ? '/' + this.targetScene[this.targetActor][this.targetAttributeMax] : '');
   }
 }

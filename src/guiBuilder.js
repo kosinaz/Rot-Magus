@@ -2,6 +2,12 @@ class GUIBuilder {
   static init(config) {
     this.defaultConfig = config;
     this.scene = game.scene.getScene(this.defaultConfig.scene);
+    this.classes = {
+      TextLabel,
+      TextLabelStroked,
+      TextLabelStrokedBar,
+      SlotImage
+    };
   }
   static create(config) {
     if (config.type === 'Image') {
@@ -14,7 +20,7 @@ class GUIBuilder {
       );
     }
     if (config.type === 'TextLabel') {
-      return new TextLabel({
+      return new this.classes[config.type]({
         ...this.defaultConfig,
         ...config
       });
@@ -26,7 +32,7 @@ class GUIBuilder {
       });
     }
     if (config.type === 'TextLabelStrokedBar') {
-      return new TextLabelStrokedBar({
+      return new this.classes[config.type]({
         ...this.defaultConfig,
         ...config
       });

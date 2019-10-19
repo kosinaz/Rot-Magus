@@ -21,7 +21,7 @@ class ItemImage extends Phaser.GameObjects.Image {
       loop: true,
       paused: true
     });
-    this.setInteractive();
+    //this.setInteractive();
     this.on('hold', function () {
       this.x = this.scene.input.activePointer.x;
       this.y = this.scene.input.activePointer.y;

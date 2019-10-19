@@ -1,22 +1,27 @@
 {
   "default": {
-    "event": "updateAttribute",
+    "event": "update",
+    "fill": "#000000",
+    "fontFamily": "font",
+    "fontSize": "16px",
     "scene": "GUIScene",
-    "sourceScene": "GameScene",
-    "target": "player"
+    "targetActor": "player",
+    "targetScene": "GameScene",
+    "originX": 0.5,
+    "originY": 0.5
   },
   "portrait": {
     "frame": "tileName",
-    "target": "player",
     "texture": "tiles",
-    "type": "Image",
+    "type": "ActiveImage",
     "x": 16,
     "y": 16
   },
   "levelImage": {
     "frame": "level",
     "texture": "gui",
-    "type": "Image",
+    "tooltip": "Level:\nThe higher it is, the higher your maximum Health and Mana will be...",
+    "type": "ActiveImage",
     "x": 40,
     "y": 16
   },
@@ -137,7 +142,7 @@
   "speedImage": {
     "frame": "speed",
     "texture": "gui",
-    "type": "Image",
+    "type": "ActiveImage",
     "x": 304,
     "y": 16
   },
@@ -152,7 +157,7 @@
   "strengthImage": {
     "frame": "strength",
     "texture": "gui",
-    "type": "Image",
+    "type": "ActiveImage",
     "x": 304,
     "y": 37
   },
@@ -168,7 +173,7 @@
   "agilityImage": {
     "frame": "agility",
     "texture": "gui",
-    "type": "Image",
+    "type": "ActiveImage",
     "x": 304,
     "y": 58
   },
@@ -183,7 +188,7 @@
   "wisdomImage": {
     "frame": "wisdom",
     "texture": "gui",
-    "type": "Image",
+    "type": "ActiveImage",
     "x": 304,
     "y": 79
   },
@@ -208,7 +213,7 @@
   "selected": {
     "frame": "",
     "texture": "tiles",
-    "type": "Image",
+    "type": "ActiveImage",
     "x": 280,
     "y": 121
   },

@@ -1,6 +1,6 @@
 
 /**
- * An interactive image that represents a single slot of an inventory and serves as a drop zone of picked up item images. It targets either the inventory or one of the equipment attributes of the player.
+ * An interactive image that represents a single slot of an inventory and serves as a drop zone for picked up item images. It targets either the inventory or one of the equipment attributes of the player.
  *
  * @class SlotImage
  * @extends {Phaser.GameObjects.Image}
@@ -14,48 +14,72 @@ class SlotImage extends Phaser.GameObjects.Image {
       config.texture, 
       config.frame
     );
+    //this.target = config.target;
+    this.targetAttribute = config.targetAttribute;
+
+    // Set the slot interactive to let it listen to pointer events. 
     this.setInteractive();
+
+    // If the pointer is over the slot and the button is pressed down.
     this.on('pointerdown', function () {
 
-      // Will be reverted in the items pointer up event.
-      this.tint = 0xcccccc;
-      this.scene.pointerdownTarget = this;
+      // If there is an item on this slot.
+      if (this.itemImage) {
+
+        // Set the image of the item darker to show that the button of the pointer over it is pressed down. This will be reverted in the pointer up event of scene, because that event can also happen when the pointer is not over this slot and the item image colors still need to be reverted.
+        this.itemImage.tint = 0xcccccc;
+
+        // Save the updated item to let the scene know which item needs to be reverted in the pointer up event. 
+        this.scene.pointerdownTargetItem = this.itemImage;
+      }
+
+      // Save this slot to let the scene know where the pointer up event needs to be happen to qualify as a click event. 
+      this.scene.pointerdownTargetSlot = this;
     });
+
+    // If the pointer is over the slot and the button is released.
     this.on('pointerup', function () {
-      if (this.scene.pointerdownTarget === this) {
+
+      // If this is the same slot where the button of the pointer got pressed down. 
+      if (this.scene.pointerdownTargetSlot === this) {
+
+        // Emit the click event.
         this.emit('click');
       }
-      this.scene.pointerdownTarget = null;
     });
-    this.scene.input.on('pointerup', function () {
-      this.clearTint();
-    }, this);
-    this.on('click', function () {      
+
+    // If the pointer is over the slot and the button is clicked. A pointer event qualifies as a click if the pointerdown and pointerup event happened over the same slot even if it wasn't over it the whole time.
+    this.on('click', function () {
+
+      console.log(this.sourceScene);
+      console.log(this.target);
+      console.log(this.targetAttribute);
       if (this.scene.heldItem) {
-        if (!this.equips(this.scene.heldItem.config.equips)) {
-          return;
-        }
-        if (this.scene.heldItem.config.equips === 'hands'
-          && ((this.scene.gui.rightHand === this 
-          && this.scene.gui.leftHand.item)
-          || (this.scene.gui.leftHand === this 
-          && this.scene.gui.rightHand.item))) {
-          return;
-        }
-        if (this.scene.heldItem.config.equips === 'hand' 
-          && ((this.scene.gui.rightHand === this 
-          && this.scene.gui.leftHand.item
-          && this.scene.gui.leftHand.item.config.equips === 'hands') 
-          || (this.scene.gui.leftHand === this 
-          && this.scene.gui.rightHand.item
-          && this.scene.gui.rightHand.item.config.equips === 'hands'))) {
-          return;
-        }
-        this.scene.heldItem.hold.paused = true;
-        this.scene.heldItem.x = this.x;
-        this.scene.heldItem.y = this.y;
-        this.scene.heldItem.setInteractive();
-        this.scene.heldItem.slot = this;
+        // if (!this.equips(this.scene.heldItem.config.equips)) {
+        //   return;
+        // }
+        // if (this.scene.heldItem.config.equips === 'hands'
+        //   && ((this.scene.gui.rightHand === this 
+        //   && this.scene.gui.leftHand.item)
+        //   || (this.scene.gui.leftHand === this 
+        //   && this.scene.gui.rightHand.item))) {
+        //   return;
+        // }
+        // if (this.scene.heldItem.config.equips === 'hand' 
+        //   && ((this.scene.gui.rightHand === this 
+        //   && this.scene.gui.leftHand.item
+        //   && this.scene.gui.leftHand.item.config.equips === 'hands') 
+        //   || (this.scene.gui.leftHand === this 
+        //   && this.scene.gui.rightHand.item
+        //   && this.scene.gui.rightHand.item.config.equips === 'hands'))) {
+        //   return;
+        // }
+        this.scene.hold.paused = true;
+        //this.scene.heldItem.x = this.x;
+        //this.scene.heldItem.y = this.y;
+        //this.itemImage = this.scene.heldItem;
+        //this.scene.heldItem.setInteractive();
+        //this.scene.heldItem.slot = this;
         if (this.type === 'Inventory') {
           this.scene.gameScene.player.inventory[this.i] =
             this.scene.heldItem.frame.name;
@@ -80,6 +104,22 @@ class SlotImage extends Phaser.GameObjects.Image {
         } else {
           this.scene.heldItem = null;
         }
+        this.scene.heldItem.destroy();
+      } else if (this.itemImage) {
+        this.scene.gui.selected.setFrame(this.itemImage.frame.name);
+        this.scene.children.bringToTop(this.itemImage);
+        this.scene.heldItem = this.itemImage;
+        this.scene.hold.paused = false;
+        this.itemImage = null;
+        if (this.scene.gui.inventorySlots.type === 'Inventory') {
+          this.scene.gameScene.player.inventory[this.i] = null;
+        } else if (this.type === 'Ground') {
+          let x = this.scene.gameScene.player.tileX;
+          let y = this.scene.gameScene.player.tileY;
+          this.scene.gameScene.map[x + ',' + y][this.i] = null;
+        } else {
+          this.scene.gameScene.player.equipped[this.frame.name] = null;
+        }
       }
       this.scene.gameScene.player.load = 0;
       let equipment = Object.keys(this.scene.gameScene.player.equipped);
@@ -100,10 +140,10 @@ class SlotImage extends Phaser.GameObjects.Image {
           }
         }
       }.bind(this));
-      console.log('inventory', this.scene.gameScene.player.inventory);
-      console.log('equipment', this.scene.gameScene.player.equipped);
-      console.log('ground', this.scene.ground);
-      console.log('load', this.scene.gameScene.player.load);
+      // console.log('inventory', this.scene.gameScene.player.inventory);
+      // console.log('equipment', this.scene.gameScene.player.equipped);
+      // console.log('ground', this.scene.ground);
+      // console.log('load', this.scene.gameScene.player.load);
       this.scene.gameScene.events.emit('updateAttribute', this);
     });
     this.scene.add.existing(this);

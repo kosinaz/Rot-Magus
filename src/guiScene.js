@@ -7,12 +7,29 @@ class GUIScene extends Phaser.Scene {
 
     let guiElements = this.cache.json.get('guiElements');
     this.gui = {};
-    GUIBuilder.init(guiElements.default);
+    this.classes = {
+      TextLabel,
+      TextLabelStroked,
+      TextLabelStrokedBar,
+      SlotImage,
+      ActiveImage
+    };
     for (let i in guiElements) {
       if (guiElements.hasOwnProperty(i)) {
-        this.gui[i] = GUIBuilder.create(guiElements[i]);
+        if (i !== 'default' && guiElements[i].type !== 'Image' && guiElements[i].type !== 'SlotGrid') {
+          this.gui[i] = new this.classes[guiElements[i].type]({
+            ...guiElements.default,
+            ...guiElements[i]
+          });
+        }
       }
     }
+    // GUIBuilder.init(guiElements.default);
+    // for (let i in guiElements) {
+    //   if (guiElements.hasOwnProperty(i)) {
+    //     this.gui[i] = GUIBuilder.create(guiElements[i]);
+    //   }
+    // }
     
     // Set the background black, the color of currently invisible areas.
     this.cameras.main.setBackgroundColor('#616161');
@@ -120,21 +137,44 @@ class GUIScene extends Phaser.Scene {
       this.gameScene.events.emit('updateAttribute', this);
     }, this);
 
+    this.hold = this.time.addEvent({
+      callback: function () {
+        this.heldItem.x = this.input.activePointer.x;
+        this.heldItem.y = this.input.activePointer.y;
+      },
+      callbackScope: this,
+      delay: 50,
+      loop: true,
+      paused: true
+    });
+
+    this.input.on('pointerup', function () {
+      if (this.pointerdownTargetItem) {
+        this.pointerdownTargetItem.clearTint();
+      }
+    }, this);
+
     /**
      * Create inventory
      */
     this.itemTypes = this.cache.json.get('itemTypes');
-    this.gameScene.player.inventory.forEach(function (tileName, i) {
-      let item = new ItemImage(
-        this, 
-        this.gui.inventorySlots[i].x, 
-        this.gui.inventorySlots[i].y,
-        'tiles', 
-        tileName
-      );
-      item.slot = this.gui.inventorySlots[i];
-      this.gameScene.selected = item;
-    }.bind(this));
+    // this.gameScene.player.inventory.forEach(function (tileName, i) {
+    //   this.gui.inventorySlots[i].itemImage = this.add.image(
+    //     this.gui.inventorySlots[i].x, 
+    //     this.gui.inventorySlots[i].y,
+    //     'tiles', 
+    //     tileName
+    //   );
+      // let item = new ItemImage(
+      //   this, 
+      //   this.gui.inventorySlots[i].x, 
+      //   this.gui.inventorySlots[i].y,
+      //   'tiles', 
+      //   tileName
+      // );
+      // item.slot = this.gui.inventorySlots[i];
+      //this.gameScene.selected = item;
+    // }.bind(this));
 
   };
 };
