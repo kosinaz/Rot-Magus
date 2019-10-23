@@ -19,7 +19,7 @@ class ActiveImage extends Phaser.GameObjects.Image {
           color: 0x404040
         }
       });
-      this.tooltipWindow.fillRect(this.x + 12, this.y - 11, 240, 126);
+      this.tooltipWindow.fillRect(this.x + 12, this.y - 11, 240, 63);
       this.tooltipWindow.depth = 1;
       this.tooltipText = this.scene.add.text(
         this.x + 12,
@@ -31,10 +31,10 @@ class ActiveImage extends Phaser.GameObjects.Image {
           'wordWrap': {
             'width': 234
           },
-          "lineSpacing": 4
+          "lineSpacing": 0
         }
       );
-      this.tooltipText.setPadding(3,2);
+      this.tooltipText.setPadding(3,1);
       this.tooltipText.depth = 1;
     });
     this.on('pointerout', function () {

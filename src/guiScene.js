@@ -11,12 +11,13 @@ class GUIScene extends Phaser.Scene {
       TextLabel,
       TextLabelStroked,
       TextLabelStrokedBar,
+      SlotGrid,
       SlotImage,
       ActiveImage
     };
     for (let i in guiElements) {
       if (guiElements.hasOwnProperty(i)) {
-        if (i !== 'default' && guiElements[i].type !== 'Image' && guiElements[i].type !== 'SlotGrid') {
+        if (i !== 'default') {
           this.gui[i] = new this.classes[guiElements[i].type]({
             ...guiElements.default,
             ...guiElements[i]

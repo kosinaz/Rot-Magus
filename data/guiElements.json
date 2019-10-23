@@ -20,7 +20,7 @@
   "levelImage": {
     "frame": "level",
     "texture": "gui",
-    "tooltip": "Level:\nThe higher it is, the higher your maximum Health and Mana will be...",
+    "tooltip": "Level:\nThe higher it is, the higher your maximum Health and Mana will be.",
     "type": "ActiveImage",
     "x": 40,
     "y": 16

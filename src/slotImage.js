@@ -14,7 +14,8 @@ class SlotImage extends Phaser.GameObjects.Image {
       config.texture, 
       config.frame
     );
-    //this.target = config.target;
+    this.targetScene = config.targetScene;
+    this.targetActor = config.targetActor;
     this.targetAttribute = config.targetAttribute;
 
     // Set the slot interactive to let it listen to pointer events. 
@@ -51,8 +52,8 @@ class SlotImage extends Phaser.GameObjects.Image {
     // If the pointer is over the slot and the button is clicked. A pointer event qualifies as a click if the pointerdown and pointerup event happened over the same slot even if it wasn't over it the whole time.
     this.on('click', function () {
 
-      console.log(this.sourceScene);
-      console.log(this.target);
+      console.log(this.targetScene);
+      console.log(this.targetActor);
       console.log(this.targetAttribute);
       if (this.scene.heldItem) {
         // if (!this.equips(this.scene.heldItem.config.equips)) {
