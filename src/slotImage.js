@@ -5,18 +5,9 @@
  * @class SlotImage
  * @extends {Phaser.GameObjects.Image}
  */
-class SlotImage extends Phaser.GameObjects.Image {
+class SlotImage extends ActiveImage {
   constructor(config) {
-    super(
-      game.scene.getScene(config.scene), 
-      config.x, 
-      config.y, 
-      config.texture, 
-      config.frame
-    );
-    this.targetScene = config.targetScene;
-    this.targetActor = config.targetActor;
-    this.targetAttribute = config.targetAttribute;
+    super(config); 
 
     // Set the slot interactive to let it listen to pointer events. 
     this.setInteractive();
