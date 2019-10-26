@@ -103,13 +103,30 @@ class SlotImage extends ActiveImage {
     this.draw();
   }
 
+  
+  /**
+   * Returns true if the item can be placed on this slot.
+   * @param {*} item
+   * @returns {boolean} True if the item is placable.
+   * @memberof SlotImage
+   */
   equips(item) {
+
+    // If this is either an inventory or a ground slot.
     if (this.frame.name === 'slot') {
+
+      // Return true.
       return true;
     }
+
+    // Else if this is an equipment slot that matches the equips condition of the item.
     if (this.frame.name === item.equips) {
+
+      // Return true.
       return true;
     }
+
+    // Else return true if this is either a left or a right hand slot and the items is one-handed or two-handed. 
     return (this.frame.name === 'leftHand' || this.frame.name === 'rightHand')
       && (item.equips === 'hand' || item.equips === 'hands');
   }
@@ -145,11 +162,26 @@ class SlotImage extends ActiveImage {
     // Else return the name of the item held in the target attribute.
     return this.targetAttribute;
   }
+
+  /**
+   * Updates the view of this slot based on the current state of the target attribute.
+   * @memberof SlotImage
+   */
   draw() {
+
+    // If there is an item on this slot.
     if (this.getItem() !== undefined) {
+
+      // If an item has already been displayed on this slot before. 
       if (this.itemImage) {
+
+        // Update the view of the item.
         this.itemImage.setFrame(this.getItem().frame);
+
+      // Else if this item got placed on this slot recently.
       } else {
+
+        // Display the image of the item.
         this.itemImage = this.scene.add.image(
           this.x, 
           this.y, 
@@ -157,8 +189,14 @@ class SlotImage extends ActiveImage {
           this.getItem().frame
         );
       }
+    
+    // Else if there is no item on this slot but it's image is still visible.
     } else if (this.itemImage !== undefined) {
+
+      // Remove the image of the item.
       this.itemImage.destroy();
+
+      // Remove the reference of the image.
       this.itemImage = undefined;
     }
   }
