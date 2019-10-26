@@ -34,8 +34,10 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   initInventory() {
-    this.config.inventory.forEach(function (item) {
-      console.log(this.scene.itemTypes[item]);
+    this.config.inventory.forEach(function (itemName) {
+      let item = this.scene.itemTypes[itemName];
+      item.frame = itemName;
+      this.inventory.push(item);
     }.bind(this));
   }
 
@@ -93,22 +95,11 @@ class Actor extends Phaser.GameObjects.Image {
 
   updateLoad() {
     this.load = 0;
-    Object.keys(this.equipped).forEach(function (i) {
-      let item = this.equipped[i];
-      if (item) {
-        let weight = this.scene.itemTypes[item].weight;
-        if (weight) {
-          this.load += weight;
-        }
-      }
+    Object.keys(this.equipped).forEach(function (item) {
+      this.load += this.equipped[item].weight || 0;
     }.bind(this));
-    this.inventory.forEach(function (i) {
-      if (i) {
-        let weight = this.scene.itemTypes[i].weight;
-        if (weight) {
-          this.load += weight;
-        }
-      }
+    this.inventory.forEach(function (item) {
+      this.load += item.weight || 0;
     }.bind(this));
   }
 
