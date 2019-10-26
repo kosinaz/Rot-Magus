@@ -209,7 +209,7 @@
     "y": 79
   },
   "inventorySlots": {
-    "columns": 10,
+    "columns": 15,
     "rows": 10,
     "frame": "slot",
     "texture": "gui",
@@ -219,7 +219,7 @@
     "y": 121
   },
   "groundSlots": {
-    "columns": 10,
+    "columns": 15,
     "rows": 10,
     "frame": "slot",
     "texture": "gui",

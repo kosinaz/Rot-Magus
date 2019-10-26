@@ -26,6 +26,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.inventory = [];
     this.initInventory();
     this.equipped = {};
+    this.ground = [];
     this.load = 0;
     this.updateLoad();
     this.scene.add.existing(this);
@@ -59,7 +60,8 @@ class Actor extends Phaser.GameObjects.Image {
   updateGround() {
 
     // If the there are already items on the ground at the player's current position, set their list as the ground to be displayed on the UI.
-    this.ground = this.scene.map.tiles[this.tileX + ',' + this.tileY].itemList;
+    this.ground = this.scene.map.tiles[this.tileX + ',' + this.tileY].itemList 
+      || [];
   }
 
   autoEquip() {

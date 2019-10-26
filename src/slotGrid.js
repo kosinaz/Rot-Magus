@@ -1,8 +1,8 @@
 class SlotGrid {
   constructor(config) {
     this.slots = [];
-    for (let y = 0; y < config.columns; y += 1) {
-      for (let x = 0; x < config.rows; x += 1) {
+    for (let y = 0; y < config.rows; y += 1) {
+      for (let x = 0; x < config.columns; x += 1) {
         this.slots.push(new SlotImage({
           frame: config.frame,
           i: x + y * config.columns,

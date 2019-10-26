@@ -71,6 +71,7 @@ class SlotImage extends ActiveImage {
           this.scene.heldItem = undefined;
         }
 
+        console.log(this.targetAttribute);
         // Place the item on this slot.
         this.targetActor.setItem(item, this.targetAttribute, this.i);
         
