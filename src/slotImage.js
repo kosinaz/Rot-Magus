@@ -113,15 +113,22 @@ class SlotImage extends ActiveImage {
    */
   getItemName() {
 
-    // If this slot is part of a slot grid system.
-    if (this.targetAttribute && this.i !== undefined) {
+    // If there is no target attribute.
+    if (this.targetAttribute === null || this.targetAttribute === undefined) {
+
+      // Return nothing.
+      return undefined;
+    }
+
+    // Else if this slot is part of a slot grid system and there is an item.
+    if (this.i !== undefined && this.targetAttribute[this.i] !== undefined) {
 
       // Return the name of the item held in the specified index of the target attribute.
-      return this.targetAttribute[this.i];
+      return this.targetAttribute[this.i].frame;
     }
 
     // Else return the name of the item held in the target attribute.
-    return this.targetAttribute;
+    return this.targetAttribute.frame;
   }
   draw() {
     if (this.getItemName()) {
