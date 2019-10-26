@@ -83,9 +83,10 @@ class SlotImage extends ActiveImage {
           this.x,
           this.y,
           'tiles',
-          this.getItemName()
+          this.getItem().frame
         );
-        this.targetActor.setItem(name, this.targetAttribute, this.i);
+        this.scene.heldItem.data = this.getItem();
+        this.targetActor.setItem(undefined, this.targetAttribute, this.i);
       }
     });
     this.scene.add.existing(this);
@@ -111,7 +112,7 @@ class SlotImage extends ActiveImage {
    * @returns {string} The name of the held item.
    * @memberof SlotImage
    */
-  getItemName() {
+  getItem() {
 
     // If there is no target attribute.
     if (this.targetAttribute === null || this.targetAttribute === undefined) {
@@ -120,18 +121,25 @@ class SlotImage extends ActiveImage {
       return undefined;
     }
 
-    // Else if this slot is part of a slot grid system and there is an item.
-    if (this.i !== undefined && this.targetAttribute[this.i] !== undefined) {
+    // Else if this slot is part of a slot grid system.
+    if (this.i !== undefined) {
 
-      // Return the name of the item held in the specified index of the target attribute.
-      return this.targetAttribute[this.i].frame;
+      // If there is an item in this slot.
+      if (this.targetAttribute[this.i] !== undefined) {
+
+        // Return the name of the item held in the specified index of the target attribute.
+        return this.targetAttribute[this.i];
+      }
+
+      // Else return nothing.
+      return undefined;      
     }
 
     // Else return the name of the item held in the target attribute.
-    return this.targetAttribute.frame;
+    return this.targetAttribute;
   }
   draw() {
-    if (this.getItemName()) {
+    if (this.getItem() !== undefined) {
       if (this.itemImage) {
         console.log('already there');
       } else {
@@ -139,7 +147,7 @@ class SlotImage extends ActiveImage {
           this.x, 
           this.y, 
           'tiles', 
-          this.getItemName()
+          this.getItem().frame
         );
       }
     } else if (this.itemImage !== undefined) {

@@ -99,7 +99,9 @@ class Actor extends Phaser.GameObjects.Image {
       this.load += this.equipped[item].weight || 0;
     }.bind(this));
     this.inventory.forEach(function (item) {
-      this.load += item.weight || 0;
+      if (item) {
+        this.load += item.weight || 0;
+      }
     }.bind(this));
   }
 
