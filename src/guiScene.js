@@ -11,6 +11,7 @@ class GUIScene extends Phaser.Scene {
       TextLabel,
       TextLabelStroked,
       TextLabelStrokedBar,
+      Portrait,
       SlotGrid,
       SlotImage,
       ActiveImage

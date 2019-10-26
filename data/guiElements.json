@@ -11,9 +11,9 @@
     "originY": 0.5
   },
   "portrait": {
-    "frame": "tileName",
+    "targetAttribute": "tileName",
     "texture": "tiles",
-    "type": "ActiveImage",
+    "type": "Portrait",
     "x": 16,
     "y": 16
   },

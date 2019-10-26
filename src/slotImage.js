@@ -1,9 +1,8 @@
-
 /**
  * An interactive image that represents a single slot of an inventory and serves as a drop zone for picked up item images. It targets either the inventory or one of the equipment attributes of the player.
  *
  * @class SlotImage
- * @extends {Phaser.GameObjects.Image}
+ * @extends ActiveImage
  */
 class SlotImage extends ActiveImage {
   constructor(config) {
