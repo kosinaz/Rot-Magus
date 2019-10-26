@@ -210,13 +210,6 @@
     "x": 16,
     "y": 121
   },
-  "selected": {
-    "frame": "",
-    "texture": "tiles",
-    "type": "ActiveImage",
-    "x": 280,
-    "y": 121
-  },
   "groundSlots": {
     "columns": 10,
     "rows": 10,
