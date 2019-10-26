@@ -11,9 +11,9 @@ class ActiveImage extends Phaser.GameObjects.Image {
     this.fill = config.fill;
     this.fontFamily = config.fontFamily;
     this.fontSize = config.fontSize;
-    this.targetActor = config.targetActor;
-    this.targetAttribute = config.targetAttribute;
     this.targetScene = game.scene.getScene(config.targetScene);
+    this.targetActor = this.targetScene[config.targetActor];
+    this.targetAttribute = this.targetActor[config.targetAttribute];
     this.tooltip = config.tooltip;
     
     this.setOrigin(config.originX, config.originY);

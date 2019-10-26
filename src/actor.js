@@ -77,6 +77,14 @@ class Actor extends Phaser.GameObjects.Image {
     console.log(this.name, this.equipped.rightHand, this.inventory)
   }
 
+  setItem(item, slot, i) {
+    if (i) {
+      slot[i] = item;
+    } else {
+      slot = item;
+    }
+  }
+
   order() {
     if (this.isEquippedForRangedAttack()) {
       let actor = this.scene.getActorAt(this.target.x, this.target.y);

@@ -31,13 +31,14 @@ class GUIScene extends Phaser.Scene {
 
     this.hold = this.time.addEvent({
       callback: function () {
-        this.heldItem.x = this.input.activePointer.x;
-        this.heldItem.y = this.input.activePointer.y;
+        if (this.heldItem) {
+          this.heldItem.x = this.input.activePointer.x;
+          this.heldItem.y = this.input.activePointer.y;
+        }
       },
       callbackScope: this,
       delay: 50,
-      loop: true,
-      paused: true
+      loop: true
     });
 
     this.input.on('pointerup', function () {

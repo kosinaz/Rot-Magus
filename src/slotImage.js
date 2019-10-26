@@ -11,11 +11,12 @@ class SlotImage extends ActiveImage {
 
     // Extend the ActiveImage's on click event.
     this.on('click', function () {
-    });
-    //   if (this.scene.heldItem) {
-    //     // if (!this.equips(this.scene.heldItem.config.equips)) {
-    //     //   return;
-    //     // }
+    
+    if (this.scene.heldItem) {
+    
+        // if (!this.equips(this.scene.heldItem.config.equips)) {
+        //   return;
+        // }
     //     // if (this.scene.heldItem.config.equips === 'hands'
     //     //   && ((this.scene.gui.rightHand === this 
     //     //   && this.scene.gui.leftHand.item)
@@ -63,22 +64,18 @@ class SlotImage extends ActiveImage {
     //       this.scene.heldItem = null;
     //     }
     //     this.scene.heldItem.destroy();
-    //   } else if (this.itemImage) {
-    //     this.scene.gui.selected.setFrame(this.itemImage.frame.name);
-    //     this.scene.children.bringToTop(this.itemImage);
-    //     this.scene.heldItem = this.itemImage;
-    //     this.scene.hold.paused = false;
-    //     this.itemImage = null;
-    //     if (this.scene.gui.inventorySlots.type === 'Inventory') {
-    //       this.scene.gameScene.player.inventory[this.i] = null;
-    //     } else if (this.type === 'Ground') {
-    //       let x = this.scene.gameScene.player.tileX;
-    //       let y = this.scene.gameScene.player.tileY;
-    //       this.scene.gameScene.map[x + ',' + y][this.i] = null;
-    //     } else {
-    //       this.scene.gameScene.player.equipped[this.frame.name] = null;
-    //     }
-    //   }
+    } else if (this.itemImage) {
+      this.scene.children.bringToTop(this.itemImage);
+      this.scene.heldItem = this.scene.add.image(
+        this.x,
+        this.y,
+        'tiles',
+        this.getItemName()
+      );
+      this.setItemName();
+      this.targetActor.setItem(name, this.targetAttribute, this.i);
+      this.draw();
+    }
     //   this.scene.gameScene.player.load = 0;
     //   let equipment = Object.keys(this.scene.gameScene.player.equipped);
     //   equipment.forEach(function (equips) {
@@ -103,7 +100,7 @@ class SlotImage extends ActiveImage {
     //   // console.log('ground', this.scene.ground);
     //   // console.log('load', this.scene.gameScene.player.load);
     //   this.scene.gameScene.events.emit('updateAttribute', this);
-    // });
+    });
     this.scene.add.existing(this);
     this.targetScene.events.on('playerReady', function () {
       this.draw();
@@ -129,15 +126,14 @@ class SlotImage extends ActiveImage {
   getItemName() {
 
     // If this slot is part of a slot grid system.
-    if (this.targetScene[this.targetActor][this.targetAttribute] 
-      && this.i !== undefined) {
+    if (this.targetAttribute && this.i !== undefined) {
 
       // Return the name of the item held in the specified index of the target attribute.
-      return this.targetScene[this.targetActor][this.targetAttribute][this.i];
+      return this.targetAttribute[this.i];
     }
 
     // Else return the name of the item held in the target attribute.
-    return this.targetScene[this.targetActor][this.targetAttribute];
+    return this.targetAttribute;
   }
   draw() {
     if (this.getItemName()) {
