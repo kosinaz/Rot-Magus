@@ -2,83 +2,98 @@
   "2HSword": {
     "damage": 15,
     "equips": "hands",
+    "name": "2H-sword",
     "price": 75,
     "weight": 8
   },
   "air": {
     "equips": "hand",
-    "mana": 7
+    "mana": 7,
+    "name": "air"
   },
   "armour": {
     "defense": 6,
     "equips": "body",
+    "name": "armour",
     "price": 75,
     "weight": 7
   },
   "arrows": {
     "amount": 50,
     "arrow": true,
+    "name": "arrows",
     "price": 10
   },
   "axe": {
     "damage": 10,
     "equips": "hand",
+    "name": "axe",
     "price": 20,
     "weight": 5
   },
   "berzerk": {
     "equips": "hand",
-    "mana": 3
+    "mana": 3,
+    "name": "berzerk"
   },
   "bigHelmet": {
     "defense": 3,
     "equips": "head",
+    "name": "big helmet",
     "price": 20,
     "weight": 4
   },
   "bigShield": {
     "defense": 6,
     "equips": "hand",
+    "name": "big shield",
     "price": 20,
     "weight": 6
   },
   "bloodTaste": {
     "damage": 19,
     "equips": "hands",
+    "name": "Blood Taste",
     "price": 200,
     "weight": 9
   },
   "bow": {
     "damage": 9,
     "equips": "hands",
+    "name": "bow",
     "price": 20,
     "usesArrow": true,
     "weight": 3
   },
   "bubble": {
+    "name": "bubble",
     "price": 150,
     "weight": -3
   },
   "chainmail": {
     "defense": 5,
     "equips": "body",
+    "name": "chainmail",
     "price": 60,
     "weight": 6
   },
   "chainNBall": {
     "damage": 10,
     "equips": "hands",
+    "name": "chain 'n' ball",
     "weight": 5
   },
   "chaos": {
     "equips": "hand",
-    "mana": 20
+    "mana": 20,
+    "name": "chaos"
   },
   "chock": {
     "damage": 24,
     "damageRanged": 2,
     "effect": "zap",
     "equips": "hand",
+    "name": "chock",
     "price": 150,
     "ranged": true,
     "weight": 4
@@ -86,22 +101,26 @@
   "cloak": {
     "defense": 1,
     "equips": "back",
+    "name": "cloak",
     "price": 20,
     "weight": 1
   },
   "club": {
     "damage": 11,
     "equips": "hands",
+    "name": "club",
     "price": 20,
     "weight": 5
   },
   "confusion": {
     "equips": "hand",
-    "mana": 5
+    "mana": 5,
+    "name": "confusion"
   },
   "crossbow": {
     "damage": 12,
     "equips": "hands",
+    "name": "crossbow",
     "price": 20,
     "usesArrow": true,
     "weight": 4
@@ -109,78 +128,94 @@
   "dagger": {
     "damage": 6,
     "equips": "hand",
+    "name": "dagger",
     "price": 10,
     "throwable": true,
     "weight": 1
   },
   "darkness": {
     "equips": "hand",
-    "mana": 10
+    "mana": 10,
+    "name": "darkness"
   },
   "delay": {
     "equips": "hand",
-    "mana": 2
+    "mana": 2,
+    "name": "delay"
   },
   "demonSpell": {
     "equips": "hand",
-    "mana": 25
+    "mana": 25,
+    "name": "demon"
   },
   "dragonTooth": {
     "damage": 13,
     "equips": "hand",
+    "name": "Dragon Tooth",
     "price": 150,
     "weight": 4
   },
   "earth": {
     "equips": "hand",
-    "mana": 8
+    "mana": 8,
+    "name": "earth"
   },
   "elvenCloak": {
     "defense": 3,
     "equips": "back",
+    "name": "elven cloak",
     "price": 50,
     "weight": 1
   },
   "emerald": {
     "equips": "neck",
+    "name": "emerald",
     "price": 100,
     "weight": 1
   },
   "emeraldRing": {
     "equips": "finger",
+    "name": "emeral ring",
     "price": 150
   },
   "enchant": {
     "equips": "hand",
+    "name": "enchant",
     "price": 100
   },
   "faithful": {
     "arrow": true,
+    "name": "Faithful",
     "price": 50
   },
   "fastFeet": {
     "equips": "hand",
-    "mana": 8
+    "mana": 8,
+    "name": "fast feet"
   },
   "fire": {
     "equips": "hand",
-    "mana": 10
+    "mana": 10,
+    "name": "fire"
   },
   "fireBall": {
     "equips": "hand",
-    "mana": 5
+    "mana": 5,
+    "name": "fireball"
   },
   "fireblade": {
     "damage": 17,
     "damageRanged": 1,
     "effect": "paf",
     "equips": "hand",
+    "name": "fireblade",
     "price": 150,
     "ranged": true,
     "weight": 2
   },
   "focus": {
     "equips": "palm",
+    "name": "focus",
     "price": 150,
     "weight": 1
   },
@@ -188,6 +223,7 @@
     "damage": 20,
     "damageRanged": 9,
     "equips": "hand",
+    "name": "ghostblade",
     "price": 150,
     "ranged": true,
     "weight": 4
@@ -195,31 +231,37 @@
   "gloves": {
     "defense": 1,
     "equips": "palm",
+    "name": "gloves",
     "price": 20,
     "weight": 1
   },
   "heal": {
     "equips": "hand",
     "mana": 5,
+    "name": "heal",
     "price": 20
   },
   "helmet": {
     "defense": 2,
     "equips": "head",
+    "name": "helmet",
     "price": 20,
     "weight": 3
   },
-  "hyperSpace": {
+  "hyperspace": {
     "equips": "hand",
-    "mana": 20
+    "mana": 20,
+    "name": "hyperspace"
   },
   "inferno": {
     "equips": "hand",
-    "mana": 12
+    "mana": 12,
+    "name": "inferno"
   },
   "leadball": {
     "damage": 8,
     "equips": "hand",
+    "name": "leadball",
     "price": 10,
     "throwable": true,
     "weight": 1
@@ -227,125 +269,151 @@
   "leather": {
     "defense": 2,
     "equips": "body",
+    "name": "leather",
     "price": 20,
     "weight": 3
   },
   "lightningBolt": {
     "equips": "hand",
-    "mana": 10
+    "mana": 10,
+    "name": "lightning bolt"
   },
   "lightningSpell": {
     "equips": "hand",
-    "mana": 15
+    "mana": 15,
+    "name": "lightning"
   },
   "negator": {
+    "name": "negator",
     "price": 150
   },
   "opal": {
     "equips": "neck",
+    "name": "opal",
     "price": 150,
     "weight": 1
   },
   "opalRing": {
     "equips": "finger",
+    "name": "opal ring",
     "price": 150
   },
   "panic": {
     "equips": "hand",
-    "mana": 20
+    "mana": 20,
+    "name": "panic"
   },
   "phantom": {
     "equips": "hand",
-    "mana": 3
+    "mana": 3,
+    "name": "phantom"
   },
   "portal": {
     "equips": "hand",
-    "mana": 7
+    "mana": 7,
+    "name": "portal"
   },
   "potion": {
     "equips": "hand",
+    "name": "potion",
     "price": 100,
     "weight": 1
   },
   "protection": {
     "equips": "hand",
-    "mana": 2
+    "mana": 2,
+    "name": "protection"
   },
   "purify": {
     "equips": "hand",
-    "mana": 20
+    "mana": 20,
+    "name": "purify"
   },
   "sabre": {
     "damage": 10,
     "equips": "hand",
+    "name": "sabre",
     "weight": 7
   },
   "shadowCloak": {
     "defense": 7,
     "equips": "back",
+    "name": "shadow cloak",
     "price": 20,
     "weight": 3
   },
   "shield": {
     "defense": 4,
     "equips": "hand",
+    "name": "shield",
     "price": 20,
     "weight": 3
   },
   "shootingStar": {
     "equips": "hand",
+    "name": "shooting star",
     "price": 300
   },
   "silverBow": {
     "damage": 11,
     "equips": "hands",
+    "name": "silver bow",
     "price": 100,
     "usesArrow": true,
     "weight": 3
   },
   "skeletonSpell": {
     "equips": "hand",
-    "mana": 15
+    "mana": 15,
+    "name": "skeleton"
   },
   "slayer": {
     "damage": 17,
     "equips": "hands",
+    "name": "slayer",
     "price": 150,
     "weight": 8
   },
   "sleep": {
     "equips": "hand",
-    "mana": 8
+    "mana": 8,
+    "name": "sleep"
   },
   "staff": {
     "damage": 10,
     "equips": "hands",
+    "name": "staff",
     "weight": 3
   },
   "stoneAxe": {
     "damage": 15,
     "equips": "hands",
+    "name": "stone axe",
     "weight": 10
   },
   "stonefoot": {
     "equips": "hand",
-    "mana": 6
+    "mana": 6,
+    "name": "stone foot",
   },
   "studdedLeather": {
     "defense": 3,
     "equips": "body",
+    "name": "studded leather",
     "price": 20,
     "weight": 4
   },
   "sunArmour": {
     "defense": 6,
     "equips": "body",
+    "name": "sun armour",
     "price": 150,
     "weight": 4
   },
   "sunBow": {
     "damage": 11,
     "equips": "hands",
+    "name": "sun bow",
     "price": 100,
     "ranged": true,
     "weight": 3
@@ -353,75 +421,89 @@
   "sunGloves": {
     "defense": 2,
     "equips": "palm",
+    "name": "sun gloves",
     "price": 20,
     "weight": 1
   },
   "sunHelmet": {
     "defense": 3,
     "equips": "head",
+    "name": "sun helmet",
     "price": 70,
     "weight": 2
   },
   "sunsEdge": {
     "damage": 13,
     "equips": "hands",
+    "name": "Sun's Edge",
     "price": 150,
     "weight": 5
   },
   "sunShield": {
     "defense": 6,
     "equips": "hand",
+    "name": "sun shield",
     "price": 70,
     "weight": 3
   },
   "sword": {
     "damage": 9,
     "equips": "hand",
+    "name": "sword",
     "price": 20,
     "weight": 4
   },
   "terror": {
     "equips": "hand",
-    "mana": 7
+    "mana": 7,
+    "name": "terror"
   },
   "throwingStar": {
     "damage": 9,
     "equips": "hand",
+    "name": "throwing star",
     "price": 5,
     "throwable": true,
     "weight": 1
   },
   "thunderStorm": {
     "equips": "hand",
-    "mana": 25
+    "mana": 25,
+    "name": "thunder storm"
   },
   "topaz": {
     "equips": "neck",
+    "name": "topaz",
     "price": 300,
     "weight": 1
   },
   "vision": {
     "equips": "hand",
-    "mana": 2
+    "mana": 2,
+    "name": "vision"
   },
   "water": {
     "equips": "hand",
-    "mana": 8
+    "mana": 8,
+    "name": "water"
   },
   "wakizashi": {
     "damage": 9,
     "equips": "hand",
+    "name": "wakizashi",
     "price": 20,
     "weight": 2
   },
   "woodenShield": {
     "defense": 3,
     "equips": "hand",
+    "name": "wooden shield",
     "price": 10,
     "weight": 2
   },
   "zombieSpell": {
     "equips": "hand",
-    "mana": 15
+    "mana": 15,
+    "name": "zombie"
   }
 }

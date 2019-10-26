@@ -1,8 +1,8 @@
 class Actor extends Phaser.GameObjects.Image {
   constructor(scene, x, y, texture, frame) {
     super(scene, x * 24 + 12, y * 21 + 11, texture, frame);
-    let config = this.scene.actorTypes[frame];
-    this.name = config.name;
+    this.config = this.scene.actorTypes[frame];
+    this.name = this.config.name;
     this.tileX = x;
     this.tileY = y;
     this.tileName = frame;
@@ -11,25 +11,32 @@ class Actor extends Phaser.GameObjects.Image {
       y: this.tileY
     }
     this.path = null;      
-    this.speed = config.speed;
+    this.speed = this.config.speed;
     this.xp = 0;
     this.xpMax = 50;
     this.level = 0;
-    this.health = config.health;
+    this.health = this.config.health;
     this.healthMax = this.health;
-    this.mana = config.mana;
+    this.mana = this.config.mana;
     this.manaMax = this.mana;
-    this.strength = config.strength;    
-    this.agility = config.agility;
-    this.wisdom = config.wisdom;
-    this.walksOn = config.walksOn || [];
-    this.inventory = [...config.inventory];
+    this.strength = this.config.strength;    
+    this.agility = this.config.agility;
+    this.wisdom = this.config.wisdom;
+    this.walksOn = this.config.walksOn || [];
+    this.inventory = [];
+    this.initInventory();
     this.equipped = {};
     this.load = 0;
     this.updateLoad();
     this.scene.add.existing(this);
     this.scene.scheduler.add(this, true);
     this.depth = 3;
+  }
+
+  initInventory() {
+    this.config.inventory.forEach(function (item) {
+      console.log(this.scene.itemTypes[item]);
+    }.bind(this));
   }
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
