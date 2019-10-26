@@ -16,7 +16,13 @@ class Player extends Actor {
     this.scene.computeFOV();
     
     // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
-    this.scene.updateFOV();    
+    this.scene.updateFOV();
+
+    // Update the list of items on the ground based on the player's current position.
+    this.updateGround();
+
+    // Emit an event that notifies the GUI that the player is now ready act and it should see the current state of the ground.
+    this.scene.events.emit('playerReady', this);
   }
 
   // Order the player to move towards the specified position or make him rest if it is the player's current position. This action can be called as a direct result of a click on a tile walkable by the player or during every upcoming action of the player before he reaches his destination.

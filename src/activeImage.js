@@ -62,8 +62,6 @@ class ActiveImage extends Phaser.GameObjects.Image {
       console.log(this.targetAttribute, 'clicked');
       this.draw();
     });
-
-    this.targetScene.events.on('update', this.update.bind(this));
     this.scene.add.existing(this);
     this.update();
   }

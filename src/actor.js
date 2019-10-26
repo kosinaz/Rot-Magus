@@ -43,6 +43,9 @@ class Actor extends Phaser.GameObjects.Image {
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
+    
+    this.updateGround();
+
     this.autoEquip();
 
     // If the actor hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
@@ -51,6 +54,12 @@ class Actor extends Phaser.GameObjects.Image {
       // Make him move towards his target or attack from afar if possible.
       this.order();
     }
+  }
+
+  updateGround() {
+
+    // If the there are already items on the ground at the player's current position, set their list as the ground to be displayed on the UI.
+    this.ground = this.scene.map.tiles[this.tileX + ',' + this.tileY].itemList;
   }
 
   autoEquip() {

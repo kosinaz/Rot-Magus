@@ -105,6 +105,9 @@ class SlotImage extends ActiveImage {
     //   this.scene.gameScene.events.emit('updateAttribute', this);
     // });
     this.scene.add.existing(this);
+    this.targetScene.events.on('playerReady', function () {
+      this.draw();
+    }.bind(this));
     this.draw();
   }
   equips(item) {
