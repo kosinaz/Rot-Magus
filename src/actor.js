@@ -78,11 +78,40 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   setItem(item, slot, i) {
-    if (i) {
+    if (i !== undefined) {
       slot[i] = item;
     } else {
       slot = item;
     }
+    this.updateAttributes();
+  }
+
+  updateAttributes() {
+    this.updateLoad();
+
+    // Emit the GUI update just in case the target is the player.
+    this.scene.events.emit('attributesUpdated', this);
+  }
+
+  updateLoad() {
+    this.load = 0;
+    Object.keys(this.equipped).forEach(function (i) {
+      let item = this.equipped[i];
+      if (item) {
+        let weight = this.scene.itemTypes[item].weight;
+        if (weight) {
+          this.load += weight;
+        }
+      }
+    }.bind(this));
+    this.inventory.forEach(function (i) {
+      if (i) {
+        let weight = this.scene.itemTypes[i].weight;
+        if (weight) {
+          this.load += weight;
+        }
+      }
+    }.bind(this));
   }
 
   order() {

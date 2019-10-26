@@ -64,45 +64,22 @@ class SlotImage extends ActiveImage {
     //       this.scene.heldItem = null;
     //     }
     //     this.scene.heldItem.destroy();
-    } else if (this.itemImage) {
-      this.scene.children.bringToTop(this.itemImage);
-      this.scene.heldItem = this.scene.add.image(
-        this.x,
-        this.y,
-        'tiles',
-        this.getItemName()
-      );
-      this.setItemName();
-      this.targetActor.setItem(name, this.targetAttribute, this.i);
-      this.draw();
-    }
-    //   this.scene.gameScene.player.load = 0;
-    //   let equipment = Object.keys(this.scene.gameScene.player.equipped);
-    //   equipment.forEach(function (equips) {
-    //     let item = this.scene.gameScene.player.equipped[equips];
-    //     if (item) {
-    //       let weight = this.scene.gameScene.itemTypes[item].weight;
-    //       if (weight) {
-    //         this.scene.gameScene.player.load += weight;
-    //       }
-    //     }
-    //   }.bind(this));
-    //   this.scene.gameScene.player.inventory.forEach(function (item) {
-    //     if (item) {
-    //       let weight = this.scene.gameScene.itemTypes[item].weight;
-    //       if (weight) {
-    //         this.scene.gameScene.player.load += weight;
-    //       }
-    //     }
-    //   }.bind(this));
-    //   // console.log('inventory', this.scene.gameScene.player.inventory);
-    //   // console.log('equipment', this.scene.gameScene.player.equipped);
-    //   // console.log('ground', this.scene.ground);
-    //   // console.log('load', this.scene.gameScene.player.load);
-    //   this.scene.gameScene.events.emit('updateAttribute', this);
+      } else if (this.itemImage) {
+        this.scene.children.bringToTop(this.itemImage);
+        this.scene.heldItem = this.scene.add.image(
+          this.x,
+          this.y,
+          'tiles',
+          this.getItemName()
+        );
+        this.targetActor.setItem(name, this.targetAttribute, this.i);
+      }
     });
     this.scene.add.existing(this);
     this.targetScene.events.on('playerReady', function () {
+      this.draw();
+    }.bind(this));
+    this.targetScene.events.on('attributesUpdated', function () {
       this.draw();
     }.bind(this));
     this.draw();
