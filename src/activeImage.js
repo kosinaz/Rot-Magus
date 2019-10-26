@@ -59,13 +59,11 @@ class ActiveImage extends Phaser.GameObjects.Image {
 
     // If the pointer is over the slot and the button is clicked. A pointer event qualifies as a click if the pointerdown and pointerup event happened over the same slot even if it wasn't over it the whole time.
     this.on('click', function () {
-      console.log(this.targetAttribute, 'clicked');
       this.draw();
     });
     this.scene.add.existing(this);
     this.update();
   }
   draw() {
-    console.log(this.targetAttribute, 'updated');
   }
 }
