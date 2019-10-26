@@ -71,10 +71,8 @@ class SlotImage extends ActiveImage {
           this.scene.heldItem = undefined;
         }
 
-        console.log(this.targetAttribute);
         // Place the item on this slot.
         this.targetActor.setItem(item, this.targetAttribute, this.i);
-        
 
       // If there is an item on this slot.
       } else if (this.itemImage) {
@@ -103,7 +101,6 @@ class SlotImage extends ActiveImage {
     }.bind(this));
     this.draw();
   }
-
   
   /**
    * Returns true if the item can be placed on this slot.
