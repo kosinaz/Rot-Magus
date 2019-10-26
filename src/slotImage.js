@@ -49,22 +49,31 @@ class SlotImage extends ActiveImage {
           return;
         }
 
+        // If there is already an item on this slot.
+        if (this.itemImage) {
+
+          // Swap the held item images.
+          this.scene.heldItem.setFrame(this.getItem().frame);
+
+          // Swap the item config data.
+          this.scene.heldItem.data = this.getItem();
+          
+        // If the slot is empty.
+        } else {
+
+          // Remove the config data about the held item.
+          this.scene.heldItem.data = null;
+
+          // Remove the image of the held item.
+          this.scene.heldItem.destroy();
+
+          // Remove the reference of the held item.
+          this.scene.heldItem = undefined;
+        }
+
         // Place the item on this slot.
         this.targetActor.setItem(item, this.targetAttribute, this.i);
-        this.scene.heldItem.data = null;
-        this.scene.heldItem.destroy();
-        this.scene.heldItem = undefined;
-
-    //     let nextItem = this.item;
-    //     this.item = this.scene.heldItem;
-    //     if (nextItem) {
-    //       this.scene.children.bringToTop(nextItem);
-    //       nextItem.hold.paused = false;
-    //       this.scene.heldItem = nextItem;
-    //     } else {
-    //       this.scene.heldItem = null;
-    //     }
-    //     this.scene.heldItem.destroy();
+        
 
       // If there is an item on this slot.
       } else if (this.itemImage) {
@@ -139,7 +148,7 @@ class SlotImage extends ActiveImage {
   draw() {
     if (this.getItem() !== undefined) {
       if (this.itemImage) {
-        console.log('already there');
+        this.itemImage.setFrame(this.getItem().frame);
       } else {
         this.itemImage = this.scene.add.image(
           this.x, 
