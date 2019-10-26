@@ -77,65 +77,73 @@
   },
   "head": {
     "frame": "head",
+    "i": "head",
     "texture": "gui",
     "type": "SlotImage",
-    "targetAttribute": "head",
+    "targetAttribute": "equipped",
     "x": 184,
     "y": 16
   },
   "neck": {
     "frame": "neck",
+    "i": "neck",
     "texture": "gui",
     "type": "SlotImage",
-    "targetAttribute": "neck",
+    "targetAttribute": "equipped",
     "x": 184,
     "y": 37
   },
   "finger": {
     "frame": "finger",
+    "i": "finger",
     "texture": "gui",
     "type": "SlotImage",
-    "targetAttribute": "finger",
+    "targetAttribute": "equipped",
     "x": 160,
     "y": 58
   },
   "back": {
     "frame": "back",
+    "i": "back",
     "texture": "gui",
     "type": "SlotImage",
-    "targetAttribute": "back",
+    "targetAttribute": "equipped",
     "x": 184,
     "y": 58
   },
   "palm": {
     "frame": "palm",
+    "i": "palm",
     "texture": "gui",
     "type": "SlotImage",
-    "targetAttribute": "palm",
+    "targetAttribute": "equipped",
     "x": 208,
     "y": 58
   },
   "rightHand": {
     "frame": "rightHand",
+    "i": "rightHand",
     "texture": "gui",
     "type": "SlotImage",
-    "targetAttribute": "rightHand",
+    "targetAttribute": "equipped",
     "x": 160,
     "y": 79
   },
   "body": {
     "frame": "body",
+    "i": "body",
     "texture": "gui",
     "type": "SlotImage",
-    "targetAttribute": "body",
+    "targetAttribute": "equipped",
     "x": 184,
     "y": 79
   },
   "leftHand": {
     "frame": "leftHand",
+    "i": "leftHand",
     "texture": "gui",
     "type": "SlotImage",
-    "targetAttribute": "leftHand",
+    "targetAttribute": "equipped",
     "x": 208,
     "y": 79
   },

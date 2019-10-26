@@ -78,11 +78,7 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   setItem(item, slot, i) {
-    if (i !== undefined) {
-      slot[i] = item;
-    } else {
-      slot = item;
-    }
+    slot[i] = item;
     this.updateAttributes();
   }
 
@@ -96,7 +92,9 @@ class Actor extends Phaser.GameObjects.Image {
   updateLoad() {
     this.load = 0;
     Object.keys(this.equipped).forEach(function (item) {
-      this.load += this.equipped[item].weight || 0;
+      if (this.equipped[item]) {
+        this.load += this.equipped[item].weight || 0;
+      }
     }.bind(this));
     this.inventory.forEach(function (item) {
       if (item) {

@@ -15,58 +15,46 @@ class SlotImage extends ActiveImage {
       // If the player already picked up an item to place to somewhere else.
       if (this.scene.heldItem) {
 
-        // Get the config of the picked up item.
-        let item = this.targetScene.itemTypes[this.scene.heldItem.frame.name];
+        // Get the attributes of the picked up item.
+        let item = this.scene.heldItem.data;
     
-      // If the item cannot be equipped on this slot.
-      if (!this.equips(item)) {
+        // If the item cannot be equipped on this slot.
+        if (!this.equips(item)) {
 
-        // Don't let the player place the item on this slot.
-        return;
-      }
+          // Don't let the player place the item on this slot.
+          return;
+        }
 
-      // If the picked up item is two-handed, this slot is either of the hands and there is already a one-handed item in the other hand.
-      if (item.equips === 'hands'
-        && ((this.frame.name === 'rightHand' 
-        && this.targetActor.leftHand !== undefined)
-        || (this.frame.name === 'leftHand'
-        && this.targetActor.rightHand !== undefined))) {
+        // If the picked up item is two-handed, this slot is either of the hands and there is already a one-handed item in the other hand.
+        if (item.equips === 'hands'
+          && ((this.frame.name === 'rightHand' 
+          && this.targetActor.equipped.leftHand !== undefined)
+          || (this.frame.name === 'leftHand'
+          && this.targetActor.equipped.rightHand !== undefined))) {
 
-        // Don't let the player place the item on this slot.
-        return;
-      }
+          // Don't let the player place the item on this slot.
+          return;
+        }
 
-      // If the picked up item is one-handed, this slot is either of the hands and there is already a two-handed item on the other hand.
-      // if (item.equips === 'hand' 
-      //   && ((this.frame.name === 'rightHand'
-      //   && this.targetActor.leftHand !== undefined
-      //   && this.scene.gui.leftHand.item.config.equips === 'hands') 
-      //   || (this.frame.name === 'leftHand'
-      //   && this.targetActor.rightHand !== undefined
-      //   && this.scene.gui.rightHand.item.config.equips === 'hands'))) {
-      //   return;
-      // }
-    //     this.scene.hold.paused = true;
-    //     //this.scene.heldItem.x = this.x;
-    //     //this.scene.heldItem.y = this.y;
-    //     //this.itemImage = this.scene.heldItem;
-    //     //this.scene.heldItem.setInteractive();
-    //     //this.scene.heldItem.slot = this;
-    //     if (this.type === 'Inventory') {
-    //       this.scene.gameScene.player.inventory[this.i] =
-    //         this.scene.heldItem.frame.name;
-    //     } else if (this.type === 'Ground') {
-    //       let x = this.scene.gameScene.player.tileX;
-    //       let y = this.scene.gameScene.player.tileY;
-    //       if (!this.scene.gameScene.map[x + ',' + y].itemList) {
-    //         this.scene.gameScene.map[x + ',' + y].itemList = [];
-    //       }
-    //       this.scene.gameScene.map[x + ',' + y].itemList[this.i] =
-    //         this.scene.heldItem.frame.name;
-    //     } else {
-    //       this.scene.gameScene.player.equipped[this.frame.name] =
-    //         this.scene.heldItem.frame.name;
-    //     }
+        // If the picked up item is one-handed, this slot is either of the hands and there is already a two-handed item on the other hand.
+        if (item.equips === 'hand' 
+          && ((this.frame.name === 'rightHand'
+          && this.targetActor.equipped.leftHand !== undefined
+          && this.targetActor.equipped.leftHand.equips === 'hands')
+          || (this.frame.name === 'leftHand'
+          && this.targetActor.equipped.rightHand !== undefined
+          && this.targetActor.equipped.rightHand.equips === 'hands'))) {
+
+          // Don't let the player place the item on this slot.
+          return;
+        }
+
+        // Place the item on this slot.
+        this.targetActor.setItem(item, this.targetAttribute, this.i);
+        this.scene.heldItem.data = null;
+        this.scene.heldItem.destroy();
+        this.scene.heldItem = undefined;
+
     //     let nextItem = this.item;
     //     this.item = this.scene.heldItem;
     //     if (nextItem) {
@@ -77,15 +65,22 @@ class SlotImage extends ActiveImage {
     //       this.scene.heldItem = null;
     //     }
     //     this.scene.heldItem.destroy();
+
+      // If there is an item on this slot.
       } else if (this.itemImage) {
-        this.scene.children.bringToTop(this.itemImage);
+
+        // Create the copy as the item to serve as an indicator of it being picked up.
         this.scene.heldItem = this.scene.add.image(
           this.x,
           this.y,
           'tiles',
           this.getItem().frame
         );
+
+        // Add the item config data to the image.
         this.scene.heldItem.data = this.getItem();
+
+        // Remove the original item from the slot.
         this.targetActor.setItem(undefined, this.targetAttribute, this.i);
       }
     });
@@ -101,6 +96,9 @@ class SlotImage extends ActiveImage {
 
   equips(item) {
     if (this.frame.name === 'slot') {
+      return true;
+    }
+    if (this.frame.name === item.equips) {
       return true;
     }
     return (this.frame.name === 'leftHand' || this.frame.name === 'rightHand')
