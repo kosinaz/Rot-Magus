@@ -44,12 +44,13 @@
     "rectHeight": 21,
     "rectX": 4,
     "rectY": 26,
-    "rectWidth": 120,
+    "rectWidth": 96,
+    "separator": "/",
     "tooltip": "XP\nGain more by killing enemies. Reach the current maximum to level up.",
     "type": "TextLabelStrokedBar",
     "targetAttribute": "xp",
     "targetAttributeMax": "xpMax",
-    "x": 64,
+    "x": 52,
     "y": 37
   },
   "health": {
@@ -57,12 +58,13 @@
     "rectHeight": 21,
     "rectX": 4,
     "rectY": 47,
-    "rectWidth": 120,
+    "rectWidth": 96,
+    "separator": "/",
     "tooltip": "health\nYou die if it reaches 0. Rest to heal and level up to increase it.",
     "type": "TextLabelStrokedBar",
     "targetAttribute": "health",
     "targetAttributeMax": "healthMax",
-    "x": 64,
+    "x": 52,
     "y": 58
   },
   "mana": {
@@ -70,12 +72,13 @@
     "rectHeight": 21,
     "rectX": 4,
     "rectY": 68,
-    "rectWidth": 120,
+    "rectWidth": 96,
+    "separator": "/",
     "tooltip": "mana\nYou can't cast spells if it reaches 0. Rest to regenerate and have some wisdom and level up to increase it.",
     "type": "TextLabelStrokedBar",
     "targetAttribute": "mana",
     "targetAttributeMax": "manaMax",
-    "x": 64,
+    "x": 52,
     "y": 79
   },
   "head": {
@@ -128,6 +131,16 @@
     "x": 208,
     "y": 58
   },
+  "damage": {
+    "originX": 1,
+    "originY": 0.5,
+    "separator": "-",
+    "type": "TextLabel",
+    "targetAttribute": "damage",
+    "targetAttributeMax": "damageMax",
+    "x": 144,
+    "y": 79
+  },
   "rightHand": {
     "frame": "rightHand",
     "i": "rightHand",
@@ -158,6 +171,14 @@
     "x": 208,
     "y": 79
   },
+  "defense": {
+    "originX": 0,
+    "originY": 0.5,
+    "type": "TextLabel",
+    "targetAttribute": "defense",
+    "x": 222,
+    "y": 79
+  },
   "speedImage": {
     "frame": "speed",
     "texture": "gui",
@@ -185,6 +206,7 @@
   "strength": {
     "originX": 1,
     "originY": 0.5,
+    "separator": "/",
     "type": "TextLabel",
     "targetAttribute": "load",
     "targetAttributeMax": "strength",

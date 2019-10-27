@@ -23,6 +23,10 @@ class Actor extends Phaser.GameObjects.Image {
     this.agility = this.config.agility;
     this.wisdom = this.config.wisdom;
     this.walksOn = this.config.walksOn || [];
+    this.damage = 1;
+    this.damageMax = 10;
+    this.usedWeapons = 0;
+    this.defense = 0;
     this.inventory = [];
     this.initInventory();
     this.equipped = {};
@@ -98,6 +102,8 @@ class Actor extends Phaser.GameObjects.Image {
 
   updateAttributes() {
     this.updateLoad();
+    this.updateDamage();
+    this.updateDefense();
 
     // Emit the GUI update just in case the target is the player.
     this.scene.events.emit('attributesUpdated', this);
@@ -113,6 +119,30 @@ class Actor extends Phaser.GameObjects.Image {
     this.inventory.forEach(function (item) {
       if (item) {
         this.load += item.weight || 0;
+      }
+    }.bind(this));
+  }
+
+  updateDamage() {
+    this.damage = 0;
+    this.usedWeapons = 0;
+    Object.keys(this.equipped).forEach(function (item) {
+      if (this.equipped[item]) {
+        if (this.equipped[item].damage) {
+          this.usedWeapons += 1;
+          this.damage += this.equipped[item].damage;
+        }
+      }
+    }.bind(this));
+    this.damage += this.usedWeapons || 1;
+    this.damageMax = this.damage + (this.usedWeapons || 1) * 9;
+  }
+
+  updateDefense() {
+    this.defense = 0;
+    Object.keys(this.equipped).forEach(function (item) {
+      if (this.equipped[item]) {
+        this.defense += this.equipped[item].defense || 0;
       }
     }.bind(this));
   }
@@ -237,7 +267,7 @@ class Actor extends Phaser.GameObjects.Image {
       if (this.isEnemyFor(actor)) {
 
         // Damage that actor.
-        this.damage(actor);
+        this.causeDamage(actor);
 
         // Set the current position of the actor as his current target to prevent him attacking the enemy automatically as his next actions.
         this.target = {
@@ -292,17 +322,24 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   // Decrease the current health of the target actor.
-  damage(actor) {
+  causeDamage(actor) {
 
     // Generate a random damage.
-    let damage = ROT.RNG.getUniformInt(1, 10)
+    let damage = this.damage + ROT.RNG.getUniformInt(1, 10)
 
-    // Decrease the health of the target actor with that random damage.
+    // Decrease the damage with the victim's defense.
+    damage = Math.max(damage - actor.defense, 0);
+
+    if (damage === 0) {
+      return;
+    }
+
+    // Decrease the health of the target actor with the remaining damage.
     actor.health -= damage;
 
     // Add a new effect to the list of effects to be displayed during this update based on the amount of damage.
     let effect = this.scene.add.sprite(
-      actor.x, actor.y, 'tiles', damage === 10 ? 'zok' : 'bif'
+      actor.x, actor.y, 'tiles', damage > 9 ? 'zok' : 'bif'
     );
     effect.actor = actor;
     effect.depth = 4;
@@ -325,12 +362,12 @@ class Actor extends Phaser.GameObjects.Image {
   rangedAttack(actor) {
 
     // Damage that actor.
-    this.damage(actor);
+    this.causeDamage(actor);
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
     if (leftHand && leftHand.throwable) {
       if (rightHand && rightHand.throwable) {
-        this.damage(actor);
+        this.causeDamage(actor);
       }
       this.equipped.leftHand = undefined;  
       this.scene.map.addItem(actor.tileX, actor.tileY, [leftHand]);

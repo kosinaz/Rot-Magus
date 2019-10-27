@@ -12,6 +12,7 @@ class TextLabel extends Phaser.GameObjects.Text {
       }
     );
     this.config = config;
+    this.separator = config.separator;
     this.targetActor = config.targetActor;
     this.targetAttribute = config.targetAttribute;
     this.targetAttributeMax = config.targetAttributeMax;
@@ -26,6 +27,6 @@ class TextLabel extends Phaser.GameObjects.Text {
   }
   draw() {
     this.text = this.targetScene[this.targetActor][this.targetAttribute] +
-      (this.targetAttributeMax ? '/' + this.targetScene[this.targetActor][this.targetAttributeMax] : '');
+      (this.targetAttributeMax ? this.separator + '' + this.targetScene[this.targetActor][this.targetAttributeMax] : '');
   }
 }
