@@ -18,21 +18,8 @@ class ActiveImage extends Phaser.GameObjects.Image {
     
     this.setOrigin(config.originX, config.originY);
     this.setInteractive();
-    this.on('pointerover', function () {
-      if (this.tooltip) {
-        this.tooltipWindow = new Tooltip({
-          ...this.config, 
-          ...{
-            tooltip: this.tooltip
-          }
-        });
-      }
-    });
-    this.on('pointerout', function () {
-      if (this.tooltipWindow) {
-        this.tooltipWindow.destroy();
-      }
-    });
+    this.on('pointerover', this.showTooltip);
+    this.on('pointerout', this.hideTooltip);
 
     // If the pointer is over the slot and the button is pressed down.
     this.on('pointerdown', function () {
@@ -61,14 +48,22 @@ class ActiveImage extends Phaser.GameObjects.Image {
         this.emit('click');
       }
     });
-
-    // If the pointer is over the slot and the button is clicked. A pointer event qualifies as a click if the pointerdown and pointerup event happened over the same slot even if it wasn't over it the whole time.
-    this.on('click', function () {
-      this.draw();
-    });
     this.scene.add.existing(this);
     this.update();
   }
-  draw() {
+  showTooltip() {
+    if (this.tooltip) {
+      this.tooltipWindow = new Tooltip({
+        ...this.config,
+        ...{
+          tooltip: this.tooltip
+        }
+      });
+    }
+  }
+  hideTooltip() {
+    if (this.tooltipWindow) {
+      this.tooltipWindow.destroy();
+    }
   }
 }

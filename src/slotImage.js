@@ -9,24 +9,7 @@ class SlotImage extends ActiveImage {
     super(config);
     this.i = config.i;
 
-    // Extend the ActiveImage's on click event.
-    this.on('pointerover', function () {
-      let item = this.getItem();
-      if (item) {
-        this.tooltip = item.name + '\n';
-        for (let attribute in item) {
-          if (item.hasOwnProperty(attribute) 
-            && attribute !== 'name'
-            && attribute !== 'frame') {
-            if (item[attribute] !== true) {
-              this.tooltip += attribute + ': ' + item[attribute] + '\n';
-            }
-          }
-        }
-      }
-    });
-
-    // Extend the ActiveImage's on click event.
+    // If the pointer is over the slot and the button is clicked. A pointer event qualifies as a click if the pointerdown and pointerup event happened over the same slot even if it wasn't over it the whole time.
     this.on('click', function () {    
 
       // If the player already picked up an item to place to somewhere else.
@@ -118,7 +101,24 @@ class SlotImage extends ActiveImage {
     }.bind(this));
     this.draw();
   }
-  
+  showTooltip() {
+    let item = this.getItem();
+    if (item) {
+      this.tooltip = item.name + '\n';
+      for (let attribute in item) {
+        if (item.hasOwnProperty(attribute) &&
+          attribute !== 'name' &&
+          attribute !== 'frame') {
+          if (item[attribute] !== true) {
+            this.tooltip += attribute + ': ' + item[attribute] + '\n';
+          }
+        }
+      }
+      super.showTooltip();
+    } else {
+      this.tooltip = undefined;
+    }
+  }
   /**
    * Returns true if the item can be placed on this slot.
    * @param {*} item
