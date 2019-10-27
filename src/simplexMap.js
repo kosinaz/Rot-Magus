@@ -131,7 +131,10 @@ class SimplexMap {
 
     let items = Object.keys(this.scene.itemTypes);
 
-    let item = this.scene.itemTypes[items[~~(Math.random() * items.length)]];
+    let itemName =items[~~(Math.random() * items.length)];
+
+    let item = this.scene.itemTypes[itemName];
+    item.frame = itemName;
 
     if (tileName === 'redFlower' && n < -0.05) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'zombie');
@@ -142,7 +145,7 @@ class SimplexMap {
     } else if (tileName === 'gravel' && n < -0.9) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'goblin');
     } else if (tileName === 'gravel' && n > 0.99) {
-      this.addItem(x, y, item.frame, [item]);
+      this.putItem(x, y, [item]);
     } else if (tileName === 'gravel' && n > 0.95) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'troll');
     } else if (tileName === 'ford' && n > 0.4) {
@@ -158,19 +161,18 @@ class SimplexMap {
 
   // Put a list of items on the map.
   putItem(x, y, itemList) {
-    let frame = itemList.filter(function (value) {
+    let items = itemList.filter(function (value) {
       if (value) {
-        console.log(value.frame);
         return value.frame;
       }
       return false;
-    })[0].frame;
+    });
+    let frame = items[0].frame;
     if (!this.tiles[x + ',' + y].itemImage) {
       this.tiles[x + ',' + y].itemImage = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
       this.tiles[x + ',' + y].itemImage.depth = 2;
     } else if (this.tiles[x + ',' + y].itemImage.frame.name !== frame) {
       this.tiles[x + ',' + y].itemImage.setTexture('tiles', frame);
-      console.log('set');
     }
     this.tiles[x + ',' + y].itemList = itemList;
   }
@@ -178,10 +180,8 @@ class SimplexMap {
   // Add a list of items to a list of items on the map.
   addItem(x, y, itemList) {
     if (this.tiles[x + ',' + y].itemList) {
-      console.log(this.tiles[x + ',' + y].itemList);
       this.tiles[x + ',' + y].itemList = 
         this.tiles[x + ',' + y].itemList.concat(itemList);
-      console.log(this.tiles[x + ',' + y].itemList);
     } else {
       this.scene.map.putItem(x, y, itemList);
     }

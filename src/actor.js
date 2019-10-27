@@ -59,6 +59,10 @@ class Actor extends Phaser.GameObjects.Image {
 
   getGround() {
 
+    if (!this.scene.map.tiles[this.tileX + ',' + this.tileY]) {
+      return [];
+    }
+
     // If the there are already items on the ground at the player's current position, set their list as the ground to be displayed on the UI.
     this.ground = this.scene.map.tiles[this.tileX + ',' + this.tileY].itemList 
       || [];
@@ -76,7 +80,6 @@ class Actor extends Phaser.GameObjects.Image {
         }
       }.bind(this));
     }
-    console.log(this.name, this.equipped.rightHand, this.inventory)
   }
 
   setItem(item, slot, i) {
@@ -117,7 +120,12 @@ class Actor extends Phaser.GameObjects.Image {
   order() {
     if (this.isEquippedForRangedAttack()) {
       let actor = this.scene.getActorAt(this.target.x, this.target.y);
-      if (actor && this.isEnemyFor(actor)) {
+      if (actor 
+        && this.isEnemyFor(actor)
+        && this.target.x - 1 !== this.tileX
+        && this.target.x + 1 !== this.tileX
+        && this.target.y - 1 !== this.tileY
+        && this.target.y + 1 !== this.tileY) {
         this.rangedAttack(actor);
         this.target = {
           x: this.tileX,
@@ -323,12 +331,15 @@ class Actor extends Phaser.GameObjects.Image {
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
     if (leftHand && leftHand.throwable) {
-      this.equipped.leftHand = null;  
-      this.scene.map.addItem(actor.tileX, actor.tileY, leftHand.frame, [leftHand]);
+      if (rightHand && rightHand.throwable) {
+        this.damage(actor);
+      }
+      this.equipped.leftHand = undefined;  
+      this.scene.map.addItem(actor.tileX, actor.tileY, [leftHand]);
     }
     if (rightHand && rightHand.throwable) {
-      this.equipped.rightHand = null;
-      this.scene.map.addItem(actor.tileX, actor.tileY, rightHand.frame, [rightHand]);
+      this.equipped.rightHand = undefined;
+      this.scene.map.addItem(actor.tileX, actor.tileY, [rightHand]);
     }
 
     // Emit the GUI ground update just in case the target is the player.
@@ -347,8 +358,7 @@ class Actor extends Phaser.GameObjects.Image {
     }
     this.inventory = this.inventory.filter(item => item !== null);
     if (this.inventory) {
-      console.log(this.inventory);
-      this.scene.map.addItem(this.tileX, this.tileY, this.inventory[0], this.inventory);
+      this.scene.map.addItem(this.tileX, this.tileY, this.inventory);
     }
 
     // Show the remains of the enemy.
