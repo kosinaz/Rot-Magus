@@ -104,13 +104,13 @@ class SlotImage extends ActiveImage {
   showTooltip() {
     let item = this.getItem();
     if (item) {
-      this.tooltip = item.name + '\n';
+      this.tooltip = item.name;
       for (let attribute in item) {
         if (item.hasOwnProperty(attribute) &&
           attribute !== 'name' &&
           attribute !== 'frame') {
           if (item[attribute] !== true) {
-            this.tooltip += attribute + ': ' + item[attribute] + '\n';
+            this.tooltip += '\n' + attribute + ': ' + item[attribute];
           }
         }
       }

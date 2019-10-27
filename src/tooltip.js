@@ -10,7 +10,7 @@ class Tooltip extends Phaser.GameObjects.Text {
         'fontSize': config.fontSize,
         'fill': config.fill,
         'wordWrap': {
-          'width': 234
+          'width': 160
         }
       }
     );
@@ -25,8 +25,10 @@ class Tooltip extends Phaser.GameObjects.Text {
         color: 0x404040
       }
     });
-    this.window.strokeRect(this.x + 1, this.y, 239, 62);
-    this.window.fillRect(this.x + 1, this.y + 1, 238, 61);
+    this.window.fillRectShape(this.getBounds());
+    this.window.strokeRectShape(this.getBounds());
+    //this.window.strokeRect(this.x + 1, this.y, 239, 62);
+    //this.window.fillRect(this.x + 1, this.y + 1, 238, 61);
     this.window.depth = 1;
   }
   destroy() {
