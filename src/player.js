@@ -47,7 +47,7 @@ class Player extends Actor {
   rangedAttack(actor) {
 
     super.rangedAttack(actor);
-    
+
     // Make the currently visible enemies notice the player.
     this.scene.updateEnemyTargets();
 
@@ -82,6 +82,22 @@ class Player extends Actor {
 
       // Increase the level of the player.
       this.level += 1;
+
+      // Increase the maximum health of the player.
+      this.healthMax += 10;
+
+      // Heal up the player.
+      this.health = this.healthMax;
+      
+      // If the player has wisdom.
+      if (this.wisdom > 0) {
+
+        // Increase the maximum mana of the player.
+        this.manaMax += 10;
+
+        // Regenerate the player.
+        this.mana = this.manaMax;
+      }
     }
 
     // Emit an GUI update event.

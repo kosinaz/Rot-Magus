@@ -11,6 +11,7 @@ class TextLabel extends Phaser.GameObjects.Text {
         'fill': config.fill
       }
     );
+    this.config = config;
     this.targetActor = config.targetActor;
     this.targetAttribute = config.targetAttribute;
     this.targetAttributeMax = config.targetAttributeMax;

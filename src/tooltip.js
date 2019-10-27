@@ -14,6 +14,12 @@ class Tooltip extends Phaser.GameObjects.Text {
         }
       }
     );
+    if (this.getBottomRight().x > 360) {
+      this.x -= this.width + 30;
+    };
+    if (this.getBottomRight().y > 570) {
+      this.y -= this.height - 18;
+    };
     this.scene.add.existing(this);
     this.setPadding(3, 1);
     this.setDepth(2);
@@ -27,8 +33,6 @@ class Tooltip extends Phaser.GameObjects.Text {
     });
     this.window.fillRectShape(this.getBounds());
     this.window.strokeRectShape(this.getBounds());
-    //this.window.strokeRect(this.x + 1, this.y, 239, 62);
-    //this.window.fillRect(this.x + 1, this.y + 1, 238, 61);
     this.window.depth = 1;
   }
   destroy() {

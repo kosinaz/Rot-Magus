@@ -122,10 +122,8 @@ class Actor extends Phaser.GameObjects.Image {
       let actor = this.scene.getActorAt(this.target.x, this.target.y);
       if (actor 
         && this.isEnemyFor(actor)
-        && this.target.x - 1 !== this.tileX
-        && this.target.x + 1 !== this.tileX
-        && this.target.y - 1 !== this.tileY
-        && this.target.y + 1 !== this.tileY) {
+        && (Math.abs(this.target.x - this.tileX) > 1
+        || Math.abs(this.target.y - this.tileY) > 1)) {
         this.rangedAttack(actor);
         this.target = {
           x: this.tileX,
