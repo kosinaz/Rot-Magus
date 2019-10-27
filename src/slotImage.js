@@ -10,6 +10,23 @@ class SlotImage extends ActiveImage {
     this.i = config.i;
 
     // Extend the ActiveImage's on click event.
+    this.on('pointerover', function () {
+      let item = this.getItem();
+      if (item) {
+        this.tooltip = item.name + '\n';
+        for (let attribute in item) {
+          if (item.hasOwnProperty(attribute) 
+            && attribute !== 'name'
+            && attribute !== 'frame') {
+            if (item[attribute] !== true) {
+              this.tooltip += attribute + ': ' + item[attribute] + '\n';
+            }
+          }
+        }
+      }
+    });
+
+    // Extend the ActiveImage's on click event.
     this.on('click', function () {    
 
       // If the player already picked up an item to place to somewhere else.

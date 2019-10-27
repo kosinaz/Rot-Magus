@@ -20,11 +20,16 @@ class ActiveImage extends Phaser.GameObjects.Image {
     this.setInteractive();
     this.on('pointerover', function () {
       if (this.tooltip) {
-        this.tooltipWindow = new Tooltip(config);
+        this.tooltipWindow = new Tooltip({
+          ...this.config, 
+          ...{
+            tooltip: this.tooltip
+          }
+        });
       }
     });
     this.on('pointerout', function () {
-      if (this.tooltip) {
+      if (this.tooltipWindow) {
         this.tooltipWindow.destroy();
       }
     });

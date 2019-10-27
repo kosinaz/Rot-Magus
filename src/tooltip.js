@@ -4,7 +4,8 @@ class Tooltip extends Phaser.GameObjects.Text {
       game.scene.getScene(config.scene),
       config.x + 12,
       config.y - 11,
-      config.tooltip, {
+      config.tooltip, 
+      {
         'fontFamily': config.fontFamily,
         'fontSize': config.fontSize,
         'fill': config.fill,
