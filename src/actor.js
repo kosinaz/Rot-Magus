@@ -82,14 +82,14 @@ class Actor extends Phaser.GameObjects.Image {
   setItem(item, slot, i) {
     slot[i] = item;
     this.updateAttributes();
-    if (this.ground === slot && item) {
-      this.scene.map.putItem(this.tileX, this.tileY, item.frame, slot);
-    }
-    this.updateAttributes();
-    if (!slot.some(function (value) {
-      return value;
-    })) {
-      this.scene.map.removeItem(this.tileX, this.tileY);
+    if (slot === this.ground) {
+      if (slot.some(function (value) {
+        return value;
+      })) {        
+        this.scene.map.putItem(this.tileX, this.tileY, slot);
+      } else {
+        this.scene.map.removeItem(this.tileX, this.tileY);
+      }
     }
   }
 

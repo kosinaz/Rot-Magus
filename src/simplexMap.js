@@ -157,29 +157,33 @@ class SimplexMap {
   }
 
   // Put a list of items on the map.
-  putItem(x, y, frame, itemList) {
-    frame = itemList.filter(function (value) {
-      console.log(value.frame);
-      return value.frame;
+  putItem(x, y, itemList) {
+    let frame = itemList.filter(function (value) {
+      if (value) {
+        console.log(value.frame);
+        return value.frame;
+      }
+      return false;
     })[0].frame;
     if (!this.tiles[x + ',' + y].itemImage) {
       this.tiles[x + ',' + y].itemImage = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
       this.tiles[x + ',' + y].itemImage.depth = 2;
     } else if (this.tiles[x + ',' + y].itemImage.frame.name !== frame) {
       this.tiles[x + ',' + y].itemImage.setTexture('tiles', frame);
+      console.log('set');
     }
     this.tiles[x + ',' + y].itemList = itemList;
   }
 
   // Add a list of items to a list of items on the map.
-  addItem(x, y, frame, itemList) {
+  addItem(x, y, itemList) {
     if (this.tiles[x + ',' + y].itemList) {
       console.log(this.tiles[x + ',' + y].itemList);
       this.tiles[x + ',' + y].itemList = 
         this.tiles[x + ',' + y].itemList.concat(itemList);
       console.log(this.tiles[x + ',' + y].itemList);
     } else {
-      this.scene.map.putItem(x, y, frame, itemList);
+      this.scene.map.putItem(x, y, itemList);
     }
   }
 
