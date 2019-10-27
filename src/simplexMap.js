@@ -131,7 +131,7 @@ class SimplexMap {
 
     let items = Object.keys(this.scene.itemTypes);
 
-    let item = items[~~(Math.random() * items.length)];
+    let item = this.scene.itemTypes[items[~~(Math.random() * items.length)]];
 
     if (tileName === 'redFlower' && n < -0.05) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'zombie');
@@ -142,7 +142,7 @@ class SimplexMap {
     } else if (tileName === 'gravel' && n < -0.9) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'goblin');
     } else if (tileName === 'gravel' && n > 0.99) {
-      this.addItem(x, y, item, [item]);
+      this.addItem(x, y, item.frame, [item]);
     } else if (tileName === 'gravel' && n > 0.95) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'troll');
     } else if (tileName === 'ford' && n > 0.4) {
@@ -158,6 +158,10 @@ class SimplexMap {
 
   // Put a list of items on the map.
   putItem(x, y, frame, itemList) {
+    frame = itemList.filter(function (value) {
+      console.log(value.frame);
+      return value.frame;
+    })[0].frame;
     if (!this.tiles[x + ',' + y].itemImage) {
       this.tiles[x + ',' + y].itemImage = this.scene.add.image(x * 24 + 12, y * 21 + 11, 'tiles', frame);
       this.tiles[x + ',' + y].itemImage.depth = 2;

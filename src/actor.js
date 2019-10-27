@@ -57,10 +57,6 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
-  setGround() {
-    this.scene.map.tiles[this.tileX + ',' + this.tileY].itemList = this.ground;
-  }
-
   getGround() {
 
     // If the there are already items on the ground at the player's current position, set their list as the ground to be displayed on the UI.
@@ -73,8 +69,8 @@ class Actor extends Phaser.GameObjects.Image {
       this.inventory.forEach(function (item, i) {
         if (item 
           && !this.equipped.rightHand
-          && (this.scene.itemTypes[item].equips === 'hands' 
-          || this.scene.itemTypes[item].equips === 'hand')) {
+          && (item.equips === 'hands' 
+          || item.equips === 'hand')) {
             this.equipped.rightHand = item;
             this.inventory[i] = null;
         }
@@ -86,7 +82,15 @@ class Actor extends Phaser.GameObjects.Image {
   setItem(item, slot, i) {
     slot[i] = item;
     this.updateAttributes();
-    this.setGround();
+    if (this.ground === slot && item) {
+      this.scene.map.putItem(this.tileX, this.tileY, item.frame, slot);
+    }
+    this.updateAttributes();
+    if (!slot.some(function (value) {
+      return value;
+    })) {
+      this.scene.map.removeItem(this.tileX, this.tileY);
+    }
   }
 
   updateAttributes() {
@@ -153,10 +157,10 @@ class Actor extends Phaser.GameObjects.Image {
   isEquippedForRangedAttack() {
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
-    if (leftHand && this.scene.itemTypes[leftHand].usesArrow 
-      || rightHand && this.scene.itemTypes[rightHand].usesArrow
-      || leftHand && this.scene.itemTypes[leftHand].throwable
-      || rightHand && this.scene.itemTypes[rightHand].throwable) {
+    if (leftHand && leftHand.usesArrow 
+      || rightHand && rightHand.usesArrow
+      || leftHand && leftHand.throwable
+      || rightHand && rightHand.throwable) {
       return true;
     }
     return false;
@@ -318,13 +322,13 @@ class Actor extends Phaser.GameObjects.Image {
     this.damage(actor);
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
-    if (leftHand && this.scene.itemTypes[leftHand].throwable) {
+    if (leftHand && leftHand.throwable) {
       this.equipped.leftHand = null;  
-      this.scene.map.addItem(actor.tileX, actor.tileY, leftHand, [leftHand]);
+      this.scene.map.addItem(actor.tileX, actor.tileY, leftHand.frame, [leftHand]);
     }
-    if (rightHand && this.scene.itemTypes[rightHand].throwable) {
+    if (rightHand && rightHand.throwable) {
       this.equipped.rightHand = null;
-      this.scene.map.addItem(actor.tileX, actor.tileY, rightHand, [rightHand]);
+      this.scene.map.addItem(actor.tileX, actor.tileY, rightHand.frame, [rightHand]);
     }
 
     // Emit the GUI ground update just in case the target is the player.
