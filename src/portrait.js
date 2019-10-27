@@ -7,6 +7,6 @@
 class Portrait extends ActiveImage {
   constructor(config) {
     super(config);
-    this.setFrame(this.targetAttribute);
+    this.setFrame(this.targetActor[this.targetAttribute]);
   }
 }

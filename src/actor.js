@@ -45,7 +45,7 @@ class Actor extends Phaser.GameObjects.Image {
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
     
-    this.updateGround();
+    this.getGround();
 
     this.autoEquip();
 
@@ -57,7 +57,11 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
-  updateGround() {
+  setGround() {
+    this.scene.map.tiles[this.tileX + ',' + this.tileY].itemList = this.ground;
+  }
+
+  getGround() {
 
     // If the there are already items on the ground at the player's current position, set their list as the ground to be displayed on the UI.
     this.ground = this.scene.map.tiles[this.tileX + ',' + this.tileY].itemList 
@@ -82,6 +86,7 @@ class Actor extends Phaser.GameObjects.Image {
   setItem(item, slot, i) {
     slot[i] = item;
     this.updateAttributes();
+    this.setGround();
   }
 
   updateAttributes() {

@@ -72,7 +72,7 @@ class SlotImage extends ActiveImage {
         }
 
         // Place the item on this slot.
-        this.targetActor.setItem(item, this.targetAttribute, this.i);
+        this.targetActor.setItem(item, this.targetActor[this.targetAttribute], this.i);
 
       // If there is an item on this slot.
       } else if (this.itemImage) {
@@ -89,7 +89,7 @@ class SlotImage extends ActiveImage {
         this.scene.heldItem.data = this.getItem();
 
         // Remove the original item from the slot.
-        this.targetActor.setItem(undefined, this.targetAttribute, this.i);
+        this.targetActor.setItem(undefined, this.targetActor[this.targetAttribute], this.i);
       }
     });
     this.scene.add.existing(this);
@@ -130,35 +130,26 @@ class SlotImage extends ActiveImage {
   }
   
   /**
-   * Returns the name of the item that is held by the attribute of the target actor linked to this slot.
-   * @returns {string} The name of the held item.
+   * Returns the item that is held by the attribute of the target actor linked to this slot.
+   * @returns {string} The held item.
    * @memberof SlotImage
    */
   getItem() {
 
     // If there is no target attribute.
-    if (this.targetAttribute === null || this.targetAttribute === undefined) {
+    if (this.targetActor[this.targetAttribute] === null 
+      || this.targetActor[this.targetAttribute] === undefined) {
 
       // Return nothing.
       return undefined;
     }
+      
+    // If there is an item in this slot.
+    if (this.targetActor[this.targetAttribute][this.i] !== undefined) {
 
-    // Else if this slot is part of a slot grid system.
-    if (this.i !== undefined) {
-
-      // If there is an item in this slot.
-      if (this.targetAttribute[this.i] !== undefined) {
-
-        // Return the name of the item held in the specified index of the target attribute.
-        return this.targetAttribute[this.i];
-      }
-
-      // Else return nothing.
-      return undefined;      
+      // Return the item held in the specified index of the target attribute.
+      return this.targetActor[this.targetAttribute][this.i];   
     }
-
-    // Else return the name of the item held in the target attribute.
-    return this.targetAttribute;
   }
 
   /**
