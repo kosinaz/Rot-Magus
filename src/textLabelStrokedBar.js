@@ -17,21 +17,6 @@ class TextLabelStrokedBar extends TextLabelStroked {
     this.on('pointerout', this.hideTooltip);
     this.drawBar();
   }
-  showTooltip() {
-    if (this.tooltip) {
-      this.tooltipWindow = new Tooltip({
-        ...this.config,
-        ...{
-          tooltip: this.tooltip
-        }
-      });
-    }
-  }
-  hideTooltip() {
-    if (this.tooltipWindow) {
-      this.tooltipWindow.destroy();
-    }
-  }
   draw() {
     super.draw();
     if (this.bar) {

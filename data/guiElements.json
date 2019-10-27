@@ -121,6 +121,15 @@
     "x": 184,
     "y": 58
   },
+  "chanceToHit": {
+    "originX": 1,
+    "originY": 0.5,
+    "tooltip": "damage\nThe chance that you hit your target with your weapons based on your agility and the number of weapons you use.",
+    "type": "TextLabel",
+    "targetAttribute": "chanceToHit",
+    "x": 144,
+    "y": 58
+  },
   "palm": {
     "frame": "palm",
     "i": "palm",
@@ -135,6 +144,7 @@
     "originX": 1,
     "originY": 0.5,
     "separator": "-",
+    "tooltip": "damage\nThe amount of damage you can cause based on your strength and your weapons.",
     "type": "TextLabel",
     "targetAttribute": "damage",
     "targetAttributeMax": "damageMax",

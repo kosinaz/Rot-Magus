@@ -20,11 +20,18 @@ class Actor extends Phaser.GameObjects.Image {
     this.mana = this.config.mana;
     this.manaMax = this.mana;
     this.strength = this.config.strength;    
+    this.strengthBase = this.strength;  
+    this.strengthMod = 0;  
     this.agility = this.config.agility;
+    this.agilityBase = this.agility;
+    this.agilityMod = 0;
     this.wisdom = this.config.wisdom;
+    this.wisdomBase = this.wisdom;
+    this.wisdomMod = 0;
     this.walksOn = this.config.walksOn || [];
-    this.damage = 1;
-    this.damageMax = 10;
+    this.damage = 1 + (this.strength >> 2);
+    this.damageMax = this.damage + 19;
+    this.chanceToHit = 0;
     this.usedWeapons = 0;
     this.defense = 0;
     this.inventory = [];
@@ -32,7 +39,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.equipped = {};
     this.ground = [];
     this.load = 0;
-    this.updateLoad();
+    this.updateAttributes();
     this.scene.add.existing(this);
     this.scene.scheduler.add(this, true);
     this.depth = 3;
@@ -104,6 +111,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.updateLoad();
     this.updateDamage();
     this.updateDefense();
+    this.updateAgility();
 
     // Emit the GUI update just in case the target is the player.
     this.scene.events.emit('attributesUpdated', this);
@@ -131,11 +139,17 @@ class Actor extends Phaser.GameObjects.Image {
         if (this.equipped[item].damage) {
           this.usedWeapons += 1;
           this.damage += this.equipped[item].damage;
+          this.damage += this.strength >> 2;
         }
       }
     }.bind(this));
-    this.damage += this.usedWeapons || 1;
-    this.damageMax = this.damage + (this.usedWeapons || 1) * 9;
+    if (this.usedWeapons === 0) {
+      this.damage = 1 + (this.strength >> 2);
+      this.damageMax = this.damage + 19;
+    } else {
+      this.damage += this.usedWeapons;
+      this.damageMax = this.damage + this.usedWeapons * 19;
+    }
   }
 
   updateDefense() {
@@ -145,6 +159,15 @@ class Actor extends Phaser.GameObjects.Image {
         this.defense += this.equipped[item].defense || 0;
       }
     }.bind(this));
+  }
+
+  updateAgility() {
+    this.agilityMod = 0;
+    if (this.usedWeapons === 2) {
+      this.agilityMod -= 5;
+    }
+    this.agility = this.agilityBase + this.agilityMod;
+    this.chanceToHit = (this.agility * 5) + '%';
   }
 
   order() {
@@ -324,8 +347,16 @@ class Actor extends Phaser.GameObjects.Image {
   // Decrease the current health of the target actor.
   causeDamage(actor) {
 
+    let hit = ROT.RNG.getUniformInt(1, 20);
+    if (hit > 1 && hit > this.agility) {
+      return;
+    }
+
     // Generate a random damage.
-    let damage = this.damage + ROT.RNG.getUniformInt(1, 10)
+    let damage = this.damage + ROT.RNG.getUniformInt(1, 20);
+
+    // Increase the damage with a bit shifted strength.
+    damage += this.strength >> 2;
 
     // Decrease the damage with the victim's defense.
     damage = Math.max(damage - actor.defense, 0);
