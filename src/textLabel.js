@@ -23,15 +23,18 @@ class TextLabel extends Phaser.GameObjects.Text {
     );    
     this.targetScene = game.scene.getScene(config.targetScene);
     this.targetScene.events.on(config.event, this.draw.bind(this));
-    //this.setInteractive();
-    //this.on('pointerover', this.showTooltip);
-    //this.on('pointerout', this.hideTooltip);
+    if (this.tooltip) {
+      this.setInteractive(
+        new Phaser.Geom.Rectangle(0, 0, 24, 21), 
+        Phaser.Geom.Rectangle.Contains
+      );
+      this.on('pointerover', this.showTooltip);
+      this.on('pointerout', this.hideTooltip);
+    }
     this.scene.add.existing(this);
-    //console.log(this);
     this.draw();
   }
   showTooltip() {
-    console.log(this.tooltip);
     if (this.tooltip) {
       this.tooltipWindow = new Tooltip({
         ...this.config,
@@ -42,7 +45,6 @@ class TextLabel extends Phaser.GameObjects.Text {
     }
   }
   hideTooltip() {
-      console.log(this.tooltip);
     if (this.tooltipWindow) {
       this.tooltipWindow.destroy();
     }

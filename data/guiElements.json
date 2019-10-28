@@ -1,6 +1,6 @@
 {
   "default": {
-    "event": "update",
+    "event": "attributesUpdated",
     "fill": "#000000",
     "fontFamily": "font",
     "fontSize": "16px",
@@ -20,7 +20,6 @@
   "levelImage": {
     "frame": "level",
     "texture": "gui",
-    "tooltip": "level\nThe higher it is, the higher your maximum Health and Mana will be.",
     "type": "ActiveImage",
     "x": 40,
     "y": 16
@@ -28,6 +27,7 @@
   "level": {
     "type": "TextLabelStroked",
     "targetAttribute": "level",
+    "tooltip": "level\nThe higher it is, the higher your maximum Health and Mana will be.",
     "x": 40,
     "y": 16
   },
@@ -124,7 +124,7 @@
   "chanceToHit": {
     "originX": 1,
     "originY": 0.5,
-    "tooltip": "damage\nThe chance that you hit your target with your weapons based on your agility and the number of weapons you use.",
+    "tooltip": "chance to hit\nThe chance that you hit your target with your weapons based on your agility and the number of weapons you use.",
     "type": "TextLabel",
     "targetAttribute": "chanceToHit",
     "x": 144,
@@ -186,6 +186,7 @@
     "originY": 0.5,
     "type": "TextLabel",
     "targetAttribute": "defense",
+    "tooltip": "defense\nThe total amount of damage your armors will reduce in case you get hit.",
     "x": 222,
     "y": 79
   },

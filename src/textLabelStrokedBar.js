@@ -10,11 +10,7 @@ class TextLabelStrokedBar extends TextLabelStroked {
         color: config.color
       }
     });
-    this.tooltip = config.tooltip;
     this.depth = 1;
-    this.setInteractive();
-    this.on('pointerover', this.showTooltip);
-    this.on('pointerout', this.hideTooltip);
     this.drawBar();
   }
   draw() {
