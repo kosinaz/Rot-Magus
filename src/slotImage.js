@@ -119,6 +119,7 @@ class SlotImage extends ActiveImage {
             notes += {
               'arrow': '\n  Required for bows!',
               'ranged': '\n  Ranged attack!',
+              'returns': '\n  Returns after every shot!',
               'throwable': '\n  Throwable!',
               'usesArrow': '\n  Requires arrows!'
             } [attribute];

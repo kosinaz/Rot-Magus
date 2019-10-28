@@ -216,12 +216,35 @@ class Actor extends Phaser.GameObjects.Image {
   isEquippedForRangedAttack() {
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
-    if (leftHand && leftHand.usesArrow 
-      || rightHand && rightHand.usesArrow
-      || leftHand && leftHand.throwable
-      || rightHand && rightHand.throwable) {
+    let returningArrows = false;
+    this.usedArrowI = -1;
+    if (leftHand && leftHand.ranged ||
+      rightHand && rightHand.ranged ||
+      leftHand && leftHand.throwable ||
+      rightHand && rightHand.throwable
+    ) {
       return true;
     }
+    if (leftHand && leftHand.usesArrow || rightHand && rightHand.usesArrow) {
+      returningArrows = this.inventory.some(function (item) {
+        if (!item) {
+          return false;
+        }
+        return item.arrow && item.returns;
+      });
+      if (returningArrows) {
+        return true;
+      }
+      this.usedArrowI = this.inventory.findIndex(function (item) {
+        if (!item) {
+          return false;
+        }
+        return item.arrow && item.amount;
+      });
+      if (this.usedArrowI !== -1) {
+        return true;
+      }     
+    }    
     return false;
   }
 
@@ -392,10 +415,18 @@ class Actor extends Phaser.GameObjects.Image {
 
   rangedAttack(actor) {
 
-    // Damage that actor.
-    this.causeDamage(actor);
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
+
+    if (this.usedArrowI !== -1) {
+      this.inventory[this.usedArrowI].amount -= 1;
+      if (this.inventory[this.usedArrowI].amount === 0) {
+        this.inventory[this.usedArrowI] = undefined;
+      }
+    }
+
+    // Damage that actor.
+    this.causeDamage(actor);
     if (leftHand && leftHand.throwable) {
       if (rightHand && rightHand.throwable) {
         this.causeDamage(actor);
@@ -417,6 +448,7 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Give some XP to the player.
     this.scene.player.earnXP(10);
+    this.scene.events.emit('attributesUpdated', this);
     if (this.equipped) {
       for (let i in this.equipped) {
         this.inventory.push(this.equipped[i]);

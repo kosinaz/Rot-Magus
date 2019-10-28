@@ -186,7 +186,8 @@
   "faithful": {
     "arrow": true,
     "name": "Faithful",
-    "price": 50
+    "price": 50,
+    "returns": true
   },
   "fastFeet": {
     "equips": "hand",
