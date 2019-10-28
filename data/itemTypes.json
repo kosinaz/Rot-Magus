@@ -58,7 +58,8 @@
     "weight": 9
   },
   "bow": {
-    "damage": 9,
+    "damage": 1,
+    "damageRanged": 9,
     "equips": "hands",
     "name": "bow",
     "price": 20,
@@ -118,7 +119,8 @@
     "name": "confusion"
   },
   "crossbow": {
-    "damage": 12,
+    "damage": 1,
+    "damageRanged": 12,
     "equips": "hands",
     "name": "crossbow",
     "price": 20,
@@ -127,6 +129,7 @@
   },
   "dagger": {
     "damage": 6,
+    "damageRanged": 6,
     "equips": "hand",
     "name": "dagger",
     "price": 10,
@@ -261,6 +264,7 @@
   },
   "leadball": {
     "damage": 8,
+    "damageRanged": 8,
     "equips": "hand",
     "name": "leadball",
     "price": 10,
@@ -356,7 +360,8 @@
     "price": 300
   },
   "silverBow": {
-    "damage": 11,
+    "damage": 1,
+    "damageRanged": 11,
     "equips": "hands",
     "name": "silver bow",
     "price": 100,
@@ -412,7 +417,8 @@
     "weight": 4
   },
   "sunBow": {
-    "damage": 11,
+    "damage": 1,
+    "damageRanged": 11,
     "equips": "hands",
     "name": "sun bow",
     "price": 100,
@@ -461,6 +467,7 @@
   },
   "throwingStar": {
     "damage": 9,
+    "damageRanged": 9,
     "equips": "hand",
     "name": "throwing star",
     "price": 5,
