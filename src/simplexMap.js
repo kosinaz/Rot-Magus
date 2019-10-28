@@ -74,6 +74,13 @@ class SimplexMap {
       // If the tile is walkable by the player.
       if (this.scene.player.walksOnXY(x, y)) {
 
+        this.tiles[x + ',' + y].image.on('pointerdown', function () {
+          this.scene.targetTile = this.scene.add.graphics();
+          this.scene.targetTile.fillStyle(0xffff00, 0.2);
+          this.scene.targetTile.fillRect(this.x - 11, this.y - 11, 23, 20);
+          this.scene.targetTile.depth = 5;
+        });
+
         // Set the tile to react to clicks.
         this.tiles[x + ',' + y].image.on('click', function () {
 

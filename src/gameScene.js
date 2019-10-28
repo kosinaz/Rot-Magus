@@ -67,6 +67,10 @@ class GameScene extends Phaser.Scene {
     // Start the engine, start the game.
     this.engine.start();
 
+    this.input.on('pointerup', function () {
+      this.scene.targetTile.destroy();
+    });
+
     // If the player died.
     this.events.on('playerDied', function () {
 
