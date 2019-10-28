@@ -11,7 +11,6 @@ class Actor extends Phaser.GameObjects.Image {
       y: this.tileY
     }
     this.path = null;      
-    this.speed = this.config.speed;
     this.xp = 0;
     this.xpMax = 50;
     this.level = 0;
@@ -19,6 +18,9 @@ class Actor extends Phaser.GameObjects.Image {
     this.healthMax = this.health;
     this.mana = this.config.mana;
     this.manaMax = this.mana;
+    this.speed = this.config.speed;
+    this.speedBase = this.speed;
+    this.speedMod = 0;
     this.strength = this.config.strength;    
     this.strengthBase = this.strength;  
     this.strengthMod = 0;  
@@ -111,6 +113,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.updateLoad();
     this.updateDamage();
     this.updateDefense();
+    this.updateSpeed();
     this.updateAgility();
 
     // Emit the GUI update just in case the target is the player.
@@ -161,6 +164,18 @@ class Actor extends Phaser.GameObjects.Image {
     }.bind(this));
   }
 
+  updateSpeed() {
+    this.speedMod = 0;
+    if (this.load > this.strength * 2) {
+      this.speedMod = -this.speedBase;
+    } else if (this.load > this.strength * 1.5) {
+      this.speedMod = -~~((this.speedBase / 3) * 2);
+    } else if (this.load > this.strength) {
+      this.speedMod = -~~(this.speedBase / 3);
+    }
+    this.speed = this.speedBase + this.speedMod;
+  }
+
   updateAgility() {
     this.agilityMod = 0;
     if (this.usedWeapons === 2) {
@@ -171,6 +186,9 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   order() {
+    if (this.speed < 1) {
+      return;
+    }
     if (this.isEquippedForRangedAttack()) {
       let actor = this.scene.getActorAt(this.target.x, this.target.y);
       if (actor 
@@ -410,7 +428,7 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     // Emit the GUI update just in case the target is the player.
-    this.scene.events.emit('updateAttribute', this);
+    this.scene.events.emit('attributesUpdated', this);
   }
 
   rangedAttack(actor) {
@@ -441,6 +459,7 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Emit the GUI ground update just in case the target is the player.
     this.scene.events.emit('playerMoved', this);
+    this.scene.events.emit('attributesUpdated', this);
   }
 
   // Kill this actor.

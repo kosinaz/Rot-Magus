@@ -101,7 +101,7 @@ class Player extends Actor {
     }
 
     // Emit an GUI update event.
-    this.scene.events.emit('updateAttribute', this);
+    this.scene.events.emit('attributesUpdated', this);
   }
 
   // Kill the player.
