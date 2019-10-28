@@ -45,7 +45,14 @@ class SimplexMap {
     if (this.tiles[x + ',' + y].image === undefined) {
 
       // Create the image of the tile.
-      tile = this.scene.add.image(x * 24 + 12, y * 21 + 11, this.tilesetImage, this.tiles[x + ',' + y].name);
+      // tile = this.scene.add.image(x * 24 + 12, y * 21 + 11, this.tilesetImage, this.tiles[x + ',' + y].name);
+      tile = new ActiveImage({
+        scene: this.scene,
+        frame: this.tiles[x + ',' + y].name,
+        texture: this.tilesetImage,
+        x: x * 24 + 12,
+        y: y * 21 + 11
+      });
 
       // Save the image of the tile at the given position for later use during every upcoming update when this tile is still visible. 
       this.tiles[x + ',' + y].image = tile;
@@ -68,7 +75,7 @@ class SimplexMap {
       if (this.scene.player.walksOnXY(x, y)) {
 
         // Set the tile to react to clicks.
-        this.tiles[x + ',' + y].image.on('pointerup', function () {
+        this.tiles[x + ',' + y].image.on('click', function () {
 
           // Set that tile as the new target of the player.
           this.scene.player.target.x = x;
