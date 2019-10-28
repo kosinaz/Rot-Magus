@@ -28,6 +28,7 @@ class Tooltip extends Phaser.GameObjects.Text {
         color: 0x000000
       },
       fillStyle: {
+        alpha: 0.95,
         color: 0x404040
       }
     });

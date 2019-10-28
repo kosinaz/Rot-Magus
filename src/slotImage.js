@@ -103,20 +103,35 @@ class SlotImage extends ActiveImage {
   }
   showTooltip() {
     let item = this.getItem();
+    let notes = '';
     if (item) {
       this.tooltip = item.name;
       for (let attribute in item) {
         if (item.hasOwnProperty(attribute) &&
           attribute !== 'name' &&
-          attribute !== 'frame') {
-          if (item[attribute] !== true) {
-            this.tooltip += '\n' + attribute + ': ' + item[attribute];
+          attribute !== 'frame' &&
+          attribute !== 'effect') {
+          if (attribute === 'damageRanged') {
+            this.tooltip += '\n  ranged damage: ' + item[attribute];
+          } else if (item[attribute] !== true) {
+            this.tooltip += '\n  ' + attribute + ': ' + item[attribute];
+          } else {
+            notes += {
+              'arrow': '\n  Required for bows!',
+              'ranged': '\n  Ranged attack!',
+              'throwable': '\n  Throwable!',
+              'usesArrow': '\n  Requires arrows!'
+            } [attribute];
           }
         }
       }
+      this.tooltip += notes;
       super.showTooltip();
     } else {
-      this.tooltip = undefined;
+      this.tooltip = this.config.tooltip;
+      if (this.tooltip) {
+        super.showTooltip();
+      }
     }
   }
   /**
