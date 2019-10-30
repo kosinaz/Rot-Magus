@@ -55,6 +55,23 @@ class Actor extends Phaser.GameObjects.Image {
     }.bind(this));
   }
 
+      // var timeline = this.tweens.createTimeline();
+
+      // var actions = ~~(Math.random() * 10) + 5;
+
+      // for (var i = 0; i < actions; i++) {
+      //   timeline.add({
+      //     targets: image,
+      //     x: ~~(Math.random() * 100) + 100,
+      //     y: ~~(Math.random() * 100) + 100,
+      //     ease: 'Power1',
+      //     duration: 3000
+      //   });
+      // }
+      // timeline.setTimeScale(actions);
+
+      // timeline.play();
+
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
     
