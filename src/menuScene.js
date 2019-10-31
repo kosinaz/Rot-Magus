@@ -5,7 +5,7 @@ class MenuScene extends Phaser.Scene {
   create() {
     this.cameras.main.setBackgroundColor('#616161');
     this.add.text(512, 100, 'ROT MAGUS', {
-      fontFamily: 'font',
+      fontFamily: 'title',
       fontSize: '64px',
       fill: '#ff0000',
       stroke: '000000',
