@@ -6,7 +6,7 @@ const game = new Phaser.Game({
   backgroundColor: "#ffffff",
   pixelArt: true,
   roundPixels: true,
-  scene: [LoadScene, InfiniteScene, MenuScene, GameScene, GUIScene, DeathScene]
+  scene: [LoadScene, MenuScene, GameScene, GUIScene, DeathScene]
 });
 
 game.speed = 2;
