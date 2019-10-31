@@ -75,6 +75,7 @@ class GameScene extends Phaser.Scene {
 
     // If the player died.
     this.events.on('playerDied', function () {
+      game.score = this.player.level;
 
       // Load the death scene.
       this.scene.start('DeathScene');
