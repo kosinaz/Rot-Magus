@@ -130,7 +130,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.updateLoad();
     this.updateDamage();
     this.updateDefense();
-    this.updateSpeed();
+    //this.updateSpeed();
     this.updateAgility();
 
     // Emit the GUI update just in case the target is the player.
