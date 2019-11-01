@@ -54,7 +54,6 @@ class Actor extends Phaser.GameObjects.Image {
       let actionDuration = (1000 / game.speed) / this.actions.length;
       this.actions.forEach(function (action) {
         if (action.type === 'move') {
-          console.log(this.name, 'moved to', action.x, action.y);
           timeline.add({
             targets: this,
             props: {
@@ -83,7 +82,6 @@ class Actor extends Phaser.GameObjects.Image {
             }
           });
         } else if (action.type === 'attack') {
-          console.log(this.name, 'attacked', action.x, action.y);
           timeline.add({
             targets: this,
             x: action.x * 24 + 12,
@@ -391,8 +389,6 @@ class Actor extends Phaser.GameObjects.Image {
         this.victimX = this.path[0].x;
         this.victimY = this.path[0].y;
 
-        // Add the actor to the list of attacking actors so he can be properly animated as part of the next screen update.
-        //this.scene.attackingActors.push(this);
         this.actions.push({
           type: 'attack',
           x: this.victimX,
@@ -419,8 +415,6 @@ class Actor extends Phaser.GameObjects.Image {
       this.tileX = this.path[0].x;
       this.tileY = this.path[0].y;
 
-      // Add the actor to the list of moving actors so he can be properly animated as part of the next screen update.
-      //this.scene.movingActors.push(this);
       this.actions.push({
         type: 'move',
         x: this.tileX,
@@ -472,8 +466,6 @@ class Actor extends Phaser.GameObjects.Image {
     effect.depth = 4;
     effect.visible = false;
     this.scene.effects.push(effect);
-    
-    console.log(actor.name, actor.health);
 
     // If the target actor's health reached zero.
     if (actor.health < 1) {
@@ -536,6 +528,8 @@ class Actor extends Phaser.GameObjects.Image {
     // Show the remains of the enemy.
     let remains = 
       this.scene.add.sprite(this.x, this.y, 'tiles', this.tileName);
+    
+    remains.setDepth(4);
 
     // Wait until the damage effect is emitted
     this.scene.time.delayedCall(500 / game.speed, function () {
@@ -543,8 +537,6 @@ class Actor extends Phaser.GameObjects.Image {
       // Destroy the remains.
       remains.destroy();
     });
-
-    console.log(this.name, 'died');
 
     // Remove the enemy from the list of enemies.
     this.scene.enemies.splice(this.scene.enemies.indexOf(this), 1);

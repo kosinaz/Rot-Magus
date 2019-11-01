@@ -40,12 +40,6 @@ class GameScene extends Phaser.Scene {
     // Create a list for the items to track their position.
     this.items = []
 
-    // Create a list for the actors that moved since the last action of the player to help animate the transitions between their previous and new positions.
-    this.movingActors = [];
-
-    // Create a list for the actors that attacked someone since the last action of the player to help animate them appropriately.
-    this.attackingActors = [];
-
     // Create a list for the special effects that appeared since the last action of the player to help animate them appropriately.
     this.effects = [];
 
@@ -219,94 +213,6 @@ class GameScene extends Phaser.Scene {
       }
     }.bind(this));
 
-    // The position of all the actors that moved since the player did something has been already updated, but their image still needs to be moved to its new position. These actors have been collected during the actions of the moving actors.
-    this.tweens.add({
-      targets: this.movingActors,
-      props: {
-        x: {
-          ease: 'Quad.easeInOut',
-          duration: 1000 / game.speed,
-          value: {
-            getEnd: function (target, key, value) {
-              return target.tileX * 24 + 12;
-            },
-            getStart: function (target, key, value) {
-              return value;
-            }
-          }
-        },
-        y: {
-          ease: 'Quad.easeInOut',
-          duration: 1000 / game.speed,
-          value: {
-            getEnd: function (target, key, value) {
-              return target.tileY * 21 + 11;
-            },
-            getStart: function (target, key, value) {
-              return value;
-            }
-          }
-        },
-        scaleX: {
-          ease: 'Quad.easeOut',
-          duration: 500 / game.speed,
-          yoyo: true,
-          value: 1.2
-        },
-        scaleY: {
-          ease: 'Quad.easeOut',
-          duration: 500 / game.speed,
-          yoyo: true,
-          value: 1.2
-        },
-      },      
-    });
-
-    // Those actors who attacked someone in close combat since the last move of the player will jump towards their victim and then they go back to their original position like a yoyo. These actors have been collected during the actions of the attacking actors.
-    this.tweens.add({
-      targets: this.attackingActors,
-      props: {
-        x: {
-          ease: 'Quad.easeInOut',
-          duration: 500 / game.speed,
-          yoyo: true,
-          value: {
-            getEnd: function (target, key, value) {
-              return target.victimX * 24 + 12;
-            },
-            getStart: function (target, key, value) {
-              return value;
-            }
-          }
-        },
-        y: {
-          ease: 'Quad.easeInOut',
-          duration: 500 / game.speed,
-          yoyo: true,
-          value: {
-            getEnd: function (target, key, value) {
-              return target.victimY * 21 + 11;
-            },
-            getStart: function (target, key, value) {
-              return value;
-            }
-          }
-        },
-        scaleX: {
-          ease: 'Quad.easeOut',
-          duration: 500 / game.speed,
-          yoyo: true,
-          value: 1.2
-        },
-        scaleY: {
-          ease: 'Quad.easeOut',
-          duration: 500 / game.speed,
-          yoyo: true,
-          value: 1.2
-        },
-      }
-    });
-
     // All the inner state changes have their own special effect, that will be added to the actor and will be played from the second half of the screen update and will be removed long after all the other animations have ended to help the player follow the events. These effects have been collected during the actions of the triggering actors.
     this.time.delayedCall(500 / game.speed, function () {
     this.effects.forEach(function (effect) {
@@ -362,12 +268,6 @@ class GameScene extends Phaser.Scene {
           }
         }
       }
-
-      // Reset the list of moving actors so the actors that were moving only in the last update won't be animated in the next update.
-      this.movingActors = [];
-
-      // Reset the list of attacking actors so the actors that were attacking only in the last update won't be animated in the next update.
-      this.attackingActors = [];
 
       // If the player hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
       if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {
