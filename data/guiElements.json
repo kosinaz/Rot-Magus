@@ -181,6 +181,17 @@
     "x": 208,
     "y": 79
   },
+  "rangedDamage": {
+    "originX": 0,
+    "originY": 0.5,
+    "separator": "-",
+    "tooltip": "ranged damage\n  The amount of damage you can cause based on your strength and your ranged weapons.",
+    "type": "TextLabel",
+    "targetAttribute": "rangedDamage",
+    "targetAttributeMax": "rangedDamageMax",
+    "x": 222,
+    "y": 79
+  },
   "defense": {
     "originX": 0,
     "originY": 0.5,
@@ -188,7 +199,7 @@
     "targetAttribute": "defense",
     "tooltip": "defense\n  The total amount of damage your armors will reduce in case you get hit.",
     "x": 222,
-    "y": 79
+    "y": 58
   },
   "speedImage": {
     "frame": "speed",

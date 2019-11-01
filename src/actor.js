@@ -33,6 +33,8 @@ class Actor extends Phaser.GameObjects.Image {
     this.walksOn = this.config.walksOn || [];
     this.damage = 1 + (this.strength >> 2);
     this.damageMax = this.damage + 19;
+    this.rangedDamage = 1 + (this.strength >> 2);
+    this.rangedDamageMax = this.rangedDamage + 19;
     this.chanceToHit = 0;
     this.usedWeapons = 0;
     this.defense = 0;
@@ -164,6 +166,7 @@ class Actor extends Phaser.GameObjects.Image {
   updateAttributes() {
     this.updateLoad();
     this.updateDamage();
+    this.updateRangedDamage();
     this.updateDefense();
     this.updateSpeed();
     this.updateAgility();
@@ -204,6 +207,27 @@ class Actor extends Phaser.GameObjects.Image {
     } else {
       this.damage += this.usedWeapons;
       this.damageMax = this.damage + this.usedWeapons * 19;
+    }
+  }
+
+  updateRangedDamage() {
+    this.rangedDamage = 0;
+    this.usedRangedWeapons = 0;
+    Object.keys(this.equipped).forEach(function (item) {
+      if (this.equipped[item]) {
+        if (this.equipped[item].damageRanged) {
+          this.usedRangedWeapons += 1;
+          this.rangedDamage += this.equipped[item].damageRanged;
+          this.rangedDamage += this.strength >> 2;
+        }
+      }
+    }.bind(this));
+    if (this.usedRangedWeapons === 0) {
+      this.rangedDamage = 1 + (this.strength >> 2);
+      this.rangedDamageMax = this.rangedDamage + 19;
+    } else {
+      this.rangedDamage += this.usedRangedWeapons;
+      this.rangedDamageMax = this.rangedDamage + this.usedRangedWeapons * 19;
     }
   }
 
@@ -383,7 +407,7 @@ class Actor extends Phaser.GameObjects.Image {
       if (this.isEnemyFor(actor)) {
 
         // Damage that actor.
-        this.causeDamage(actor);
+        this.causeDamage(actor, ROT.RNG.getUniformInt(this.damage, this.damageMax));
 
         // Set the enemy as the current victim of the actor so the attack animation can be targetted correctly.
         this.victimX = this.path[0].x;
@@ -435,18 +459,12 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   // Decrease the current health of the target actor.
-  causeDamage(actor) {
+  causeDamage(actor, damage) {
 
     let hit = ROT.RNG.getUniformInt(1, 20);
     if (hit > 1 && hit > this.agility) {
       return;
     }
-
-    // Generate a random damage.
-    let damage = this.damage + ROT.RNG.getUniformInt(1, 20);
-
-    // Increase the damage with a bit shifted strength.
-    damage += this.strength >> 2;
 
     // Decrease the damage with the victim's defense.
     damage = Math.max(damage - actor.defense, 0);
@@ -491,10 +509,10 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     // Damage that actor.
-    this.causeDamage(actor);
+    this.causeDamage(actor, ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax));
     if (leftHand && leftHand.throwable) {
       if (rightHand && rightHand.throwable) {
-        this.causeDamage(actor);
+        this.causeDamage(actor, ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax));
       }
       this.equipped.leftHand = undefined;  
       this.scene.map.addItem(actor.tileX, actor.tileY, [leftHand]);
