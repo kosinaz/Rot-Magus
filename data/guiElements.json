@@ -105,7 +105,7 @@
     "frame": "finger",
     "i": "finger",
     "texture": "gui",
-    "tooltip": "neck\n  Put a ring on it to increase your attributes.",
+    "tooltip": "finger\n  Put a ring on it to increase your attributes.",
     "type": "SlotImage",
     "targetAttribute": "equipped",
     "x": 160,

@@ -171,6 +171,7 @@
     "weight": 1
   },
   "emerald": {
+    "agility": 5,
     "equips": "neck",
     "name": "emerald",
     "price": 100,
@@ -178,6 +179,7 @@
   },
   "emeraldRing": {
     "equips": "finger",
+    "healthRegen": 3,
     "name": "emeral ring",
     "price": 150
   },
@@ -221,6 +223,7 @@
     "equips": "palm",
     "name": "focus",
     "price": 150,
+    "strength": 5,
     "weight": 1
   },
   "ghostblade": {
@@ -296,10 +299,12 @@
     "equips": "neck",
     "name": "opal",
     "price": 150,
-    "weight": 1
+    "weight": 1,
+    "wisdom": 5
   },
   "opalRing": {
     "equips": "finger",
+    "manaRegen": 3,
     "name": "opal ring",
     "price": 150
   },
@@ -483,6 +488,7 @@
     "equips": "neck",
     "name": "topaz",
     "price": 300,
+    "speed": 1,
     "weight": 1
   },
   "vision": {

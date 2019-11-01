@@ -163,13 +163,15 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
-  updateAttributes() {
-    this.updateLoad();
-    this.updateDamage();
-    this.updateRangedDamage();
+  updateAttributes() {        
     this.updateDefense();
+    this.updateStrength();
+    this.updateLoad();
     this.updateSpeed();
     this.updateAgility();
+    this.updateWisdom();
+    this.updateDamage();
+    this.updateRangedDamage();
 
     // Emit the GUI update just in case the target is the player.
     this.scene.events.emit('attributesUpdated', this);
@@ -249,7 +251,38 @@ class Actor extends Phaser.GameObjects.Image {
     } else if (this.load > this.strength) {
       this.speedMod = -~~(this.speedBase / 3);
     }
+    Object.keys(this.equipped).forEach(function (item) {
+      if (this.equipped[item]) {
+        if (this.equipped[item].speed) {
+          this.speedMod += this.equipped[item].speed;
+        }
+      }
+    }.bind(this));
     this.speed = this.speedBase + this.speedMod;
+  }
+
+  updateStrength() {
+    this.strengthMod = 0;
+    Object.keys(this.equipped).forEach(function (item) {
+      if (this.equipped[item]) {
+        if (this.equipped[item].strength) {
+          this.strengthMod += this.equipped[item].strength;
+        }
+      }
+    }.bind(this));
+    this.strength = this.strengthBase + this.strengthMod;
+  }
+
+  updateWisdom() {
+    this.wisdomMod = 0;
+    Object.keys(this.equipped).forEach(function (item) {
+      if (this.equipped[item]) {
+        if (this.equipped[item].wisdom) {
+          this.wisdomMod += this.equipped[item].wisdom;
+        }
+      }
+    }.bind(this));
+    this.wisdom = this.wisdomBase + this.wisdomMod;
   }
 
   updateAgility() {
@@ -257,6 +290,13 @@ class Actor extends Phaser.GameObjects.Image {
     if (this.usedWeapons === 2) {
       this.agilityMod -= 5;
     }
+    Object.keys(this.equipped).forEach(function (item) {
+      if (this.equipped[item]) {
+        if (this.equipped[item].agility) {
+          this.agilityMod += this.equipped[item].agility;
+        }
+      }
+    }.bind(this));
     this.agility = this.agilityBase + this.agilityMod;
     this.chanceToHit = (this.agility * 5) + '%';
   }
