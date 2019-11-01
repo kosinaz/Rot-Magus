@@ -103,7 +103,7 @@ class Actor extends Phaser.GameObjects.Image {
 
   initInventory() {
     this.config.inventory.forEach(function (itemName) {
-      let item = this.scene.itemTypes[itemName];
+      let item = Object.assign({}, this.scene.itemTypes[itemName]);
       item.frame = itemName;
       this.inventory.push(item);
     }.bind(this));
@@ -150,7 +150,7 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   setItem(item, slot, i) {
-    slot[i] = item;
+    slot[i] = item ? Object.assign({}, item) : undefined;
     this.updateAttributes();
     if (slot === this.ground) {
       if (slot.some(function (value) {
@@ -366,7 +366,7 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Return true if the actor is able to walk on that type of tiles or if it is generally walkable by every actor.
     return this.walksOn.includes(tile) || (
-      tile !== 'water' &&
+      tile !== 'waterTile' &&
       tile !== 'marsh' &&
       tile !== 'bush' &&
       tile !== 'tree' &&
