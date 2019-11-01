@@ -62,7 +62,7 @@ class Player extends Actor {
     super.rest();
     
     // The scene should also emit an event that one of the player's attributes has been updated, and the GUI should react to that.
-    this.scene.events.emit('updateAttribute', this);
+    this.scene.events.emit('attributesUpdated', this);
   }
 
   // Give some XP to the player for killing an enemy.
