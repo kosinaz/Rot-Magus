@@ -51,10 +51,6 @@ Traverse the mysterious lands, acquire powerful weapons and magical artifacts, d
 * added orchs and orch archers as new enemy types around lakes
 * looting
 
-### v0.4.2 (Jun 17 2019) - Load scene
-
-### v0.4.1 (Jun 16 2019) - GUI scene fix
-
 ### v0.4.0 (Jun 16 2019) - A new phase
 
 * 243*243 tile sized simplex noise-based procedurally generated map with forests, mountains, caves, and lakes
