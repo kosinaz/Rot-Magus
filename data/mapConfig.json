@@ -1,27 +1,184 @@
 {
   "layers": [{
-    "frequency": 64,
+    "frequency": 128,
+    "octaves": 6
+  },
+  {
+    "frequency": 16,
     "octaves": 6
   }],
-  "rules": [{
-      "limit": 15,
-      "tileName": "waterTile"
+  "rules": [
+    {
+      "name": "water",
+      "limit": 20,
+      "rules": [
+        {
+          "limit": 47,
+          "tileName": "waterTile"
+        },
+        {
+          "limit": 48,
+          "tileName": "marsh"
+        },
+        {
+          "limit": 49,
+          "tileName": "ford"
+        },
+        {
+          "limit": 50,
+          "tileName": "grass"
+        },
+        {
+          "limit": 51,
+          "tileName": "bush"
+        },
+        {
+          "limit": 52,
+          "tileName": "grass"
+        },
+        {
+          "limit": 53,
+          "tileName": "ford"
+        },
+        {
+          "limit": 54,
+          "tileName": "marsh"
+        },
+        {
+          "limit": 100,
+          "tileName": "waterTile"
+        }
+      ]
     },
     {
+      "name": "grass",
       "limit": 45,
-      "tileName": "grass"
+      "rules": [
+        {
+          "limit": 47,
+          "tileName": "grass"
+        },
+        {
+          "limit": 53,
+          "tileName": "dirt"
+        },
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
     },
     {
+      "name": "mountain",
       "limit": 55,
-      "tileName": "mountain"
+      "rules": [
+        {
+          "limit": 46,
+          "tileName": "mountain"
+        },
+        {
+          "limit": 54,
+          "tileName": "gravel"
+        },
+        {
+          "limit": 100,
+          "tileName": "mountain"
+        }
+      ]
     },
     {
+      "name": "dirt",
+      "limit": 60,
+      "rules": [{
+          "limit": 49,
+          "tileName": "dirt"
+        },
+        {
+          "limit": 51,
+          "tileName": "mountain"
+        },
+        {
+          "limit": 100,
+          "tileName": "dirt"
+        }
+      ]
+    },
+    {
+      "name": "sand",
       "limit": 85,
-      "tileName": "grass"
+      "rules": [
+        {
+          "limit": 49,
+          "tileName": "sand"
+        },
+        {
+          "limit": 50,
+          "tileName": "palmTree"
+        },
+        {
+          "limit": 100,
+          "tileName": "sand"
+        }
+      ]
     },
     {
+      "name": "palmTree",
+      "limit": 86,
+      "rules": [{
+          "limit": 30,
+          "tileName": "palmTree"
+        },
+        {
+          "limit": 70,
+          "tileName": "sand"
+        },
+        {
+          "limit": 100,
+          "tileName": "palmTree"
+        }
+      ]
+    },
+    {
+      "name": "water",
       "limit": 100,
-      "tileName": "waterTile"
+      "rules": [
+        {
+          "limit": 47,
+          "tileName": "waterTile"
+        },
+        {
+          "limit": 48,
+          "tileName": "marsh"
+        },
+        {
+          "limit": 49,
+          "tileName": "ford"
+        },
+        {
+          "limit": 50,
+          "tileName": "grass"
+        },
+        {
+          "limit": 51,
+          "tileName": "bush"
+        },
+        {
+          "limit": 52,
+          "tileName": "grass"
+        },
+        {
+          "limit": 53,
+          "tileName": "ford"
+        },
+        {
+          "limit": 54,
+          "tileName": "marsh"
+        },
+        {
+          "limit": 100,
+          "tileName": "waterTile"
+        }
+      ]
     }
   ]
 }

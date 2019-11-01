@@ -10,7 +10,11 @@ class SimplexMap {
     this.tilesetImage = tilesetImage;
 
     // The Simplex noise that serve as the base of the map.
-    this.noise = new ROT.Noise.Simplex();
+    this.noises = [];
+    
+    this.config.layers.forEach(function () {
+      this.noises.push(new ROT.Noise.Simplex());
+    }.bind(this));
 
     // The container of terrain tiles of this map. This will help to display every terrain tile under the actors. Without this, the player would be displayed under the terrain making him invisible.
     this.terrain = this.scene.add.container();
@@ -152,7 +156,7 @@ class SimplexMap {
     let enemy;
 
     // The noise that determines the probability of the enemy generation.
-    let n = this.noise.get(x, y);
+    let n = this.noises[0].get(x, y);
 
     // The name of the tile at the given position that will determine the type of the enemy.
     let tileName = this.tiles[x + ',' + y].name;
@@ -340,17 +344,40 @@ class SimplexMap {
     }
     let nx = x / this.config.layers[0].frequency;
     let ny = y / this.config.layers[0].frequency;
-    let l = 0;
-    let il = 0;
+    let v = 0;
+    let iv = 0;
     for (let o = 1; o < this.config.layers[0].octaves + 1; o += 1) {
-      l += 1 / Math.pow(o, 2) * this.noise.get(o * nx, o * ny);
-      il += 1 / Math.pow(o, 2);
+      v += 1 / Math.pow(o, 2) * this.noises[0].get(o * nx, o * ny);
+      iv += 1 / Math.pow(o, 2);
     }
-    l /= il;
-    l = (1 + l) * 50;
+    v /= iv;
+    v = (1 + v) * 50;
+    let nx2 = 0;
+    let ny2 = 0;
+    let v2 = 0;
+    let iv2 = 0;
+    if (this.config.layers[1]) {
+      nx2 = x / this.config.layers[1].frequency;
+      ny2 = y / this.config.layers[1].frequency;
+      for (let o2 = 1; o2 < this.config.layers[1].octaves + 1; o2 += 1) {
+        v2 += 1 / Math.pow(o2, 2) * this.noises[1].get(o2 * nx2, o2 * ny2);
+        iv2 += 1 / Math.pow(o2, 2);
+      }
+      v2 /= iv2;
+      v2 = (1 + v2) * 50;
+    }
     for (let r = 0; r < this.config.rules.length; r+= 1) {
-      if (l < this.config.rules[r].limit) {
-        return this.config.rules[r].tileName;
+      if (v < this.config.rules[r].limit) {
+        if (this.config.rules[r].tileName) {
+          return this.config.rules[r].tileName;
+        }
+        for (let r2 = 0; r2 < this.config.rules[r].rules.length; r2 += 1) {
+          if (v2 < this.config.rules[r].rules[r2].limit) {
+            if (this.config.rules[r].rules[r2].tileName) {
+              return this.config.rules[r].rules[r2].tileName;
+            }
+          }
+        }
       }
     }
   }

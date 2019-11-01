@@ -25,11 +25,12 @@ class MapBrowserScene extends Phaser.Scene {
           stoneFloor: color.darkgray,
           gate: color.lightgray,
           stoneWall: color.gray,
+          dirt: color.brown,
+          sand: color.beige,
+          palmTree: color.darkgreen
         }[this.map.getTileNameAt(x - 512, y - 288)]);
         this.graphics.fillPoint(x, y);
       }
     }
-    this.graphics.fillStyle(color.white);
-    this.graphics.fillPoint(512, 288);
   }
 }
