@@ -26,7 +26,7 @@ class MapBrowserScene extends Phaser.Scene {
           gate: color.lightgray,
           stoneWall: color.gray,
           dirt: color.brown,
-          sand: color.beige,
+          sand: color.yellow,
           palmTree: color.darkgreen
         }[this.map.getTileNameAt(x - 512, y - 288)]);
         this.graphics.fillPoint(x, y);
