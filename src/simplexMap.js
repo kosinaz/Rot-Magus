@@ -263,7 +263,7 @@ class SimplexMap {
       } else {
 
         if (n > -0.6 && n < 0.6) {
-          tileName = 'water';
+          tileName = 'waterTile';
         } else if (n < -0.8) {
           tileName = 'ford';
         } else if (n > 0.8) {
