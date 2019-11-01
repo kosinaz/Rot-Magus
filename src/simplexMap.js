@@ -169,7 +169,7 @@ class SimplexMap {
     } else if (tileName === 'bush' && n < -0.025) {
       enemy = new Actor(this.scene, x, y, 'tiles', 'hobgoblin');
     } else if (tileName === 'gravel' && n < -0.9) {
-      enemy = new Actor(this.scene, x, y, 'tiles', 'orchArcher');
+      enemy = new Actor(this.scene, x, y, 'tiles', 'goblin');
     } else if (tileName === 'gravel' && n > 0.99) {
       this.putItem(x, y, [item]);
     } else if (tileName === 'gravel' && n > 0.95) {
