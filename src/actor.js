@@ -459,7 +459,7 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   // Decrease the current health of the target actor.
-  causeDamage(actor, damage) {
+  causeDamage(actor, damage, effectType) {    
 
     let hit = ROT.RNG.getUniformInt(1, 20);
     if (hit > 1 && hit > this.agility) {
@@ -477,9 +477,8 @@ class Actor extends Phaser.GameObjects.Image {
     actor.health -= damage;
 
     // Add a new effect to the list of effects to be displayed during this update based on the amount of damage.
-    let effect = this.scene.add.sprite(
-      actor.x, actor.y, 'tiles', damage > 9 ? 'zok' : 'bif'
-    );
+    effectType = effectType || (damage > 9 ? 'zok' : 'bif');
+    let effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', effectType);
     effect.actor = actor;
     effect.depth = 4;
     effect.visible = false;
@@ -500,6 +499,7 @@ class Actor extends Phaser.GameObjects.Image {
 
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
+    let effect;
 
     if (this.usedArrowI !== -1) {
       this.inventory[this.usedArrowI].amount -= 1;
@@ -509,10 +509,16 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     // Damage that actor.
-    this.causeDamage(actor, ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax));
+    if (leftHand && leftHand.effect) {
+      effect = leftHand.effect;
+    }
+    if (rightHand && rightHand.effect) {
+      effect = rightHand.effect;
+    }
+    this.causeDamage(actor, ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax), effect);
     if (leftHand && leftHand.throwable) {
       if (rightHand && rightHand.throwable) {
-        this.causeDamage(actor, ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax));
+        this.causeDamage(actor, ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax), effect);
       }
       this.equipped.leftHand = undefined;  
       this.scene.map.addItem(actor.tileX, actor.tileY, [leftHand]);

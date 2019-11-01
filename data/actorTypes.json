@@ -12,7 +12,9 @@
       "bow",
       "arrows",
       "dagger",
-      "elvenCloak"
+      "elvenCloak",
+      "chock",
+      "fireblade"
     ],
     "walksOn": [
       "bush",
