@@ -74,15 +74,27 @@ class SimplexMap {
       // If the tile is walkable by the player.
       if (this.scene.player.walksOnXY(x, y)) {
 
+        this.scene.input.on('pointerup', function () {
+
+          // Set the current position of the actor as his current target to prevent him attacking the enemy automatically as his next actions.
+          this.scene.player.target = {
+            x: this.scene.player.tileX,
+            y: this.scene.player.tileY
+          };
+
+          // Reset his path and let him decide about his next action.
+          this.scene.player.path = [];
+        });
+
         this.tiles[x + ',' + y].image.on('pointerdown', function () {
           this.scene.targetTile = this.scene.add.graphics();
           this.scene.targetTile.fillStyle(0xffff00, 0.2);
           this.scene.targetTile.fillRect(this.x - 11, this.y - 11, 23, 20);
           this.scene.targetTile.depth = 5;
-        });
+        // });
 
-        // Set the tile to react to clicks.
-        this.tiles[x + ',' + y].image.on('click', function () {
+        // // Set the tile to react to clicks.
+        // this.tiles[x + ',' + y].image.on('click', function () {
 
           // Set that tile as the new target of the player.
           this.scene.player.target.x = x;

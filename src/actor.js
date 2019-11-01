@@ -45,6 +45,60 @@ class Actor extends Phaser.GameObjects.Image {
     this.scene.add.existing(this);
     this.scene.scheduler.add(this, true);
     this.depth = 3;
+    this.actions = [];
+    this.scene.events.on('playerReady', function () {
+      if (this.dead) {
+        return;
+      }
+      let timeline = this.scene.tweens.createTimeline();
+      let actionDuration = (1000 / game.speed) / this.actions.length;
+      this.actions.forEach(function (action) {
+        if (action.type === 'move') {
+          console.log(this.name, 'moved to', action.x, action.y);
+          timeline.add({
+            targets: this,
+            props: {
+              x: {
+                ease: 'Quad.easeInOut',
+                duration: actionDuration,
+                value: action.x * 24 + 12,
+              },
+              y: {
+                ease: 'Quad.easeInOut',
+                duration: actionDuration,
+                value: action.y * 21 + 11
+              },
+              scaleX: {
+                ease: 'Quad.easeOut',
+                duration: actionDuration / 2,
+                yoyo: true,
+                value: 1.2
+              },
+              scaleY: {
+                ease: 'Quad.easeOut',
+                duration: actionDuration / 2,
+                yoyo: true,
+                value: 1.2
+              },
+            }
+          });
+        } else if (action.type === 'attack') {
+          console.log(this.name, 'attacked', action.x, action.y);
+          timeline.add({
+            targets: this,
+            x: action.x * 24 + 12,
+            y: action.y * 21 + 11,
+            scaleX: 1.2,
+            scaleY: 1.2,
+            ease: 'Quad.easeOut',
+            duration: actionDuration / 2,
+            yoyo: true
+          });
+        }
+      }.bind(this));
+      timeline.play();
+      this.actions = [];
+    }.bind(this));
   }
 
   initInventory() {
@@ -54,23 +108,6 @@ class Actor extends Phaser.GameObjects.Image {
       this.inventory.push(item);
     }.bind(this));
   }
-
-      // var timeline = this.tweens.createTimeline();
-
-      // var actions = ~~(Math.random() * 10) + 5;
-
-      // for (var i = 0; i < actions; i++) {
-      //   timeline.add({
-      //     targets: image,
-      //     x: ~~(Math.random() * 100) + 100,
-      //     y: ~~(Math.random() * 100) + 100,
-      //     ease: 'Power1',
-      //     duration: 3000
-      //   });
-      // }
-      // timeline.setTimeScale(actions);
-
-      // timeline.play();
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
@@ -130,7 +167,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.updateLoad();
     this.updateDamage();
     this.updateDefense();
-    //this.updateSpeed();
+    this.updateSpeed();
     this.updateAgility();
 
     // Emit the GUI update just in case the target is the player.
@@ -350,21 +387,17 @@ class Actor extends Phaser.GameObjects.Image {
         // Damage that actor.
         this.causeDamage(actor);
 
-        // Set the current position of the actor as his current target to prevent him attacking the enemy automatically as his next actions.
-        this.target = {
-          x: this.tileX,
-          y: this.tileY
-        };
-
         // Set the enemy as the current victim of the actor so the attack animation can be targetted correctly.
         this.victimX = this.path[0].x;
         this.victimY = this.path[0].y;
 
-        // Reset his path and let him decide about his next action.
-        this.path = [];
-
         // Add the actor to the list of attacking actors so he can be properly animated as part of the next screen update.
-        this.scene.attackingActors.push(this);
+        //this.scene.attackingActors.push(this);
+        this.actions.push({
+          type: 'attack',
+          x: this.victimX,
+          y: this.victimY
+        });
       
       // If that actor is in the same team, this will be only a friendly bump, that still counts as a valid action so this actor can be skipped.
       } else {
@@ -387,7 +420,12 @@ class Actor extends Phaser.GameObjects.Image {
       this.tileY = this.path[0].y;
 
       // Add the actor to the list of moving actors so he can be properly animated as part of the next screen update.
-      this.scene.movingActors.push(this);
+      //this.scene.movingActors.push(this);
+      this.actions.push({
+        type: 'move',
+        x: this.tileX,
+        y: this.tileY
+      });
     }
   }
 
@@ -516,5 +554,7 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Destroy the enemy.
     this.destroy();
+
+    this.dead = true;
   }
 }
