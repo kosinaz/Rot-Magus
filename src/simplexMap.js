@@ -1,5 +1,7 @@
 class SimplexMap {
-  constructor(scene, tilesetImage) {
+  constructor(scene, tilesetImage, config) {
+
+    this.config = config;
 
     // The scene where the map is displayed.
     this.scene = scene;
@@ -321,5 +323,35 @@ class SimplexMap {
       }
     }
     return tileName;
+  }
+
+  getTileNameAt(x, y) {
+    if (-4 < x && x < 4 && -4 < y && y < 4) {
+      if (-3 < x && x < 3 && -3 < y && y < 3) {
+        if (x === 0 && y === 0) {
+          return 'portalTile';
+        }
+        return 'stoneFloor';
+      }
+      if (x === 0 || y === 0) {
+        return 'gate';
+      }
+      return 'stoneWall';
+    }
+    let nx = x / this.config.layers[0].frequency;
+    let ny = y / this.config.layers[0].frequency;
+    let l = 0;
+    let il = 0;
+    for (let o = 1; o < this.config.layers[0].octaves + 1; o += 1) {
+      l += 1 / Math.pow(o, 2) * this.noise.get(o * nx, o * ny);
+      il += 1 / Math.pow(o, 2);
+    }
+    l /= il;
+    l = (1 + l) * 50;
+    for (let r = 0; r < this.config.rules.length; r+= 1) {
+      if (l < this.config.rules[r].limit) {
+        return this.config.rules[r].tileName;
+      }
+    }
   }
 }

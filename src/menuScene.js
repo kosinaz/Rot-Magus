@@ -22,5 +22,15 @@ class MenuScene extends Phaser.Scene {
       x: 512,
       y: 200
     });
+    new TextButton({
+      onPointerUp: function () {
+        this.scene.start('MapBrowserScene');
+      }.bind(this),
+      origin: 0.5,
+      scene: this,
+      text: 'Browse maps',
+      x: 512,
+      y: 250
+    });
   }
 }

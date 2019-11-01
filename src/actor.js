@@ -370,6 +370,7 @@ class Actor extends Phaser.GameObjects.Image {
       tile !== 'marsh' &&
       tile !== 'bush' &&
       tile !== 'tree' &&
+      tile !== 'stoneWall' &&
       tile !== 'mountain'
     );
   }

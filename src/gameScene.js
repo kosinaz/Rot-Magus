@@ -6,7 +6,7 @@ class GameScene extends Phaser.Scene {
   create() {
 
     // Create a map based on Simplex noise. Unique to the game scene and referred to by several functions of the scene.
-    this.map = new SimplexMap(this, 'tiles');
+    this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
 
     // Get the external actor configurations designed to simplify actor creation and increase the data maintenance efficiency. 
     this.actorTypes = this.cache.json.get('actorTypes');
@@ -22,7 +22,7 @@ class GameScene extends Phaser.Scene {
 
       // Return true if it is the player's position or if it is not opaque.
       return this.player.isAtXY(x, y) ||
-        (tile !== 'bush' && tile !== 'tree' && tile !== 'mountain');
+        (tile !== 'bush' && tile !== 'tree' && tile !== 'mountain' && tile !== 'stoneWall' && tile !== 'gate');
     }.bind(this));    
 
     // Create a scheduler specific to the game scene and set it up as a speed scheduler because all the different actions of a specific actor takes the same amount of time based only on the speed of that actor, so there is no need for a more complex scheduler. The scheduler has to be created before any actor, because every actor will be added to scheduler on creation.

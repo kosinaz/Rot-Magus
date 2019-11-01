@@ -1,0 +1,27 @@
+{
+  "layers": [{
+    "frequency": 64,
+    "octaves": 6
+  }],
+  "rules": [{
+      "limit": 15,
+      "tileName": "waterTile"
+    },
+    {
+      "limit": 45,
+      "tileName": "grass"
+    },
+    {
+      "limit": 55,
+      "tileName": "mountain"
+    },
+    {
+      "limit": 85,
+      "tileName": "grass"
+    },
+    {
+      "limit": 100,
+      "tileName": "waterTile"
+    }
+  ]
+}
