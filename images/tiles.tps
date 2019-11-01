@@ -182,12 +182,10 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">tiles/2HSword.png</key>
-            <key type="filename">tiles/agility.png</key>
             <key type="filename">tiles/air.png</key>
             <key type="filename">tiles/armour.png</key>
             <key type="filename">tiles/arrows.png</key>
             <key type="filename">tiles/axe.png</key>
-            <key type="filename">tiles/back.png</key>
             <key type="filename">tiles/bam.png</key>
             <key type="filename">tiles/barbarianFemale.png</key>
             <key type="filename">tiles/barbarianMale.png</key>
@@ -196,7 +194,6 @@
             <key type="filename">tiles/bigHelmet.png</key>
             <key type="filename">tiles/bigShield.png</key>
             <key type="filename">tiles/bloodTaste.png</key>
-            <key type="filename">tiles/body.png</key>
             <key type="filename">tiles/bom.png</key>
             <key type="filename">tiles/bow.png</key>
             <key type="filename">tiles/brickWall.png</key>
@@ -244,7 +241,6 @@
             <key type="filename">tiles/faithful.png</key>
             <key type="filename">tiles/fastFeet.png</key>
             <key type="filename">tiles/fenix.png</key>
-            <key type="filename">tiles/finger.png</key>
             <key type="filename">tiles/fire.png</key>
             <key type="filename">tiles/fireBall.png</key>
             <key type="filename">tiles/fireblade.png</key>
@@ -259,7 +255,6 @@
             <key type="filename">tiles/grass.png</key>
             <key type="filename">tiles/gravel.png</key>
             <key type="filename">tiles/guardian.png</key>
-            <key type="filename">tiles/head.png</key>
             <key type="filename">tiles/heal.png</key>
             <key type="filename">tiles/helmet.png</key>
             <key type="filename">tiles/hobgoblin.png</key>
@@ -269,8 +264,6 @@
             <key type="filename">tiles/knightMale.png</key>
             <key type="filename">tiles/leadball.png</key>
             <key type="filename">tiles/leather.png</key>
-            <key type="filename">tiles/leftHand.png</key>
-            <key type="filename">tiles/level.png</key>
             <key type="filename">tiles/lightning.png</key>
             <key type="filename">tiles/lightningBolt.png</key>
             <key type="filename">tiles/lightningSpell.png</key>
@@ -279,7 +272,6 @@
             <key type="filename">tiles/minotaur.png</key>
             <key type="filename">tiles/monk.png</key>
             <key type="filename">tiles/mountain.png</key>
-            <key type="filename">tiles/neck.png</key>
             <key type="filename">tiles/negate.png</key>
             <key type="filename">tiles/negator.png</key>
             <key type="filename">tiles/nhg.png</key>
@@ -290,7 +282,6 @@
             <key type="filename">tiles/orchMagician.png</key>
             <key type="filename">tiles/orchWarrior.png</key>
             <key type="filename">tiles/paf.png</key>
-            <key type="filename">tiles/palm.png</key>
             <key type="filename">tiles/palmTree.png</key>
             <key type="filename">tiles/panic.png</key>
             <key type="filename">tiles/phantom.png</key>
@@ -301,7 +292,6 @@
             <key type="filename">tiles/protection.png</key>
             <key type="filename">tiles/purify.png</key>
             <key type="filename">tiles/redFlower.png</key>
-            <key type="filename">tiles/rightHand.png</key>
             <key type="filename">tiles/sabre.png</key>
             <key type="filename">tiles/sand.png</key>
             <key type="filename">tiles/shadowCloak.png</key>
@@ -317,7 +307,6 @@
             <key type="filename">tiles/sleep.png</key>
             <key type="filename">tiles/smallOneFemale.png</key>
             <key type="filename">tiles/smallOneMale.png</key>
-            <key type="filename">tiles/socket.png</key>
             <key type="filename">tiles/sorcerer.png</key>
             <key type="filename">tiles/spirit.png</key>
             <key type="filename">tiles/staff.png</key>
@@ -325,7 +314,6 @@
             <key type="filename">tiles/stoneFloor.png</key>
             <key type="filename">tiles/stoneWall.png</key>
             <key type="filename">tiles/stonefoot.png</key>
-            <key type="filename">tiles/strength.png</key>
             <key type="filename">tiles/studdedLeather.png</key>
             <key type="filename">tiles/sunArmour.png</key>
             <key type="filename">tiles/sunBow.png</key>
@@ -349,7 +337,6 @@
             <key type="filename">tiles/warrior.png</key>
             <key type="filename">tiles/water.png</key>
             <key type="filename">tiles/waterTile.png</key>
-            <key type="filename">tiles/wisdom.png</key>
             <key type="filename">tiles/witchlord.png</key>
             <key type="filename">tiles/wizardFemale.png</key>
             <key type="filename">tiles/wizardMale.png</key>
@@ -370,19 +357,6 @@
                 <rect>6,5,12,11</rect>
                 <key>scale9Paddings</key>
                 <rect>6,5,12,11</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">tiles/speed.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>6,5,13,11</rect>
-                <key>scale9Paddings</key>
-                <rect>6,5,13,11</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
