@@ -12,15 +12,7 @@
       "bow",
       "arrows",
       "dagger",
-      "elvenCloak",
-      "chock",
-      "fireblade",
-      "topaz",
-      "opal",
-      "focus",
-      "emerald",
-      "opalRing",
-      "emeraldRing"
+      "elvenCloak"
     ],
     "walksOn": [
       "bush",
