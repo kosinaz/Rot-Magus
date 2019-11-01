@@ -324,6 +324,33 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
+  regenerate() {
+    Object.keys(this.equipped).forEach(function (item) {
+      if (this.equipped[item]) {
+        if (this.equipped[item].healthRegen) {
+
+          // If the actor's health did not reach the maximum yet.
+          if (this.health < this.healthMax) {
+
+            // Make the actor get back one health point. 
+            this.health = Math.min(this.health + 3, this.healthMax);
+            this.scene.events.emit('attributesUpdated', this);
+          }
+        }
+        if (this.equipped[item].manaRegen) {
+
+          // If the actor's health did not reach the maximum yet.
+          if (this.mana < this.manaMax) {
+
+            // Make the actor get back one health point. 
+            this.mana = Math.min(this.mana + 3, this.manaMax);
+            this.scene.events.emit('attributesUpdated', this);
+          }
+        }
+      }
+    }.bind(this));
+  }
+
   // This function is required for the Speed scheduler to determine the sequence of actor actions.
   getSpeed() {
 
@@ -422,6 +449,7 @@ class Actor extends Phaser.GameObjects.Image {
 
       // Make the actor rest until his next action and get back a health point.
       this.rest();
+      this.regenerate();
 
       // Since the actor only wanted to rest there is no need for further actions.
       return;
@@ -458,6 +486,8 @@ class Actor extends Phaser.GameObjects.Image {
           x: this.victimX,
           y: this.victimY
         });
+
+        this.regenerate();
       
       // If that actor is in the same team, this will be only a friendly bump, that still counts as a valid action so this actor can be skipped.
       } else {
@@ -484,6 +514,8 @@ class Actor extends Phaser.GameObjects.Image {
         x: this.tileX,
         y: this.tileY
       });
+
+      this.regenerate();
     }
   }
 
@@ -567,6 +599,8 @@ class Actor extends Phaser.GameObjects.Image {
       this.equipped.rightHand = undefined;
       this.scene.map.addItem(actor.tileX, actor.tileY, [rightHand]);
     }
+
+    this.regenerate();
 
     // Emit the GUI ground update just in case the target is the player.
     this.scene.events.emit('playerMoved', this);

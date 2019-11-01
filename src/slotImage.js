@@ -113,6 +113,10 @@ class SlotImage extends ActiveImage {
           attribute !== 'effect') {
           if (attribute === 'damageRanged') {
             this.tooltip += '\n  ranged damage: ' + item[attribute];
+          } else if (attribute === 'healthRegen') {
+            this.tooltip += '\n  health regeneration: ' + item[attribute];
+          } else if (attribute === 'manaRegen') {
+            this.tooltip += '\n  mana regeneration: ' + item[attribute];
           } else if (item[attribute] !== true) {
             this.tooltip += '\n  ' + attribute + ': ' + item[attribute];
           } else {
