@@ -2,7 +2,7 @@
   "layers": [
     {
       "name": "elevation",
-      "frequency": 96,
+      "frequency": 64,
       "octaves": 3
     },
     {
@@ -18,226 +18,25 @@
   ],
   "rules": [
     {
-      "name": "low",
-      "limit": 17,
+      "name": "hot-low",
+      "limit": 30,
       "rules": [
         {
-          "name": "desert",
-          "limit": 30,
+          "name": "hot-low-dry wasteland center",
+          "limit": 40,
           "rules": [
             {
-              "limit": 47,
-              "tileName": "sand"
-            },
-            {
-              "limit": 47.2,
-              "tileName": "waterTile"
-            },
-            {
-              "limit": 53,
-              "tileName": "palmTree"
-            },
-            {
               "limit": 100,
-              "tileName": "sand"
+              "tileName": "dirt"
             }
           ]
         },
         {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "lake",
-          "limit": 100,
-          "rules": [{
-              "limit": 49,
-              "tileName": "waterTile"
-            },
+          "name": "hot-low-temperate sparse forest",
+          "limit": 60,
+          "rules": [
             {
-              "limit": 51,
-              "tileName": "marsh"
-            },
-            {
-              "limit": 100,
-              "tileName": "waterTile"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mid-low-low",
-      "limit": 17.2,
-      "rules": [{
-          "name": "desert",
-          "limit": 30,
-          "tileName": "sand"
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "limit": 100,
-          "tileName": "marsh"
-        }
-      ]
-    },
-    {
-      "name": "mid-low",
-      "limit": 17.5,
-      "rules": [{
-          "name": "desert",
-          "limit": 30,
-          "tileName": "sand"
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "limit": 100,
-          "tileName": "ford"
-        }
-      ]
-    },
-    {
-      "name": "mid-low",
-      "limit": 27.7,
-      "rules": [{
-          "name": "desert",
-          "limit": 30,
-          "tileName": "sand"
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "limit": 100,
-          "rules": [{
-              "limit": 49.95,
-              "tileName": "grass"
-            },
-            {
-              "limit": 50,
-              "tileName": "bush"
-            },
-            {
-              "limit": 100,
-              "tileName": "grass"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mid-low",
-      "limit": 28,
-      "rules": [{
-          "name": "desert",
-          "limit": 30,
-          "tileName": "palmTree"
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "limit": 100,
-          "rules": [{
-              "limit": 49.95,
-              "tileName": "grass"
-            },
-            {
-              "limit": 50,
-              "tileName": "bush"
-            },
-            {
-              "limit": 100,
-              "tileName": "grass"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mid-low",
-      "limit": 29,
-      "rules": [{
-          "name": "desert",
-          "limit": 30,
-          "tileName": "sand"
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "limit": 100,
-          "rules": [{
-              "limit": 49.95,
-              "tileName": "grass"
-            },
-            {
-              "limit": 50,
-              "tileName": "bush"
-            },
-            {
-              "limit": 100,
-              "tileName": "grass"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mid-low",
-      "limit": 30,
-      "rules": [{
-          "name": "desert",
-          "limit": 30,
-          "tileName": "dirt"
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "limit": 100,
-          "rules": [{
-              "limit": 49.95,
-              "tileName": "grass"
-            },
-            {
-              "limit": 50,
-              "tileName": "bush"
-            },
-            {
-              "limit": 100,
-              "tileName": "grass"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mid",
-      "limit": 45,
-      "rules": [
-        {
-          "limit": 100,
-          "rules": [{
-              "limit": 49.5,
-              "tileName": "grass"
-            },
-            {
-              "limit": 50,
-              "tileName": "bush"
-            },
-            {
-              "limit": 50.5,
+              "limit": 20,
               "tileName": "tree"
             },
             {
@@ -245,6 +44,54 @@
               "tileName": "grass"
             }
           ]
+        },
+        {
+          "name": "hot-low-wet swamp center",
+          "limit": 100,
+          "rules": [
+            {
+              "limit": 100,
+              "tileName": "ford"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hot-mid",
+      "limit": 45,
+      "rules": [{
+          "name": "hot-mid-dry sparse forest",
+          "limit": 40,
+          "rules": [{
+            "limit": 20,
+            "tileName": "tree"
+          }, {
+            "limit": 100,
+            "tileName": "grass"
+          }]
+        },
+        {
+          "name": "hot-mid-temperate dense forest",
+          "limit": 60,
+          "rules": [{
+            "limit": 40,
+            "tileName": "tree"
+          }, {
+            "limit": 100,
+            "tileName": "grass"
+          }]
+        },
+        {
+          "name": "hot-mid-wet sparse forest",
+          "limit": 100,
+          "rules": [{
+            "limit": 20,
+            "tileName": "tree"
+          }, {
+            "limit": 100,
+            "tileName": "grass"
+          }]
         }
       ]
     },
@@ -255,12 +102,9 @@
         {
           "name": "cave",
           "limit": 100,
-          "rules": [{
-              "limit": 48,
-              "tileName": "mountain"
-            },
+          "rules": [
             {
-              "limit": 52,
+              "limit": 15,
               "tileName": "gravel"
             },
             {
@@ -272,594 +116,72 @@
       ]
     },
     {
-      "name": "mid",
-      "limit": 65,
-      "rules": [
-        {
-          "limit": 100,
-          "rules": [{
-              "limit": 45,
-              "tileName": "grass"
-            },
-            {
-              "limit": 45.5,
-              "tileName": "redFlower"
-            },
-            {
-              "limit": 54.5,
-              "tileName": "tree"
-            },
-            {
-              "limit": 55,
-              "tileName": "yellowFlower"
-            },
-            {
-              "limit": 100,
-              "tileName": "grass"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mid",
-      "limit": 67,
-      "rules": [
-        {
-          "limit": 30,
-          "rules": [{
-              "limit": 10,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 90,
-              "tileName": "grass"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 100,
-          "rules": [
-            {
-              "limit": 45,
-              "tileName": "grass"
-            },
-            {
-              "limit": 45.5,
-              "tileName": "yellowFlower"
-            },
-            {
-              "limit": 46,
-              "tileName": "bush"
-            },
-            {
-              "limit": 54,
-              "tileName": "tree"
-            },
-            {
-              "limit": 54.5,
-              "tileName": "bush"
-            },
-            {
-              "limit": 55,
-              "tileName": "redFlower"
-            },
-            {
-              "limit": 100,
-              "tileName": "grass"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mid",
+      "name": "cold-mid",
       "limit": 70,
-      "rules": [
-        {
-          "limit": 30,
-          "rules": [{
-              "limit": 30,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 70,
-              "tileName": "grass"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 100,
-          "rules": [{
-              "limit": 45,
-              "tileName": "grass"
-            },
-            {
-              "limit": 46.5,
-              "tileName": "yellowFlower"
-            },
-            {
-              "limit": 47,
-              "tileName": "bush"
-            },
-            {
-              "limit": 53,
-              "tileName": "tree"
-            },
-            {
-              "limit": 53.5,
-              "tileName": "bush"
-            },
-            {
-              "limit": 55,
-              "tileName": "redFlower"
-            },
-            {
-              "limit": 100,
-              "tileName": "grass"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mid",
-      "limit": 80,
-      "rules": [
-        {
-          "limit": 30,
-          "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 100,
-          "rules": [{
-              "limit": 45,
-              "tileName": "grass"
-            },
-            {
-              "limit": 47.5,
-              "tileName": "yellowFlower"
-            },
-            {
-              "limit": 48,
-              "tileName": "bush"
-            },
-            {
-              "limit": 52,
-              "tileName": "tree"
-            },
-            {
-              "limit": 52.5,
-              "tileName": "bush"
-            },
-            {
-              "limit": 55,
-              "tileName": "redFlower"
-            },
-            {
-              "limit": 100,
-              "tileName": "grass"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "",
-      "limit": 81.5,
       "rules": [{
-          "limit": 30,
+          "name": "cold-mid-dry sparse plains",
+          "limit": 40,
           "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
+            "limit": 10,
+            "tileName": "bush"
+          }, {
+            "limit": 100,
+            "tileName": "grass"
+          }]
         },
         {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
-          "limit": 100,
-          "tileName": "dirt"
-        }
-      ]
-    },
-    {
-      "name": "",
-      "limit": 81.6,
-      "rules": [{
-          "limit": 30,
+          "name": "cold-mid-temperate dense plains",
+          "limit": 60,
           "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
+            "limit": 20,
+            "tileName": "bush"
+          }, {
+            "limit": 100,
+            "tileName": "grass"
+          }]
         },
         {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
+          "name": "cold-mid-wet sparse plains",
           "limit": 100,
-          "tileName": "tree"
-        }
-      ]
-    },
-    {
-      "name": "",
-      "limit": 81.7,
-      "rules": [{
-          "limit": 30,
           "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
-          "limit": 100,
-          "tileName": "dirt"
+            "limit": 10,
+            "tileName": "bush"
+          }, {
+            "limit": 100,
+            "tileName": "grass"
+          }]
         }
       ]
     },
     {
-      "name": "",
-      "limit": 81.8,
-      "rules": [{
-          "limit": 30,
-          "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
-          "limit": 100,
-          "tileName": "bush"
-        }
-      ]
-    },
-    {
-      "name": "",
-      "limit": 81.9,
-      "rules": [{
-          "limit": 30,
-          "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
-          "limit": 100,
-          "tileName": "dirt"
-        }
-      ]
-    },
-    {
-      "name": "",
-      "limit": 82,
-      "rules": [{
-          "limit": 30,
-          "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
-          "limit": 100,
-          "tileName": "bush"
-        }
-      ]
-    },
-    {
-      "name": "",
-      "limit": 82.6,
-      "rules": [{
-          "limit": 30,
-          "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
-          "limit": 100,
-          "tileName": "ford"
-        }
-      ]
-    },
-    {
-      "name": "",
-      "limit": 82.7,
-      "rules": [{
-          "limit": 30,
-          "rules": [{
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
-          "limit": 100,
-          "tileName": "dirt"
-        }
-      ]
-    },
-    {
-      "name": "",
-      "limit": 83,
-      "rules": [
-        {
-          "name": "badlands",
-          "limit": 30,
-          "rules": [
-            {
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
-          "limit": 40,
-          "tileName": "grass"
-        },
-        {
-          "name": "swamp",
-          "limit": 100,
-          "tileName": "marsh"
-        }
-      ]
-    },
-    {
-      "name": "low",
+      "name": "cold-low",
       "limit": 100,
-      "rules": [
-        {
-          "name": "badlands",
-          "limit": 30,
-          "rules": [
-            {
-              "limit": 47,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 48,
-              "tileName": "gravel"
-            },
-            {
-              "limit": 53,
-              "tileName": "mountain"
-            },
-            {
-              "limit": 100,
-              "tileName": "dirt"
-            }
-          ]
-        },
-        {
+      "rules": [{
+          "name": "cold-low-dry desert center",
           "limit": 40,
-          "tileName": "grass"
+          "rules": [{
+            "limit": 100,
+            "tileName": "sand"
+          }]
         },
         {
-          "name": "swamp",
+          "name": "cold-low-temperate sparse plains",
+          "limit": 60,
+          "rules": [{
+            "limit": 10,
+            "tileName": "bush"
+          }, {
+            "limit": 100,
+            "tileName": "grass"
+          }]
+        },
+        {
+          "name": "cold-low-wet lake center",
           "limit": 100,
-          "rules": [
-            {
-              "limit": 40,
-              "tileName": "waterTile"
-            },
-            {
-              "limit": 42,
-              "tileName": "marsh"
-            },
-            {
-              "limit": 44,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 46,
-              "tileName": "marsh"
-            },
-            {
-              "limit": 48,
-              "tileName": "tree"
-            },
-            {
-              "limit": 50,
-              "tileName": "marsh"
-            },
-            {
-              "limit": 52,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 54,
-              "tileName": "marsh"
-            },
-            {
-              "limit": 56,
-              "tileName": "tree"
-            },
-            {
-              "limit": 58,
-              "tileName": "marsh"
-            },
-            {
-              "limit": 60,
-              "tileName": "dirt"
-            },
-            {
-              "limit": 100,
-              "tileName": "waterTile"
-            }
-          ]
+          "rules": [{
+            "limit": 100,
+            "tileName": "waterTile"
+          }]
         }
       ]
     }

@@ -46,7 +46,7 @@ class SimplexMap {
       }
 
       // If this is the first time this tile is displayed there is a chance that it was hiding an enemy or an item.
-      this.addEnemyOrItem(x, y);
+      //this.addEnemyOrItem(x, y);
     }
 
     // If the image of the tile is not displayed at the given position.
