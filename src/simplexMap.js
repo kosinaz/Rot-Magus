@@ -242,94 +242,6 @@ class SimplexMap {
   }
 
   getTileNameAt(x, y) {
-
-    // set the key of the tile within the tilesetImage as grass by default
-    let tileName = 'grass';
-
-    // set a position-based low-frequency noise 
-    // increase its amplitude to narrow down its median to a few tiles 
-    // round it to the nearest integer
-    // return the lowest values
-    if (~~(this.noise.get((x) / 96, (y) / 96) * 8) < -6) {
-
-      let n = this.noise.get(x, y);
-
-      if (!~~(this.noise.get((x) / 48, (y) / 48) * 16)) {
-
-        if (n > -0.6 && n < 0.6) {
-          tileName = 'ford';
-        } else if (n < -0.7) {
-          tileName = 'bush';
-        } else if (n > 0.7) {
-          tileName = 'marsh';
-        } else {
-          tileName = 'grass';
-        }
-
-      } else {
-
-        if (n > -0.6 && n < 0.6) {
-          tileName = 'waterTile';
-        } else if (n < -0.8) {
-          tileName = 'ford';
-        } else if (n > 0.8) {
-          tileName = 'marsh';
-        } else if (n > 0.75) {
-          tileName = 'tree';
-        } else {
-          tileName = 'grass';
-        }
-      }
-
-      // set a position-based low-frequency noise 
-      // increase its amplitude to narrow down its median to a few tiles 
-      // round it to the nearest integer
-      // return the median
-    } else if (!~~(this.noise.get((x) / 96, (y) / 96) * 8)) {
-
-      if (!~~(this.noise.get((x) / 48, (y) / 48) * 16)) {
-
-        // set the tile as gravel
-        tileName = 'gravel';
-       
-      } else {
-
-        // set the tile as rock
-        tileName = 'mountain';
-      }
-
-      // set a position-based low-frequency noise 
-      // increase its amplitude to narrow down its median to one tile 
-      // round it to the nearest integer
-      // return the median
-    } else if (!~~(this.noise.get((x) / 48, (y) / 48) * 16)) {
-
-
-      // set the tile as grass
-      tileName = 'grass';
-
-      // set a position-based noise 
-      // increase its amplitude
-      // round it to the nearest integer
-      // return the median
-    } else if (!~~(this.noise.get(x, y) * 16)) {
-
-      // set the tile as tree or bush or flowers
-      let n = this.noise.get(x, y);
-      if (n > -0.001 && n < 0.001) {
-        tileName = 'tree';
-      } else if (n < -0.03) {
-        tileName = 'redFlower';
-      } else if (n > 0.03) {
-        tileName = 'yellowFlower';
-      } else {
-        tileName = 'bush';    
-      }
-    }
-    return tileName;
-  }
-
-  getTileNameAt(x, y) {
     if (-4 < x && x < 4 && -4 < y && y < 4) {
       if (-3 < x && x < 3 && -3 < y && y < 3) {
         if (x === 0 && y === 0) {
@@ -347,8 +259,8 @@ class SimplexMap {
     let v = 0;
     let iv = 0;
     for (let o = 1; o < this.config.layers[0].octaves + 1; o += 1) {
-      v += 1 / Math.pow(o, 2) * this.noises[0].get(o * nx, o * ny);
-      iv += 1 / Math.pow(o, 2);
+      v += 1 / Math.pow(o, 1.1) * this.noises[0].get(o * nx, o * ny);
+      iv += 1 / Math.pow(o, 1.1);
     }
     v /= iv;
     v = (1 + v) * 50;
@@ -360,11 +272,25 @@ class SimplexMap {
       nx2 = x / this.config.layers[1].frequency;
       ny2 = y / this.config.layers[1].frequency;
       for (let o2 = 1; o2 < this.config.layers[1].octaves + 1; o2 += 1) {
-        v2 += 1 / Math.pow(o2, 2) * this.noises[1].get(o2 * nx2, o2 * ny2);
-        iv2 += 1 / Math.pow(o2, 2);
+        v2 += 1 / Math.pow(o2, 1.1) * this.noises[1].get(o2 * nx2, o2 * ny2);
+        iv2 += 1 / Math.pow(o2, 1.1);
       }
       v2 /= iv2;
       v2 = (1 + v2) * 50;
+    }
+    let nx3 = 0;
+    let ny3 = 0;
+    let v3 = 0;
+    let iv3 = 0;
+    if (this.config.layers[2]) {
+      nx3 = x / this.config.layers[2].frequency;
+      ny3 = y / this.config.layers[2].frequency;
+      for (let o3 = 1; o3 < this.config.layers[2].octaves + 1; o3 += 1) {
+        v3 += 1 / Math.pow(o3, 1.1) * this.noises[2].get(o3 * nx3, o3 * ny3);
+        iv3 += 1 / Math.pow(o3, 1.1);
+      }
+      v3 /= iv3;
+      v3 = (1 + v3) * 50;
     }
     for (let r = 0; r < this.config.rules.length; r+= 1) {
       if (v < this.config.rules[r].limit) {
@@ -375,6 +301,13 @@ class SimplexMap {
           if (v2 < this.config.rules[r].rules[r2].limit) {
             if (this.config.rules[r].rules[r2].tileName) {
               return this.config.rules[r].rules[r2].tileName;
+            }
+            for (let r3 = 0; r3 < this.config.rules[r].rules[r2].rules.length; r3 += 1) {
+              if (v3 < this.config.rules[r].rules[r2].rules[r3].limit) {
+                if (this.config.rules[r].rules[r2].rules[r3].tileName) {
+                  return this.config.rules[r].rules[r2].rules[r3].tileName;
+                }
+              }
             }
           }
         }

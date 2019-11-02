@@ -1,182 +1,393 @@
 {
-  "layers": [{
-    "frequency": 128,
-    "octaves": 6
-  },
-  {
-    "frequency": 16,
-    "octaves": 6
-  }],
+  "layers": [
+    {
+      "name": "elevation",
+      "frequency": 96,
+      "octaves": 3
+    },
+    {
+      "name": "moisture",
+      "frequency": 512,
+      "octaves": 3
+    },
+    {
+      "name": "roads",
+      "frequency": 16,
+      "octaves": 3
+    }
+  ],
   "rules": [
     {
-      "name": "water",
-      "limit": 20,
+      "name": "low",
+      "limit": 17,
       "rules": [
         {
-          "limit": 47,
-          "tileName": "waterTile"
+          "name": "desert",
+          "limit": 30,
+          "rules": [
+            {
+              "limit": 47,
+              "tileName": "sand"
+            },
+            {
+              "limit": 47.2,
+              "tileName": "waterTile"
+            },
+            {
+              "limit": 53,
+              "tileName": "palmTree"
+            },
+            {
+              "limit": 100,
+              "tileName": "sand"
+            }
+          ]
         },
         {
-          "limit": 48,
-          "tileName": "marsh"
-        },
-        {
-          "limit": 49,
-          "tileName": "ford"
-        },
-        {
-          "limit": 50,
+          "limit": 40,
           "tileName": "grass"
         },
         {
-          "limit": 51,
-          "tileName": "bush"
-        },
-        {
-          "limit": 52,
-          "tileName": "grass"
-        },
-        {
-          "limit": 53,
-          "tileName": "ford"
-        },
-        {
-          "limit": 54,
-          "tileName": "marsh"
-        },
-        {
+          "name": "lake",
           "limit": 100,
-          "tileName": "waterTile"
+          "rules": [{
+              "limit": 49,
+              "tileName": "waterTile"
+            },
+            {
+              "limit": 51,
+              "tileName": "marsh"
+            },
+            {
+              "limit": 100,
+              "tileName": "waterTile"
+            }
+          ]
         }
       ]
     },
     {
-      "name": "grass",
-      "limit": 45,
-      "rules": [
-        {
-          "limit": 47,
-          "tileName": "grass"
-        },
-        {
-          "limit": 53,
-          "tileName": "dirt"
-        },
-        {
-          "limit": 100,
-          "tileName": "grass"
-        }
-      ]
-    },
-    {
-      "name": "mountain",
-      "limit": 55,
-      "rules": [
-        {
-          "limit": 46,
-          "tileName": "mountain"
-        },
-        {
-          "limit": 54,
-          "tileName": "gravel"
-        },
-        {
-          "limit": 100,
-          "tileName": "mountain"
-        }
-      ]
-    },
-    {
-      "name": "dirt",
-      "limit": 57,
-      "rules": [{
-          "limit": 49,
-          "tileName": "dirt"
-        },
-        {
-          "limit": 51,
-          "tileName": "mountain"
-        },
-        {
-          "limit": 100,
-          "tileName": "dirt"
-        }
-      ]
-    },
-    {
-      "name": "sand",
-      "limit": 85,
-      "rules": [
-        {
-          "limit": 49,
-          "tileName": "sand"
-        },
-        {
-          "limit": 50,
-          "tileName": "palmTree"
-        },
-        {
-          "limit": 100,
-          "tileName": "sand"
-        }
-      ]
-    },
-    {
-      "name": "palmTree",
-      "limit": 86,
+      "name": "mid-low-low",
+      "limit": 17.2,
       "rules": [{
           "limit": 30,
           "tileName": "palmTree"
         },
         {
-          "limit": 70,
-          "tileName": "sand"
+          "limit": 40,
+          "tileName": "grass"
         },
         {
           "limit": 100,
-          "tileName": "palmTree"
+          "tileName": "marsh"
         }
       ]
     },
     {
-      "name": "water",
-      "limit": 100,
-      "rules": [
-        {
-          "limit": 47,
-          "tileName": "waterTile"
+      "name": "mid-low",
+      "limit": 17.5,
+      "rules": [{
+          "limit": 30,
+          "tileName": "dirt"
         },
         {
-          "limit": 48,
-          "tileName": "marsh"
-        },
-        {
-          "limit": 49,
-          "tileName": "ford"
-        },
-        {
-          "limit": 50,
+          "limit": 40,
           "tileName": "grass"
-        },
-        {
-          "limit": 51,
-          "tileName": "bush"
-        },
-        {
-          "limit": 52,
-          "tileName": "grass"
-        },
-        {
-          "limit": 53,
-          "tileName": "ford"
-        },
-        {
-          "limit": 54,
-          "tileName": "marsh"
         },
         {
           "limit": 100,
-          "tileName": "waterTile"
+          "tileName": "ford"
+        }
+      ]
+    },
+    {
+      "name": "mid",
+      "limit": 45,
+      "rules": [
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
+    },
+    {
+      "name": "high",
+      "limit": 55,
+      "rules": [
+        {
+          "name": "cave",
+          "limit": 100,
+          "rules": [{
+              "limit": 45,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 55,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 100,
+              "tileName": "mountain"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mid",
+      "limit": 80,
+      "rules": [
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 81.5,
+      "rules": [{
+          "limit": 30,
+          "tileName": "dirt"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "dirt"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 81.6,
+      "rules": [{
+          "limit": 30,
+          "tileName": "dirt"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "tree"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 81.7,
+      "rules": [{
+          "limit": 30,
+          "tileName": "dirt"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "dirt"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 81.8,
+      "rules": [{
+          "limit": 30,
+          "tileName": "dirt"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "bush"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 81.9,
+      "rules": [{
+          "limit": 30,
+          "tileName": "grass"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "dirt"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 82,
+      "rules": [{
+          "limit": 30,
+          "tileName": "grass"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "bush"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 82.6,
+      "rules": [{
+          "limit": 30,
+          "tileName": "mountain"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "ford"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 82.7,
+      "rules": [{
+          "limit": 30,
+          "tileName": "dirt"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "dirt"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "limit": 83,
+      "rules": [{
+          "limit": 30,
+          "tileName": "mountain"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "tileName": "marsh"
+        }
+      ]
+    },
+    {
+      "name": "low",
+      "limit": 100,
+      "rules": [
+        {
+          "name": "badlands",
+          "limit": 30,
+          "rules": [
+            {
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "name": "swamp",
+          "limit": 100,
+          "rules": [
+            {
+              "limit": 40,
+              "tileName": "waterTile"
+            },
+            {
+              "limit": 42,
+              "tileName": "marsh"
+            },
+            {
+              "limit": 44,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 46,
+              "tileName": "marsh"
+            },
+            {
+              "limit": 48,
+              "tileName": "tree"
+            },
+            {
+              "limit": 50,
+              "tileName": "marsh"
+            },
+            {
+              "limit": 52,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 54,
+              "tileName": "marsh"
+            },
+            {
+              "limit": 56,
+              "tileName": "tree"
+            },
+            {
+              "limit": 58,
+              "tileName": "marsh"
+            },
+            {
+              "limit": 60,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 100,
+              "tileName": "waterTile"
+            }
+          ]
         }
       ]
     }
