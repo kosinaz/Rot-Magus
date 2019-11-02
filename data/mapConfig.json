@@ -226,6 +226,9 @@
           "name": "cold-mid-wet sparse plains",
           "limit": 100,
           "rules": [{
+              "limit": 3,
+              "tileName": "tree"
+            }, {
             "limit": 10,
             "tileName": "bush"
           }, {
@@ -253,6 +256,9 @@
           "name": "cold-low-temperate sparse plains",
           "limit": 60,
           "rules": [{
+              "limit": 3,
+              "tileName": "tree"
+            }, {
             "limit": 10,
             "tileName": "bush"
           }, {
@@ -280,18 +286,37 @@
       "rules": [{
           "name": "cold-low-dry desert center",
           "limit": 40,
-          "rules": [{
-            "limit": 100,
-            "tileName": "sand"
-          }]
+          "rules": [
+            {
+              "limit": 3,
+              "tileName": "waterTile"
+            },
+            {
+              "limit": 10,
+              "tileName": "palmTree"
+            },
+            {
+              "limit": 100,
+              "tileName": "sand"
+            }
+          ]
         },
         {
           "name": "cold-low-temperate sparse plains",
           "limit": 60,
           "rules": [{
-            "limit": 10,
-            "tileName": "bush"
-          }, {
+              "limit": 3,
+              "tileName": "tree"
+            }, {
+              "limit": 10,
+              "tileName": "bush"
+            }, {
+              "limit": 15,
+              "tileName": "yellowFlower"
+            }, {
+              "limit": 20,
+              "tileName": "redFlower"
+            }, {
             "limit": 100,
             "tileName": "grass"
           }]
@@ -300,6 +325,15 @@
           "name": "cold-low-wet lake center",
           "limit": 100,
           "rules": [{
+            "limit": 3,
+            "tileName": "tree"
+          }, {
+            "limit": 5,
+            "tileName": "grass"
+          }, {
+            "limit": 20,
+            "tileName": "marsh"
+          }, {
             "limit": 100,
             "tileName": "waterTile"
           }]
