@@ -467,6 +467,11 @@ class Actor extends Phaser.GameObjects.Image {
     // Remove the first element of the path because that's the actor's current position.
     this.path.shift();
 
+    // If the target is unreachable
+    if (!this.path[0]) {
+      return;
+    }
+
     // Get any actor at the previously second, now first element of the path, that will be the next step of this actor.
     let actor = this.scene.getActorAt(this.path[0].x, this.path[0].y);
 

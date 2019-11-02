@@ -7,13 +7,13 @@
     },
     {
       "name": "moisture",
-      "frequency": 512,
-      "octaves": 3
+      "frequency": 256,
+      "octaves": 6
     },
     {
-      "name": "roads",
-      "frequency": 16,
-      "octaves": 3
+      "name": "feature",
+      "frequency": 0.3,
+      "octaves": 1
     }
   ],
   "rules": [
@@ -70,8 +70,9 @@
       "name": "mid-low-low",
       "limit": 17.2,
       "rules": [{
+          "name": "desert",
           "limit": 30,
-          "tileName": "palmTree"
+          "tileName": "sand"
         },
         {
           "limit": 40,
@@ -87,6 +88,79 @@
       "name": "mid-low",
       "limit": 17.5,
       "rules": [{
+          "name": "desert",
+          "limit": 30,
+          "tileName": "sand"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "limit": 100,
+          "tileName": "ford"
+        }
+      ]
+    },
+    {
+      "name": "mid-low",
+      "limit": 27.7,
+      "rules": [{
+          "name": "desert",
+          "limit": 30,
+          "tileName": "sand"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
+    },
+    {
+      "name": "mid-low",
+      "limit": 28,
+      "rules": [{
+          "name": "desert",
+          "limit": 30,
+          "tileName": "palmTree"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
+    },
+    {
+      "name": "mid-low",
+      "limit": 29,
+      "rules": [{
+          "name": "desert",
+          "limit": 30,
+          "tileName": "sand"
+        },
+        {
+          "limit": 40,
+          "tileName": "grass"
+        },
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
+    },
+    {
+      "name": "mid-low",
+      "limit": 30,
+      "rules": [{
+          "name": "desert",
           "limit": 30,
           "tileName": "dirt"
         },
@@ -96,7 +170,7 @@
         },
         {
           "limit": 100,
-          "tileName": "ford"
+          "tileName": "grass"
         }
       ]
     },
@@ -118,11 +192,11 @@
           "name": "cave",
           "limit": 100,
           "rules": [{
-              "limit": 45,
+              "limit": 48,
               "tileName": "mountain"
             },
             {
-              "limit": 55,
+              "limit": 52,
               "tileName": "gravel"
             },
             {
@@ -135,8 +209,90 @@
     },
     {
       "name": "mid",
+      "limit": 65,
+      "rules": [
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
+    },
+    {
+      "name": "mid",
+      "limit": 67,
+      "rules": [
+        {
+          "limit": 30,
+          "rules": [{
+              "limit": 10,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 90,
+              "tileName": "grass"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
+        },
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
+    },
+    {
+      "name": "mid",
+      "limit": 70,
+      "rules": [
+        {
+          "limit": 30,
+          "rules": [{
+              "limit": 30,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 70,
+              "tileName": "grass"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
+        },
+        {
+          "limit": 100,
+          "tileName": "grass"
+        }
+      ]
+    },
+    {
+      "name": "mid",
       "limit": 80,
       "rules": [
+        {
+          "limit": 30,
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
+        },
         {
           "limit": 100,
           "tileName": "grass"
@@ -148,7 +304,23 @@
       "limit": 81.5,
       "rules": [{
           "limit": 30,
-          "tileName": "dirt"
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
@@ -166,7 +338,23 @@
       "limit": 81.6,
       "rules": [{
           "limit": 30,
-          "tileName": "dirt"
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
@@ -184,7 +372,23 @@
       "limit": 81.7,
       "rules": [{
           "limit": 30,
-          "tileName": "dirt"
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
@@ -202,7 +406,23 @@
       "limit": 81.8,
       "rules": [{
           "limit": 30,
-          "tileName": "dirt"
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
@@ -220,7 +440,23 @@
       "limit": 81.9,
       "rules": [{
           "limit": 30,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
@@ -238,7 +474,23 @@
       "limit": 82,
       "rules": [{
           "limit": 30,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
@@ -256,7 +508,23 @@
       "limit": 82.6,
       "rules": [{
           "limit": 30,
-          "tileName": "mountain"
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
@@ -274,7 +542,23 @@
       "limit": 82.7,
       "rules": [{
           "limit": 30,
-          "tileName": "dirt"
+          "rules": [{
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
@@ -290,9 +574,28 @@
     {
       "name": "",
       "limit": 83,
-      "rules": [{
+      "rules": [
+        {
+          "name": "badlands",
           "limit": 30,
-          "tileName": "mountain"
+          "rules": [
+            {
+              "limit": 47,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 48,
+              "tileName": "gravel"
+            },
+            {
+              "limit": 53,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
         },
         {
           "limit": 40,
