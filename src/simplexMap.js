@@ -255,17 +255,22 @@ class SimplexMap {
   }
 
   getTileNameAt(x, y) {
-    if (-4 < x && x < 4 && -4 < y && y < 4) {
-      if (-3 < x && x < 3 && -3 < y && y < 3) {
-        if (x === 0 && y === 0) {
-          return 'portalTile';
+    if (-4 < x && x < 6 && -4 < y && y < 6) {
+      if (-3 < x && x < 5 && -3 < y && y < 5) {
+        if (-2 < x && x < 4 && -2 < y && y < 4) {
+          if (x === 1 && y === 1) {
+            return 'portalTile';
+          }
+          return 'stoneFloor';
         }
-        return 'stoneFloor';
+        if (x === 1 || y === 1) {
+          return 'gate';
+        }
+        return 'stoneWall';
       }
-      if (x === 0 || y === 0) {
-        return 'gate';
+      if (x === 1 || y === 1) {
+        return 'dirt';
       }
-      return 'stoneWall';
     }
     let nx = x / this.config.layers[0].frequency;
     let ny = y / this.config.layers[0].frequency;
