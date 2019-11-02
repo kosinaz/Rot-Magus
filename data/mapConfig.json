@@ -365,10 +365,10 @@
               "limit": 10,
               "tileName": "bush"
             }, {
-              "limit": 15,
+              "limit": 11,
               "tileName": "yellowFlower"
             }, {
-              "limit": 20,
+              "limit": 12,
               "tileName": "redFlower"
             }, {
             "limit": 100,
