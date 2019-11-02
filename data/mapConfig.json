@@ -26,6 +26,18 @@
           "limit": 40,
           "rules": [
             {
+              "limit": 10,
+              "tileName": "tree"
+            },
+            {
+              "limit": 25,
+              "tileName": "mountain"
+            },
+            {
+              "limit": 40,
+              "tileName": "gravel"
+            },
+            {
               "limit": 100,
               "tileName": "dirt"
             }
@@ -40,6 +52,13 @@
               "tileName": "tree"
             },
             {
+              "limit": 23,
+              "tileName": "yellowFlower"
+            }, {
+              "limit": 25,
+              "tileName": "redFlower"
+            },
+            {
               "limit": 100,
               "tileName": "grass"
             }
@@ -50,8 +69,24 @@
           "limit": 100,
           "rules": [
             {
-              "limit": 100,
+              "limit": 20,
+              "tileName": "tree"
+            },
+            {
+              "limit": 50,
+              "tileName": "dirt"
+            },
+            {
+              "limit": 60,
+              "tileName": "marsh"
+            },
+            {
+              "limit": 70,
               "tileName": "ford"
+            },
+            {
+              "limit": 100,
+              "tileName": "waterTile"
             }
           ]
         }
