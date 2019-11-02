@@ -116,7 +116,19 @@
         },
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 49.95,
+              "tileName": "grass"
+            },
+            {
+              "limit": 50,
+              "tileName": "bush"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
@@ -134,7 +146,19 @@
         },
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 49.95,
+              "tileName": "grass"
+            },
+            {
+              "limit": 50,
+              "tileName": "bush"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
@@ -152,7 +176,19 @@
         },
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 49.95,
+              "tileName": "grass"
+            },
+            {
+              "limit": 50,
+              "tileName": "bush"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
@@ -170,7 +206,19 @@
         },
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 49.95,
+              "tileName": "grass"
+            },
+            {
+              "limit": 50,
+              "tileName": "bush"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
@@ -180,7 +228,23 @@
       "rules": [
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 49.5,
+              "tileName": "grass"
+            },
+            {
+              "limit": 50,
+              "tileName": "bush"
+            },
+            {
+              "limit": 50.5,
+              "tileName": "tree"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
@@ -213,7 +277,19 @@
       "rules": [
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 45,
+              "tileName": "grass"
+            },
+            {
+              "limit": 55,
+              "tileName": "tree"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
@@ -239,7 +315,36 @@
         },
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [
+            {
+              "limit": 45,
+              "tileName": "grass"
+            },
+            {
+              "limit": 45.5,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 46,
+              "tileName": "bush"
+            },
+            {
+              "limit": 54,
+              "tileName": "tree"
+            },
+            {
+              "limit": 54.5,
+              "tileName": "bush"
+            },
+            {
+              "limit": 55,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
@@ -265,7 +370,35 @@
         },
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 46,
+              "tileName": "grass"
+            },
+            {
+              "limit": 46.5,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 47,
+              "tileName": "bush"
+            },
+            {
+              "limit": 53,
+              "tileName": "tree"
+            },
+            {
+              "limit": 53.5,
+              "tileName": "bush"
+            },
+            {
+              "limit": 54,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
@@ -295,7 +428,35 @@
         },
         {
           "limit": 100,
-          "tileName": "grass"
+          "rules": [{
+              "limit": 47,
+              "tileName": "grass"
+            },
+            {
+              "limit": 47.5,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 48,
+              "tileName": "bush"
+            },
+            {
+              "limit": 52,
+              "tileName": "tree"
+            },
+            {
+              "limit": 52.5,
+              "tileName": "bush"
+            },
+            {
+              "limit": 53,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
