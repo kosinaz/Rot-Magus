@@ -6,7 +6,7 @@ const game = new Phaser.Game({
   backgroundColor: "#ffffff",
   pixelArt: true,
   roundPixels: true,
-  scene: [LoadScene, MenuScene, GameScene, GUIScene, DeathScene, MapBrowserScene]
+  scene: [LoadScene, MenuScene, GameScene, GUIScene, DeathScene, SeedBrowserScene]
 });
 
 const color = {
@@ -28,4 +28,4 @@ const color = {
   darkgray: 0x404040
 }
 
-game.speed = 7;
+game.speed = 2;

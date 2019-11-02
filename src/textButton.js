@@ -7,11 +7,11 @@ class TextButton extends Phaser.GameObjects.Text {
       config.text,
       {
         'fontFamily': config.font || 'font',
-        'fontSize': config.size || '48px',
+        'fontSize': config.size || '32px',
         'fill': config.fill !== undefined ? config.fill : '#ffff00',
         'stroke': config.stroke !== undefined ? config.stroke : '#000000',
         'strokeThickness': 
-          config.strokeThickness !== undefined ? config.strokeThickness : 6
+          config.strokeThickness !== undefined ? config.strokeThickness : 8
       }
     );
     this.setOrigin(config.origin);

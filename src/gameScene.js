@@ -4,6 +4,8 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
+    
+    ROT.RNG.setSeed(game.seed);
 
     // Create a map based on Simplex noise. Unique to the game scene and referred to by several functions of the scene.
     this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
