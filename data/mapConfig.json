@@ -117,6 +117,12 @@
             {
               "limit": 20,
               "tileName": "tree"
+            }, {
+              "limit": 23,
+              "tileName": "yellowFlower"
+            }, {
+              "limit": 25,
+              "tileName": "redFlower"
             },
             {
               "limit": 100,
@@ -149,6 +155,12 @@
             "limit": 20,
             "tileName": "tree"
           }, {
+            "limit": 23,
+            "tileName": "yellowFlower"
+          }, {
+            "limit": 25,
+            "tileName": "redFlower"
+          }, {
             "limit": 100,
             "tileName": "grass"
           }]
@@ -160,6 +172,12 @@
             "limit": 40,
             "tileName": "tree"
           }, {
+            "limit": 43,
+            "tileName": "yellowFlower"
+          }, {
+            "limit": 45,
+            "tileName": "redFlower"
+          }, {
             "limit": 100,
             "tileName": "grass"
           }]
@@ -170,6 +188,12 @@
           "rules": [{
             "limit": 20,
             "tileName": "tree"
+          }, {
+            "limit": 23,
+            "tileName": "yellowFlower"
+          }, {
+            "limit": 25,
+            "tileName": "redFlower"
           }, {
             "limit": 100,
             "tileName": "grass"
@@ -204,8 +228,17 @@
           "name": "cold-mid-dry sparse plains",
           "limit": 40,
           "rules": [{
+              "limit": 3,
+              "tileName": "tree"
+            }, {
             "limit": 10,
             "tileName": "bush"
+          }, {
+            "limit": 11,
+            "tileName": "yellowFlower"
+          }, {
+            "limit": 12,
+            "tileName": "redFlower"
           }, {
             "limit": 100,
             "tileName": "grass"
@@ -215,8 +248,17 @@
           "name": "cold-mid-temperate dense plains",
           "limit": 60,
           "rules": [{
+              "limit": 10,
+              "tileName": "tree"
+            }, {
             "limit": 20,
             "tileName": "bush"
+          }, {
+            "limit": 21,
+            "tileName": "yellowFlower"
+          }, {
+            "limit": 22,
+            "tileName": "redFlower"
           }, {
             "limit": 100,
             "tileName": "grass"
@@ -231,6 +273,12 @@
             }, {
             "limit": 10,
             "tileName": "bush"
+          }, {
+            "limit": 11,
+            "tileName": "yellowFlower"
+          }, {
+            "limit": 12,
+            "tileName": "redFlower"
           }, {
             "limit": 100,
             "tileName": "grass"
@@ -261,6 +309,12 @@
             }, {
             "limit": 10,
             "tileName": "bush"
+          }, {
+            "limit": 11,
+            "tileName": "yellowFlower"
+          }, {
+            "limit": 12,
+            "tileName": "redFlower"
           }, {
             "limit": 100,
             "tileName": "grass"
