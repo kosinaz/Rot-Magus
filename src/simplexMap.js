@@ -11,6 +11,8 @@ class SimplexMap {
 
     // The Simplex noise that serve as the base of the map.
     this.noises = [];
+
+    this.objectNoise = new ROT.Noise.Simplex();
     
     this.config.layers.forEach(function () {
       this.noises.push(new ROT.Noise.Simplex());
@@ -43,8 +45,8 @@ class SimplexMap {
         name: tileName
       }
 
-      // If this is the first time this tile is displayed there is a chance that it was hiding an enemy.
-      this.addEnemy(x, y);
+      // If this is the first time this tile is displayed there is a chance that it was hiding an enemy or an item.
+      this.addEnemyOrItem(x, y);
     }
 
     // If the image of the tile is not displayed at the given position.
@@ -150,42 +152,53 @@ class SimplexMap {
   }
 
   // Check if an enemy should be added at the given position and add it if needed.
-  addEnemy(x, y) {
+  addEnemyOrItem(x, y) {
 
     // The enemy generated at the given position.
     let enemy;
 
     // The noise that determines the probability of the enemy generation.
-    let n = this.noises[0].get(x, y);
+    let n = this.objectNoise.get(x / 3, y / 3);
 
     // The name of the tile at the given position that will determine the type of the enemy.
     let tileName = this.tiles[x + ',' + y].name;
 
     let items = Object.keys(this.scene.itemTypes);
 
-    let itemName =items[~~(Math.random() * items.length)];
-
-    let item = this.scene.itemTypes[itemName];
-    item.frame = itemName;
-
-    if (tileName === 'redFlower' && n < -0.05) {
-      enemy = new Actor(this.scene, x, y, 'tiles', 'zombie');
-    } else if (tileName === 'yellowFlower' && n > 0.05) {
-      enemy = new Actor(this.scene, x, y, 'tiles', 'skeleton');
-    } else if (tileName === 'bush' && n < -0.025) {
-      enemy = new Actor(this.scene, x, y, 'tiles', 'hobgoblin');
-    } else if (tileName === 'gravel' && n < -0.9) {
-      enemy = new Actor(this.scene, x, y, 'tiles', 'goblin');
-    } else if (tileName === 'gravel' && n > 0.99) {
-      this.putItem(x, y, [item]);
-    } else if (tileName === 'gravel' && n > 0.95) {
-      enemy = new Actor(this.scene, x, y, 'tiles', 'troll');
-    } else if (tileName === 'ford' && n > 0.4) {
-      enemy = new Actor(this.scene, x, y, 'tiles', 'orch');
-    } else if (tileName === 'ford' && n > 0.3) {
-      enemy = new Actor(this.scene, x, y, 'tiles', 'orchArcher');
+    let itemName = items[ROT.RNG.getUniformInt(0, items.length - 1)];
+    
+    if (n < 0.8) {
+      return;
     }
-    if (enemy) {
+    if (n > 0.985) {
+      console.log('item');
+      if (
+        tileName === 'sand' || 
+        tileName === 'stoneFloor' || 
+        tileName === 'grass' || 
+        tileName === 'redFlower' || 
+        tileName === 'yellowFlower' ||
+        tileName === 'dirt' ||
+        tileName === 'gravel' ||
+        tileName === 'ford') {
+          let item = this.scene.itemTypes[itemName];
+          item.frame = itemName;
+          this.putItem(x, y, [item]);
+          return;
+      }
+    }
+    let enemies = {
+      redFlower: 'zombie',
+      yellowFlower: 'skeleton',
+      bush: 'hobgoblin',
+      gravel: n < 0.9 ? 'goblin' : 'troll',
+      ford: n < 0.9 ? 'orch': 'orchArcher'
+    }    
+
+    let enemyType = enemies[tileName];
+    
+    if (enemyType) {
+      enemy = new Actor(this.scene, x, y, 'tiles', enemyType);
       this.scene.enemies.push(enemy);
       enemy.name += ' ' + this.scene.enemies.filter(e => e.tileName === enemy.tileName).length;
     }

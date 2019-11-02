@@ -98,6 +98,9 @@
     "inventory": [
       "sabre",
       "leather"
+    ],
+    "walksOn": [
+      "marsh"
     ]
   },
   "orchArcher": {
@@ -111,6 +114,9 @@
     "inventory": [
       "bow",
       "arrows"
+    ],
+    "walksOn": [
+      "marsh"
     ]
   }
 }

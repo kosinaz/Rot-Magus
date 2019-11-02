@@ -282,8 +282,16 @@
               "tileName": "grass"
             },
             {
-              "limit": 55,
+              "limit": 45.5,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 54.5,
               "tileName": "tree"
+            },
+            {
+              "limit": 55,
+              "tileName": "yellowFlower"
             },
             {
               "limit": 100,
@@ -371,7 +379,7 @@
         {
           "limit": 100,
           "rules": [{
-              "limit": 46,
+              "limit": 45,
               "tileName": "grass"
             },
             {
@@ -391,7 +399,7 @@
               "tileName": "bush"
             },
             {
-              "limit": 54,
+              "limit": 55,
               "tileName": "redFlower"
             },
             {
@@ -429,7 +437,7 @@
         {
           "limit": 100,
           "rules": [{
-              "limit": 47,
+              "limit": 45,
               "tileName": "grass"
             },
             {
@@ -449,8 +457,8 @@
               "tileName": "bush"
             },
             {
-              "limit": 53,
-              "tileName": "yellowFlower"
+              "limit": 55,
+              "tileName": "redFlower"
             },
             {
               "limit": 100,
