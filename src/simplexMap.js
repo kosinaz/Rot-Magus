@@ -46,7 +46,7 @@ class SimplexMap {
       }
 
       // If this is the first time this tile is displayed there is a chance that it was hiding an enemy or an item.
-      //this.addEnemyOrItem(x, y);
+      this.addEnemyOrItem(x, y);
     }
 
     // If the image of the tile is not displayed at the given position.
@@ -167,10 +167,10 @@ class SimplexMap {
 
     let itemName = items[ROT.RNG.getUniformInt(0, items.length - 1)];
     
-    if (n < 0.8) {
+    if (n < 0.5) {
       return;
     }
-    if (n > 0.985) {
+    if (n > 0.99) {
       console.log('item');
       if (
         tileName === 'sand' || 
@@ -191,8 +191,8 @@ class SimplexMap {
       redFlower: 'zombie',
       yellowFlower: 'skeleton',
       bush: 'hobgoblin',
-      gravel: n < 0.9 ? 'goblin' : 'troll',
-      ford: n < 0.9 ? 'orch': 'orchArcher'
+      gravel: n < 0.7 ? 'goblin' : 'troll',
+      ford: n < 0.7 ? 'orch': 'orchArcher'
     }    
 
     let enemyType = enemies[tileName];
