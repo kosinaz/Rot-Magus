@@ -58,6 +58,53 @@
       ]
     },
     {
+      "name": "hot-low-border",
+      "limit": 33,
+      "rules": [
+        {
+          "name": "hot-low-dry wasteland border",
+          "limit": 40,
+          "rules": [
+            {
+              "limit": 50,
+              "tileName": "grass"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
+        },
+        {
+          "name": "hot-low-temperate sparse forest",
+          "limit": 60,
+          "rules": [
+            {
+              "limit": 20,
+              "tileName": "tree"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
+        },
+        {
+          "name": "hot-low-wet swamp border",
+          "limit": 100,
+          "rules": [{
+              "limit": 20,
+              "tileName": "tree"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "hot-mid",
       "limit": 45,
       "rules": [{
@@ -117,7 +164,7 @@
     },
     {
       "name": "cold-mid",
-      "limit": 70,
+      "limit": 67,
       "rules": [{
           "name": "cold-mid-dry sparse plains",
           "limit": 40,
@@ -149,6 +196,45 @@
           }, {
             "limit": 100,
             "tileName": "grass"
+          }]
+        }
+      ]
+    },
+    {
+      "name": "cold-low-border",
+      "limit": 70,
+      "rules": [{
+          "name": "cold-low-dry desert border",
+          "limit": 40,
+          "rules": [{
+            "limit": 20,
+            "tileName": "palmTree"
+          }, {
+            "limit": 100,
+            "tileName": "dirt"
+          }]
+        },
+        {
+          "name": "cold-low-temperate sparse plains",
+          "limit": 60,
+          "rules": [{
+            "limit": 10,
+            "tileName": "bush"
+          }, {
+            "limit": 100,
+            "tileName": "grass"
+          }]
+        },
+        {
+          "name": "cold-low-wet lake border",
+          "limit": 100,
+          "rules": [{
+            "limit": 50,
+            "tileName": "ford"
+          },
+          {
+            "limit": 100,
+            "tileName": "waterTile"
           }]
         }
       ]
