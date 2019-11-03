@@ -446,8 +446,47 @@ class Actor extends Phaser.GameObjects.Image {
   // Order the actor to move towards the specified position or make him rest if it is the actor's current position. This action can be called during every action of the actor before he reaches his destination.
   move() {
 
-    // If the actor has been ordered to move to his current position that means the actor would like to have some rest. This action can't be reached as part of a continues movement towards a target further away, since that option has been already handled as part of the act function, and this function can be reached from there only if the actor is not standing at the target position.
+    // If the actor has been ordered to move to his current position that means the actor would like to have some rest or use the currently held item on himself. This action can't be reached as part of a continues movement towards a target further away, since that option has been already handled as part of the act function, and this function can be reached from there only if the actor is not standing at the target position.
     if (this.isAtXY(this.target.x, this.target.y)) {
+
+      if (this.equipped.leftHand && this.equipped.leftHand.consumable) {        
+        this.healthMax += this.equipped.leftHand.healthMax || 0;
+        this.health += this.equipped.leftHand.healthMax || 0;
+        this.manaMax += this.equipped.leftHand.manaMax || 0;
+        this.mana += this.equipped.leftHand.manaMax || 0;
+        this.speedBase += this.equipped.leftHand.speedBase || 0;
+        this.strengthBase += this.equipped.leftHand.strengthBase || 0;
+        this.agilityBase = Math.max(
+          0, 
+          this.agilityBase + (this.equipped.leftHand.agilityBase || 0)
+        );
+       
+        this.wisdomBase = Math.max(
+          0,
+          this.wisdomBase + (this.equipped.leftHand.wisdomBase || 0)
+        );        
+        this.earnXP(this.equipped.leftHand.xp || 0);
+        this.equipped.leftHand = undefined;
+      }
+      if (this.equipped.rightHand && this.equipped.rightHand.consumable) {
+        this.healthMax += this.equipped.rightHand.healthMax || 0;
+        this.health += this.equipped.rightHand.healthMax || 0;
+        this.manaMax += this.equipped.rightHand.manaMax || 0;
+        this.mana += this.equipped.rightHand.manaMax || 0;
+        this.speedBase += this.equipped.rightHand.speedBase || 0;
+        this.strengthBase += this.equipped.rightHand.strengthBase || 0;
+        this.agilityBase = Math.max(
+          0,
+          this.agilityBase + (this.equipped.rightHand.agilityBase || 0)
+        );
+        this.wisdomBase = Math.max(
+          0,
+          this.wisdomBase + (this.equipped.rightHand.wisdomBase || 0)
+        );
+        this.earnXP(this.equipped.rightHand.xp || 0);
+        this.equipped.rightHand = undefined;
+      }
+      this.updateAttributes();
 
       // Make the actor rest until his next action and get back a health point.
       this.rest();

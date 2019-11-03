@@ -12,7 +12,16 @@
       "bow",
       "arrows",
       "dagger",
-      "elvenCloak"
+      "elvenCloak",
+      "black",
+      "blue",
+      "brown",
+      "green",
+      "grey",
+      "purple",
+      "red",
+      "white",
+      "yellow"
     ],
     "walksOn": [
       "bush",
