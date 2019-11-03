@@ -112,16 +112,43 @@ class SlotImage extends ActiveImage {
           attribute !== 'frame' &&
           attribute !== 'effect') {
           if (attribute === 'damageRanged') {
-            this.tooltip += '\n  ranged damage: ' + item[attribute];
+            this.tooltip += '\n  ranged damage: +' + item[attribute];
+          } else if (attribute === 'mana') {
+            this.tooltip += '\n  mana cost: ' + item[attribute];
           } else if (attribute === 'healthRegen') {
             this.tooltip += '\n  health regeneration: ' + item[attribute];
           } else if (attribute === 'manaRegen') {
             this.tooltip += '\n  mana regeneration: ' + item[attribute];
+          } else if (attribute === 'healthMax') {
+            this.tooltip += '\n  maximum health: +' + item[attribute];
+          } else if (attribute === 'manaMax') {
+            this.tooltip += '\n  maximum mana: +' + item[attribute];
+          } else if (attribute === 'speedBase') {
+            this.tooltip += '\n  speed: +' + item[attribute];
+          } else if (attribute === 'strengthBase') {
+            this.tooltip += '\n  strength: +' + item[attribute];
+          } else if (attribute === 'agilityBase') {
+            this.tooltip += '\n  agility: ' + (item[attribute] > 0 ? '+' : '') 
+            + item[attribute];
+          } else if (attribute === 'wisdomBase') {
+            this.tooltip += '\n  wisdom: ' + (item[attribute] > 0 ? '+' : '') 
+            + item[attribute];
+          } else if (
+              attribute === 'damage' ||
+              attribute === 'defense' || 
+              attribute === 'agility' ||
+              attribute === 'speed' || 
+              attribute === 'strength' || 
+              attribute === 'wisdom' ||
+              attribute === 'xp'
+            ) {
+            this.tooltip += '\n  ' + attribute + ': +' + item[attribute];
           } else if (item[attribute] !== true) {
             this.tooltip += '\n  ' + attribute + ': ' + item[attribute];
           } else {
             notes += {
               'arrow': '\n  Required for bows!',
+              'consumable': '\n  Single use only!',
               'ranged': '\n  Ranged attack!',
               'returns': '\n  Returns after every shot!',
               'throwable': '\n  Throwable!',
