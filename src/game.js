@@ -1,12 +1,14 @@
 const game = new Phaser.Game({
   type: Phaser.AUTO,
-  width: 1024,
-  height: 576,
-  parent: "game-container",
   backgroundColor: "#ffffff",
-  pixelArt: true,
   roundPixels: true,
-  scene: [LoadScene, MenuScene, GameScene, GUIScene, DeathScene, SeedBrowserScene]
+  scale: {
+    parent: "game-container",
+    mode: Phaser.Scale.FIT,
+    width: 1024,
+    height: 576
+  },
+  scene: [LoadScene, MenuScene, SettingScene, GameScene, GUIScene, DeathScene, SeedBrowserScene]
 });
 
 const color = {

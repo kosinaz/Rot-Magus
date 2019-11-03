@@ -40,5 +40,15 @@ class MenuScene extends Phaser.Scene {
       x: 512,
       y: 250
     });
+    new TextButton({
+      onPointerUp: function () {
+          this.scene.start('SettingScene');
+      }.bind(this),
+      origin: 0.5,
+      scene: this,
+      text: 'Settings',
+      x: 512,
+      y: 300
+    });
   }
 }
