@@ -71,13 +71,13 @@ class Actor extends Phaser.GameObjects.Image {
               },
               scaleX: {
                 ease: 'Quad.easeOut',
-                duration: actionDuration / 2,
+                duration: actionDuration / 3,
                 yoyo: true,
                 value: 1.2
               },
               scaleY: {
                 ease: 'Quad.easeOut',
-                duration: actionDuration / 2,
+                duration: actionDuration / 3,
                 yoyo: true,
                 value: 1.2
               },
@@ -91,7 +91,7 @@ class Actor extends Phaser.GameObjects.Image {
             scaleX: 1.2,
             scaleY: 1.2,
             ease: 'Quad.easeOut',
-            duration: actionDuration / 2,
+            duration: actionDuration / 3,
             yoyo: true
           });
         }

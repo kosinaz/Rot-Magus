@@ -170,8 +170,7 @@ class SimplexMap {
     if (n < 0.5) {
       return;
     }
-    if (n > 0.99) {
-      console.log('item');
+    if (n > 0.997) {
       if (
         tileName === 'sand' || 
         tileName === 'stoneFloor' || 
