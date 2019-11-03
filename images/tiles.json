@@ -617,7 +617,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "hyperSpace",
+	"filename": "huh",
 	"frame": {"x":336,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -625,7 +625,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "inferno",
+	"filename": "hyperSpace",
 	"frame": {"x":360,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -633,7 +633,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "knightFemale",
+	"filename": "inferno",
 	"frame": {"x":384,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -641,7 +641,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "knightMale",
+	"filename": "knightFemale",
 	"frame": {"x":408,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -649,7 +649,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "leadball",
+	"filename": "knightMale",
 	"frame": {"x":432,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -657,7 +657,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "leather",
+	"filename": "leadball",
 	"frame": {"x":456,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -665,7 +665,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "lightning",
+	"filename": "leather",
 	"frame": {"x":480,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -673,7 +673,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "lightningBolt",
+	"filename": "lightning",
 	"frame": {"x":0,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -681,7 +681,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "lightningSpell",
+	"filename": "lightningBolt",
 	"frame": {"x":24,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -689,7 +689,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "magician",
+	"filename": "lightningSpell",
 	"frame": {"x":48,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -697,7 +697,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "marsh",
+	"filename": "magician",
 	"frame": {"x":72,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -705,7 +705,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "minotaur",
+	"filename": "marsh",
 	"frame": {"x":96,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -713,7 +713,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "monk",
+	"filename": "minotaur",
 	"frame": {"x":120,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -721,7 +721,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "mountain",
+	"filename": "monk",
 	"frame": {"x":144,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -729,7 +729,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "negate",
+	"filename": "mountain",
 	"frame": {"x":168,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -737,7 +737,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "negator",
+	"filename": "negate",
 	"frame": {"x":192,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -745,7 +745,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "nhg",
+	"filename": "negator",
 	"frame": {"x":216,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -753,7 +753,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "opal",
+	"filename": "nhg",
 	"frame": {"x":240,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -761,7 +761,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "opalRing",
+	"filename": "opal",
 	"frame": {"x":264,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -769,7 +769,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "orch",
+	"filename": "opalRing",
 	"frame": {"x":288,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -777,7 +777,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "orchArcher",
+	"filename": "orch",
 	"frame": {"x":312,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -785,7 +785,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "orchMagician",
+	"filename": "orchArcher",
 	"frame": {"x":336,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -793,7 +793,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "orchWarrior",
+	"filename": "orchMagician",
 	"frame": {"x":360,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -801,7 +801,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "paf",
+	"filename": "orchWarrior",
 	"frame": {"x":384,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -809,7 +809,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "palmTree",
+	"filename": "paf",
 	"frame": {"x":408,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -817,7 +817,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "panic",
+	"filename": "palmTree",
 	"frame": {"x":432,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -825,7 +825,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "phantom",
+	"filename": "panic",
 	"frame": {"x":456,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -833,7 +833,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "planks",
+	"filename": "phantom",
 	"frame": {"x":480,"y":84,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -841,7 +841,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "portal",
+	"filename": "planks",
 	"frame": {"x":0,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -849,7 +849,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "portalTile",
+	"filename": "portal",
 	"frame": {"x":24,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -857,7 +857,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "potion",
+	"filename": "portalTile",
 	"frame": {"x":48,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -865,7 +865,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "protection",
+	"filename": "potion",
 	"frame": {"x":72,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -873,7 +873,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "purify",
+	"filename": "protection",
 	"frame": {"x":96,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -881,7 +881,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "redFlower",
+	"filename": "purify",
 	"frame": {"x":120,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -889,7 +889,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sabre",
+	"filename": "redFlower",
 	"frame": {"x":144,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -897,7 +897,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sand",
+	"filename": "sabre",
 	"frame": {"x":168,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -905,7 +905,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "shadowbeast",
+	"filename": "sand",
 	"frame": {"x":192,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -913,7 +913,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "shadowCloak",
+	"filename": "shadowbeast",
 	"frame": {"x":216,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -921,7 +921,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "shamanFemale",
+	"filename": "shadowCloak",
 	"frame": {"x":240,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -929,7 +929,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "shamanMale",
+	"filename": "shamanFemale",
 	"frame": {"x":264,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -937,7 +937,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "shield",
+	"filename": "shamanMale",
 	"frame": {"x":288,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -945,7 +945,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "shootingStar",
+	"filename": "shield",
 	"frame": {"x":312,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -953,7 +953,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "silverBow",
+	"filename": "shootingStar",
 	"frame": {"x":336,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -961,7 +961,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "skeleton",
+	"filename": "silverBow",
 	"frame": {"x":360,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -969,7 +969,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "skeletonSpell",
+	"filename": "skeleton",
 	"frame": {"x":384,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -977,7 +977,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "slayer",
+	"filename": "skeletonSpell",
 	"frame": {"x":408,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -985,7 +985,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sleep",
+	"filename": "slayer",
 	"frame": {"x":432,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -993,7 +993,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "smallOneFemale",
+	"filename": "sleep",
 	"frame": {"x":456,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1001,7 +1001,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "smallOneMale",
+	"filename": "smallOneFemale",
 	"frame": {"x":480,"y":105,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1009,7 +1009,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sorcerer",
+	"filename": "smallOneMale",
 	"frame": {"x":0,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1017,7 +1017,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "spirit",
+	"filename": "sorcerer",
 	"frame": {"x":24,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1025,7 +1025,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "staff",
+	"filename": "spirit",
 	"frame": {"x":48,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1033,7 +1033,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "stoneAxe",
+	"filename": "staff",
 	"frame": {"x":72,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1041,7 +1041,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "stoneFloor",
+	"filename": "stoneAxe",
 	"frame": {"x":96,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1049,7 +1049,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "stonefoot",
+	"filename": "stoneFloor",
 	"frame": {"x":120,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1057,7 +1057,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "stoneWall",
+	"filename": "stonefoot",
 	"frame": {"x":144,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1065,7 +1065,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "studdedLeather",
+	"filename": "stoneWall",
 	"frame": {"x":168,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1073,7 +1073,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sunArmour",
+	"filename": "studdedLeather",
 	"frame": {"x":192,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1081,7 +1081,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sunBow",
+	"filename": "sunArmour",
 	"frame": {"x":216,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1089,7 +1089,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sunGloves",
+	"filename": "sunBow",
 	"frame": {"x":240,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1097,7 +1097,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sunHelmet",
+	"filename": "sunGloves",
 	"frame": {"x":264,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1105,7 +1105,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sunsEdge",
+	"filename": "sunHelmet",
 	"frame": {"x":288,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1113,7 +1113,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sunShield",
+	"filename": "sunsEdge",
 	"frame": {"x":312,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1121,7 +1121,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "sword",
+	"filename": "sunShield",
 	"frame": {"x":336,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1129,7 +1129,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "terror",
+	"filename": "sword",
 	"frame": {"x":360,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1137,7 +1137,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "theDarkOne",
+	"filename": "terror",
 	"frame": {"x":384,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1145,7 +1145,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "throwingStar",
+	"filename": "theDarkOne",
 	"frame": {"x":408,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1153,7 +1153,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "thunderStorm",
+	"filename": "throwingStar",
 	"frame": {"x":432,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1161,7 +1161,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "topaz",
+	"filename": "thunderStorm",
 	"frame": {"x":456,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1169,7 +1169,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "tree",
+	"filename": "topaz",
 	"frame": {"x":480,"y":126,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1177,7 +1177,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "troll",
+	"filename": "tree",
 	"frame": {"x":0,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1185,7 +1185,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "uh",
+	"filename": "troll",
 	"frame": {"x":24,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1193,7 +1193,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "undead",
+	"filename": "uh",
 	"frame": {"x":48,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1201,7 +1201,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "undine",
+	"filename": "undead",
 	"frame": {"x":72,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1209,7 +1209,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "vision",
+	"filename": "undine",
 	"frame": {"x":96,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1217,7 +1217,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "wakizashi",
+	"filename": "vision",
 	"frame": {"x":120,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1225,7 +1225,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "warrior",
+	"filename": "wakizashi",
 	"frame": {"x":144,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1233,7 +1233,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "water",
+	"filename": "warrior",
 	"frame": {"x":168,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1241,7 +1241,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "waterTile",
+	"filename": "water",
 	"frame": {"x":192,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1249,7 +1249,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "witchlord",
+	"filename": "waterTile",
 	"frame": {"x":216,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1257,7 +1257,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "wizardFemale",
+	"filename": "witchlord",
 	"frame": {"x":240,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1265,7 +1265,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "wizardMale",
+	"filename": "wizardFemale",
 	"frame": {"x":264,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1273,7 +1273,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "woodenFloor",
+	"filename": "wizardMale",
 	"frame": {"x":288,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1281,7 +1281,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "woodenShield",
+	"filename": "woodenFloor",
 	"frame": {"x":312,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1289,7 +1289,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "woodenWall",
+	"filename": "woodenShield",
 	"frame": {"x":336,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1297,7 +1297,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "yellowFlower",
+	"filename": "woodenWall",
 	"frame": {"x":360,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1305,7 +1305,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "zap",
+	"filename": "yellowFlower",
 	"frame": {"x":384,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1313,7 +1313,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "zok",
+	"filename": "zap",
 	"frame": {"x":408,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1321,7 +1321,7 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "zombie",
+	"filename": "zok",
 	"frame": {"x":432,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
@@ -1329,8 +1329,16 @@
 	"sourceSize": {"w":24,"h":21}
 },
 {
-	"filename": "zombieSpell",
+	"filename": "zombie",
 	"frame": {"x":456,"y":147,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "zombieSpell",
+	"frame": {"x":480,"y":147,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -1343,6 +1351,6 @@
 	"format": "RGBA8888",
 	"size": {"w":504,"h":168},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:1a144e264c20c20ef4c1daacc6379e7e:c228225f44dc49844d09c4122a5ce4ad:accbe1e7e294ded8391337fc1c446319$"
+	"smartupdate": "$TexturePacker:SmartUpdate:c3559fab26bbf67c17f500d8017519a4:4bc8bb3310d4767de7c953ed8be75e7e:accbe1e7e294ded8391337fc1c446319$"
 }
 }

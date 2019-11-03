@@ -540,8 +540,15 @@ class Actor extends Phaser.GameObjects.Image {
   // Decrease the current health of the target actor.
   causeDamage(actor, damage, effectType) {    
 
+    let effect;
+
     let hit = ROT.RNG.getUniformInt(1, 20);
     if (hit > 1 && hit > this.agility) {
+      effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', 'huh');
+      effect.actor = actor;
+      effect.depth = 4;
+      effect.visible = false;
+      this.scene.effects.push(effect);
       return;
     }
 
@@ -556,8 +563,8 @@ class Actor extends Phaser.GameObjects.Image {
     actor.health -= damage;
 
     // Add a new effect to the list of effects to be displayed during this update based on the amount of damage.
-    effectType = effectType || (damage > 9 ? 'zok' : 'bif');
-    let effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', effectType);
+    effectType = effectType || (damage > 19 ? 'zok' : 'bif');
+    effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', effectType);
     effect.actor = actor;
     effect.depth = 4;
     effect.visible = false;
