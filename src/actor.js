@@ -191,25 +191,32 @@ class Actor extends Phaser.GameObjects.Image {
     }.bind(this));
   }
 
+  /**
+   * Update the damage and maximum damage attributes of the actor to have the values handy when he wants to hit someone and to keep the player informed about them if needed.
+   *
+   * @memberof Actor
+   */
   updateDamage() {
-    this.damage = 0;
-    this.usedWeapons = 0;
-    Object.keys(this.equipped).forEach(function (item) {
-      if (this.equipped[item]) {
-        if (this.equipped[item].damage) {
-          this.usedWeapons += 1;
-          this.damage += this.equipped[item].damage;
-          this.damage += this.strength >> 2;
-        }
-      }
-    }.bind(this));
-    if (this.usedWeapons === 0) {
-      this.damage = 1 + (this.strength >> 2);
-      this.damageMax = this.damage + 19;
-    } else {
-      this.damage += this.usedWeapons;
-      this.damageMax = this.damage + this.usedWeapons * 19;
+
+    // Every time the attributes get updated, the damage will be calculated from scratch to prevent asynchronicity. The maximum damage as the bit-shifted strength of the actor increased by 1 is granted. Even if the actor is dual-wielding, the strength-based damage won't be doubled.
+    this.damageMax = (this.strength >> 2) + 1;
+
+    // If the actor wields a weapon in his left hand.
+    if (this.equipped.leftHand) {
+
+      // Add the weapon damage to the maximum damage.
+      this.damageMax += this.equipped.leftHand.damage;
     }
+
+    // If the actor wields a weapon in his right hand.
+    if (this.equipped.rightHand) {
+
+      // Add the weapon damage to the maximum damage.
+      this.damageMax += this.equipped.rightHand.damage;
+    }
+
+    // Set the minimum damage as half of the maximum damage.
+    this.damage = this.damageMax / 2;
   }
 
   updateRangedDamage() {
@@ -285,19 +292,61 @@ class Actor extends Phaser.GameObjects.Image {
     this.wisdom = this.wisdomBase + this.wisdomMod;
   }
 
+  /**
+   * Update the agility and agility modifier attributes of the actor to have the values handy when he wants to hit someone and to keep the player informed about them if needed.
+   *
+   * @memberof Actor
+   */
   updateAgility() {
+
+    // Every time the agility gets updated, the modifier will be calculated from scratch to prevent asynchronicity.
     this.agilityMod = 0;
-    if (this.usedWeapons === 2) {
-      this.agilityMod -= 5;
-    }
+
+    // Iterate through all the equipment of the actor and search for agility modifier enchantments on them.
     Object.keys(this.equipped).forEach(function (item) {
+
+      // If the actor's given equipment slot is not empty.
       if (this.equipped[item]) {
+
+        // And if the given equipment slot contains an item that modifies the agility.
         if (this.equipped[item].agility) {
+
+          // Add this modifier value to the agility modifier.
           this.agilityMod += this.equipped[item].agility;
         }
       }
-    }.bind(this));
+    }, this);
+
+    // If the actor is dual-wielding.
+    if (
+      this.equipped.leftHand && 
+      this.equipped.leftHand.damage && 
+      this.equipped.rightHand && 
+      this.equipped.rightHand.damage
+    ) {
+
+      // Reduce his agility.
+      this.agilityMod -= 5;
+    }
+
+    // The modified agility has to be limited to a number between 0 and 19 to keep the chance to hit between 0% and 95%. If the agility modifier would increase or decrease the base agility so much that it would end up out of this range, the modifier will be limited as well to keep the displayed values consistent.
+    // If the modified agility became more than the maximum value.
+    if (this.agilityBase + this.agilityMod > 19) {
+
+      // Set the agility modifier as the difference between the base agility and the max value.
+      this.agilityMod = 19 - this.agilityBase;
+
+    // Else if the modified agility became less than the minimum value.
+    } else if (this.agilityBase + this.agilityMod < 0) {
+
+      // Set the agility modifier as the negative counterpart of the base agility.
+      this.agilityMod = -this.agilityBase;
+    }
+
+    // Update the agility based on the current sum of the above-modified and limited values.
     this.agility = this.agilityBase + this.agilityMod;
+
+    // Update the chance to hit based on the current agility.
     this.chanceToHit = (this.agility * 5) + '%';
   }
 
@@ -576,13 +625,23 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
-  // Decrease the current health of the target actor.
+  
+  /**
+   * Decides if the attack was successful then reduces the health of the victim with a value based on the actor's weapon and strength, and the victim's defense.
+   *
+   * @param {Actor} actor The target of the current actor the will suffer the damage.
+   * @param {Number} damage The pre-calculated, randomly selected melee or ranged damage.
+   * @param {String} [effectType] The name of the special effect that should be displayed in case of special weapons.
+   * @returns null if the attempt was unsuccessful.
+   * @memberof Actor
+   */
   causeDamage(actor, damage, effectType) {    
 
+    // Prepare to store the effect that informs the player about a hit or a miss.
     let effect;
 
     let hit = ROT.RNG.getUniformInt(1, 20);
-    if (hit > 1 && hit > this.agility) {
+    if (hit > this.agility) {
       effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', 'huh');
       effect.actor = actor;
       effect.depth = 4;
