@@ -30,7 +30,8 @@
     "agility": 10,
     "inventory": [
       "sabre"
-    ]
+    ],
+    "xp": 1
   },
   "skeleton": {
     "name": "Skeleton",
@@ -42,7 +43,8 @@
     "agility": 7,
     "inventory": [
       "chainNBall"
-    ]
+    ],
+    "xp": 1
   },
   "goblin": {
     "name": "Goblin",
@@ -55,7 +57,8 @@
     "inventory": [
       "sword",
       "leather"
-    ]
+    ],
+    "xp": 1
   },
   "hobgoblin": {
     "name": "Hobgoblin",
@@ -73,7 +76,8 @@
     ],
     "walksOn": [
       "bush"
-    ]
+    ],
+    "xp": 1
   },
   "troll": {
     "name": "Troll",
@@ -85,7 +89,8 @@
     "agility": 7,
     "inventory": [
       "stoneAxe"
-    ]
+    ],
+    "xp": 2
   },
   "orch": {
     "name": "Orch",
@@ -101,7 +106,8 @@
     ],
     "walksOn": [
       "marsh"
-    ]
+    ],
+    "xp": 4
   },
   "orchArcher": {
     "name": "Orch Archer",
@@ -117,6 +123,7 @@
     ],
     "walksOn": [
       "marsh"
-    ]
+    ],
+    "xp": 4
   }
 }

@@ -11,7 +11,7 @@ class Actor extends Phaser.GameObjects.Image {
       y: this.tileY
     }
     this.path = null;      
-    this.xp = 0;
+    this.xp = this.config.xp || 0;
     this.xpMax = 50;
     this.level = 0;
     this.health = this.config.health;
@@ -144,6 +144,7 @@ class Actor extends Phaser.GameObjects.Image {
           || item.equips === 'hand')) {
             this.equipped.rightHand = item;
             this.inventory[i] = null;
+            this.updateAttributes();
         }
       }.bind(this));
     }
@@ -198,7 +199,7 @@ class Actor extends Phaser.GameObjects.Image {
    */
   updateDamage() {
 
-    // Every time the attributes get updated, the damage will be calculated from scratch to prevent asynchronicity. The maximum damage as the bit-shifted strength of the actor increased by 1 is granted. Even if the actor is dual-wielding, the strength-based damage won't be doubled.
+    // Every time the attributes get updated, the damage will be calculated from scratch to prevent asynchronicity. The maximum damage - as the bit-shifted strength of the actor increased by 1 - is granted. Even if the actor is dual-wielding, the strength-based damage won't be doubled.
     this.damageMax = (this.strength >> 2) + 1;
 
     // If the actor wields a weapon in his left hand.
@@ -216,28 +217,35 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     // Set the minimum damage as half of the maximum damage.
-    this.damage = this.damageMax / 2;
+    this.damage = ~~(this.damageMax / 2);
   }
 
+  /**
+   * Update the ranged damage and maximum ranged damage attributes of the actor to have the values handy when he wants to hit someone and to keep the player informed about them if needed.
+   *
+   * @memberof Actor
+   */
   updateRangedDamage() {
-    this.rangedDamage = 0;
-    this.usedRangedWeapons = 0;
-    Object.keys(this.equipped).forEach(function (item) {
-      if (this.equipped[item]) {
-        if (this.equipped[item].damageRanged) {
-          this.usedRangedWeapons += 1;
-          this.rangedDamage += this.equipped[item].damageRanged;
-          this.rangedDamage += this.strength >> 2;
-        }
-      }
-    }.bind(this));
-    if (this.usedRangedWeapons === 0) {
-      this.rangedDamage = 1 + (this.strength >> 2);
-      this.rangedDamageMax = this.rangedDamage + 19;
-    } else {
-      this.rangedDamage += this.usedRangedWeapons;
-      this.rangedDamageMax = this.rangedDamage + this.usedRangedWeapons * 19;
+
+    // Every time the attributes get updated, the ranged damage will be calculated from scratch to prevent asynchronicity. The maximum damage - as the bit-shifted agility of the actor - is granted. In the original game this was only true for throwing weapons, but here it is simplified to help the player more easily decide between melee and ranged attack. Even if the actor is dual-wielding, the agility-based damage won't be doubled.
+    this.rangedDamageMax = this.agility >> 1;
+
+    // If the actor wields a ranged weapon in his left hand.
+    if (this.equipped.leftHand) {
+
+      // Add the weapon ranged damage to the maximum ranged damage.
+      this.rangedDamageMax += this.equipped.leftHand.damageRanged || 0;
     }
+
+    // If the actor wields a ranged weapon in his right hand.
+    if (this.equipped.rightHand) {
+
+      // Add the weapon ranged damage to the maximum ranged damage.
+      this.rangedDamageMax += this.equipped.rightHand.damageRanged || 0;
+    }
+
+    // Set the minimum damage as half of the maximum damage.
+    this.rangedDamage = ~~(this.rangedDamageMax / 2);
   }
 
   updateDefense() {
@@ -320,9 +328,9 @@ class Actor extends Phaser.GameObjects.Image {
     // If the actor is dual-wielding.
     if (
       this.equipped.leftHand && 
-      this.equipped.leftHand.damage && 
+      (this.equipped.leftHand.damage || this.equipped.leftHand.damageRanged) &&
       this.equipped.rightHand && 
-      this.equipped.rightHand.damage
+      (this.equipped.rightHand.damage || this.equipped.rightHand.damageRanged)
     ) {
 
       // Reduce his agility.
@@ -723,7 +731,7 @@ class Actor extends Phaser.GameObjects.Image {
   die() {
 
     // Give some XP to the player.
-    this.scene.player.earnXP(10);
+    this.scene.player.earnXP(this.xp);
     this.scene.events.emit('attributesUpdated', this);
     if (this.equipped) {
       for (let i in this.equipped) {
