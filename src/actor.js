@@ -629,11 +629,25 @@ class Actor extends Phaser.GameObjects.Image {
   // Make the actor rest until the his next action and get back a health point.
   rest() {
 
-    // If the actor's health did not reach the maximum yet.
-    if (this.health < this.healthMax) {
+    // Check all the enemies.
+    if (this.scene.enemies.some(function (enemy) {
 
-      // Make the actor get back one health point. 
-      this.health += 1;
+      // If there is at least one enemy that is still heading towards the last seen position of the player.
+      return !enemy.isAtXY(enemy.target.x, enemy.target.y);
+    })) {
+
+      // If the actor's health did not reach the maximum yet.
+      if (this.health < this.healthMax) {
+
+        // Make the actor get back one health point. 
+        this.health += 1;
+      }
+    
+    // If every enemy is either idle or dead. 
+    } else {
+
+      // The player has plenty of time to rest.
+      this.health = this.healthMax;
     }
   }
 
