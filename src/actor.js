@@ -582,7 +582,11 @@ class Actor extends Phaser.GameObjects.Image {
       if (this.isEnemyFor(actor)) {
 
         // Damage that actor.
-        this.causeDamage(actor, ROT.RNG.getUniformInt(this.damage, this.damageMax));
+        this.causeDamage(
+          actor, 
+          ROT.RNG.getUniformInt(this.damage, this.damageMax),
+          ~~(this.damageMax * 1.5)
+        );
 
         // Set the enemy as the current victim of the actor so the attack animation can be targetted correctly.
         this.victimX = this.path[0].x;
@@ -651,48 +655,67 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
-  
-  /**
-   * Decides if the attack was successful then reduces the health of the victim with a value based on the actor's weapon and strength, and the victim's defense.
-   *
-   * @param {Actor} actor The target of the current actor the will suffer the damage.
-   * @param {Number} damage The pre-calculated, randomly selected melee or ranged damage.
-   * @param {String} [effectType] The name of the special effect that should be displayed in case of special weapons.
-   * @returns null if the attempt was unsuccessful.
-   * @memberof Actor
-   */
-  causeDamage(actor, damage, effectType) {    
-
-    // Prepare to store the effect that informs the player about a hit or a miss.
-    let effect;
-
-    let hit = ROT.RNG.getUniformInt(1, 20);
-    if (hit > this.agility) {
-      effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', 'huh');
-      effect.actor = actor;
-      effect.depth = 4;
-      effect.visible = false;
-      this.scene.effects.push(effect);
-      return;
-    }
-
-    // Decrease the damage with the victim's defense.
-    damage = Math.max(damage - actor.defense, 0);
-
-    if (damage === 0) {
-      return;
-    }
-
-    // Decrease the health of the target actor with the remaining damage.
-    actor.health -= damage;
-
-    // Add a new effect to the list of effects to be displayed during this update based on the amount of damage.
-    effectType = effectType || (damage > 19 ? 'zok' : 'bif');
-    effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', effectType);
+  createEffect(actor, effectType) {
+    let effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', effectType);
     effect.actor = actor;
     effect.depth = 4;
     effect.visible = false;
     this.scene.effects.push(effect);
+  }
+  
+  /**
+   * Decides if the attack was successful then reduces the health of the victim with the given value and the victim's defense.
+   *
+   * @param {Actor} actor The target of the current actor the will suffer the damage.
+   * @param {Number} damage The pre-calculated, randomly selected melee or ranged damage.
+   * @param {Number} critDamage The pre-calculated critical damage that will be used in case of a critical hit.
+   * @param {String} [effectType] The name of the special effect that should be displayed in case of special weapons.
+   * @returns null if the attempt was unsuccessful.
+   * @memberof Actor
+   */
+  causeDamage(actor, damage, critDamage, effectType) {    
+
+    // Roll for hit.
+    let hit = ROT.RNG.getUniformInt(1, 20);
+
+    // If the roll is unsuccessful.
+    if (hit > this.agility) {
+
+      // Add the miss effect.
+      this.createEffect(actor, 'huh');
+
+      // Skip the rest.
+      return;
+    }
+    
+    // If the player rolled in the top 15%.
+    if (hit < 4) {
+      
+      // Consider it as a critical hit and set the damage.
+      damage = critDamage;
+
+      // If the used weapon does not have a special effect, use the critical hit effect.
+      effectType = effectType || 'zok';
+    }
+
+    // Decrease the damage with the victim's defense.
+    damage -= actor.defense || 0;
+
+    // If the damage got reduced to at most 0.
+    if (damage < 1) {
+
+       // Add the miss effect.
+       this.createEffect(actor, 'huh');
+
+       // Skip the rest.
+       return;
+    }
+
+    // Else decrease the health of the target actor with the remaining damage.
+    actor.health -= damage;
+
+    // If the used weapon does not have a special effect, add the normal hit effect.
+    this.createEffect(actor, effectType || 'bif');
 
     // If the target actor's health reached zero.
     if (actor.health < 1) {
@@ -725,11 +748,13 @@ class Actor extends Phaser.GameObjects.Image {
     if (rightHand && rightHand.effect) {
       effect = rightHand.effect;
     }
-    this.causeDamage(actor, ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax), effect);
+    this.causeDamage(
+      actor, 
+      ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax),
+      ~~(this.rangedDamageMax * 1.5),
+      effect
+    );
     if (leftHand && leftHand.throwable) {
-      if (rightHand && rightHand.throwable) {
-        this.causeDamage(actor, ROT.RNG.getUniformInt(this.rangedDamage, this.rangedDamageMax), effect);
-      }
       this.equipped.leftHand = undefined;  
       this.scene.map.addItem(actor.tileX, actor.tileY, [leftHand]);
     }
