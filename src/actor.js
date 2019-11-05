@@ -138,16 +138,20 @@ class Actor extends Phaser.GameObjects.Image {
   autoEquip() {
     if (this.inventory) {
       this.inventory.forEach(function (item, i) {
-        if (item 
-          && !this.equipped.rightHand
-          && (item.equips === 'hands' 
-          || item.equips === 'hand')) {
-            this.equipped.rightHand = item;
+        if (item) { 
+          if (!this.equipped.rightHand
+            && (item.equips === 'hands' 
+            || item.equips === 'hand')) {
+              this.equipped.rightHand = item;
+              this.inventory[i] = null;
+          } else if (item.equips && !this.equipped[item.equips]) {
+            this.equipped[item.equips] = item;
             this.inventory[i] = null;
-            this.updateAttributes();
+          }
         }
-      }.bind(this));
+      }, this);
     }
+    this.updateAttributes();
   }
 
   setItem(item, slot, i) {
@@ -724,7 +728,7 @@ class Actor extends Phaser.GameObjects.Image {
 
     // Emit the GUI ground update just in case the target is the player.
     this.scene.events.emit('playerMoved', this);
-    this.scene.events.emit('attributesUpdated', this);
+    this.updateAttributes();
   }
 
   // Kill this actor.
