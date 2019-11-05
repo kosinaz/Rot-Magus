@@ -167,9 +167,6 @@ class SimplexMap {
 
     let itemName = items[ROT.RNG.getUniformInt(0, items.length - 1)];
     
-    if (n < 0.5) {
-      return;
-    }
     if (n > 0.997) {
       if (
         tileName === 'sand' || 
@@ -187,11 +184,10 @@ class SimplexMap {
       }
     }
     let enemies = {
-      redFlower: 'zombie',
-      yellowFlower: 'skeleton',
-      bush: 'hobgoblin',
-      gravel: n < 0.7 ? 'goblin' : 'troll',
-      ford: n < 0.7 ? 'orch': 'orchArcher'
+      grass: n > 0.9 ? 'skeleton' : (n > 0.8 ? 'zombie' : ''),
+      bush: n > 0.5 ? 'hobgoblin' : '',
+      gravel: n > 0.7 ? 'troll' : (n > 0.5 ? 'goblin' : ''),
+      ford: n > 0.7 ? 'orchArcher' : (n > 0.5 ? 'orch' : '')
     }    
 
     let enemyType = enemies[tileName];
