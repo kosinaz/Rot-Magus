@@ -206,7 +206,7 @@
     "texture": "gui",
     "tooltip": "speed\n  The higher it is, the more times you act than others.",
     "type": "ActiveImage",
-    "x": 304,
+    "x": 303,
     "y": 16
   },
   "speed": {
