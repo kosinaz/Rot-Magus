@@ -119,7 +119,7 @@ class SimplexMap {
           this.scene.tweens.add({
             targets: this.scene.marker,
             x: this.x - 11,
-            y: this.y - 11,
+            y: this.y - 10,
             ease: 'Quad.easeOut',
             duration: 100 / game.speed
           });
