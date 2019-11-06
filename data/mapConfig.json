@@ -296,6 +296,9 @@
             "limit": 20,
             "tileName": "palmTree"
           }, {
+            "limit": 30,
+            "tileName": "sand"
+          }, {
             "limit": 100,
             "tileName": "dirt"
           }]
