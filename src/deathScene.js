@@ -3,23 +3,27 @@ class DeathScene extends Phaser.Scene {
     super('DeathScene');
   }
 
-  create = function () {
-    this.cameras.main.setBackgroundColor('#000000');
-    this.add.text(
-      512, 
-      250, 
-      'You died as a level ' + game.score + ' hero.\n\nThe Dark One smiles...',
-      {
-        fontFamily: 'font',
-        fontSize: '20px',
-        fill: '#ffffff'
-      }
-    ).setOrigin(0.5);
-
+  create() {
     if (GJAPI.bActive) {
       GJAPI.ScoreAdd(0, game.score, game.score);
     } else {
       GJAPI.ScoreAddGuest(0, game.score, game.score, 'Unnamed Hero');
     }
+    this.cameras.main.fadeIn(2000);
+    this.cameras.main.setBackgroundColor('#000000');
+    this.add.image(512, 200, 'gui', 'funeral').setOrigin(0.5);
+    this.add.text(
+      512, 
+      250, 
+      (game.username || 'Atlian') + ' is dead',
+      {
+        fontFamily: 'font',
+        fontSize: '16px',
+        fill: '#e00000'
+      }
+    ).setOrigin(0.5).setAlign('center');
+    this.input.on('pointerdown', function () {
+      this.scene.start('LoseScene');
+    }, this);
   }
 }

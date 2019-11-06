@@ -3,6 +3,7 @@ class MenuScene extends Phaser.Scene {
     super('MenuScene');
   }
   create() {
+    console.log('created');
     game.seed = ROT.RNG.getUniformInt(0, 1000000);
     ROT.RNG.setSeed(game.seed);
     this.cameras.main.setBackgroundColor('#616161');
@@ -21,8 +22,8 @@ class MenuScene extends Phaser.Scene {
     }).setOrigin(0.5);
     new TextButton({
       onPointerUp: function () {
+        console.log('started');
         this.scene.start('GameScene');
-        this.scene.start('GUIScene');
       }.bind(this),
       origin: 0.5,
       scene: this,
@@ -42,7 +43,7 @@ class MenuScene extends Phaser.Scene {
     });
     new TextButton({
       onPointerUp: function () {
-          this.scene.start('SettingScene');
+        this.scene.start('SettingScene');
       }.bind(this),
       origin: 0.5,
       scene: this,

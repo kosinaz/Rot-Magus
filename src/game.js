@@ -8,7 +8,7 @@ const game = new Phaser.Game({
     width: 1024,
     height: 576
   },
-  scene: [LoadScene, MenuScene, SettingScene, GameScene, GUIScene, DeathScene, SeedBrowserScene]
+  scene: [LoadScene, MenuScene, SettingScene, GameScene, GUIScene, DeathScene, LoseScene, ScoreScene, SeedBrowserScene]
 });
 
 const color = {

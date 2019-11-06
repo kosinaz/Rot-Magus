@@ -6,6 +6,7 @@ class GameScene extends Phaser.Scene {
   create() {
     
     ROT.RNG.setSeed(game.seed);
+    this.scene.launch('GUIScene');
 
     // Create a map based on Simplex noise. Unique to the game scene and referred to by several functions of the scene.
     this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
@@ -40,6 +41,7 @@ class GameScene extends Phaser.Scene {
 
     // Create the special actor that will be controlled by the player. Unique to the game scene and referred to by several functions of the scene and the enemies.
     this.player = new Player(this, 0, 0, 'tiles', 'elfMale');
+    this.player.name = game.username || this.player.name;
 
     // Create a list for the enemies to track their activity.
     this.enemies = [];

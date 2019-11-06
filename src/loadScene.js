@@ -51,6 +51,14 @@ class LoadScene extends Phaser.Scene {
     this.load.json('itemTypes', 'data/itemTypes.json');
     this.load.json('guiElements', 'data/guiElements.json');
     this.load.json('mapConfig', 'data/mapConfig.json');
+    if (GJAPI.bActive) {
+      GJAPI.UserFetchCurrent(function (pResponse) {
+        if (!pResponse.users) {
+          return;
+        }
+        game.username = pResponse.users[0].username;
+      });
+    }
   }
   create() {
     this.scene.start('MenuScene');
