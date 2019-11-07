@@ -49,7 +49,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.depth = 3;
     this.actions = [];
     this.scene.events.on('playerReady', function () {
-      if (this.dead) {
+      if (this.dead && !this.scene) {
         return;
       }
       let timeline = this.scene.tweens.createTimeline();
