@@ -210,14 +210,14 @@ class Actor extends Phaser.GameObjects.Image {
     if (this.equipped.leftHand) {
 
       // Add the weapon damage to the maximum damage.
-      this.damageMax += this.equipped.leftHand.damage;
+      this.damageMax += this.equipped.leftHand.damage || 0;
     }
 
     // If the actor wields a weapon in his right hand.
     if (this.equipped.rightHand) {
 
       // Add the weapon damage to the maximum damage.
-      this.damageMax += this.equipped.rightHand.damage;
+      this.damageMax += this.equipped.rightHand.damage || 0;
     }
 
     // Set the minimum damage as half of the maximum damage.
