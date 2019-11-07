@@ -4,7 +4,7 @@ class ScoreScene extends Phaser.Scene {
   }
 
   create() {
-    //this.cameras.main.fadeIn(2000);
+    this.cameras.main.fadeIn(2000);
     this.cameras.main.setBackgroundColor('#606060');
     this.add.image(400, 40, 'gui', 'heroes').setOrigin(0.5);
     this.add.text(470, 45, 'Brave heroes', {
@@ -20,7 +20,6 @@ class ScoreScene extends Phaser.Scene {
       let scores = '';
       for (let i = 0; i < pResponse.scores.length; i += 1) {
         let pScore = pResponse.scores[i];
-        console.log(pScore);
         names += (pScore.user ? pScore.user : pScore.guest) + '\n';
         scores += pScore.score + '\n';
       }
@@ -35,9 +34,8 @@ class ScoreScene extends Phaser.Scene {
         fill: '#000000'
       });
     }.bind(this));
-    this.input.on('pointerdown', function () {
-      this.scene.remove('GUIScene');
+    this.input.on('pointerup', function () {
       this.scene.start('MenuScene');
-    }, this)
+    }, this);
   }
 }

@@ -18,9 +18,6 @@ class SimplexMap {
       this.noises.push(new ROT.Noise.Simplex());
     }.bind(this));
 
-    // The container of terrain tiles of this map. This will help to display every terrain tile under the actors. Without this, the player would be displayed under the terrain making him invisible.
-    this.terrain = this.scene.add.container();
-
     // The collection of positions containing a tile image and a unique key that determines the attributes of that tile and the image to be displayed in case the previously used image object of this tile has been reused elsewhere while this tile was hidden.
     this.tiles = {}; 
   }

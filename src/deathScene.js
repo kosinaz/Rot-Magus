@@ -4,6 +4,7 @@ class DeathScene extends Phaser.Scene {
   }
 
   create() {
+    this.scene.setVisible(false, 'GUIScene');
     if (GJAPI.bActive) {
       GJAPI.ScoreAdd(0, game.score, game.score);
     } else {
@@ -22,7 +23,7 @@ class DeathScene extends Phaser.Scene {
         fill: '#e00000'
       }
     ).setOrigin(0.5).setAlign('center');
-    this.input.on('pointerdown', function () {
+    this.input.on('pointerup', function () {
       this.scene.start('LoseScene');
     }, this);
   }

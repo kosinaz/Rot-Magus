@@ -4,7 +4,7 @@ class LoseScene extends Phaser.Scene {
   }
 
   create() {
-    //this.cameras.main.fadeIn(2000);
+    this.cameras.main.fadeIn(2000);
     this.cameras.main.setBackgroundColor('#000000');
     this.add.image(512, 200, 'gui', 'loseHehehe').setOrigin(0.5);
     this.add.text(
@@ -17,7 +17,7 @@ class LoseScene extends Phaser.Scene {
         fill: '#ffffff'
       }
     ).setOrigin(0.5).setAlign('center');
-    this.input.on('pointerdown', function () {
+    this.input.on('pointerup', function () {
       this.scene.start('ScoreScene');
     }, this)
   }

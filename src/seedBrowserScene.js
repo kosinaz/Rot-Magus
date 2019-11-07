@@ -47,7 +47,6 @@ class SeedBrowserScene extends Phaser.Scene {
     new TextButton({
       onPointerUp: function () {
         this.scene.start('GameScene');
-        this.scene.start('GUIScene');
       }.bind(this),
       origin: 0.5,
       scene: this,
