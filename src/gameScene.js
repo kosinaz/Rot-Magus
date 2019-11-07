@@ -81,7 +81,8 @@ class GameScene extends Phaser.Scene {
       game.score = this.player.level;
 
       this.events.off('attributesUpdated');
-      
+      this.events.off('playerReady');
+
       // Load the death scene.
       this.scene.start('DeathScene');
     }.bind(this));
