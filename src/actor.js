@@ -675,6 +675,11 @@ class Actor extends Phaser.GameObjects.Image {
    */
   causeDamage(actor, damage, critDamage, effectType) {    
 
+    this.target = {
+      x: this.tileX,
+      y: this.tileY
+    }
+
     // Roll for hit.
     let hit = ROT.RNG.getUniformInt(1, 20);
 
