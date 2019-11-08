@@ -408,7 +408,7 @@
     "equips": "hands",
     "manaCost": 2,
     "name": "protection",
-    "note": "Halves the damage."
+    "note": "Halves the damage!"
   },
   "purify": {
     "effect": "bam",
