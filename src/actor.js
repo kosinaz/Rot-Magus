@@ -548,6 +548,7 @@ class Actor extends Phaser.GameObjects.Image {
         this.equipped.rightHand = undefined;
       }
       this.updateAttributes();
+      this.createEffect(this, "uh");
 
       // Make the actor rest until his next action and get back a health point.
       this.rest();

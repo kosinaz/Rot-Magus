@@ -113,8 +113,14 @@ class SlotImage extends ActiveImage {
           attribute !== 'effect') {
           if (attribute === 'damageRanged') {
             this.tooltip += '\n  ranged damage: +' + item[attribute];
-          } else if (attribute === 'mana') {
+          } else if (attribute === 'manaCost') {
             this.tooltip += '\n  mana cost: ' + item[attribute];
+          } else if (attribute === 'damageMod') {
+            this.tooltip += '\n  damage modifier: ' + item[attribute];
+          } else if (attribute === 'damageFix') {
+            this.tooltip += '\n  fix damage: ' + item[attribute];
+          } else if (attribute === 'walksOb') {
+            this.tooltip += '\n  walk on: ' + item[attribute];
           } else if (attribute === 'healthRegen') {
             this.tooltip += '\n  health regeneration: ' + item[attribute];
           } else if (attribute === 'manaRegen') {
@@ -125,18 +131,24 @@ class SlotImage extends ActiveImage {
             this.tooltip += '\n  maximum mana: +' + item[attribute];
           } else if (attribute === 'speedBase') {
             this.tooltip += '\n  speed: +' + item[attribute];
+          } else if (attribute === 'speedFix') {
+            this.tooltip += '\n  fix speed: +' + item[attribute];
+          } else if (attribute === 'speedMod') {
+            this.tooltip += '\n  speed modifier: ' + 
+            (item[attribute] > 0 ? '+' : '') + item[attribute];
           } else if (attribute === 'strengthBase') {
             this.tooltip += '\n  strength: +' + item[attribute];
           } else if (attribute === 'agilityBase') {
-            this.tooltip += '\n  agility: ' + (item[attribute] > 0 ? '+' : '') 
-            + item[attribute];
+            this.tooltip += '\n  agility: ' + 
+            (item[attribute] > 0 ? '+' : '') + item[attribute];
           } else if (attribute === 'wisdomBase') {
-            this.tooltip += '\n  wisdom: ' + (item[attribute] > 0 ? '+' : '') 
-            + item[attribute];
+            this.tooltip += '\n  wisdom: ' + 
+            (item[attribute] > 0 ? '+' : '') + item[attribute];
           } else if (
               attribute === 'damage' ||
               attribute === 'defense' || 
               attribute === 'agility' ||
+              attribute === 'health' ||
               attribute === 'speed' || 
               attribute === 'strength' || 
               attribute === 'wisdom' ||
@@ -145,6 +157,8 @@ class SlotImage extends ActiveImage {
             this.tooltip += '\n  ' + attribute + ': +' + item[attribute];
           } else if (item[attribute] !== true) {
             this.tooltip += '\n  ' + attribute + ': ' + item[attribute];
+          } else if (attribute === 'note') {
+            notes += '\n  ' + item[attribute];
           } else {
             notes += {
               'arrow': '\n  Required for bows!',

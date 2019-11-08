@@ -7,9 +7,11 @@
     "weight": 8
   },
   "air": {
-    "equips": "hand",
-    "mana": 7,
-    "name": "air"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 7,
+    "name": "air",
+    "summons": "djinn"
   },
   "armour": {
     "defense": 6,
@@ -32,8 +34,10 @@
     "weight": 5
   },
   "berzerk": {
-    "equips": "hand",
-    "mana": 3,
+    "damageMod": "uh",
+    "effect": 61,
+    "equips": "hands",
+    "manaCost": 3,
     "name": "berzerk"
   },
   "bigHelmet": {
@@ -95,7 +99,7 @@
   "bubble": {
     "name": "bubble",
     "price": 150,
-    "weight": -3
+    "weight": -6
   },
   "chainmail": {
     "defense": 5,
@@ -111,13 +115,14 @@
     "weight": 5
   },
   "chaos": {
-    "equips": "hand",
-    "mana": 20,
-    "name": "chaos"
+    "effect": "nhg",
+    "equips": "hands",
+    "manaCost": 20,
+    "name": "chaos",
+    "note": "Empties out the target's inventory!"
   },
   "chock": {
-    "damage": 24,
-    "damageRanged": 2,
+    "damageFix": 24,
     "effect": "zap",
     "equips": "hand",
     "name": "chock",
@@ -140,9 +145,11 @@
     "weight": 5
   },
   "confusion": {
-    "equips": "hand",
-    "mana": 5,
-    "name": "confusion"
+    "effect": "nhg",
+    "equips": "hands",
+    "manaCost": 5,
+    "name": "confusion",
+    "note": "Makes the target's next action random!"
   },
   "crossbow": {
     "damage": 1,
@@ -163,19 +170,25 @@
     "weight": 1
   },
   "darkness": {
-    "equips": "hand",
-    "mana": 10,
-    "name": "darkness"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 10,
+    "name": "darkness",
+    "summons": "shadowbeast"
   },
   "delay": {
-    "equips": "hand",
-    "mana": 2,
-    "name": "delay"
+    "effect": "eh",
+    "equips": "hands",
+    "manaCost": 2,
+    "name": "delay",
+    "speedMod": -2
   },
   "demonSpell": {
-    "equips": "hand",
-    "mana": 25,
-    "name": "demon"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 25,
+    "name": "demon",
+    "summons": "demon"
   },
   "dragonTooth": {
     "damage": 13,
@@ -185,9 +198,11 @@
     "weight": 4
   },
   "earth": {
-    "equips": "hand",
-    "mana": 8,
-    "name": "earth"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 8,
+    "name": "earth",
+    "summons": "golem"
   },
   "elvenCloak": {
     "defense": 3,
@@ -221,23 +236,28 @@
     "returns": true
   },
   "fastFeet": {
-    "equips": "hand",
-    "mana": 8,
-    "name": "fast feet"
+    "effect": "uh",
+    "equips": "hands",
+    "manaCost": 8,
+    "name": "fast feet",
+    "speedMod": 3
   },
   "fire": {
-    "equips": "hand",
-    "mana": 10,
-    "name": "fire"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 10,
+    "name": "fire",
+    "summons": "fenix"
   },
   "fireBall": {
-    "equips": "hand",
-    "mana": 5,
+    "damageFix": 17,
+    "effect": "paf",
+    "equips": "hands",
+    "manaCost": 5,
     "name": "fireball"
   },
   "fireblade": {
-    "damage": 17,
-    "damageRanged": 1,
+    "damageFix": 17,
     "effect": "paf",
     "equips": "hand",
     "name": "fireblade",
@@ -285,8 +305,10 @@
     "xp": 100
   },
   "heal": {
-    "equips": "hand",
-    "mana": 5,
+    "effect": "uh",
+    "equips": "hands",
+    "health": 25,
+    "manaCost": 5,
     "name": "heal",
     "price": 20
   },
@@ -298,14 +320,19 @@
     "weight": 3
   },
   "hyperspace": {
-    "equips": "hand",
-    "mana": 20,
-    "name": "hyperspace"
+    "effect": "bom",
+    "equips": "hands",
+    "manaCost": 20,
+    "name": "hyperspace",
+    "note": "Teleports the target to a random place!"
   },
   "inferno": {
-    "equips": "hand",
-    "mana": 12,
-    "name": "inferno"
+    "damageFix": 24,
+    "effect": "paf",
+    "equips": "hands",
+    "manaCost": 12,
+    "name": "inferno",
+    "note": "Casts a line of fire towards the target and explodes around it!"
   },
   "leadball": {
     "damage": 8,
@@ -324,14 +351,18 @@
     "weight": 3
   },
   "lightningBolt": {
-    "equips": "hand",
-    "mana": 10,
+    "damageFix": 24,
+    "effect": "zap",
+    "equips": "hands",
+    "manaCost": 10,
     "name": "lightning bolt"
   },
   "lightningSpell": {
-    "equips": "hand",
-    "mana": 15,
-    "name": "lightning"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 15,
+    "name": "lightning",
+    "summons": "lightning"
   },
   "negator": {
     "name": "negator",
@@ -351,29 +382,40 @@
     "price": 150
   },
   "panic": {
-    "equips": "hand",
-    "mana": 20,
-    "name": "panic"
+    "effect": "eh",
+    "equips": "hands",
+    "manaCost": 20,
+    "name": "panic",
+    "note": "Makes every monster nearby run away from the caster!",
+    "range": 6
   },
   "phantom": {
-    "equips": "hand",
-    "mana": 3,
-    "name": "phantom"
+    "effect": "uh",
+    "equips": "hands",
+    "manaCost": 3,
+    "name": "phantom",
+    "walksOn": "everthing"
   },
   "portal": {
-    "equips": "hand",
-    "mana": 7,
-    "name": "portal"
+    "effect": "bom",
+    "equips": "hands",
+    "manaCost": 7,
+    "name": "portal",
+    "note": "Teleports the target to the selected place!"
   },
   "protection": {
-    "equips": "hand",
-    "mana": 2,
-    "name": "protection"
+    "effect": "uh",
+    "equips": "hands",
+    "manaCost": 2,
+    "name": "protection",
+    "notes": "Halves the damage."
   },
   "purify": {
-    "equips": "hand",
-    "mana": 20,
-    "name": "purify"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 20,
+    "name": "purify",
+    "note": "Unsummons the summoned!"
   },
   "purple": {
     "consumable": true,
@@ -426,9 +468,11 @@
     "weight": 3
   },
   "skeletonSpell": {
-    "equips": "hand",
-    "mana": 15,
-    "name": "skeleton"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 15,
+    "name": "skeleton",
+    "summons": "skeleton"
   },
   "slayer": {
     "damage": 17,
@@ -438,9 +482,11 @@
     "weight": 8
   },
   "sleep": {
-    "equips": "hand",
-    "mana": 8,
-    "name": "sleep"
+    "effect": "eh",
+    "equips": "hands",
+    "manaCost": 8,
+    "name": "sleep",
+    "speedFix": 1 
   },
   "staff": {
     "damage": 10,
@@ -455,9 +501,11 @@
     "weight": 10
   },
   "stonefoot": {
-    "equips": "hand",
-    "mana": 6,
-    "name": "stone foot"
+    "effect": "eh",
+    "equips": "hands",
+    "manaCost": 6,
+    "name": "stone foot",
+    "speedFix": 0
   },
   "studdedLeather": {
     "defense": 3,
@@ -518,9 +566,11 @@
     "weight": 4
   },
   "terror": {
-    "equips": "hand",
-    "mana": 7,
-    "name": "terror"
+    "effect": "eh",
+    "equips": "hands",
+    "manaCost": 7,
+    "name": "terror",
+    "note": "Makes the target run away from the caster!"
   },
   "throwingStar": {
     "damage": 9,
@@ -532,9 +582,13 @@
     "weight": 1
   },
   "thunderStorm": {
-    "equips": "hand",
-    "mana": 25,
-    "name": "thunder storm"
+    "amount": 20,
+    "damageFix": 24,
+    "effect": "zap",
+    "equips": "hands",
+    "manaCost": 25,
+    "name": "thunder storm",
+    "note": "Casts a group of lightning bolts randomly around and above the target!"
   },
   "topaz": {
     "equips": "neck",
@@ -545,13 +599,16 @@
   },
   "vision": {
     "equips": "hand",
-    "mana": 2,
-    "name": "vision"
+    "manaCost": 2,
+    "name": "vision",
+    "note": "Reveals the map around the target!"
   },
   "water": {
-    "equips": "hand",
-    "mana": 8,
-    "name": "water"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 8,
+    "name": "water",
+    "summons": "undine"
   },
   "wakizashi": {
     "damage": 9,
@@ -585,8 +642,10 @@
     "weight": 1
   },
   "zombieSpell": {
-    "equips": "hand",
-    "mana": 15,
-    "name": "zombie"
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 15,
+    "name": "zombie",
+    "summons": "zombie"
   }
 }
