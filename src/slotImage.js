@@ -119,7 +119,7 @@ class SlotImage extends ActiveImage {
             this.tooltip += '\n  damage modifier: ' + item[attribute];
           } else if (attribute === 'damageFix') {
             this.tooltip += '\n  fix damage: ' + item[attribute];
-          } else if (attribute === 'walksOb') {
+          } else if (attribute === 'walksOn') {
             this.tooltip += '\n  walk on: ' + item[attribute];
           } else if (attribute === 'healthRegen') {
             this.tooltip += '\n  health regeneration: ' + item[attribute];
@@ -132,7 +132,7 @@ class SlotImage extends ActiveImage {
           } else if (attribute === 'speedBase') {
             this.tooltip += '\n  speed: +' + item[attribute];
           } else if (attribute === 'speedFix') {
-            this.tooltip += '\n  fix speed: +' + item[attribute];
+            this.tooltip += '\n  fix speed: ' + item[attribute];
           } else if (attribute === 'speedMod') {
             this.tooltip += '\n  speed modifier: ' + 
             (item[attribute] > 0 ? '+' : '') + item[attribute];
@@ -155,10 +155,10 @@ class SlotImage extends ActiveImage {
               attribute === 'xp'
             ) {
             this.tooltip += '\n  ' + attribute + ': +' + item[attribute];
-          } else if (item[attribute] !== true) {
-            this.tooltip += '\n  ' + attribute + ': ' + item[attribute];
           } else if (attribute === 'note') {
             notes += '\n  ' + item[attribute];
+          } else if (item[attribute] !== true) {
+            this.tooltip += '\n  ' + attribute + ': ' + item[attribute];
           } else {
             notes += {
               'arrow': '\n  Required for bows!',

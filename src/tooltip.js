@@ -10,7 +10,7 @@ class Tooltip extends Phaser.GameObjects.Text {
         'fontSize': config.fontSize,
         'fill': config.fill,
         'wordWrap': {
-          'width': 160
+          'width': 190
         }
       }
     );
