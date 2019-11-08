@@ -3,12 +3,6 @@ class MenuScene extends Phaser.Scene {
     super('MenuScene');
   }
   create() {
-    console.log(1, 1>>1);
-    console.log(2, 2>>1);
-    console.log(3, 3>>1);
-    console.log(4, 4>>1);
-    console.log(5, 5>>1);
-    console.log(6, 6>>1);
     game.seed = ROT.RNG.getUniformInt(0, 1000000);
     ROT.RNG.setSeed(game.seed);
     this.cameras.main.setBackgroundColor('#616161');
