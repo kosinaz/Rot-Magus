@@ -25,7 +25,7 @@ class MenuScene extends Phaser.Scene {
       }.bind(this),
       origin: 0.5,
       scene: this,
-      text: 'Start new game',
+      text: 'New game',
       x: 512,
       y: 200
     });
