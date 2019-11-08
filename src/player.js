@@ -21,6 +21,8 @@ class Player extends Actor {
     // Update the list of items on the ground based on the player's current position.
     this.getGround();
 
+    this.updateEffects();
+
     // Emit an event that notifies the GUI that the player is now ready act and it should see the current state of the ground.
     this.scene.events.emit('playerReady', this);
   }

@@ -43,6 +43,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.equipped = {};
     this.ground = [];
     this.load = 0;
+    this.activeEffects = [];
     this.updateAttributes();
     this.scene.add.existing(this);
     this.scene.scheduler.add(this, true);
@@ -116,6 +117,8 @@ class Actor extends Phaser.GameObjects.Image {
 
     this.autoEquip();
 
+    this.updateEffects();
+
     // If the actor hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
     if (!this.isAtXY(this.target.x, this.target.y)) {
 
@@ -150,6 +153,15 @@ class Actor extends Phaser.GameObjects.Image {
           }
         }
       }, this);
+    }
+    this.updateAttributes();
+  }
+
+  updateEffects() {
+    for (let i = 0; i < this.activeEffects.length; i += 1) {
+      if (--this.activeEffects[i].timeLeft === 0) {
+        this.activeEffects.splice(i, 1);
+      }
     }
     this.updateAttributes();
   }
@@ -220,6 +232,12 @@ class Actor extends Phaser.GameObjects.Image {
       this.damageMax += this.equipped.rightHand.damage || 0;
     }
 
+    this.activeEffects.forEach(function (effect) {
+      if (effect.damageMod) {
+        this.damageMax += effect.damageMod;
+      }
+    }, this);
+
     // Set the minimum damage as half of the maximum damage.
     this.damage = ~~(this.damageMax / 2);
   }
@@ -247,6 +265,12 @@ class Actor extends Phaser.GameObjects.Image {
       // Add the weapon ranged damage to the maximum ranged damage.
       this.rangedDamageMax += this.equipped.rightHand.damageRanged || 0;
     }
+
+    this.activeEffects.forEach(function (effect) {
+      if (effect.damageMod) {
+        this.rangedDamageMax += effect.damageMod;
+      }
+    }, this);
 
     // Set the minimum damage as half of the maximum damage.
     this.rangedDamage = ~~(this.rangedDamageMax / 2);
@@ -528,6 +552,7 @@ class Actor extends Phaser.GameObjects.Image {
         );        
         this.earnXP(this.equipped.leftHand.xp || 0);
         this.equipped.leftHand = undefined;
+        this.createEffect(this, "uh");
       }
       if (this.equipped.rightHand && this.equipped.rightHand.consumable) {
         this.healthMax += this.equipped.rightHand.healthMax || 0;
@@ -546,9 +571,33 @@ class Actor extends Phaser.GameObjects.Image {
         );
         this.earnXP(this.equipped.rightHand.xp || 0);
         this.equipped.rightHand = undefined;
+        this.createEffect(this, "uh");
+      }
+      let spell = this.equipped.leftHand || this.equipped.rightHand; 
+      let hit = ROT.RNG.getUniformInt(1, 20);
+      if (spell && spell.manaCost) {
+        if (this.mana < spell.manaCost) {
+          return;
+        }
+        this.mana -= spell.manaCost;
+        if (hit > this.wisdom) {
+
+          // Add the miss effect.
+          this.createEffect(this, 'huh');
+
+          // Skip the rest.
+          return;
+        }
+        if (spell.damageMod) {
+          this.createEffect(this, spell.effect);
+          this.activeEffects.push({
+            damageMod: spell.damageMod,
+            timeLeft: this.speedBase
+          })
+        }
       }
       this.updateAttributes();
-      this.createEffect(this, "uh");
+      
 
       // Make the actor rest until his next action and get back a health point.
       this.rest();
