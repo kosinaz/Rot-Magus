@@ -34,8 +34,8 @@
     "weight": 5
   },
   "berzerk": {
-    "damageMod": "uh",
-    "effect": 61,
+    "damageMod": 8,
+    "effect": "uh",
     "equips": "hands",
     "manaCost": 3,
     "name": "berzerk"
