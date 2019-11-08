@@ -9,7 +9,7 @@ class MenuScene extends Phaser.Scene {
     this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
     for (let x = 0; x < 44; x += 1) {
       for (let y = 0; y < 28; y += 1) {
-        this.add.image(x * 24 - 12, y * 21, 'tiles', this.map.getTileNameAt(x - 21, y - 17));
+        this.add.image(x * 24 - 12, y * 21, 'tiles', this.map.getTileNameAt(x - 21, y - 13));
       }
     }
     this.add.text(512, 100, 'ROT MAGUS', {
@@ -35,9 +35,19 @@ class MenuScene extends Phaser.Scene {
       }.bind(this),
       origin: 0.5,
       scene: this,
-      text: 'Browse map seeds',
+      text: 'Map browser',
       x: 512,
       y: 250
+    });
+    new TextButton({
+      onPointerUp: function () {
+        this.scene.start('ScoreScene');
+      }.bind(this),
+      origin: 0.5,
+      scene: this,
+      text: 'Hall of fame',
+      x: 512,
+      y: 300
     });
     new TextButton({
       onPointerUp: function () {
@@ -47,7 +57,7 @@ class MenuScene extends Phaser.Scene {
       scene: this,
       text: 'Settings',
       x: 512,
-      y: 300
+      y: 350
     });
   }
 }

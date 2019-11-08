@@ -36,21 +36,32 @@ class SeedBrowserScene extends Phaser.Scene {
     }
     new TextButton({
       onPointerUp: function () {
-        this.scene.start('SeedBrowserScene');
-      }.bind(this),
-      origin: 0,
-      scene: this,
-      text: 'Seed: ' + ROT.RNG.getSeed() + ' (Click to change)',
-      x: 10,
-      y: 10
-    });
-    new TextButton({
-      onPointerUp: function () {
         this.scene.start('GameScene');
       }.bind(this),
       origin: 0.5,
       scene: this,
-      text: 'Start new game with this seed',
+      text: 'Start new game with seed: ' + ROT.RNG.getSeed(),
+      x: 512,
+      y: 440
+    });
+    new TextButton({
+      onPointerUp: function () {
+        this.scene.restart();
+      }.bind(this),
+      origin: 0.5,
+      scene: this,
+      text: 'Change seed',
+      x: 512,
+      y: 490
+    });
+    new TextButton({
+      onPointerUp: function () {
+        this.scene.scene.start('MenuScene');
+        this.scene.scale.off('leavefullscreen');
+      },
+      origin: 0.5,
+      scene: this,
+      text: 'Back to main menu',
       x: 512,
       y: 540
     });

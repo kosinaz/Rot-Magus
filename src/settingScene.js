@@ -38,9 +38,9 @@ class SettingScene extends Phaser.Scene {
       },
       origin: 0.5,
       scene: this,
-      text: 'Back',
+      text: 'Back to main menu',
       x: 512,
-      y: 300
+      y: 540
     });
   }
 }

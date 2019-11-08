@@ -37,5 +37,16 @@ class ScoreScene extends Phaser.Scene {
     this.input.on('pointerup', function () {
       this.scene.start('MenuScene');
     }, this);
+    new TextButton({
+      onPointerUp: function () {
+        this.scene.scene.start('MenuScene');
+        this.scene.scale.off('leavefullscreen');
+      },
+      origin: 0.5,
+      scene: this,
+      text: 'Back to main menu',
+      x: 512,
+      y: 540
+    });
   }
 }
