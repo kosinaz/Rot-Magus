@@ -95,6 +95,14 @@ class Actor extends Phaser.GameObjects.Image {
             duration: actionDuration / 3,
             yoyo: true
           });
+        } else if (action.type === 'teleport') {
+          timeline.add({
+            targets: this,
+            x: action.x * 24 + 12,
+            y: action.y * 21 + 11,
+            ease: 'none',
+            duration: 1
+          });
         }
       }.bind(this));
       timeline.play();
@@ -624,6 +632,20 @@ class Actor extends Phaser.GameObjects.Image {
         timeLeft: actor.speedBase
       })
     }
+    if (spell.name === 'hyperspace') {
+      this.createEffect(actor, spell.effect);
+      actor.tileX += ROT.RNG.getUniformInt(-1000, 1000);
+      actor.tileY += ROT.RNG.getUniformInt(-1000, 1000);
+      this.actions.push({
+        type: 'teleport',
+        x: this.tileX,
+        y: this.tileY
+      });
+      actor.target = {
+        x: actor.tileX,
+        y: actor.tileY
+      }
+    }
     if (spell.health) {
       this.createEffect(actor, spell.effect);
       actor.health = Math.min(actor.health + spell.health, actor.healthMax);
@@ -645,7 +667,6 @@ class Actor extends Phaser.GameObjects.Image {
         actor.scene.map.addItem(actor.tileX, actor.tileY, actor.inventory);
       }
       actor.inventory = [];
-      console.log(actor.name, actor.inventory);
     }
     this.updateAttributes();
   }
