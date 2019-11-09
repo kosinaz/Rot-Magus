@@ -306,7 +306,7 @@ class Actor extends Phaser.GameObjects.Image {
         this.speedMod += effect.speedMod;
       }
     }, this);
-    this.speedMod = this.getLimitedMod(this.speedBase, this.speedMod, 1, 19);
+    this.speedMod = this.getLimitedMod(this.speedBase, this.speedMod, 1, 15);
     this.speed = this.speedBase + this.speedMod;
   }
 
@@ -319,7 +319,7 @@ class Actor extends Phaser.GameObjects.Image {
         }
       }
     }.bind(this));
-    this.strengthMod = this.getLimitedMod(this.strengthBase, this.strengthMod, 1, 29);
+    this.strengthMod = this.getLimitedMod(this.strengthBase, this.strengthMod, 1, 100);
     this.strength = this.strengthBase + this.strengthMod;
   }
 
@@ -332,7 +332,7 @@ class Actor extends Phaser.GameObjects.Image {
         }
       }
     }.bind(this));
-    this.wisdomMod = this.getLimitedMod(this.wisdomBase, this.wisdomMod, 1, 19);
+    this.wisdomMod = this.getLimitedMod(this.wisdomBase, this.wisdomMod, 1, 25);
     this.wisdom = this.wisdomBase + this.wisdomMod;
   }
 
@@ -374,7 +374,7 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     // The modified agility has to be limited to a number between 0 and 19 to keep the chance to hit between 0% and 95%. If the agility modifier would increase or decrease the base agility so much that it would end up out of this range, the modifier will be limited as well to keep the displayed values consistent.
-    this.agilityMod = this.getLimitedMod(this.agilityBase, this.agilityMod, 1, 19);
+    this.agilityMod = this.getLimitedMod(this.agilityBase, this.agilityMod, 1, 25);
 
     // Update the agility based on the current sum of the above-modified and limited values.
     this.agility = this.agilityBase + this.agilityMod;
