@@ -306,7 +306,7 @@ class Actor extends Phaser.GameObjects.Image {
         this.speedMod += effect.speedMod;
       }
     }, this);
-    this.speedMod = this.getLimitedMod(this.speedBase, this.speedMod, 1, 9);
+    this.speedMod = this.getLimitedMod(this.speedBase, this.speedMod, 1, 19);
     this.speed = this.speedBase + this.speedMod;
   }
 
