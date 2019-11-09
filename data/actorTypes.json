@@ -5,8 +5,8 @@
     "health": 90,
     "mana": 10000,
     "strength": 14,
-    "wisdom": 100,
-    "speed": 600,
+    "wisdom": 20,
+    "speed": 6,
     "agility": 15,
     "inventory": [
       "bow",
