@@ -394,7 +394,7 @@
     "equips": "hands",
     "manaCost": 3,
     "name": "phantom",
-    "walksOn": "everthing"
+    "walksOn": "everything"
   },
   "portal": {
     "effect": "bom",

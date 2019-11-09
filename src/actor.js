@@ -463,6 +463,18 @@ class Actor extends Phaser.GameObjects.Image {
     // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its walkabilty.
     let tile = this.scene.map.getTileNameAt(x, y);
 
+
+    if (this.activeEffects.some(function (effect) {
+        return effect.walksOn === 'nothing';
+      })) {
+      return false;
+    }
+    if (this.activeEffects.some(function (effect) {
+        return effect.walksOn === 'everything';
+      })) {
+      return true;
+    }
+
     // Return true if the actor is able to walk on that type of tiles or if it is generally walkable by every actor.
     return this.walksOn.includes(tile) || (
       tile !== 'waterTile' &&
@@ -613,6 +625,13 @@ class Actor extends Phaser.GameObjects.Image {
           this.createEffect(this, spell.effect);
           this.activeEffects.push({
             speedMod: spell.speedMod,
+            timeLeft: this.speedBase
+          })
+        }
+        if (spell.walksOn) {
+          this.createEffect(this, spell.effect);
+          this.activeEffects.push({
+            walksOn: spell.walksOn,
             timeLeft: this.speedBase
           })
         }
