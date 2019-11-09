@@ -746,18 +746,18 @@ class Actor extends Phaser.GameObjects.Image {
       return !enemy.isAtXY(enemy.target.x, enemy.target.y);
     })) {
 
-      // If the actor's health did not reach the maximum yet.
-      if (this.health < this.healthMax) {
+      // Make the actor get back one health point. 
+      this.health = Math.min(this.health + 1, this.healthMax);
 
-        // Make the actor get back one health point. 
-        this.health += 1;
-      }
+      // Make the actor get back one mana point. 
+      this.mana = Math.min(this.mana + 1, this.manaMax);
     
     // If every enemy is either idle or dead. 
     } else {
 
       // The player has plenty of time to rest.
       this.health = this.healthMax;
+      this.mana = this.manaMax;
     }
   }
 
