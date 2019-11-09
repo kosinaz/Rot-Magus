@@ -189,9 +189,12 @@ class Actor extends Phaser.GameObjects.Image {
             || item.equips === 'hand')) {
               this.equipped.rightHand = item;
               this.inventory[i] = null;
-          } else if (item.equips && !this.equipped[item.equips]) {
-            this.equipped[item.equips] = item;
-            this.inventory[i] = null;
+          } else if (item.equips 
+            && !this.equipped[item.equips] 
+            && item.equips !== 'hands'
+            && item.equips !== 'hand') {
+              this.equipped[item.equips] = item;
+              this.inventory[i] = null;
           }
         }
       }, this);
@@ -374,7 +377,7 @@ class Actor extends Phaser.GameObjects.Image {
         }
       }
     }.bind(this));
-    this.wisdomMod = this.getLimitedMod(this.wisdomBase, this.wisdomMod, 1, 25);
+    this.wisdomMod = this.getLimitedMod(this.wisdomBase, this.wisdomMod, 0, 25);
     this.wisdom = this.wisdomBase + this.wisdomMod;
   }
 

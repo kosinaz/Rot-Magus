@@ -300,12 +300,12 @@ class GameScene extends Phaser.Scene {
             this.map.tiles[i].image.setInteractive();
           }
         }
-      }
-
-      this.player.updateTargetBasedOnEffects();
+      }      
 
       // If the player hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
-      if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {    
+      if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {   
+        
+        this.player.updateTargetBasedOnEffects();
 
         // Make him move towards his target.
         this.player.move();

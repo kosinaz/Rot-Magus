@@ -184,10 +184,12 @@ class SimplexMap {
       }
     }
     let enemies = {
-      grass: n > 0.9 ? 'skeleton' : (n > 0.8 ? 'zombie' : ''),
+      redFlower: n > 0 ? 'zombie' :  '',
+      yellowFlower: n > 0 ? 'skeleton' : '',
       bush: n > 0.5 ? 'hobgoblin' : '',
       gravel: n > 0.7 ? 'troll' : (n > 0.5 ? 'goblin' : ''),
-      ford: n > 0.7 ? 'orchArcher' : (n > 0.5 ? 'orch' : '')
+      ford: n > 0.7 ? 'orchArcher' : (n > 0.5 ? 'orch' : ''),
+      sand: n > 0.9 ? 'magician' : (n > 0.85 ? 'monk' : (n > 0.8 ? 'warrior' : '')),
     }    
 
     let enemyType = enemies[tileName];

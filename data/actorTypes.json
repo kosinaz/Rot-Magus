@@ -3,48 +3,16 @@
     "name": "Atlian",
     "chance": 0,
     "health": 90,
-    "mana": 10000,
+    "mana": 0,
     "strength": 14,
-    "wisdom": 20,
+    "wisdom": 0,
     "speed": 6,
     "agility": 15,
     "inventory": [
       "bow",
       "arrows",
       "dagger",
-      "elvenCloak",
-      "air",
-      "berzerk",
-      "black",
-      "chaos",
-      "confusion",
-      "darkness",
-      "delay",
-      "demonSpell",
-      "earth",
-      "enchant",
-      "fastFeet",
-      "fire",
-      "fireBall",
-      "heal",
-      "hyperspace",
-      "inferno",
-      "lightningBolt",
-      "lightningSpell",
-      "panic",
-      "phantom",
-      "portal",
-      "protection",
-      "purify",
-      "shootingStar",
-      "skeletonSpell",
-      "sleep",
-      "stonefoot",
-      "terror",
-      "thunderStorm",
-      "vision",
-      "water",
-      "zombieSpell"
+      "elvenCloak"
     ],
     "walksOn": [
       "bush",
@@ -136,9 +104,6 @@
       "sabre",
       "leather"
     ],
-    "walksOn": [
-      "marsh"
-    ],
     "xp": 4
   },
   "orchArcher": {
@@ -153,10 +118,59 @@
       "bow",
       "arrows"
     ],
-    "walksOn": [
-      "marsh"
-    ],
     "xp": 4
+  },
+  "magician": {
+    "name": "magician",
+    "health": 50,
+    "mana": 10,
+    "strength": 12,
+    "wisdom": 10,
+    "speed": 4,
+    "agility": 10,
+    "inventory": [
+      "confusion",
+      "crossbow",
+      "darkness",
+      "cloak",
+      "arrows"
+    ],
+    "xp": 5
+  },
+  "monk": {
+    "name": "monk",
+    "health": 60,
+    "mana": 11,
+    "strength": 14,
+    "wisdom": 11,
+    "speed": 4,
+    "agility": 16,
+    "inventory": [
+      "fire",
+      "leather",
+      "staff",
+      "earth",
+      "water",
+      "delay"
+    ],
+    "xp": 6
+  },
+  "warrior": {
+    "name": "warrior",
+    "health": 80,
+    "mana": 0,
+    "strength": 12,
+    "wisdom": 0,
+    "speed": 4,
+    "agility": 14,
+    "inventory": [
+      "throwingStar",
+      "throwingStar",
+      "throwingStar",
+      "club",
+      "chainmail"
+    ],
+    "xp": 6
   },
   "djinn": {
     "name": "djinn",
