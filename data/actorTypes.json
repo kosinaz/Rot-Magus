@@ -259,6 +259,11 @@
     "inventory": [
       "chock"
     ],
+    "walksOn": [
+      "waterTile",
+      "marsh",
+      "bush"
+    ],
     "xp": 1
   }
 }
