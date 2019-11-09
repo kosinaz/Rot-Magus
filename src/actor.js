@@ -103,6 +103,9 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   initInventory() {
+    if (!this.config.inventory) {
+      return;
+    }
     this.config.inventory.forEach(function (itemName) {
       let item = Object.assign({}, this.scene.itemTypes[itemName]);
       item.frame = itemName;

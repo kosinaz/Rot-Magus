@@ -53,7 +53,7 @@
     "player": true
   },
   "zombie": {
-    "name": "Zombie",
+    "name": "zombie",
     "health": 10,
     "mana": 0,
     "strength": 12,
@@ -66,7 +66,7 @@
     "xp": 1
   },
   "skeleton": {
-    "name": "Skeleton",
+    "name": "skeleton",
     "health": 30,
     "mana": 0,
     "strength": 7,
@@ -79,7 +79,7 @@
     "xp": 1
   },
   "goblin": {
-    "name": "Goblin",
+    "name": "goblin",
     "health": 30,
     "mana": 0,
     "strength": 15,
@@ -93,7 +93,7 @@
     "xp": 1
   },
   "hobgoblin": {
-    "name": "Hobgoblin",
+    "name": "hobgoblin",
     "health": 10,
     "mana": 0,
     "strength": 10,
@@ -112,7 +112,7 @@
     "xp": 1
   },
   "troll": {
-    "name": "Troll",
+    "name": "troll",
     "health": 100,
     "mana": 0,
     "strength": 20,
@@ -125,7 +125,7 @@
     "xp": 2
   },
   "orch": {
-    "name": "Orch",
+    "name": "orch",
     "health": 50,
     "mana": 0,
     "strength": 14,
@@ -142,7 +142,7 @@
     "xp": 4
   },
   "orchArcher": {
-    "name": "Orch Archer",
+    "name": "orch archer",
     "health": 50,
     "mana": 0,
     "strength": 13,
@@ -157,5 +157,108 @@
       "marsh"
     ],
     "xp": 4
+  },
+  "djinn": {
+    "name": "djinn",
+    "health": 1,
+    "mana": 0,
+    "strength": 1,
+    "wisdom": 0,
+    "speed": 14,
+    "agility": 0,
+    "walksOn": [
+      "waterTile",
+      "marsh",
+      "bush"
+    ],
+    "xp": 1
+  },
+  "fenix": {
+    "name": "fenix",
+    "health": 40,
+    "mana": 5,
+    "strength": 10,
+    "wisdom": 19,
+    "speed": 5,
+    "agility": 17,
+    "inventory": [
+      "fireblade"
+    ],
+    "xp": 4
+  },
+  "undine": {
+    "name": "undine",
+    "health": 30,
+    "mana": 0,
+    "strength": 20,
+    "wisdom": 0,
+    "speed": 6,
+    "agility": 15,
+    "inventory": [
+      "sabre"
+    ],
+    "walksOn": [
+      "waterTile",
+      "marsh"
+    ],
+    "xp": 3
+  },
+  "golem": {
+    "name": "golem",
+    "health": 80,
+    "mana": 0,
+    "strength": 60,
+    "wisdom": 0,
+    "speed": 3,
+    "agility": 15,
+    "inventory": [
+      "stone axe"
+    ],
+    "xp": 8
+  },
+  "demon": {
+    "name": "golem",
+    "health": 200,
+    "mana": 20,
+    "strength": 50,
+    "wisdom": 10,
+    "speed": 6,
+    "agility": 17,
+    "inventory": [
+      "fireblade",
+      "fireBall"
+    ],
+    "walksOn": [
+      "waterTile",
+      "marsh",
+      "bush"
+    ],
+    "xp": 20
+  },
+  "shadowbeast": {
+    "name": "shadowbeast",
+    "health": 200,
+    "mana": 0,
+    "strength": 20,
+    "wisdom": 0,
+    "speed": 5,
+    "agility": 10,
+    "inventory": [
+      "mace"
+    ],
+    "xp": 10
+  },
+  "lightning": {
+    "name": "lightning",
+    "health": 1,
+    "mana": 10,
+    "strength": 4,
+    "wisdom": 14,
+    "speed": 8,
+    "agility": 0,
+    "inventory": [
+      "chock"
+    ],
+    "xp": 1
   }
 }
