@@ -638,6 +638,13 @@ class Actor extends Phaser.GameObjects.Image {
         timeLeft: actor.speedBase
       })
     }
+    if (spell.speedFix) {
+      this.createEffect(actor, spell.effect);
+      actor.activeEffects.push({
+        speedMod: spell.speedFix - actor.speed,
+        timeLeft: 1
+      })
+    }
     if (spell.walksOn) {
       this.createEffect(actor, spell.effect);
       actor.activeEffects.push({
