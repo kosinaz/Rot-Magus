@@ -723,6 +723,25 @@ class Actor extends Phaser.GameObjects.Image {
       }      
       return;
     }
+    if (spell.name === 'thunder storm') {      
+      for (let i = 0; i < 20 ; i += 1) {
+        let x = actor.tileX + ROT.RNG.getUniformInt(-1, 1);
+        let y = actor.tileY + ROT.RNG.getUniformInt(-1, 1);
+        let victim = this.scene.getActorAt(x, y);
+        if (victim) {
+          victim.health += spell.health; 
+          
+          // If the target actor's health reached zero.
+          if (victim.health < 1) {
+
+            // Kill the actor.
+            victim.die();
+          }
+        }
+        this.createEffectAt(x, y, spell.effect);
+      }
+      return;
+    }
     if (spell.name === 'inferno') {      
       let a = new ROT.Path.AStar(actor.tileX, actor.tileY, function () {
         return true;
