@@ -116,7 +116,8 @@ class SlotImage extends ActiveImage {
           } else if (attribute === 'manaCost') {
             this.tooltip += '\n  mana cost: ' + item[attribute];
           } else if (attribute === 'damageMod') {
-            this.tooltip += '\n  damage modifier: ' + item[attribute];
+            this.tooltip += '\n  damage: ' +
+              (item[attribute] > 0 ? '+' : '') + item[attribute];
           } else if (attribute === 'damageFix') {
             this.tooltip += '\n  fix damage: ' + item[attribute];
           } else if (attribute === 'walksOn') {
@@ -134,7 +135,7 @@ class SlotImage extends ActiveImage {
           } else if (attribute === 'speedFix') {
             this.tooltip += '\n  fix speed: ' + item[attribute];
           } else if (attribute === 'speedMod') {
-            this.tooltip += '\n  speed modifier: ' + 
+            this.tooltip += '\n  speed: ' + 
             (item[attribute] > 0 ? '+' : '') + item[attribute];
           } else if (attribute === 'strengthBase') {
             this.tooltip += '\n  strength: +' + item[attribute];
