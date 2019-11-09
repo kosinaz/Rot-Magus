@@ -401,11 +401,17 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   order() {
-    if (this.speed < 1) {
-      return;
-    }
-    if (this.isEquippedForRangedAttack()) {
-      let actor = this.scene.getActorAt(this.target.x, this.target.y);
+    let actor = this.scene.getActorAt(this.target.x, this.target.y);
+    let spell = this.equipped.leftHand || this.equipped.rightHand;
+    if (spell && spell.manaCost && this.mana >= spell.manaCost) {
+      if (actor) {
+        this.castSpellOn(spell, actor);
+      } else if (spell.summons) {
+        this.summon();
+      } else {
+        this.move();
+      }
+    } else if (this.isWieldingRangedWeapon()) {
       if (actor 
         && this.isEnemyFor(actor)
         && (Math.abs(this.target.x - this.tileX) > 1
@@ -491,7 +497,7 @@ class Actor extends Phaser.GameObjects.Image {
     );
   }
 
-  isEquippedForRangedAttack() {
+  isWieldingRangedWeapon() {
     let leftHand = this.equipped.leftHand;
     let rightHand = this.equipped.rightHand;
     let returningArrows = false;
@@ -558,6 +564,53 @@ class Actor extends Phaser.GameObjects.Image {
     return this.tileX === x && this.tileY === y;
   }
 
+  castSpellOn(spell, actor) {
+    this.mana -= spell.manaCost;
+    let hit = ROT.RNG.getUniformInt(1, 20);
+    if (hit > this.wisdom) {
+
+      // Add the miss effect.
+      this.createEffect(actor, 'huh');
+
+      // Skip the rest.
+      return;
+    }
+    if (spell.damageMod) {
+      this.createEffect(actor, spell.effect);
+      this.activeEffects.push({
+        damageMod: spell.damageMod,
+        timeLeft: actor.speedBase
+      })
+    }
+    if (spell.speedMod) {
+      this.createEffect(actor, spell.effect);
+      actor.activeEffects.push({
+        speedMod: spell.speedMod,
+        timeLeft: actor.speedBase
+      })
+    }
+    if (spell.walksOn) {
+      this.createEffect(actor, spell.effect);
+      actor.activeEffects.push({
+        walksOn: spell.walksOn,
+        timeLeft: actor.speedBase
+      })
+    }
+    if (spell.health) {
+      this.createEffect(actor, spell.effect);
+      actor.health = Math.min(actor.health + spell.health, actor.healthMax);
+
+      // If the target actor's health reached zero.
+      if (actor.health < 1) {
+
+        // Kill the actor.
+        actor.die();
+        return;
+      }
+    }
+    this.updateAttributes();
+  }
+
   // Order the actor to move towards the specified position or make him rest if it is the actor's current position. This action can be called during every action of the actor before he reaches his destination.
   move() {
 
@@ -603,57 +656,7 @@ class Actor extends Phaser.GameObjects.Image {
         this.equipped.rightHand = undefined;
         this.createEffect(this, "uh");
       }
-      let spell = this.equipped.leftHand || this.equipped.rightHand; 
-      let hit = ROT.RNG.getUniformInt(1, 20);
-      if (spell && spell.manaCost) {
-        if (this.mana < spell.manaCost) {
-          return;
-        }
-        this.mana -= spell.manaCost;
-        if (hit > this.wisdom) {
-
-          // Add the miss effect.
-          this.createEffect(this, 'huh');
-
-          // Skip the rest.
-          return;
-        }
-        if (spell.damageMod) {
-          this.createEffect(this, spell.effect);
-          this.activeEffects.push({
-            damageMod: spell.damageMod,
-            timeLeft: this.speedBase
-          })
-        }
-        if (spell.speedMod) {
-          this.createEffect(this, spell.effect);
-          this.activeEffects.push({
-            speedMod: spell.speedMod,
-            timeLeft: this.speedBase
-          })
-        }
-        if (spell.walksOn) {
-          this.createEffect(this, spell.effect);
-          this.activeEffects.push({
-            walksOn: spell.walksOn,
-            timeLeft: this.speedBase
-          })
-        }
-        if (spell.health) {
-          this.createEffect(this, spell.effect);
-          this.health = Math.min(this.health + spell.health, this.healthMax);
-
-          // If the target actor's health reached zero.
-          if (this.health < 1) {
-
-            // Kill the actor.
-            this.die();
-            return;
-          }
-        }
-      }
       this.updateAttributes();
-      
 
       // Make the actor rest until his next action and get back a health point.
       this.rest();
