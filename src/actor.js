@@ -644,12 +644,21 @@ class Actor extends Phaser.GameObjects.Image {
         timeLeft: actor.speedBase
       })
     }
+    if (spell.name === 'protection') {
+      this.createEffect(actor, spell.effect);
+      actor.activeEffects.push({
+        protected: true,
+        timeLeft: actor.speedBase
+      })
+      return;
+    }
     if (spell.name === 'confusion') {
       this.createEffect(actor, spell.effect);
       actor.activeEffects.push({
         confused: true,
         timeLeft: actor.speedBase
       })
+      return;
     }
     if (spell.name === 'portal') {
       this.createEffect(actor, spell.effect);
@@ -1038,6 +1047,13 @@ class Actor extends Phaser.GameObjects.Image {
 
       // If the used weapon does not have a special effect, use the critical hit effect.
       effectType = effectType || 'zok';
+    }
+
+    // If protected.
+    if (actor.activeEffects.some(function (effect) {
+      return effect.protected;
+    })) {
+      damage >>= 1;
     }
 
     // Decrease the damage with the victim's defense.
