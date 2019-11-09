@@ -618,6 +618,16 @@ class Actor extends Phaser.GameObjects.Image {
         return;
       }
     }
+    if (spell.name === 'chaos') {
+      this.createEffect(actor, spell.effect);
+
+      // Drop inventory.
+      actor.inventory = actor.inventory.filter(item => item !== null);
+      if (actor.inventory) {
+        actor.scene.map.addItem(actor.tileX, actor.tileY, actor.inventory);
+      }
+      actor.inventory = [];
+    }
     this.updateAttributes();
   }
 
