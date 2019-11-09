@@ -641,10 +641,11 @@ class Actor extends Phaser.GameObjects.Image {
 
       // Drop inventory.
       actor.inventory = actor.inventory.filter(item => item !== null);
-      if (actor.inventory) {
+      if (actor.inventory.length > 0) {
         actor.scene.map.addItem(actor.tileX, actor.tileY, actor.inventory);
       }
       actor.inventory = [];
+      console.log(actor.name, actor.inventory);
     }
     this.updateAttributes();
   }
@@ -973,7 +974,7 @@ class Actor extends Phaser.GameObjects.Image {
       }      
     }
     this.inventory = this.inventory.filter(item => item !== null);
-    if (this.inventory) {
+    if (this.inventory.length > 0) {
       this.scene.map.addItem(this.tileX, this.tileY, this.inventory);
     }
 
