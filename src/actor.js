@@ -629,42 +629,42 @@ class Actor extends Phaser.GameObjects.Image {
       this.activeEffects.push({
         damageMod: spell.damageMod,
         timeLeft: actor.speedBase
-      })
+      });
     }
     if (spell.speedMod) {
       this.createEffect(actor, spell.effect);
       actor.activeEffects.push({
         speedMod: spell.speedMod,
         timeLeft: actor.speedBase
-      })
+      });
     }
     if (spell.speedFix) {
       this.createEffect(actor, spell.effect);
       actor.activeEffects.push({
         speedMod: spell.speedFix - actor.speed,
         timeLeft: 1
-      })
+      });
     }
     if (spell.walksOn) {
       this.createEffect(actor, spell.effect);
       actor.activeEffects.push({
         walksOn: spell.walksOn,
         timeLeft: actor.speedBase
-      })
+      });
     }
     if (spell.name === 'protection') {
       this.createEffect(actor, spell.effect);
       actor.activeEffects.push({
         protected: true,
         timeLeft: actor.speedBase
-      })
+      });
       return;
     }
     if (spell.name === 'purify') {
       if (actor.lifespan) {
         this.createEffect(actor, spell.effect);
         actor.die();
-      }
+      };
       return;
     }
     if (spell.name === 'confusion') {
@@ -672,7 +672,7 @@ class Actor extends Phaser.GameObjects.Image {
       actor.activeEffects.push({
         confused: true,
         timeLeft: actor.speedBase
-      })
+      });
       return;
     }
     if (spell.name === 'portal') {
@@ -680,7 +680,7 @@ class Actor extends Phaser.GameObjects.Image {
       actor.activeEffects.push({
         toBeTeleported: true,
         timeLeft: 1
-      })
+      });
       return;
     }
     if (spell.name === 'hyperspace') {
@@ -695,7 +695,7 @@ class Actor extends Phaser.GameObjects.Image {
       actor.target = {
         x: actor.tileX,
         y: actor.tileY
-      }
+      };
       return;
     }
     if (spell.name === 'terror') {
@@ -704,7 +704,7 @@ class Actor extends Phaser.GameObjects.Image {
         actor.activeEffects.push({
           fleeingFrom: this,
           timeLeft: actor.speedBase
-        })
+        });
       }     
       return;
     }
@@ -721,6 +721,13 @@ class Actor extends Phaser.GameObjects.Image {
           }
         }
       }      
+      return;
+    }
+    if (spell.name === 'vision') {
+      actor.activeEffects.push({
+        seeing: this,
+        timeLeft: 0
+      });
       return;
     }
     if (spell.name === 'thunder storm') {      

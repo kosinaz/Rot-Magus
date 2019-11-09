@@ -23,6 +23,12 @@ class GameScene extends Phaser.Scene {
       // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its transparency.
       let tile = this.map.getTileNameAt(x, y);
 
+      if (this.player.activeEffects.some(function (effect) {
+        return effect.seeing;
+      })) {
+        return true;
+      }
+
       // Return true if it is the player's position or if it is not opaque.
       return this.player.isAtXY(x, y) ||
         (tile !== 'bush' && 
@@ -31,7 +37,22 @@ class GameScene extends Phaser.Scene {
         tile !== 'mountain' && 
         tile !== 'stoneWall' && 
         tile !== 'gate');
-    }.bind(this));    
+    }.bind(this));  
+    
+    this.enemyFOV = new ROT.FOV.PreciseShadowcasting(function (x, y) {
+
+      // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its transparency.
+      let tile = this.map.getTileNameAt(x, y);
+
+      // Return true if it is the player's position or if it is not opaque.
+      return this.player.isAtXY(x, y) ||
+        (tile !== 'bush' &&
+          tile !== 'tree' &&
+          tile !== 'palmTree' &&
+          tile !== 'mountain' &&
+          tile !== 'stoneWall' &&
+          tile !== 'gate');
+    }.bind(this));
 
     // Create a scheduler specific to the game scene and set it up as a speed scheduler because all the different actions of a specific actor takes the same amount of time based only on the speed of that actor, so there is no need for a more complex scheduler. The scheduler has to be created before any actor, because every actor will be added to scheduler on creation.
     this.scheduler = new ROT.Scheduler.Speed();
@@ -145,7 +166,7 @@ class GameScene extends Phaser.Scene {
   updateEnemyTargets() {
 
     // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
-    this.fov.compute(this.player.tileX, this.player.tileY, 13, function (x, y) {
+    this.enemyFOV.compute(this.player.tileX, this.player.tileY, 13, function (x, y) {
 
       // Get the actor at the given position.
       let actor = this.getActorAt(x, y);
@@ -153,7 +174,7 @@ class GameScene extends Phaser.Scene {
       // If there is an actor and he is not the player, it means that he is an enemy.
       if (actor && actor !== this.player) {
 
-        // If the player stands on a tile that is walkable by the actor.
+        // If the player stands on a tile that is walkable by the enemy.
         if (actor.walksOnXY(this.player.tileX, this.player.tileY)) {
 
           // Make the enemy target the player.
