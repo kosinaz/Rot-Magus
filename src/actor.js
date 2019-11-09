@@ -301,6 +301,12 @@ class Actor extends Phaser.GameObjects.Image {
         }
       }
     }.bind(this));
+    this.activeEffects.forEach(function (effect) {
+      if (effect.speedMod) {
+        this.speedMod += effect.speedMod;
+      }
+    }, this);
+    this.speedMod = this.getLimitedMod(this.speedBase, this.speedMod, 1, 9);
     this.speed = this.speedBase + this.speedMod;
   }
 
@@ -313,6 +319,7 @@ class Actor extends Phaser.GameObjects.Image {
         }
       }
     }.bind(this));
+    this.strengthMod = this.getLimitedMod(this.strengthBase, this.strengthMod, 1, 29);
     this.strength = this.strengthBase + this.strengthMod;
   }
 
@@ -325,6 +332,7 @@ class Actor extends Phaser.GameObjects.Image {
         }
       }
     }.bind(this));
+    this.wisdomMod = this.getLimitedMod(this.wisdomBase, this.wisdomMod, 1, 19);
     this.wisdom = this.wisdomBase + this.wisdomMod;
   }
 
@@ -366,24 +374,30 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     // The modified agility has to be limited to a number between 0 and 19 to keep the chance to hit between 0% and 95%. If the agility modifier would increase or decrease the base agility so much that it would end up out of this range, the modifier will be limited as well to keep the displayed values consistent.
-    // If the modified agility became more than the maximum value.
-    if (this.agilityBase + this.agilityMod > 19) {
-
-      // Set the agility modifier as the difference between the base agility and the max value.
-      this.agilityMod = 19 - this.agilityBase;
-
-    // Else if the modified agility became less than the minimum value.
-    } else if (this.agilityBase + this.agilityMod < 0) {
-
-      // Set the agility modifier as the negative counterpart of the base agility.
-      this.agilityMod = -this.agilityBase;
-    }
+    this.agilityMod = this.getLimitedMod(this.agilityBase, this.agilityMod, 1, 19);
 
     // Update the agility based on the current sum of the above-modified and limited values.
     this.agility = this.agilityBase + this.agilityMod;
 
     // Update the chance to hit based on the current agility.
     this.chanceToHit = (this.agility * 5) + '%';
+  }
+
+  getLimitedMod(base, mod, min, max) {
+
+    // If the modified value became more than the maximum value.
+    if (base + mod > max) {
+      
+      // Set the modifier as the difference between the base value and the max value.
+      mod = max - base;
+      
+      // Else if the modified value became less than the minimum value.
+    } else if (base + mod < min) {
+
+      // Set the modifier as the difference between the base value and the min value. 
+      mod = min - base;
+    }
+    return mod;
   }
 
   order() {
@@ -592,6 +606,13 @@ class Actor extends Phaser.GameObjects.Image {
           this.createEffect(this, spell.effect);
           this.activeEffects.push({
             damageMod: spell.damageMod,
+            timeLeft: this.speedBase
+          })
+        }
+        if (spell.speedMod) {
+          this.createEffect(this, spell.effect);
+          this.activeEffects.push({
+            speedMod: spell.speedMod,
             timeLeft: this.speedBase
           })
         }

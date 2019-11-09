@@ -505,7 +505,7 @@
     "equips": "hands",
     "manaCost": 6,
     "name": "stone foot",
-    "speedFix": 0
+    "walksOn": "nothing"
   },
   "studdedLeather": {
     "defense": 3,
