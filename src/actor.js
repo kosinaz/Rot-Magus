@@ -616,6 +616,18 @@ class Actor extends Phaser.GameObjects.Image {
             timeLeft: this.speedBase
           })
         }
+        if (spell.health) {
+          this.createEffect(this, spell.effect);
+          this.health = Math.min(this.health + spell.health, this.healthMax);
+
+          // If the target actor's health reached zero.
+          if (this.health < 1) {
+
+            // Kill the actor.
+            this.die();
+            return;
+          }
+        }
       }
       this.updateAttributes();
       

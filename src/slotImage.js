@@ -118,8 +118,9 @@ class SlotImage extends ActiveImage {
           } else if (attribute === 'damageMod') {
             this.tooltip += '\n  damage: ' +
               (item[attribute] > 0 ? '+' : '') + item[attribute];
-          } else if (attribute === 'damageFix') {
-            this.tooltip += '\n  fix damage: ' + item[attribute];
+          } else if (attribute === 'health') {
+            this.tooltip += '\n  health: ' +
+              (item[attribute] > 0 ? '+' : '') + item[attribute];
           } else if (attribute === 'walksOn') {
             this.tooltip += '\n  walk on: ' + item[attribute];
           } else if (attribute === 'healthRegen') {
@@ -149,7 +150,6 @@ class SlotImage extends ActiveImage {
               attribute === 'damage' ||
               attribute === 'defense' || 
               attribute === 'agility' ||
-              attribute === 'health' ||
               attribute === 'speed' || 
               attribute === 'strength' || 
               attribute === 'wisdom' ||
