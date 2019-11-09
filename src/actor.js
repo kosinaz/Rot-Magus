@@ -115,6 +115,17 @@ class Actor extends Phaser.GameObjects.Image {
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
+
+    if (this.activeEffects.some(function (effect) {
+        return effect.confused;
+      })) {
+      this.target.x = this.tileX + ROT.RNG.getUniformInt(-1, 1);
+      this.target.y = this.tileY + ROT.RNG.getUniformInt(-1, 1);
+      if (!this.walksOnXY(this.target.x, this.target.y)) {
+        this.target.x = this.tileX;
+        this.target.y = this.tileY;
+      }
+    }
     
     this.getGround();
 
@@ -603,6 +614,13 @@ class Actor extends Phaser.GameObjects.Image {
       this.createEffect(actor, spell.effect);
       actor.activeEffects.push({
         walksOn: spell.walksOn,
+        timeLeft: actor.speedBase
+      })
+    }
+    if (spell.name === 'confusion') {
+      this.createEffect(actor, spell.effect);
+      actor.activeEffects.push({
+        confused: true,
         timeLeft: actor.speedBase
       })
     }

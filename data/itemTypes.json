@@ -149,7 +149,7 @@
     "equips": "hands",
     "manaCost": 5,
     "name": "confusion",
-    "note": "Makes the target's next action random!"
+    "note": "Makes the target's next actions random!"
   },
   "crossbow": {
     "damage": 1,
