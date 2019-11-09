@@ -35,6 +35,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.damageMax = this.damage + 19;
     this.rangedDamage = 1 + (this.strength >> 2);
     this.rangedDamageMax = this.rangedDamage + 19;
+    this.lifespan = this.config.lifespan;
     this.chanceToHit = 0;
     this.usedWeapons = 0;
     this.defense = 0;
@@ -650,6 +651,13 @@ class Actor extends Phaser.GameObjects.Image {
         protected: true,
         timeLeft: actor.speedBase
       })
+      return;
+    }
+    if (spell.name === 'purify') {
+      if (actor.lifespan) {
+        this.createEffect(actor, spell.effect);
+        actor.die();
+      }
       return;
     }
     if (spell.name === 'confusion') {

@@ -161,6 +161,7 @@
   "djinn": {
     "name": "djinn",
     "health": 1,
+    "lifespan": 112,
     "mana": 0,
     "strength": 1,
     "wisdom": 0,
@@ -176,6 +177,7 @@
   "fenix": {
     "name": "fenix",
     "health": 40,
+    "lifespan": 10,
     "mana": 5,
     "strength": 10,
     "wisdom": 19,
@@ -189,6 +191,7 @@
   "undine": {
     "name": "undine",
     "health": 30,
+    "lifespan": 36,
     "mana": 0,
     "strength": 20,
     "wisdom": 0,
@@ -206,6 +209,7 @@
   "golem": {
     "name": "golem",
     "health": 80,
+    "lifespan": 15,
     "mana": 0,
     "strength": 60,
     "wisdom": 0,
@@ -219,6 +223,7 @@
   "demon": {
     "name": "golem",
     "health": 200,
+    "lifespan": 54,
     "mana": 20,
     "strength": 50,
     "wisdom": 10,
@@ -238,6 +243,7 @@
   "shadowbeast": {
     "name": "shadowbeast",
     "health": 200,
+    "lifespan": 15,
     "mana": 0,
     "strength": 20,
     "wisdom": 0,
@@ -251,6 +257,7 @@
   "lightning": {
     "name": "lightning",
     "health": 1,
+    "lifespan": 8,
     "mana": 10,
     "strength": 4,
     "wisdom": 14,
