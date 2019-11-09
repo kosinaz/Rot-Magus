@@ -404,10 +404,17 @@ class Actor extends Phaser.GameObjects.Image {
     let actor = this.scene.getActorAt(this.target.x, this.target.y);
     let spell = this.equipped.leftHand || this.equipped.rightHand;
     if (spell && spell.manaCost && this.mana >= spell.manaCost) {
-      if (actor) {
+      if (actor && !spell.summons) {
         this.castSpellOn(spell, actor);
       } else if (spell.summons) {
-        this.summon();
+        let x = this.getClosestXTowardsTarget();
+        let y = this.getClosestYTowardsTarget();
+        actor = this.scene.getActorAt(x, y);
+        if (!actor) {
+          this.summonAt(x, y, spell);
+        } else {
+          this.move();
+        }
       } else {
         this.move();
       }
@@ -609,6 +616,43 @@ class Actor extends Phaser.GameObjects.Image {
       }
     }
     this.updateAttributes();
+  }
+
+  getClosestXTowardsTarget() {
+    let x = this.tileX;
+    x += this.target.x > this.tileX ? 1 : 0;
+    x += this.target.x < this.tileX ? -1 : 0;
+    return x;
+  }
+
+  getClosestYTowardsTarget() {
+    let y = this.tileY;
+    y += this.target.y > this.tileY ? 1 : 0;
+    y += this.target.y < this.tileY ? -1 : 0;
+    return y;
+  }
+
+  summonAt(x, y, spell) {
+    this.mana -= spell.manaCost;
+    let hit = ROT.RNG.getUniformInt(1, 20);
+    if (hit > this.wisdom) {
+      return;
+    }
+    let tile = this.scene.map.getTileNameAt(x, y);
+    if (this.scene.actorTypes[spell.summons].walksOn || (
+      tile !== 'waterTile' &&
+      tile !== 'marsh' &&
+      tile !== 'bush' &&
+      tile !== 'tree' &&
+      tile !== 'palmTree' &&
+      tile !== 'stoneWall' &&
+      tile !== 'mountain'
+    )) {
+      let enemy = new Actor(this.scene, x, y, 'tiles', spell.summons);
+      this.scene.enemies.push(enemy);
+      enemy.name += ' ' + this.scene.enemies.filter(e => e.tileName === enemy.tileName).length;
+      this.createEffect(enemy, spell.effect);
+    }
   }
 
   // Order the actor to move towards the specified position or make him rest if it is the actor's current position. This action can be called during every action of the actor before he reaches his destination.
