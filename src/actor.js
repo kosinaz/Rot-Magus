@@ -458,12 +458,16 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   // Return true if the target tile is walkable by the actor. This is called by the calculate shortest path function and by the GUI when determining where the pointer marker can be displayed.
-  walksOnXY(x, y) {
+  walksOnXY(x, y) {    
+    if (
+      this.isAtXY(x, y) || 
+      this.scene.enemies.some((enemy) => enemy.isAtXY(x, y))
+    ) {
+      return true;
+    }
 
     // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its walkabilty.
     let tile = this.scene.map.getTileNameAt(x, y);
-
-
     if (this.activeEffects.some(function (effect) {
         return effect.walksOn === 'nothing';
       })) {

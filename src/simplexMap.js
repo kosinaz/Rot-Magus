@@ -50,11 +50,12 @@ class SimplexMap {
     if (this.tiles[x + ',' + y].image === undefined) {
 
       // Create the image of the tile.
-      // tile = this.scene.add.image(x * 24 + 12, y * 21 + 11, this.tilesetImage, this.tiles[x + ',' + y].name);
       tile = new ActiveImage({
         scene: this.scene,
         frame: this.tiles[x + ',' + y].name,
         texture: this.tilesetImage,
+        tileX: x,
+        tileY: y,
         x: x * 24 + 12,
         y: y * 21 + 11
       });
@@ -69,37 +70,33 @@ class SimplexMap {
       // Set the tile to start the show animation from a full transparency.
       this.tiles[x + ',' + y].image.alpha = 0;
 
-      // Add the tile to the container of terrain tiles to show it under the actor.
-      //this.terrain.add(this.tiles[x + ',' + y].image)
+      // Show the tile under the actor.
       this.tiles[x + ',' + y].image.depth = 1;
 
       // Set the tile to show in the current update.
       this.tiles[x + ',' + y].toShow = true;
 
-      // If the tile is walkable by the player.
-      if (this.scene.player.walksOnXY(x, y)) {
+      this.scene.input.on('pointerup', function () {
 
-        this.scene.input.on('pointerup', function () {
+        // Set the current position of the actor as his current target to prevent him attacking the enemy automatically as his next actions.
+        this.scene.player.target = {
+          x: this.scene.player.tileX,
+          y: this.scene.player.tileY
+        };
 
-          // Set the current position of the actor as his current target to prevent him attacking the enemy automatically as his next actions.
-          this.scene.player.target = {
-            x: this.scene.player.tileX,
-            y: this.scene.player.tileY
-          };
+        // Reset his path and let him decide about his next action.
+        this.scene.player.path = [];
+      });
 
-          // Reset his path and let him decide about his next action.
-          this.scene.player.path = [];
-        });
+      this.tiles[x + ',' + y].image.on('pointerdown', function () {
 
-        this.tiles[x + ',' + y].image.on('pointerdown', function () {
+        // If the tile is walkable by the player.
+        if (this.scene.player.walksOnXY(this.config.tileX, this.config.tileY)) {
+
           this.scene.targetTile = this.scene.add.graphics();
           this.scene.targetTile.fillStyle(0xffff00, 0.2);
           this.scene.targetTile.fillRect(this.x - 11, this.y - 11, 23, 20);
           this.scene.targetTile.depth = 5;
-        // });
-
-        // // Set the tile to react to clicks.
-        // this.tiles[x + ',' + y].image.on('click', function () {
 
           // Set that tile as the new target of the player.
           this.scene.player.target.x = x;
@@ -107,10 +104,14 @@ class SimplexMap {
 
           // Move the player towards the new target.
           this.scene.player.order();
-        });
+        }
+      });
 
-        // Set the tile to react to mouse over events.
-        this.tiles[x + ',' + y].image.on('pointerover', function () {
+      // Set the tile to react to mouse over events.
+      this.tiles[x + ',' + y].image.on('pointerover', function () {
+
+        // If the tile is walkable by the player.
+        if (this.scene.player.walksOnXY(this.config.tileX, this.config.tileY)) {
 
           // Move the marker over the tile.
           this.scene.tweens.add({
@@ -120,8 +121,8 @@ class SimplexMap {
             ease: 'Quad.easeOut',
             duration: 100 / game.speed
           });
-        });
-      }
+        }
+      });
     }
 
     // Set the tile not to hide in the current update.
