@@ -645,6 +645,47 @@ class Actor extends Phaser.GameObjects.Image {
         x: actor.tileX,
         y: actor.tileY
       }
+      return;
+    }
+    if (spell.name === 'inferno') {      
+      let a = new ROT.Path.AStar(actor.tileX, actor.tileY, function () {
+        return true;
+      });
+      let fires = [];
+      a.compute(this.tileX, this.tileY, function (x, y) {
+
+        // Add the next position of the shortest path to the fire's path.
+        fires.push({
+          x: x,
+          y: y
+        });
+      }.bind(this));
+      fires.shift();        
+      for (let x = -1; x < 2 ; x += 1) {
+        for (let y = -1; y < 2; y += 1 ) {
+          if (!(x === 0 && y === 0)) {
+            fires.push({
+              x: actor.tileX + x,
+              y: actor.tileY + y
+            });
+          }
+        }
+      }
+      fires.forEach(function (fire) {
+        let victim = this.scene.getActorAt(fire.x, fire.y);
+        if (victim) {
+          victim.health += spell.health; 
+          
+          // If the target actor's health reached zero.
+          if (victim.health < 1) {
+
+            // Kill the actor.
+            victim.die();
+          }
+        }
+        this.createEffectAt(fire.x, fire.y, spell.effect);
+      }, this);
+      return;
     }
     if (spell.health) {
       this.createEffect(actor, spell.effect);
@@ -655,7 +696,6 @@ class Actor extends Phaser.GameObjects.Image {
 
         // Kill the actor.
         actor.die();
-        return;
       }
     }
     if (spell.name === 'chaos') {
@@ -669,6 +709,7 @@ class Actor extends Phaser.GameObjects.Image {
       actor.inventory = [];
     }
     this.updateAttributes();
+    return;
   }
 
   getClosestXTowardsTarget() {
@@ -864,6 +905,13 @@ class Actor extends Phaser.GameObjects.Image {
   createEffect(actor, effectType) {
     let effect = this.scene.add.sprite(actor.x, actor.y, 'tiles', effectType);
     effect.actor = actor;
+    effect.depth = 4;
+    effect.visible = false;
+    this.scene.effects.push(effect);
+  }
+
+  createEffectAt(x, y, effectType) {
+    let effect = this.scene.add.sprite(x * 24 + 11, y * 21 + 11, 'tiles', effectType);
     effect.depth = 4;
     effect.visible = false;
     this.scene.effects.push(effect);

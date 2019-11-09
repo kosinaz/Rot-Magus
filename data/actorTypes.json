@@ -3,10 +3,10 @@
     "name": "Atlian",
     "chance": 0,
     "health": 90,
-    "mana": 100,
+    "mana": 10000,
     "strength": 14,
-    "wisdom": 10,
-    "speed": 6,
+    "wisdom": 100,
+    "speed": 600,
     "agility": 15,
     "inventory": [
       "bow",

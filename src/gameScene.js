@@ -229,8 +229,8 @@ class GameScene extends Phaser.Scene {
     this.time.delayedCall(500 / game.speed, function () {
     this.effects.forEach(function (effect) {
       effect.visible = true;
-      effect.x = effect.actor.x;
-      effect.y = effect.actor.y;
+      effect.x = effect.actor ? effect.actor.x : effect.x;
+      effect.y = effect.actor ? effect.actor.y : effect.y;
     });
     
     }.bind(this));
