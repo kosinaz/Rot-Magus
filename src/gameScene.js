@@ -281,15 +281,10 @@ class GameScene extends Phaser.Scene {
         }
       }
 
-      // If the player hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
-      if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {
+      this.player.updateTargetBasedOnEffects();
 
-        if (this.player.activeEffects.some(function (effect) {
-            return effect.confused;
-          })) {
-          this.player.target.x = this.player.tileX + ROT.RNG.getUniformInt(-1, 1);
-          this.player.target.y = this.player.tileY + ROT.RNG.getUniformInt(-1, 1);
-        }
+      // If the player hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
+      if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {    
 
         // Make him move towards his target.
         this.player.move();

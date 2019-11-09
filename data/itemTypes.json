@@ -386,7 +386,7 @@
     "equips": "hands",
     "manaCost": 20,
     "name": "panic",
-    "note": "Makes every monster nearby run away from the caster!",
+    "note": "Makes every monster near the target run away from the caster!",
     "range": 6
   },
   "phantom": {

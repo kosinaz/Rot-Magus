@@ -50,7 +50,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.depth = 3;
     this.actions = [];
     this.scene.events.on('playerReady', function () {
-      if (this.dead && !this.scene) {
+      if (this.dead || !this.scene) {
         return;
       }
       let timeline = this.scene.tweens.createTimeline();
@@ -124,30 +124,7 @@ class Actor extends Phaser.GameObjects.Image {
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
 
-    // If fleeing.
-    let fleeing = this.activeEffects.find(function (effect) {
-      return effect.fleeingFrom;
-    })       
-    if (fleeing) {
-      this.target.x = this.tileX;
-      this.target.x += this.target.x < fleeing.fleeingFrom.tileX ? -1 : 1;
-      this.target.y = this.tileY;
-      this.target.y += this.target.y < fleeing.fleeingFrom.tileY ? -1 : 1;
-    }
-
-    // If confused.
-    if (this.activeEffects.some(function (effect) {
-        return effect.confused;
-      })) {
-      this.target.x = this.tileX + ROT.RNG.getUniformInt(-1, 1);
-      this.target.y = this.tileY + ROT.RNG.getUniformInt(-1, 1);      
-    }
-
-    // If cornered.
-    if (!this.walksOnXY(this.target.x, this.target.y)) {
-      this.target.x = this.tileX;
-      this.target.y = this.tileY;
-    }
+    this.updateTargetBasedOnEffects();
     
     this.getGround();
 
@@ -160,6 +137,34 @@ class Actor extends Phaser.GameObjects.Image {
 
       // Make him move towards his target or attack from afar if possible.
       this.order();
+    }
+  }
+
+  updateTargetBasedOnEffects() {
+
+    // If fleeing.
+    let fleeing = this.activeEffects.find(function (effect) {
+      return effect.fleeingFrom;
+    })
+    if (fleeing) {
+      this.target.x = this.tileX;
+      this.target.x += this.target.x < fleeing.fleeingFrom.tileX ? -1 : 1;
+      this.target.y = this.tileY;
+      this.target.y += this.target.y < fleeing.fleeingFrom.tileY ? -1 : 1;
+    }
+
+    // If confused.
+    if (this.activeEffects.some(function (effect) {
+        return effect.confused;
+      })) {
+      this.target.x = this.tileX + ROT.RNG.getUniformInt(-1, 1);
+      this.target.y = this.tileY + ROT.RNG.getUniformInt(-1, 1);
+    }
+
+    // If cornered.
+    if (!this.walksOnXY(this.target.x, this.target.y)) {
+      this.target.x = this.tileX;
+      this.target.y = this.tileY;
     }
   }
 
@@ -195,7 +200,7 @@ class Actor extends Phaser.GameObjects.Image {
 
   updateEffects() {
     for (let i = 0; i < this.activeEffects.length; i += 1) {
-      if (--this.activeEffects[i].timeLeft === 0) {
+      if (this.activeEffects[i].timeLeft-- === 0) {
         this.activeEffects.splice(i, 1);
       }
     }
@@ -646,6 +651,14 @@ class Actor extends Phaser.GameObjects.Image {
         timeLeft: actor.speedBase
       })
     }
+    if (spell.name === 'portal') {
+      this.createEffect(actor, spell.effect);
+      actor.activeEffects.push({
+        toBeTeleported: true,
+        timeLeft: 1
+      })
+      return;
+    }
     if (spell.name === 'hyperspace') {
       this.createEffect(actor, spell.effect);
       actor.tileX += ROT.RNG.getUniformInt(-1000, 1000);
@@ -843,6 +856,25 @@ class Actor extends Phaser.GameObjects.Image {
       return;
     }
 
+    let toBeTeleported = this.activeEffects.some(function (effect) {
+      return effect.toBeTeleported;
+    });
+    let victim;
+    if (toBeTeleported) {
+      victim = this.scene.getActorAt(this.target.x, this.target.y);
+      if (!victim) {
+        this.tileX = this.target.x;
+        this.tileY = this.target.y;
+        this.createEffect(this, "bam");
+        this.actions.push({
+          type: 'teleport',
+          x: this.tileX,
+          y: this.tileY
+        });
+        return;
+      }
+    }
+
     // If the actor has been ordered to a different position and just started to move towards that position there can't be an already calculated path for him. Or if the actor just arrived to its destination during his last action, the last step will be still there as the last remaining element of the path, and that will be the actor's current position. That path can be ignored and no further automatic action should be performed. So in both cases this part of the code has been reached because the actor has been given a new order.
     if (!this.path || this.path.length < 2) {
 
@@ -855,6 +887,18 @@ class Actor extends Phaser.GameObjects.Image {
 
     // If the target is unreachable
     if (!this.path[0]) {
+      return;
+    }
+
+    if (toBeTeleported && victim && this.path.length > 3) {
+      this.tileX = this.path[this.path.length - 3].x;
+      this.tileY = this.path[this.path.length - 3].y;
+      this.createEffect(this, "bam");
+      this.actions.push({
+        type: 'teleport',
+        x: this.tileX,
+        y: this.tileY
+      });
       return;
     }
 

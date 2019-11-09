@@ -102,18 +102,7 @@ class SimplexMap {
           this.scene.player.target.x = x;
           this.scene.player.target.y = y;
 
-          if (this.scene.player.activeEffects.some(function (effect) {
-              return effect.confused;
-            })) {
-            this.scene.player.target.x = this.scene.player.tileX + ROT.RNG.getUniformInt(-1, 1);
-            this.scene.player.target.y = this.scene.player.tileY + ROT.RNG.getUniformInt(-1, 1);
-            if (!this.scene.player.walksOnXY(
-              this.scene.player.target.x, this.scene.player.target.y
-            )) {
-              this.scene.player.target.x = this.scene.player.tileX;
-              this.scene.player.target.y = this.scene.player.tileY;
-            }
-          }
+          this.scene.player.updateTargetBasedOnEffects();
 
           // Move the player towards the new target.
           this.scene.player.order();
