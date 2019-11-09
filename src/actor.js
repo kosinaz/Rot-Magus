@@ -905,9 +905,11 @@ class Actor extends Phaser.GameObjects.Image {
     // Damage that actor.
     if (leftHand && leftHand.effect) {
       effect = leftHand.effect;
+      actor.health += leftHand.health;
     }
     if (rightHand && rightHand.effect) {
       effect = rightHand.effect;
+      actor.health += rightHand.health;
     }
     this.causeDamage(
       actor, 
