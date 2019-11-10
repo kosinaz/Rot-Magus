@@ -17,6 +17,8 @@ class GameScene extends Phaser.Scene {
     // Get the external item configurations designed to simplify item creation and increase the data maintenance efficiency. 
     this.itemTypes = this.cache.json.get('itemTypes');
 
+    this.levels = this.cache.json.get('levels');
+
     // Create an FOV calculator used during the calculate FOV action of the player.
     this.fov = new ROT.FOV.PreciseShadowcasting(function (x, y) {
 

@@ -97,11 +97,11 @@ class Player extends Actor {
       // Decrease his XP with the target amount.
       this.xp -= this.xpMax;
 
-      // Increase to target XP.
-      this.xpMax *= 2;
-
       // Increase the level of the player.
       this.level += 1;
+
+      // Increase to target XP.
+      this.xpMax = this.scene.levels[this.level].xp;
 
       // Increase the maximum health of the player.
       this.healthMax += 10;

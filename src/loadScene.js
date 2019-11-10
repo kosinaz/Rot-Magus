@@ -51,6 +51,7 @@ class LoadScene extends Phaser.Scene {
     this.load.json('itemTypes', 'data/itemTypes.json');
     this.load.json('guiElements', 'data/guiElements.json');
     this.load.json('mapConfig', 'data/mapConfig.json');
+    this.load.json('levels', 'data/levels.json');
     if (GJAPI.bActive) {
       GJAPI.UserFetchCurrent(function (pResponse) {
         if (!pResponse.users) {

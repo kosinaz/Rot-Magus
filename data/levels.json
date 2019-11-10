@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Nobody",
+        "xp": 50
+    },
+    {
+        "name": "Amateur",
+        "xp": 100
+    },
+    {
+        "name": "Novice",
+        "xp": 200
+    },
+    {
+        "name": "Apprentice",
+        "xp": 300
+    },
+    {
+        "name": "Trained",
+        "xp": 400
+    },
+    {
+        "name": "Good",
+        "xp": 500
+    },
+    {
+        "name": "Experienced",
+        "xp": 700
+    },
+    {
+        "name": "Expert",
+        "xp": 900
+    },
+    {
+        "name": "Elite",
+        "xp": 1200
+    },
+    {
+        "name": "Master",
+        "xp": 1500
+    },
+    {
+        "name": "ArchMaster",
+        "xp": 2000
+    },
+    {
+        "name": "Legend",
+        "xp": 2000
+    }
+]
