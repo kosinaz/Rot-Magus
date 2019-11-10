@@ -125,9 +125,11 @@ class Actor extends Phaser.GameObjects.Image {
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
 
-    if (this.lifespan-- === 0) {
-      this.leave();
-      return;
+    if (this.lifespan !== undefined) {
+      if (this.lifespan-- === 0) {
+        this.leave();
+        return;
+      }
     }
 
     this.updateTargetBasedOnEffects();
