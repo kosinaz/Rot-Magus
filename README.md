@@ -11,8 +11,8 @@ Traverse the mysterious lands, acquire powerful weapons and magical artifacts, d
 * Click on terrain: move once
 * Keep pushing the button: move continuously
 * Click on the adventurer: rest
-* Click on monster next to the adventurer: melee attack
-* Click on an enemy in the distance: ranged attack
+* Click on a monster next to the adventurer: melee attack
+* Click on a monster in the distance: ranged attack
 * Click on a slot on the equipment section: equip or unequip an item
 * Click on a slot of the top inventory section: pick up or put down an item in your inventory
 * Click on a slot of the bottom ground section: pick up or put down an item on the ground
