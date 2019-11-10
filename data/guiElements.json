@@ -148,16 +148,16 @@
     "y": 79
   },
   "level": {
-    "targetAttribute": "level",
-    "tooltip": "level\n  The higher it is, the higher your maximum Health and Mana will be.",
-    "type": "TextLabelStroked",
-    "x": 40,
-    "y": 16
-  },
-  "levelImage": {
     "frame": "level",
     "texture": "gui",
     "type": "ActiveImage",
+    "x": 40,
+    "y": 16
+  },
+  "levelNumber": {
+    "targetAttribute": "level",
+    "tooltip": "level\n  The higher it is, the higher your maximum Health and Mana will be.",
+    "type": "TextLabelStroked",
     "x": 40,
     "y": 16
   },
