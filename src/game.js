@@ -30,4 +30,4 @@ const color = {
   darkgray: 0x404040
 }
 
-game.speed = 5;
+game.speed = 3;
