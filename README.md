@@ -2,6 +2,8 @@
 
 Rot Magus is a classic 8-bit roguelike turn-based role-playing game about an unknown hero who plunged into the realm of the Dark One to face him and his endless army in the hope of fortune and fame. It features dozens of different monsters, items, spells, and an infinite map filled with winding mountains, deep forests, barren deserts, and tranquilizing lakes.
 
+![header](https://raw.githubusercontent.com/kosinaz/Rot-Magus/master/misc/2019%20v060%20header.png)
+
 This game is an extended, browser-based remake of Ronny Wester's Magus, built with rot.js and Phaser.
 
 Traverse the mysterious lands, acquire powerful weapons and magical artifacts, destroy the endless armies of evil in close combat, or from afar, and gain enough experience to level up and become the strongest and most famous hero of all time.
