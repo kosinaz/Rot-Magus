@@ -623,6 +623,15 @@ class Actor extends Phaser.GameObjects.Image {
 
   castSpellOn(spell, actor) {
     this.mana -= spell.manaCost;
+    if (actor.inventory.some(function (item) {
+      if (item) {
+        return item.name === 'negator';
+      }
+      return false;
+    })) {
+      this.createEffect(actor, 'negate');
+      return;
+    }
     let hit = ROT.RNG.getUniformInt(1, 20);
     if (hit > this.wisdom) {
 

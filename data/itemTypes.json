@@ -366,6 +366,7 @@
   },
   "negator": {
     "name": "negator",
+    "note": "Makes the carrier immune to magic!",
     "price": 150
   },
   "opal": {
