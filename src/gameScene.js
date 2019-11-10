@@ -101,7 +101,11 @@ class GameScene extends Phaser.Scene {
 
     // If the player died.
     this.events.on('playerDied', function () {
-      game.score = this.player.level;
+      game.score = this.player.xp;
+      for (var i = 0; i < this.player.level; i += 1) {
+        game.score += this.levels[i].xp;
+      }
+      game.rank = this.levels[this.player.level].name;
 
       this.events.off('attributesUpdated');
       this.events.off('playerReady');

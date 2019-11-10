@@ -197,7 +197,6 @@ class SimplexMap {
     if (enemyType) {
       enemy = new Actor(this.scene, x, y, 'tiles', enemyType);
       this.scene.enemies.push(enemy);
-      enemy.name += ' ' + this.scene.enemies.filter(e => e.tileName === enemy.tileName).length;
     }
   }
 

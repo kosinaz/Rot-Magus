@@ -4,11 +4,6 @@ class DeathScene extends Phaser.Scene {
   }
 
   create() {
-    if (GJAPI.bActive) {
-      GJAPI.ScoreAdd(0, game.score, game.score);
-    } else {
-      GJAPI.ScoreAddGuest(0, game.score, game.score, 'Unnamed Hero');
-    }
     this.cameras.main.fadeIn(2000);
     this.cameras.main.setBackgroundColor('#000000');
     this.add.image(512, 200, 'gui', 'funeral').setOrigin(0.5);

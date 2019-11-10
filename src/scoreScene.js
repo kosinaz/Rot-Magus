@@ -16,19 +16,13 @@ class ScoreScene extends Phaser.Scene {
       if (!pResponse.scores) {
         return;
       }
-      let names = '';
       let scores = '';
       for (let i = 0; i < pResponse.scores.length; i += 1) {
         let pScore = pResponse.scores[i];
-        names += (pScore.user ? pScore.user : pScore.guest) + '\n';
-        scores += pScore.score + '\n';
+        scores += (pScore.user ? pScore.user : pScore.guest) + ' - '
+          + pScore.score + ' ' + pScore.stored + '\n';
       }
-      this.add.text(380, 70, names, {
-        fontFamily: 'font',
-        fontSize: '16px',
-        fill: '#000000'
-      });
-      this.add.text(590, 70, scores, {
+      this.add.text(300, 70, scores, {
         fontFamily: 'font',
         fontSize: '16px',
         fill: '#000000'

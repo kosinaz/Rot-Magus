@@ -761,6 +761,10 @@ class Actor extends Phaser.GameObjects.Image {
           // If the target actor's health reached zero.
           if (victim.health < 1) {
 
+            if (victim === this.scene.player) {
+              game.killer = this.name;
+            }
+
             // Kill the actor.
             victim.die();
           }
@@ -801,6 +805,10 @@ class Actor extends Phaser.GameObjects.Image {
           // If the target actor's health reached zero.
           if (victim.health < 1) {
 
+            if (victim === this.scene.player) {
+              game.killer = this.name;
+            }
+
             // Kill the actor.
             victim.die();
           }
@@ -817,6 +825,10 @@ class Actor extends Phaser.GameObjects.Image {
       if (actor.health < 1) {
 
         // Kill the actor.
+        if (actor === this.scene.player) {
+          game.killer = this.name;
+        }
+
         actor.die();
       }
     }
@@ -1082,9 +1094,11 @@ class Actor extends Phaser.GameObjects.Image {
    */
   causeDamage(actor, damage, critDamage, effectType) {    
 
-    this.target = {
-      x: this.tileX,
-      y: this.tileY
+    if (this === this.scene.player) {
+      this.target = {
+        x: this.tileX,
+        y: this.tileY
+      }
     }
 
     // Roll for hit.
@@ -1138,6 +1152,10 @@ class Actor extends Phaser.GameObjects.Image {
 
     // If the target actor's health reached zero.
     if (actor.health < 1) {
+
+      if (actor === this.scene.player) {
+        game.killer = this.name;
+      }
 
       // Kill the actor.
       actor.die();
