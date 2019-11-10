@@ -1,255 +1,11 @@
 {
-  "default": {
-    "event": "attributesUpdated",
-    "fill": "#000000",
-    "fontFamily": "font",
-    "fontSize": "16px",
-    "scene": "GUIScene",
-    "targetActor": "player",
-    "targetScene": "GameScene",
-    "originX": 0.5,
-    "originY": 0.5
-  },
-  "portrait": {
-    "targetAttribute": "tileName",
-    "texture": "tiles",
-    "type": "Portrait",
-    "x": 16,
-    "y": 16
-  },
-  "levelImage": {
-    "frame": "level",
-    "texture": "gui",
-    "type": "ActiveImage",
-    "x": 40,
-    "y": 16
-  },
-  "level": {
-    "type": "TextLabelStroked",
-    "targetAttribute": "level",
-    "tooltip": "level\n  The higher it is, the higher your maximum Health and Mana will be.",
-    "x": 40,
-    "y": 16
-  },
-  "name": {
-    "originX": 0,
-    "originY": 0.5,
-    "type": "TextLabel",
-    "targetAttribute": "name",
-    "x": 56,
-    "y": 16
-  },
-  "xp": {
-    "color": "0xe30000",
-    "rectHeight": 21,
-    "rectX": 4,
-    "rectY": 26,
-    "rectWidth": 96,
-    "separator": "/",
-    "tooltip": "XP\n  Gain more by killing enemies. Reach the current maximum to level up.",
-    "type": "TextLabelStrokedBar",
-    "targetAttribute": "xp",
-    "targetAttributeMax": "xpMax",
-    "x": 52,
-    "y": 37
-  },
-  "health": {
-    "color": "0x00e300",
-    "rectHeight": 21,
-    "rectX": 4,
-    "rectY": 47,
-    "rectWidth": 96,
-    "separator": "/",
-    "tooltip": "health\n  You die if it reaches 0. Rest to heal and level up to increase it.",
-    "type": "TextLabelStrokedBar",
-    "targetAttribute": "health",
-    "targetAttributeMax": "healthMax",
-    "x": 52,
-    "y": 58
-  },
-  "mana": {
-    "color": "0x4261e7",
-    "rectHeight": 21,
-    "rectX": 4,
-    "rectY": 68,
-    "rectWidth": 96,
-    "separator": "/",
-    "tooltip": "mana\n  You can't cast spells if it reaches 0. Rest to regenerate, have some wisdom and level up to increase it.",
-    "type": "TextLabelStrokedBar",
-    "targetAttribute": "mana",
-    "targetAttributeMax": "manaMax",
-    "x": 52,
-    "y": 79
-  },
-  "head": {
-    "frame": "head",
-    "i": "head",
-    "texture": "gui",
-    "tooltip": "head\n  Put a helmet on it to increase your defense.",
-    "type": "SlotImage",
-    "targetAttribute": "equipped",
-    "x": 184,
-    "y": 16
-  },
-  "neck": {
-    "frame": "neck",
-    "i": "neck",
-    "texture": "gui",
-    "tooltip": "neck\n  Put a necklace on it to increase your attributes.",
-    "type": "SlotImage",
-    "targetAttribute": "equipped",
-    "x": 184,
-    "y": 37
-  },
-  "finger": {
-    "frame": "finger",
-    "i": "finger",
-    "texture": "gui",
-    "tooltip": "finger\n  Put a ring on it to increase your attributes.",
-    "type": "SlotImage",
-    "targetAttribute": "equipped",
-    "x": 160,
-    "y": 58
-  },
-  "back": {
-    "frame": "back",
-    "i": "back",
-    "texture": "gui",
-    "tooltip": "neck\n  Put a cloak on it to increase your defense.",
-    "type": "SlotImage",
-    "targetAttribute": "equipped",
-    "x": 184,
-    "y": 58
-  },
-  "chanceToHit": {
+  "agility": {
     "originX": 1,
     "originY": 0.5,
-    "tooltip": "chance to hit\n  The chance that you hit your target with your weapons based on your agility and the number of weapons you use.",
+    "targetAttribute": "agility",
     "type": "TextLabel",
-    "targetAttribute": "chanceToHit",
-    "x": 144,
-    "y": 58
-  },
-  "palm": {
-    "frame": "palm",
-    "i": "palm",
-    "texture": "gui",
-    "tooltip": "palm\n  Put some gloves on it to increase your defense.",
-    "type": "SlotImage",
-    "targetAttribute": "equipped",
-    "x": 208,
-    "y": 58
-  },
-  "damage": {
-    "originX": 1,
-    "originY": 0.5,
-    "separator": "-",
-    "tooltip": "damage\n  The amount of damage you can cause based on your strength and your weapons.",
-    "type": "TextLabel",
-    "targetAttribute": "damage",
-    "targetAttributeMax": "damageMax",
-    "x": 144,
-    "y": 79
-  },
-  "rightHand": {
-    "frame": "rightHand",
-    "i": "rightHand",
-    "texture": "gui",
-    "tooltip": "right hand\n  Put a weapon in it to increase your damage or a shield to increase your defense.",
-    "type": "SlotImage",
-    "targetAttribute": "equipped",
-    "x": 160,
-    "y": 79
-  },
-  "body": {
-    "frame": "body",
-    "i": "body",
-    "texture": "gui",
-    "tooltip": "palm\n  Put an armour on it to increase your defense.",
-    "type": "SlotImage",
-    "targetAttribute": "equipped",
-    "x": 184,
-    "y": 79
-  },
-  "leftHand": {
-    "frame": "leftHand",
-    "i": "leftHand",
-    "texture": "gui",
-    "tooltip": "left hand\n  Put a weapon in it to increase your damage or a shield to increase your defense.",
-    "type": "SlotImage",
-    "targetAttribute": "equipped",
-    "x": 208,
-    "y": 79
-  },
-  "rangedDamage": {
-    "originX": 0,
-    "originY": 0.5,
-    "separator": "-",
-    "tooltip": "ranged damage\n  The amount of damage you can cause based on your strength and your ranged weapons.",
-    "type": "TextLabel",
-    "targetAttribute": "rangedDamage",
-    "targetAttributeMax": "rangedDamageMax",
-    "x": 222,
-    "y": 79
-  },
-  "defense": {
-    "originX": 0,
-    "originY": 0.5,
-    "type": "TextLabel",
-    "targetAttribute": "defense",
-    "tooltip": "defense\n  The total amount of damage your armors will reduce in case you get hit.",
-    "x": 222,
-    "y": 58
-  },
-  "speedImage": {
-    "frame": "speed",
-    "texture": "gui",
-    "tooltip": "speed\n  The higher it is, the more times you act than others.",
-    "type": "ActiveImage",
-    "x": 304,
-    "y": 16
-  },
-  "speed": {
-    "originX": 1,
-    "originY": 0.5,
-    "type": "TextLabel",
-    "targetAttribute": "speed",
     "x": 288,
-    "y": 16
-  },
-  "speedMod": {
-    "originX": 0,
-    "originY": 0.5,
-    "type": "TextLabel",
-    "targetAttribute": "speedMod",
-    "x": 320,
-    "y": 16
-  },
-  "strengthImage": {
-    "frame": "strength",
-    "texture": "gui",
-    "tooltip": "strength\n  The higher it is, the more you can carry and the higher your damage will be.",
-    "type": "ActiveImage",
-    "x": 304,
-    "y": 37
-  },
-  "strength": {
-    "originX": 1,
-    "originY": 0.5,
-    "separator": "/",
-    "type": "TextLabel",
-    "targetAttribute": "load",
-    "targetAttributeMax": "strength",
-    "x": 288,
-    "y": 37
-  },
-  "strengthMod": {
-    "originX": 0,
-    "originY": 0.5,
-    "type": "TextLabel",
-    "targetAttribute": "strengthMod",
-    "x": 320,
-    "y": 37
+    "y": 58
   },
   "agilityImage": {
     "frame": "agility",
@@ -259,21 +15,279 @@
     "x": 304,
     "y": 58
   },
-  "agility": {
-    "originX": 1,
-    "originY": 0.5,
-    "type": "TextLabel",
-    "targetAttribute": "agility",
-    "x": 288,
-    "y": 58
-  },
   "agilityMod": {
     "originX": 0,
     "originY": 0.5,
-    "type": "TextLabel",
     "targetAttribute": "agilityMod",
+    "type": "TextLabel",
     "x": 320,
     "y": 58
+  },
+  "back": {
+    "frame": "back",
+    "i": "back",
+    "targetAttribute": "equipped",
+    "texture": "gui",
+    "tooltip": "neck\n  Put a cloak on it to increase your defense.",
+    "type": "SlotImage",
+    "x": 184,
+    "y": 58
+  },
+  "body": {
+    "frame": "body",
+    "i": "body",
+    "targetAttribute": "equipped",
+    "texture": "gui",
+    "tooltip": "palm\n  Put an armour on it to increase your defense.",
+    "type": "SlotImage",
+    "x": 184,
+    "y": 79
+  },
+  "chanceToHit": {
+    "originX": 1,
+    "originY": 0.5,
+    "targetAttribute": "chanceToHit",
+    "tooltip": "chance to hit\n  The chance that you hit your target with your weapons based on your agility and the number of weapons you use.",
+    "type": "TextLabel",
+    "x": 144,
+    "y": 58
+  },
+  "damage": {
+    "originX": 1,
+    "originY": 0.5,
+    "separator": "-",
+    "targetAttribute": "damage",
+    "targetAttributeMax": "damageMax",
+    "tooltip": "damage\n  The amount of damage you can cause based on your strength and your weapons.",
+    "type": "TextLabel",
+    "x": 144,
+    "y": 79
+  },
+  "default": {
+    "event": "attributesUpdated",
+    "fill": "#000000",
+    "fontFamily": "font",
+    "fontSize": "16px",
+    "originX": 0.5,
+    "originY": 0.5,
+    "scene": "GUIScene",
+    "targetActor": "player",
+    "targetScene": "GameScene"
+  },
+  "defense": {
+    "originX": 0,
+    "originY": 0.5,
+    "targetAttribute": "defense",
+    "tooltip": "defense\n  The total amount of damage your armors will reduce in case you get hit.",
+    "type": "TextLabel",
+    "x": 222,
+    "y": 58
+  },
+  "finger": {
+    "frame": "finger",
+    "i": "finger",
+    "targetAttribute": "equipped",
+    "texture": "gui",
+    "tooltip": "finger\n  Put a ring on it to increase your attributes.",
+    "type": "SlotImage",
+    "x": 160,
+    "y": 58
+  },
+  "groundSlots": {
+    "columns": 15,
+    "frame": "slot",
+    "rows": 10,
+    "targetAttribute": "ground",
+    "texture": "gui",
+    "type": "SlotGrid",
+    "x": 16,
+    "y": 352
+  },
+  "head": {
+    "frame": "head",
+    "i": "head",
+    "targetAttribute": "equipped",
+    "texture": "gui",
+    "tooltip": "head\n  Put a helmet on it to increase your defense.",
+    "type": "SlotImage",
+    "x": 184,
+    "y": 16
+  },
+  "health": {
+    "color": "0x00e300",
+    "rectHeight": 21,
+    "rectWidth": 96,
+    "rectX": 4,
+    "rectY": 47,
+    "separator": "/",
+    "targetAttribute": "health",
+    "targetAttributeMax": "healthMax",
+    "tooltip": "health\n  You die if it reaches 0. Rest to heal and level up to increase it.",
+    "type": "TextLabelStrokedBar",
+    "x": 52,
+    "y": 58
+  },
+  "inventorySlots": {
+    "columns": 15,
+    "frame": "slot",
+    "rows": 10,
+    "targetAttribute": "inventory",
+    "texture": "gui",
+    "type": "SlotGrid",
+    "x": 16,
+    "y": 121
+  },
+  "leftHand": {
+    "frame": "leftHand",
+    "i": "leftHand",
+    "targetAttribute": "equipped",
+    "texture": "gui",
+    "tooltip": "left hand\n  Put a weapon in it to increase your damage or a shield to increase your defense.",
+    "type": "SlotImage",
+    "x": 208,
+    "y": 79
+  },
+  "level": {
+    "targetAttribute": "level",
+    "tooltip": "level\n  The higher it is, the higher your maximum Health and Mana will be.",
+    "type": "TextLabelStroked",
+    "x": 40,
+    "y": 16
+  },
+  "levelImage": {
+    "frame": "level",
+    "texture": "gui",
+    "type": "ActiveImage",
+    "x": 40,
+    "y": 16
+  },
+  "mana": {
+    "color": "0x4261e7",
+    "rectHeight": 21,
+    "rectWidth": 96,
+    "rectX": 4,
+    "rectY": 68,
+    "separator": "/",
+    "targetAttribute": "mana",
+    "targetAttributeMax": "manaMax",
+    "tooltip": "mana\n  You can't cast spells if it reaches 0. Rest to regenerate, have some wisdom and level up to increase it.",
+    "type": "TextLabelStrokedBar",
+    "x": 52,
+    "y": 79
+  },
+  "name": {
+    "originX": 0,
+    "originY": 0.5,
+    "targetAttribute": "name",
+    "type": "TextLabel",
+    "x": 56,
+    "y": 16
+  },
+  "neck": {
+    "frame": "neck",
+    "i": "neck",
+    "targetAttribute": "equipped",
+    "texture": "gui",
+    "tooltip": "neck\n  Put a necklace on it to increase your attributes.",
+    "type": "SlotImage",
+    "x": 184,
+    "y": 37
+  },
+  "palm": {
+    "frame": "palm",
+    "i": "palm",
+    "targetAttribute": "equipped",
+    "texture": "gui",
+    "tooltip": "palm\n  Put some gloves on it to increase your defense.",
+    "type": "SlotImage",
+    "x": 208,
+    "y": 58
+  },
+  "portrait": {
+    "targetAttribute": "tileName",
+    "texture": "tiles",
+    "type": "Portrait",
+    "x": 16,
+    "y": 16
+  },
+  "rangedDamage": {
+    "originX": 0,
+    "originY": 0.5,
+    "separator": "-",
+    "targetAttribute": "rangedDamage",
+    "targetAttributeMax": "rangedDamageMax",
+    "tooltip": "ranged damage\n  The amount of damage you can cause based on your strength and your ranged weapons.",
+    "type": "TextLabel",
+    "x": 222,
+    "y": 79
+  },
+  "rightHand": {
+    "frame": "rightHand",
+    "i": "rightHand",
+    "targetAttribute": "equipped",
+    "texture": "gui",
+    "tooltip": "right hand\n  Put a weapon in it to increase your damage or a shield to increase your defense.",
+    "type": "SlotImage",
+    "x": 160,
+    "y": 79
+  },
+  "speed": {
+    "originX": 1,
+    "originY": 0.5,
+    "targetAttribute": "speed",
+    "type": "TextLabel",
+    "x": 288,
+    "y": 16
+  },
+  "speedImage": {
+    "frame": "speed",
+    "texture": "gui",
+    "tooltip": "speed\n  The higher it is, the more times you act than others.",
+    "type": "ActiveImage",
+    "x": 304,
+    "y": 16
+  },
+  "speedMod": {
+    "originX": 0,
+    "originY": 0.5,
+    "targetAttribute": "speedMod",
+    "type": "TextLabel",
+    "x": 320,
+    "y": 16
+  },
+  "strength": {
+    "originX": 1,
+    "originY": 0.5,
+    "separator": "/",
+    "targetAttribute": "load",
+    "targetAttributeMax": "strength",
+    "type": "TextLabel",
+    "x": 288,
+    "y": 37
+  },
+  "strengthImage": {
+    "frame": "strength",
+    "texture": "gui",
+    "tooltip": "strength\n  The higher it is, the more you can carry and the higher your damage will be.",
+    "type": "ActiveImage",
+    "x": 304,
+    "y": 37
+  },
+  "strengthMod": {
+    "originX": 0,
+    "originY": 0.5,
+    "targetAttribute": "strengthMod",
+    "type": "TextLabel",
+    "x": 320,
+    "y": 37
+  },
+  "wisdom": {
+    "originX": 1,
+    "originY": 0.5,
+    "targetAttribute": "wisdom",
+    "type": "TextLabel",
+    "x": 288,
+    "y": 79
   },
   "wisdomImage": {
     "frame": "wisdom",
@@ -283,40 +297,26 @@
     "x": 304,
     "y": 79
   },
-  "wisdom": {
-    "originX": 1,
-    "originY": 0.5,
-    "type": "TextLabel",
-    "targetAttribute": "wisdom",
-    "x": 288,
-    "y": 79
-  },
   "wisdomMod": {
     "originX": 0,
     "originY": 0.5,
-    "type": "TextLabel",
     "targetAttribute": "wisdomMod",
+    "type": "TextLabel",
     "x": 320,
     "y": 79
   },
-  "inventorySlots": {
-    "columns": 15,
-    "rows": 10,
-    "frame": "slot",
-    "texture": "gui",
-    "type": "SlotGrid",
-    "targetAttribute": "inventory",
-    "x": 16,
-    "y": 121
-  },
-  "groundSlots": {
-    "columns": 15,
-    "rows": 10,
-    "frame": "slot",
-    "texture": "gui",
-    "type": "SlotGrid",
-    "targetAttribute": "ground",
-    "x": 16,
-    "y": 352
+  "xp": {
+    "color": "0xe30000",
+    "rectHeight": 21,
+    "rectWidth": 96,
+    "rectX": 4,
+    "rectY": 26,
+    "separator": "/",
+    "targetAttribute": "xp",
+    "targetAttributeMax": "xpMax",
+    "tooltip": "XP\n  Gain more by killing enemies. Reach the current maximum to level up.",
+    "type": "TextLabelStrokedBar",
+    "x": 52,
+    "y": 37
   }
 }

@@ -1,132 +1,142 @@
 {
-  "elfMale": {
-    "name": "Atlian",
-    "chance": 0,
-    "health": 90,
-    "mana": 0,
-    "strength": 14,
-    "wisdom": 0,
+  "demon": {
+    "agility": 17,
+    "health": 200,
+    "inventory": [
+      "fireblade",
+      "fireBall"
+    ],
+    "lifespan": 54,
+    "mana": 20,
+    "name": "golem",
     "speed": 6,
+    "strength": 50,
+    "walksOn": [
+      "waterTile",
+      "marsh",
+      "bush"
+    ],
+    "wisdom": 10,
+    "xp": 20
+  },
+  "djinn": {
+    "agility": 0,
+    "health": 1,
+    "lifespan": 112,
+    "mana": 0,
+    "name": "djinn",
+    "speed": 14,
+    "strength": 1,
+    "walksOn": [
+      "waterTile",
+      "marsh",
+      "bush"
+    ],
+    "wisdom": 0,
+    "xp": 1
+  },
+  "elfMale": {
     "agility": 15,
+    "health": 90,
     "inventory": [
       "bow",
       "arrows",
       "dagger",
       "elvenCloak"
     ],
+    "mana": 0,
+    "name": "Atlian",
+    "speed": 6,
+    "strength": 14,
     "walksOn": [
       "bush",
       "marsh"
-    ]
-  },
-  "zombie": {
-    "name": "zombie",
-    "health": 10,
-    "mana": 0,
-    "strength": 12,
-    "wisdom": 0,
-    "speed": 4,
-    "agility": 10,
-    "inventory": [
-      "sabre"
     ],
-    "xp": 1
+    "wisdom": 0
   },
-  "skeleton": {
-    "name": "skeleton",
-    "health": 30,
-    "mana": 0,
-    "strength": 7,
-    "wisdom": 0,
-    "speed": 4,
-    "agility": 7,
+  "fenix": {
+    "agility": 17,
+    "health": 40,
     "inventory": [
-      "chainNBall"
+      "fireblade"
     ],
-    "xp": 1
+    "lifespan": 10,
+    "mana": 5,
+    "name": "fenix",
+    "speed": 5,
+    "strength": 10,
+    "wisdom": 19,
+    "xp": 4
   },
   "goblin": {
-    "name": "goblin",
-    "health": 30,
-    "mana": 0,
-    "strength": 15,
-    "wisdom": 0,
-    "speed": 4,
     "agility": 12,
+    "health": 30,
     "inventory": [
       "sword",
       "leather"
     ],
+    "mana": 0,
+    "name": "goblin",
+    "speed": 4,
+    "strength": 15,
+    "wisdom": 0,
     "xp": 1
   },
-  "hobgoblin": {
-    "name": "hobgoblin",
-    "health": 10,
-    "mana": 0,
-    "strength": 10,
-    "wisdom": 0,
-    "speed": 5,
+  "golem": {
     "agility": 15,
+    "health": 80,
+    "inventory": [
+      "stoneAxe"
+    ],
+    "lifespan": 15,
+    "mana": 0,
+    "name": "golem",
+    "speed": 3,
+    "strength": 60,
+    "wisdom": 0,
+    "xp": 8
+  },
+  "hobgoblin": {
+    "agility": 15,
+    "health": 10,
     "inventory": [
       "throwingStar",
       "dagger",
       "dagger",
       "cloak"
     ],
+    "mana": 0,
+    "name": "hobgoblin",
+    "speed": 5,
+    "strength": 10,
     "walksOn": [
       "bush"
     ],
+    "wisdom": 0,
     "xp": 1
   },
-  "troll": {
-    "name": "troll",
-    "health": 100,
-    "mana": 0,
-    "strength": 20,
-    "wisdom": 0,
-    "speed": 3,
-    "agility": 7,
+  "lightning": {
+    "agility": 0,
+    "health": 1,
     "inventory": [
-      "stoneAxe"
+      "chock"
     ],
-    "xp": 2
-  },
-  "orch": {
-    "name": "orch",
-    "health": 50,
-    "mana": 0,
-    "strength": 14,
-    "wisdom": 0,
-    "speed": 4,
-    "agility": 9,
-    "inventory": [
-      "sabre",
-      "leather"
+    "lifespan": 8,
+    "mana": 10,
+    "name": "lightning",
+    "speed": 8,
+    "strength": 4,
+    "walksOn": [
+      "waterTile",
+      "marsh",
+      "bush"
     ],
-    "xp": 4
-  },
-  "orchArcher": {
-    "name": "orch archer",
-    "health": 50,
-    "mana": 0,
-    "strength": 13,
-    "wisdom": 0,
-    "speed": 4,
-    "agility": 10,
-    "inventory": [
-      "bow",
-      "arrows"
-    ],
-    "xp": 4
+    "wisdom": 14,
+    "xp": 1
   },
   "magician": {
-    "name": "magician",
-    "health": 50,
-    "mana": 10,
-    "strength": 12,
-    "wisdom": 10,
-    "speed": 4,
     "agility": 10,
+    "health": 50,
     "inventory": [
       "confusion",
       "crossbow",
@@ -134,16 +144,16 @@
       "cloak",
       "arrows"
     ],
+    "mana": 10,
+    "name": "magician",
+    "speed": 4,
+    "strength": 12,
+    "wisdom": 10,
     "xp": 5
   },
   "monk": {
-    "name": "monk",
-    "health": 60,
-    "mana": 11,
-    "strength": 14,
-    "wisdom": 11,
-    "speed": 4,
     "agility": 16,
+    "health": 60,
     "inventory": [
       "fire",
       "leather",
@@ -152,16 +162,102 @@
       "water",
       "delay"
     ],
+    "mana": 11,
+    "name": "monk",
+    "speed": 4,
+    "strength": 14,
+    "wisdom": 11,
     "xp": 6
   },
-  "warrior": {
-    "name": "warrior",
-    "health": 80,
+  "orch": {
+    "agility": 9,
+    "health": 50,
+    "inventory": [
+      "sabre",
+      "leather"
+    ],
     "mana": 0,
-    "strength": 12,
-    "wisdom": 0,
+    "name": "orch",
     "speed": 4,
+    "strength": 14,
+    "wisdom": 0,
+    "xp": 4
+  },
+  "orchArcher": {
+    "agility": 10,
+    "health": 50,
+    "inventory": [
+      "bow",
+      "arrows"
+    ],
+    "mana": 0,
+    "name": "orch archer",
+    "speed": 4,
+    "strength": 13,
+    "wisdom": 0,
+    "xp": 4
+  },
+  "shadowbeast": {
+    "agility": 10,
+    "health": 200,
+    "inventory": [
+      "mace"
+    ],
+    "lifespan": 15,
+    "mana": 0,
+    "name": "shadowbeast",
+    "speed": 5,
+    "strength": 20,
+    "wisdom": 0,
+    "xp": 10
+  },
+  "skeleton": {
+    "agility": 7,
+    "health": 30,
+    "inventory": [
+      "chainNBall"
+    ],
+    "mana": 0,
+    "name": "skeleton",
+    "speed": 4,
+    "strength": 7,
+    "wisdom": 0,
+    "xp": 1
+  },
+  "troll": {
+    "agility": 7,
+    "health": 100,
+    "inventory": [
+      "stoneAxe"
+    ],
+    "mana": 0,
+    "name": "troll",
+    "speed": 3,
+    "strength": 20,
+    "wisdom": 0,
+    "xp": 2
+  },
+  "undine": {
+    "agility": 15,
+    "health": 30,
+    "inventory": [
+      "sabre"
+    ],
+    "lifespan": 36,
+    "mana": 0,
+    "name": "undine",
+    "speed": 6,
+    "strength": 20,
+    "walksOn": [
+      "waterTile",
+      "marsh"
+    ],
+    "wisdom": 0,
+    "xp": 3
+  },
+  "warrior": {
     "agility": 14,
+    "health": 80,
     "inventory": [
       "throwingStar",
       "throwingStar",
@@ -169,121 +265,24 @@
       "club",
       "chainmail"
     ],
+    "mana": 0,
+    "name": "warrior",
+    "speed": 4,
+    "strength": 12,
+    "wisdom": 0,
     "xp": 6
   },
-  "djinn": {
-    "name": "djinn",
-    "health": 1,
-    "lifespan": 112,
-    "mana": 0,
-    "strength": 1,
-    "wisdom": 0,
-    "speed": 14,
-    "agility": 0,
-    "walksOn": [
-      "waterTile",
-      "marsh",
-      "bush"
-    ],
-    "xp": 1
-  },
-  "fenix": {
-    "name": "fenix",
-    "health": 40,
-    "lifespan": 10,
-    "mana": 5,
-    "strength": 10,
-    "wisdom": 19,
-    "speed": 5,
-    "agility": 17,
-    "inventory": [
-      "fireblade"
-    ],
-    "xp": 4
-  },
-  "undine": {
-    "name": "undine",
-    "health": 30,
-    "lifespan": 36,
-    "mana": 0,
-    "strength": 20,
-    "wisdom": 0,
-    "speed": 6,
-    "agility": 15,
+  "zombie": {
+    "agility": 10,
+    "health": 10,
     "inventory": [
       "sabre"
     ],
-    "walksOn": [
-      "waterTile",
-      "marsh"
-    ],
-    "xp": 3
-  },
-  "golem": {
-    "name": "golem",
-    "health": 80,
-    "lifespan": 15,
     "mana": 0,
-    "strength": 60,
+    "name": "zombie",
+    "speed": 4,
+    "strength": 12,
     "wisdom": 0,
-    "speed": 3,
-    "agility": 15,
-    "inventory": [
-      "stoneAxe"
-    ],
-    "xp": 8
-  },
-  "demon": {
-    "name": "golem",
-    "health": 200,
-    "lifespan": 54,
-    "mana": 20,
-    "strength": 50,
-    "wisdom": 10,
-    "speed": 6,
-    "agility": 17,
-    "inventory": [
-      "fireblade",
-      "fireBall"
-    ],
-    "walksOn": [
-      "waterTile",
-      "marsh",
-      "bush"
-    ],
-    "xp": 20
-  },
-  "shadowbeast": {
-    "name": "shadowbeast",
-    "health": 200,
-    "lifespan": 15,
-    "mana": 0,
-    "strength": 20,
-    "wisdom": 0,
-    "speed": 5,
-    "agility": 10,
-    "inventory": [
-      "mace"
-    ],
-    "xp": 10
-  },
-  "lightning": {
-    "name": "lightning",
-    "health": 1,
-    "lifespan": 8,
-    "mana": 10,
-    "strength": 4,
-    "wisdom": 14,
-    "speed": 8,
-    "agility": 0,
-    "inventory": [
-      "chock"
-    ],
-    "walksOn": [
-      "waterTile",
-      "marsh",
-      "bush"
-    ],
     "xp": 1
   }
 }

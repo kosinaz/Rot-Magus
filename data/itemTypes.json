@@ -122,9 +122,9 @@
     "note": "Empties out the target's inventory!"
   },
   "chock": {
-    "health": -24,
     "effect": "zap",
     "equips": "hand",
+    "health": -24,
     "name": "chock",
     "price": 150,
     "ranged": true,
@@ -250,16 +250,16 @@
     "summons": "fenix"
   },
   "fireBall": {
-    "health": -17,
     "effect": "paf",
     "equips": "hands",
+    "health": -17,
     "manaCost": 5,
     "name": "fireball"
   },
   "fireblade": {
-    "health": -17,
     "effect": "paf",
     "equips": "hand",
+    "health": -17,
     "name": "fireblade",
     "price": 150,
     "ranged": true,
@@ -327,9 +327,9 @@
     "note": "Teleports the target to a random place!"
   },
   "inferno": {
-    "health": -24,
     "effect": "paf",
     "equips": "hands",
+    "health": -24,
     "manaCost": 12,
     "name": "inferno",
     "note": "Casts a line of fire towards the target and explodes around it!"
@@ -351,9 +351,9 @@
     "weight": 3
   },
   "lightningBolt": {
-    "health": -24,
     "effect": "zap",
     "equips": "hands",
+    "health": -24,
     "manaCost": 10,
     "name": "lightning bolt"
   },
@@ -433,7 +433,7 @@
     "price": 100,
     "strengthBase": 1,
     "weight": 1
-  },  
+  },
   "sabre": {
     "damage": 10,
     "equips": "hand",
@@ -487,7 +487,7 @@
     "equips": "hands",
     "manaCost": 8,
     "name": "sleep",
-    "speedFix": 1 
+    "speedFix": 1
   },
   "staff": {
     "damage": 10,
@@ -584,9 +584,9 @@
   },
   "thunderStorm": {
     "amount": 20,
-    "health": -24,
     "effect": "zap",
     "equips": "hands",
+    "health": -24,
     "manaCost": 25,
     "name": "thunder storm",
     "note": "Casts a group of lightning bolts randomly around and above the target!"
@@ -604,19 +604,19 @@
     "name": "vision",
     "note": "Reveals the map around the target!"
   },
-  "water": {
-    "effect": "bam",
-    "equips": "hands",
-    "manaCost": 8,
-    "name": "water",
-    "summons": "undine"
-  },
   "wakizashi": {
     "damage": 9,
     "equips": "hand",
     "name": "wakizashi",
     "price": 20,
     "weight": 2
+  },
+  "water": {
+    "effect": "bam",
+    "equips": "hands",
+    "manaCost": 8,
+    "name": "water",
+    "summons": "undine"
   },
   "white": {
     "agilityBase": -1,

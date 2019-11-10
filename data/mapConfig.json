@@ -1,31 +1,27 @@
 {
-  "layers": [
-    {
-      "name": "elevation",
+  "layers": [{
       "frequency": 64,
+      "name": "elevation",
       "octaves": 3
     },
     {
-      "name": "moisture",
       "frequency": 256,
+      "name": "moisture",
       "octaves": 6
     },
     {
-      "name": "feature",
       "frequency": 0.3,
+      "name": "feature",
       "octaves": 1
     }
   ],
-  "rules": [
-    {
-      "name": "hot-low",
+  "rules": [{
       "limit": 30,
-      "rules": [
-        {
-          "name": "hot-low-dry wasteland center",
+      "name": "hot-low",
+      "rules": [{
           "limit": 40,
-          "rules": [
-            {
+          "name": "hot-low-dry wasteland center",
+          "rules": [{
               "limit": 10,
               "tileName": "tree"
             },
@@ -44,17 +40,17 @@
           ]
         },
         {
-          "name": "hot-low-temperate sparse forest",
           "limit": 60,
-          "rules": [
-            {
+          "name": "hot-low-temperate sparse forest",
+          "rules": [{
               "limit": 20,
               "tileName": "tree"
             },
             {
               "limit": 23,
               "tileName": "yellowFlower"
-            }, {
+            },
+            {
               "limit": 25,
               "tileName": "redFlower"
             },
@@ -65,10 +61,9 @@
           ]
         },
         {
-          "name": "hot-low-wet swamp center",
           "limit": 100,
-          "rules": [
-            {
+          "name": "hot-low-wet swamp center",
+          "rules": [{
               "limit": 20,
               "tileName": "tree"
             },
@@ -93,14 +88,12 @@
       ]
     },
     {
-      "name": "hot-low-border",
       "limit": 33,
-      "rules": [
-        {
-          "name": "hot-low-dry wasteland border",
+      "name": "hot-low-border",
+      "rules": [{
           "limit": 40,
-          "rules": [
-            {
+          "name": "hot-low-dry wasteland border",
+          "rules": [{
               "limit": 50,
               "tileName": "grass"
             },
@@ -111,16 +104,17 @@
           ]
         },
         {
-          "name": "hot-low-temperate sparse forest",
           "limit": 60,
-          "rules": [
-            {
+          "name": "hot-low-temperate sparse forest",
+          "rules": [{
               "limit": 20,
               "tileName": "tree"
-            }, {
+            },
+            {
               "limit": 23,
               "tileName": "yellowFlower"
-            }, {
+            },
+            {
               "limit": 25,
               "tileName": "redFlower"
             },
@@ -131,8 +125,8 @@
           ]
         },
         {
-          "name": "hot-low-wet swamp border",
           "limit": 100,
+          "name": "hot-low-wet swamp border",
           "rules": [{
               "limit": 20,
               "tileName": "tree"
@@ -146,205 +140,237 @@
       ]
     },
     {
-      "name": "hot-mid",
       "limit": 45,
+      "name": "hot-mid",
       "rules": [{
-          "name": "hot-mid-dry sparse forest",
           "limit": 40,
+          "name": "hot-mid-dry sparse forest",
           "rules": [{
-            "limit": 20,
-            "tileName": "tree"
-          }, {
-            "limit": 23,
-            "tileName": "yellowFlower"
-          }, {
-            "limit": 25,
-            "tileName": "redFlower"
-          }, {
-            "limit": 100,
-            "tileName": "grass"
-          }]
-        },
-        {
-          "name": "hot-mid-temperate dense forest",
-          "limit": 60,
-          "rules": [{
-            "limit": 40,
-            "tileName": "tree"
-          }, {
-            "limit": 43,
-            "tileName": "yellowFlower"
-          }, {
-            "limit": 45,
-            "tileName": "redFlower"
-          }, {
-            "limit": 100,
-            "tileName": "grass"
-          }]
-        },
-        {
-          "name": "hot-mid-wet sparse forest",
-          "limit": 100,
-          "rules": [{
-            "limit": 20,
-            "tileName": "tree"
-          }, {
-            "limit": 23,
-            "tileName": "yellowFlower"
-          }, {
-            "limit": 25,
-            "tileName": "redFlower"
-          }, {
-            "limit": 100,
-            "tileName": "grass"
-          }]
-        }
-      ]
-    },
-    {
-      "name": "high",
-      "limit": 55,
-      "rules": [
-        {
-          "name": "cave",
-          "limit": 100,
-          "rules": [
+              "limit": 20,
+              "tileName": "tree"
+            },
             {
-              "limit": 15,
-              "tileName": "gravel"
+              "limit": 23,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 25,
+              "tileName": "redFlower"
             },
             {
               "limit": 100,
-              "tileName": "mountain"
+              "tileName": "grass"
+            }
+          ]
+        },
+        {
+          "limit": 60,
+          "name": "hot-mid-temperate dense forest",
+          "rules": [{
+              "limit": 40,
+              "tileName": "tree"
+            },
+            {
+              "limit": 43,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 45,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
+        },
+        {
+          "limit": 100,
+          "name": "hot-mid-wet sparse forest",
+          "rules": [{
+              "limit": 20,
+              "tileName": "tree"
+            },
+            {
+              "limit": 23,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 25,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
             }
           ]
         }
       ]
     },
     {
-      "name": "cold-mid",
-      "limit": 67,
+      "limit": 55,
+      "name": "high",
       "rules": [{
-          "name": "cold-mid-dry sparse plains",
-          "limit": 40,
-          "rules": [{
-              "limit": 3,
-              "tileName": "tree"
-            }, {
-            "limit": 10,
-            "tileName": "bush"
-          }, {
-            "limit": 11,
-            "tileName": "yellowFlower"
-          }, {
-            "limit": 12,
-            "tileName": "redFlower"
-          }, {
-            "limit": 100,
-            "tileName": "grass"
-          }]
-        },
-        {
-          "name": "cold-mid-temperate dense plains",
-          "limit": 60,
-          "rules": [{
-              "limit": 10,
-              "tileName": "tree"
-            }, {
-            "limit": 20,
-            "tileName": "bush"
-          }, {
-            "limit": 21,
-            "tileName": "yellowFlower"
-          }, {
-            "limit": 22,
-            "tileName": "redFlower"
-          }, {
-            "limit": 100,
-            "tileName": "grass"
-          }]
-        },
-        {
-          "name": "cold-mid-wet sparse plains",
-          "limit": 100,
-          "rules": [{
-              "limit": 3,
-              "tileName": "tree"
-            }, {
-            "limit": 10,
-            "tileName": "bush"
-          }, {
-            "limit": 11,
-            "tileName": "yellowFlower"
-          }, {
-            "limit": 12,
-            "tileName": "redFlower"
-          }, {
-            "limit": 100,
-            "tileName": "grass"
-          }]
-        }
-      ]
-    },
-    {
-      "name": "cold-low-border",
-      "limit": 70,
-      "rules": [{
-          "name": "cold-low-dry desert border",
-          "limit": 40,
-          "rules": [{
-            "limit": 20,
-            "tileName": "palmTree"
-          }, {
-            "limit": 30,
-            "tileName": "sand"
-          }, {
-            "limit": 100,
-            "tileName": "dirt"
-          }]
-        },
-        {
-          "name": "cold-low-temperate sparse plains",
-          "limit": 60,
-          "rules": [{
-              "limit": 3,
-              "tileName": "tree"
-            }, {
-            "limit": 10,
-            "tileName": "bush"
-          }, {
-            "limit": 11,
-            "tileName": "yellowFlower"
-          }, {
-            "limit": 12,
-            "tileName": "redFlower"
-          }, {
-            "limit": 100,
-            "tileName": "grass"
-          }]
-        },
-        {
-          "name": "cold-low-wet lake border",
-          "limit": 100,
-          "rules": [{
-            "limit": 50,
-            "tileName": "ford"
+        "limit": 100,
+        "name": "cave",
+        "rules": [{
+            "limit": 15,
+            "tileName": "gravel"
           },
           {
             "limit": 100,
-            "tileName": "waterTile"
-          }]
+            "tileName": "mountain"
+          }
+        ]
+      }]
+    },
+    {
+      "limit": 67,
+      "name": "cold-mid",
+      "rules": [{
+          "limit": 40,
+          "name": "cold-mid-dry sparse plains",
+          "rules": [{
+              "limit": 3,
+              "tileName": "tree"
+            },
+            {
+              "limit": 10,
+              "tileName": "bush"
+            },
+            {
+              "limit": 11,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 12,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
+        },
+        {
+          "limit": 60,
+          "name": "cold-mid-temperate dense plains",
+          "rules": [{
+              "limit": 10,
+              "tileName": "tree"
+            },
+            {
+              "limit": 20,
+              "tileName": "bush"
+            },
+            {
+              "limit": 21,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 22,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
+        },
+        {
+          "limit": 100,
+          "name": "cold-mid-wet sparse plains",
+          "rules": [{
+              "limit": 3,
+              "tileName": "tree"
+            },
+            {
+              "limit": 10,
+              "tileName": "bush"
+            },
+            {
+              "limit": 11,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 12,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         }
       ]
     },
     {
-      "name": "cold-low",
-      "limit": 100,
+      "limit": 70,
+      "name": "cold-low-border",
       "rules": [{
-          "name": "cold-low-dry desert center",
           "limit": 40,
-          "rules": [
+          "name": "cold-low-dry desert border",
+          "rules": [{
+              "limit": 20,
+              "tileName": "palmTree"
+            },
             {
+              "limit": 30,
+              "tileName": "sand"
+            },
+            {
+              "limit": 100,
+              "tileName": "dirt"
+            }
+          ]
+        },
+        {
+          "limit": 60,
+          "name": "cold-low-temperate sparse plains",
+          "rules": [{
+              "limit": 3,
+              "tileName": "tree"
+            },
+            {
+              "limit": 10,
+              "tileName": "bush"
+            },
+            {
+              "limit": 11,
+              "tileName": "yellowFlower"
+            },
+            {
+              "limit": 12,
+              "tileName": "redFlower"
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
+        },
+        {
+          "limit": 100,
+          "name": "cold-low-wet lake border",
+          "rules": [{
+              "limit": 50,
+              "tileName": "ford"
+            },
+            {
+              "limit": 100,
+              "tileName": "waterTile"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "limit": 100,
+      "name": "cold-low",
+      "rules": [{
+          "limit": 40,
+          "name": "cold-low-dry desert center",
+          "rules": [{
               "limit": 3,
               "tileName": "waterTile"
             },
@@ -359,41 +385,50 @@
           ]
         },
         {
-          "name": "cold-low-temperate sparse plains",
           "limit": 60,
+          "name": "cold-low-temperate sparse plains",
           "rules": [{
               "limit": 3,
               "tileName": "tree"
-            }, {
+            },
+            {
               "limit": 10,
               "tileName": "bush"
-            }, {
+            },
+            {
               "limit": 11,
               "tileName": "yellowFlower"
-            }, {
+            },
+            {
               "limit": 12,
               "tileName": "redFlower"
-            }, {
-            "limit": 100,
-            "tileName": "grass"
-          }]
+            },
+            {
+              "limit": 100,
+              "tileName": "grass"
+            }
+          ]
         },
         {
-          "name": "cold-low-wet lake center",
           "limit": 100,
+          "name": "cold-low-wet lake center",
           "rules": [{
-            "limit": 3,
-            "tileName": "tree"
-          }, {
-            "limit": 5,
-            "tileName": "grass"
-          }, {
-            "limit": 20,
-            "tileName": "marsh"
-          }, {
-            "limit": 100,
-            "tileName": "waterTile"
-          }]
+              "limit": 3,
+              "tileName": "tree"
+            },
+            {
+              "limit": 5,
+              "tileName": "grass"
+            },
+            {
+              "limit": 20,
+              "tileName": "marsh"
+            },
+            {
+              "limit": 100,
+              "tileName": "waterTile"
+            }
+          ]
         }
       ]
     }
