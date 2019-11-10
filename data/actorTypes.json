@@ -3,27 +3,21 @@
     "name": "Atlian",
     "chance": 0,
     "health": 90,
-    "mana": 90,
+    "mana": 0,
     "strength": 14,
-    "wisdom": 20,
+    "wisdom": 0,
     "speed": 6,
     "agility": 15,
     "inventory": [
       "bow",
       "arrows",
       "dagger",
-      "elvenCloak",
-      "negator",
-      "enchant",
-      "shootingStar",
-      "purify",
-      "lightningSpell"
+      "elvenCloak"
     ],
     "walksOn": [
       "bush",
       "marsh"
-    ],
-    "player": true
+    ]
   },
   "zombie": {
     "name": "zombie",
