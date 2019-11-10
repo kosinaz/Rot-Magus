@@ -1194,10 +1194,6 @@ class Actor extends Phaser.GameObjects.Image {
   // Banish the summoned.
   leave() {
 
-    // Give some XP to the player.
-    this.scene.player.earnXP(this.xp);
-    this.scene.events.emit('attributesUpdated', this);
-
     // Remove the enemy from the list of enemies.
     this.scene.enemies.splice(this.scene.enemies.indexOf(this), 1);
 
