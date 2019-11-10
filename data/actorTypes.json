@@ -3,16 +3,21 @@
     "name": "Atlian",
     "chance": 0,
     "health": 90,
-    "mana": 0,
+    "mana": 90,
     "strength": 14,
-    "wisdom": 0,
+    "wisdom": 20,
     "speed": 6,
     "agility": 15,
     "inventory": [
       "bow",
       "arrows",
       "dagger",
-      "elvenCloak"
+      "elvenCloak",
+      "negator",
+      "enchant",
+      "shootingStar",
+      "purify",
+      "lightningSpell"
     ],
     "walksOn": [
       "bush",
@@ -230,7 +235,7 @@
     "speed": 3,
     "agility": 15,
     "inventory": [
-      "stone axe"
+      "stoneAxe"
     ],
     "xp": 8
   },

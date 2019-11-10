@@ -125,6 +125,11 @@ class Actor extends Phaser.GameObjects.Image {
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
 
+    if (this.lifespan-- === 0) {
+      this.leave();
+      return;
+    }
+
     this.updateTargetBasedOnEffects();
     
     this.getGround();
@@ -666,7 +671,7 @@ class Actor extends Phaser.GameObjects.Image {
     if (spell.name === 'purify') {
       if (actor.lifespan) {
         this.createEffect(actor, spell.effect);
-        actor.die();
+        actor.leave();
       };
       return;
     }
@@ -1174,12 +1179,37 @@ class Actor extends Phaser.GameObjects.Image {
     this.updateAttributes();
   }
 
-  // Kill this actor.
-  die() {
+  // Banish the summoned.
+  leave() {
 
     // Give some XP to the player.
     this.scene.player.earnXP(this.xp);
     this.scene.events.emit('attributesUpdated', this);
+
+    // Remove the enemy from the list of enemies.
+    this.scene.enemies.splice(this.scene.enemies.indexOf(this), 1);
+
+    // Remove the enemy from the sceduler.
+    this.scene.scheduler.remove(this);
+
+    // Destroy the enemy.
+    this.destroy();
+
+    this.dead = true;
+  }
+
+  // Kill this actor.
+  die() {
+
+    if (this.lifespan !== undefined) {
+      this.leave();
+      return;
+    }
+
+    // Give some XP to the player.
+    this.scene.player.earnXP(this.xp);
+    this.scene.events.emit('attributesUpdated', this);
+
     if (this.equipped) {
       for (let i in this.equipped) {
         this.inventory.push(this.equipped[i]);
