@@ -186,6 +186,7 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   autoEquip() {
+    Phaser.Utils.Array.Shuffle(this.inventory);
     if (this.inventory) {
       this.inventory.forEach(function (item, i) {
         if (item) { 
