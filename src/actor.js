@@ -878,7 +878,6 @@ class Actor extends Phaser.GameObjects.Image {
     )) {
       let enemy = new Actor(this.scene, x, y, 'tiles', spell.summons);
       this.scene.enemies.push(enemy);
-      enemy.name += ' ' + this.scene.enemies.filter(e => e.tileName === enemy.tileName).length;
       this.createEffect(enemy, spell.effect);
     }
   }
