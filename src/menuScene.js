@@ -27,7 +27,7 @@ class MenuScene extends Phaser.Scene {
       scene: this,
       text: 'New game',
       x: 512,
-      y: 200
+      y: 220
     });
     new TextButton({
       onPointerUp: function () {
@@ -37,7 +37,7 @@ class MenuScene extends Phaser.Scene {
       scene: this,
       text: 'Map browser',
       x: 512,
-      y: 250
+      y: 270
     });
     new TextButton({
       onPointerUp: function () {
@@ -47,7 +47,7 @@ class MenuScene extends Phaser.Scene {
       scene: this,
       text: 'Hall of fame',
       x: 512,
-      y: 300
+      y: 320
     });
     new TextButton({
       onPointerUp: function () {
@@ -57,7 +57,7 @@ class MenuScene extends Phaser.Scene {
       scene: this,
       text: 'Settings',
       x: 512,
-      y: 350
+      y: 370
     });
   }
 }
