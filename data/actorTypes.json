@@ -3,8 +3,8 @@
     "agility": 17,
     "health": 200,
     "inventory": [
-      "fireblade",
-      "fireBall"
+      "fireBall",
+      "fireblade"
     ],
     "lifespan": 54,
     "mana": 20,
@@ -12,9 +12,9 @@
     "speed": 6,
     "strength": 50,
     "walksOn": [
-      "waterTile",
+      "bush",
       "marsh",
-      "bush"
+      "waterTile"
     ],
     "wisdom": 10,
     "xp": 20
@@ -28,9 +28,9 @@
     "speed": 14,
     "strength": 1,
     "walksOn": [
-      "waterTile",
+      "bush",
       "marsh",
-      "bush"
+      "waterTile"
     ],
     "wisdom": 0,
     "xp": 1
@@ -39,8 +39,8 @@
     "agility": 15,
     "health": 90,
     "inventory": [
-      "bow",
       "arrows",
+      "bow",
       "dagger",
       "elvenCloak"
     ],
@@ -72,8 +72,8 @@
     "agility": 12,
     "health": 30,
     "inventory": [
-      "sword",
-      "leather"
+      "leather",
+      "sword"
     ],
     "mana": 0,
     "name": "goblin",
@@ -100,10 +100,10 @@
     "agility": 15,
     "health": 10,
     "inventory": [
-      "throwingStar",
       "dagger",
       "dagger",
-      "cloak"
+      "cloak",
+      "throwingStar"
     ],
     "mana": 0,
     "name": "hobgoblin",
@@ -127,9 +127,9 @@
     "speed": 8,
     "strength": 4,
     "walksOn": [
-      "waterTile",
+      "bush",
       "marsh",
-      "bush"
+      "waterTile"
     ],
     "wisdom": 14,
     "xp": 1
@@ -138,11 +138,11 @@
     "agility": 10,
     "health": 50,
     "inventory": [
+      "arrows",
+      "cloak",
       "confusion",
       "crossbow",
-      "darkness",
-      "cloak",
-      "arrows"
+      "darkness"
     ],
     "mana": 10,
     "name": "magician",
@@ -155,12 +155,12 @@
     "agility": 16,
     "health": 60,
     "inventory": [
+      "delay",
+      "earth",
       "fire",
       "leather",
       "staff",
-      "earth",
-      "water",
-      "delay"
+      "water"
     ],
     "mana": 11,
     "name": "monk",
@@ -173,8 +173,8 @@
     "agility": 9,
     "health": 50,
     "inventory": [
-      "sabre",
-      "leather"
+      "leather",
+      "sabre"
     ],
     "mana": 0,
     "name": "orch",
@@ -187,8 +187,8 @@
     "agility": 10,
     "health": 50,
     "inventory": [
-      "bow",
-      "arrows"
+      "arrows",
+      "bow"
     ],
     "mana": 0,
     "name": "orch archer",
@@ -201,7 +201,7 @@
     "agility": 10,
     "health": 200,
     "inventory": [
-      "mace"
+      "club"
     ],
     "lifespan": 15,
     "mana": 0,
@@ -249,8 +249,8 @@
     "speed": 6,
     "strength": 20,
     "walksOn": [
-      "waterTile",
-      "marsh"
+      "marsh",
+      "waterTile"
     ],
     "wisdom": 0,
     "xp": 3
@@ -259,11 +259,11 @@
     "agility": 14,
     "health": 80,
     "inventory": [
-      "throwingStar",
-      "throwingStar",
-      "throwingStar",
+      "chainmail",
       "club",
-      "chainmail"
+      "throwingStar",
+      "throwingStar",
+      "throwingStar"
     ],
     "mana": 0,
     "name": "warrior",
