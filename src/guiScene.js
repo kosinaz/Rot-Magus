@@ -29,6 +29,19 @@ class GUIScene extends Phaser.Scene {
     // Set the background black, the color of currently invisible areas.
     this.cameras.main.setBackgroundColor('#616161');
 
+    new TextButton({
+      onPointerUp: function () {
+        game.scene.getScene('GameScene').events.emit('gameTerminated', this);
+      }.bind(this),
+      origin: 0,
+      scene: this,
+      size: '16px',
+      strokeThickness: 3,
+      text: 'Back to main menu',
+      x: 5,
+      y: 553
+    });
+
     this.hold = this.time.addEvent({
       callback: function () {
         if (this.heldItem) {

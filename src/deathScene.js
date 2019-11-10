@@ -4,7 +4,6 @@ class DeathScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.setVisible(false, 'GUIScene');
     if (GJAPI.bActive) {
       GJAPI.ScoreAdd(0, game.score, game.score);
     } else {

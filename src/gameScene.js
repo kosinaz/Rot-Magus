@@ -105,7 +105,18 @@ class GameScene extends Phaser.Scene {
       this.events.off('playerReady');
 
       // Load the death scene.
+      this.scene.setVisible(false, 'GUIScene');
       this.scene.start('DeathScene');
+    }.bind(this));
+
+    this.events.on('gameTerminated', function () {
+
+      this.events.off('attributesUpdated');
+      this.events.off('playerReady');
+
+      // Load the death scene.
+      this.scene.setVisible(false, 'GUIScene');
+      this.scene.start('MenuScene');
     }.bind(this));
   }
 
