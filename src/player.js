@@ -66,7 +66,24 @@ class Player extends Actor {
   }
 
   summonAt(x, y, spell) {
-    super.summonAt(x, y, spell);
+    this.mana -= spell.manaCost;
+    let hit = ROT.RNG.getUniformInt(1, 20);
+    if (hit > this.wisdom) {
+      return;
+    }
+    let tile = this.scene.map.getTileNameAt(x, y);
+    if (this.scene.actorTypes[spell.summons].walksOn || (
+        tile !== 'waterTile' &&
+        tile !== 'marsh' &&
+        tile !== 'bush' &&
+        tile !== 'tree' &&
+        tile !== 'palmTree' &&
+        tile !== 'stoneWall' &&
+        tile !== 'mountain'
+      )) {
+      new Player(this.scene, x, y, 'tiles', spell.summons);
+      this.createEffect(enemy, spell.effect);
+    }
 
     // Make the currently visible enemies notice the player.
     this.scene.updateEnemyTargets();

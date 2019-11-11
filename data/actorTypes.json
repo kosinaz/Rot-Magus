@@ -42,9 +42,10 @@
       "arrows",
       "bow",
       "dagger",
-      "elvenCloak"
+      "elvenCloak",
+      "water"
     ],
-    "mana": 0,
+    "mana": 100,
     "name": "Atlian",
     "speed": 6,
     "strength": 14,
@@ -52,7 +53,7 @@
       "bush",
       "marsh"
     ],
-    "wisdom": 0
+    "wisdom": 20
   },
   "fenix": {
     "agility": 17,
