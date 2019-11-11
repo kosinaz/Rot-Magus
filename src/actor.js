@@ -50,6 +50,8 @@ class Actor extends Phaser.GameObjects.Image {
     this.scene.scheduler.add(this, true);
     this.depth = 3;
     this.actions = [];
+    this.teammates = [];
+    this.teammates.push(this);
     this.scene.events.on('playerReady', function () {
       if (this.dead || !this.scene) {
         return;

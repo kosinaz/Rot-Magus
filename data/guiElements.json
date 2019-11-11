@@ -281,6 +281,16 @@
     "x": 320,
     "y": 78
   },
+  "teamPortraits": {
+    "columns": 15,
+    "frame": "",
+    "rows": 1,
+    "targetAttribute": "teammates",
+    "texture": "tiles",
+    "type": "PortraitGrid",
+    "x": 16,
+    "y": 15
+  },
   "wisdom": {
     "originX": 1,
     "originY": 0.5,

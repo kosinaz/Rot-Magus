@@ -81,8 +81,10 @@ class Player extends Actor {
         tile !== 'stoneWall' &&
         tile !== 'mountain'
       )) {
-      new Player(this.scene, x, y, 'tiles', spell.summons);
-      this.createEffect(enemy, spell.effect);
+      let servant = new Player(this.scene, x, y, 'tiles', spell.summons);
+      this.teammates.push(servant);
+      servant.teammates = this.teammates;
+      this.createEffect(servant, spell.effect);
     }
 
     // Make the currently visible enemies notice the player.
