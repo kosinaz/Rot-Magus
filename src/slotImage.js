@@ -106,6 +106,7 @@ class SlotImage extends ActiveImage {
     let item = this.getItem();
     let notes = '';
     if (item) {
+      this.highlightEquipmentSlot(item);
       this.tooltip = item.name;
       for (let attribute in item) {
         if (item.hasOwnProperty(attribute) &&
@@ -182,6 +183,28 @@ class SlotImage extends ActiveImage {
       }
     }
   }
+  hideTooltip() {
+    super.hideTooltip();
+    let item = this.getItem();
+    if (item) {
+      if (this.scene.gui[item.equips]) {
+        this.scene.gui[item.equips].clearTint();
+      } else if (item.equips === 'hand' || item.equips === 'hands') {
+        this.scene.gui.leftHand.clearTint();
+        this.scene.gui.rightHand.clearTint();
+      }
+    }
+  }
+
+  highlightEquipmentSlot(item) {
+    if (this.scene.gui[item.equips]) {
+      this.scene.gui[item.equips].setTint(0xffff00);
+    } else if (item.equips === 'hand' || item.equips === 'hands') {
+      this.scene.gui.leftHand.setTint(0xffff00);
+      this.scene.gui.rightHand.setTint(0xffff00);
+    }
+  }
+
   /**
    * Returns true if the item can be placed on this slot.
    * @param {*} item
