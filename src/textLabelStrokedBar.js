@@ -26,16 +26,16 @@ class TextLabelStrokedBar extends TextLabelStroked {
     // Top line.
     this.bar.lineBetween(
       this.rectX,
-      this.rectY,
+      this.rectY + 0.5,
       this.rectX + this.rectWidth - 1,
-      this.rectY
+      this.rectY + 0.5
     );
 
     // Left line.
     this.bar.lineBetween(
-      this.rectX + 1,
+      this.rectX + 0.5,
       this.rectY + 1,
-      this.rectX + 1,
+      this.rectX + 0.5,
       this.rectY + this.rectHeight - 1
     );
     this.bar.lineStyle(1, 0x808080, 1);
@@ -43,27 +43,18 @@ class TextLabelStrokedBar extends TextLabelStroked {
     // Bottom line.
     this.bar.lineBetween(
       this.rectX + 1, 
-      this.rectY + this.rectHeight - 1, 
+      this.rectY + this.rectHeight - 0.5, 
       this.rectX + this.rectWidth - 1, 
-      this.rectY + this.rectHeight - 1
+      this.rectY + this.rectHeight - 0.5
     );
 
     // Right line.
     this.bar.lineBetween(
-      this.rectX + this.rectWidth, 
+      this.rectX + this.rectWidth - 0.5, 
       this.rectY + 1, 
-      this.rectX + this.rectWidth, 
+      this.rectX + this.rectWidth - 0.5, 
       this.rectY + this.rectHeight - 1
-    );
-    this.bar.lineStyle(1, 0xe0e0e0, 1);
-
-    // Bottom-right corner.
-    this.bar.lineBetween(
-      this.rectX + this.rectWidth,
-      this.rectY + this.rectHeight - 1,
-      this.rectX + this.rectWidth,
-      this.rectY + this.rectHeight
-    );
+    );   
 
     // Bar.
     this.bar.fillRect(
@@ -76,6 +67,13 @@ class TextLabelStrokedBar extends TextLabelStroked {
         this.targetScene[this.targetActor][this.targetAttributeMax]
       ),
       this.rectHeight - 2
+    ); 
+    
+    // Bottom-right corner.
+    this.bar.fillStyle(0xe0e0e0);
+    this.bar.fillPoint(
+      this.rectX + this.rectWidth - 1,
+      this.rectY + this.rectHeight - 1
     );
   }
 }
