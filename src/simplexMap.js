@@ -118,7 +118,7 @@ class SimplexMap {
           // Move the marker over the tile.
           this.scene.tweens.add({
             targets: this.scene.marker,
-            x: this.x - 11,
+            x: this.x - 11.5,
             y: this.y - 10,
             ease: 'Quad.easeOut',
             duration: 100 / game.speed
