@@ -95,7 +95,7 @@ class SimplexMap {
 
           this.scene.targetTile = this.scene.add.graphics();
           this.scene.targetTile.fillStyle(0xffff00, 0.2);
-          this.scene.targetTile.fillRect(this.x - 11, this.y - 11, 23, 20);
+          this.scene.targetTile.fillRect(this.x - 12, this.y - 10.5, 24, 21);
           this.scene.targetTile.depth = 5;
 
           // Set that tile as the new target of the player.
