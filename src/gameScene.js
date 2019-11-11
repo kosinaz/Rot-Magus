@@ -65,6 +65,7 @@ class GameScene extends Phaser.Scene {
     // Create the special actor that will be controlled by the player. Unique to the game scene and referred to by several functions of the scene and the enemies.
     this.player = new Player(this, 0, 0, 'tiles', 'elfMale');
     this.player.name = game.username || this.player.name;
+    this.cameras.main.startFollow(this.player, true, 1, 1, 0, 0);
 
     // Create a list for the enemies to track their activity.
     this.enemies = [];

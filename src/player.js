@@ -3,11 +3,15 @@ class Player extends Actor {
     super(scene, x, y, texture, frame);
 
     // Make the camera follow the player.
-    this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
+    
   }
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
+
+    if (this !== this.scene.player) {
+      return;
+    }
     
     // The first step is to lock the engine before it calls the next actor, so the screen can be updated and the player can have plenty of time to perform his next action. The engine needs to be locked even if the player's actor has a target and does not need additional orders, because every action takes time and no one should move in the meantime.
     this.scene.engine.lock();
@@ -147,6 +151,19 @@ class Player extends Actor {
   die() {
 
     // Emit the player died event.
-    this.scene.events.emit('playerDied');
+    if (this.lifespan === undefined) {
+      this.scene.events.emit('playerDied');
+    } else {
+
+      this.scene.player = this.teammates[0];
+
+      // Remove from the sceduler.
+      this.scene.scheduler.remove(this);
+
+      // Destroy.
+      this.destroy();
+
+      this.dead = true;
+    }
   }
 }
