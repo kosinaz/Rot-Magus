@@ -1,10 +1,8 @@
 class Player extends Actor {
   constructor(scene, x, y, texture, frame) {
     super(scene, x, y, texture, frame);
-
-    // Make the camera follow the player.
-    
-  }
+    this.scene.events.on('orderGiven', this.setTarget, this);    
+  }       
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
@@ -27,8 +25,30 @@ class Player extends Actor {
 
     this.updateEffects();
 
+    // Every other character will follow his already given order when their turn has come, but this character needs to be notified once the waiting should be over and an order is ready to be executed. This will be the way to identify that is is the actor waiting for that notification.
+    this.isWaitingForOrder = true;
+
     // Emit an event that notifies the GUI that the player is now ready act and it should see the current state of the ground.
-    this.scene.events.emit('playerReady', this);
+    this.scene.events.emit('playerReady', this);    
+  }
+
+  setTarget(x, y) {
+    this.target = {
+      x: x,
+      y: y
+    }
+
+    this.updateTargetBasedOnEffects();
+
+    // If this was the actor waiting for orders.
+    if (this.isWaitingForOrder) {
+
+      // Make sure that he won't execute new orders even if he was selected and ordered when another actor is waiting for orders. This way he can note the order but won't execute it until his time has come. This needs to be changed before executing the order because that would end with an engine unlock that leads to another act before this change is made.
+      this.isWaitingForOrder = false;
+
+      // Make him start executing it.
+      this.order();     
+    }
   }
 
   // Order the player to move towards the specified position or make him rest if it is the player's current position. This action can be called as a direct result of a click on a tile walkable by the player or during every upcoming action of the player before he reaches his destination.

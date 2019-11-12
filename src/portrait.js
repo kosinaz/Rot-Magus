@@ -26,6 +26,11 @@ class Portrait extends ActiveImage {
       }, this);
       this.targetScene.events.on('playerReady', function () {
         if (this.targetActor[this.targetAttribute][this.config.i]) {
+          if (this.targetActor.isWaitingForOrder) {
+            this.waiting = this.scene.add.image(this.x + 7, this.y - 6, 'gui', 'question');
+          } else if (this.waiting) {
+            this.waiting.destroy();
+          }
           this.setFrame(this.targetActor[this.targetAttribute][this.config.i].tileName);
           this.visible = true;
           this.marker.visible = this.targetScene.player === this.targetActor[this.targetAttribute][this.config.i];
@@ -35,6 +40,11 @@ class Portrait extends ActiveImage {
       }.bind(this));
       if (this.targetActor[this.targetAttribute][this.config.i]) {
         this.setFrame(this.targetActor[this.targetAttribute][this.config.i].tileName);
+        if (this.targetActor.isWaitingForOrder) {
+          this.waiting = this.scene.add.image(this.x + 7, this.y - 6, 'gui', 'question');
+        } else if (this.waiting) {
+          this.waiting.destroy();
+        }
       } else {
         this.visible = false;
       }

@@ -98,14 +98,8 @@ class SimplexMap {
           this.scene.targetTile.fillRect(this.x - 12, this.y - 10.5, 24, 21);
           this.scene.targetTile.depth = 5;
 
-          // Set that tile as the new target of the player.
-          this.scene.player.target.x = x;
-          this.scene.player.target.y = y;
-
-          this.scene.player.updateTargetBasedOnEffects();
-
-          // Move the player towards the new target.
-          this.scene.player.order();
+          // Notify the player about the successful command.
+          this.scene.events.emit('orderGiven', x , y);
         }
       });
 
