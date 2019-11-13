@@ -64,14 +64,14 @@
     "y": 120
   },
   "default": {
-    "event": "attributesUpdated",
+    "event": "GUIUpdate",
     "fill": "#000000",
     "fontFamily": "font",
     "fontSize": "16px",
     "originX": 0.5,
     "originY": 0.5,
     "scene": "GUIScene",
-    "targetActor": "player",
+    "targetActor": "lastSelected",
     "targetScene": "GameScene"
   },
   "defense": {
@@ -204,7 +204,7 @@
     "y": 99
   },
   "portrait": {
-    "targetAttribute": "tileName",
+    "targetAttribute": "lastSelected",
     "texture": "tiles",
     "type": "Portrait",
     "x": 16,
@@ -281,11 +281,12 @@
     "x": 320,
     "y": 78
   },
-  "teamPortraits": {
+  "heroPortraits": {
     "columns": 15,
+    "emits": "select",
     "frame": "",
     "rows": 1,
-    "targetAttribute": "teammates",
+    "targetAttribute": "heroes",
     "texture": "tiles",
     "type": "PortraitGrid",
     "x": 16,

@@ -63,9 +63,18 @@ class GameScene extends Phaser.Scene {
     this.engine = new ROT.Engine(this.scheduler);
 
     // Create the special actor that will be controlled by the player. Unique to the game scene and referred to by several functions of the scene and the enemies.
-    this.player = new Player(this, 0, 0, 'tiles', 'elfMale');
-    this.player.name = game.username || this.player.name;
+    // this.player = new Player(this, 0, 0, 'tiles', 'elfMale');
+    // this.player.name = game.username || this.player.name;
+    // this.cameras.main.startFollow(this.player, true, 1, 1, 0, 0);
+
+    this.heroes = [
+      new Player(this, 0, 0, 'tiles', 'elfMale'),
+      new Player(this, 1, 0, 'tiles', 'duckMageMale'),
+      new Player(this, 2, 0, 'tiles', 'knightMale')
+    ];
+    this.player = this.heroes[0];
     this.cameras.main.startFollow(this.player, true, 1, 1, 0, 0);
+    this.lastSelected = this.heroes[0];
 
     // Create a list for the enemies to track their activity.
     this.enemies = [];
@@ -321,13 +330,13 @@ class GameScene extends Phaser.Scene {
       }      
 
       // If the player hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
-      if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {   
+      // if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {   
         
-        this.player.updateTargetBasedOnEffects();
+      //   this.player.updateTargetBasedOnEffects();
 
-        // Make him move towards his target.
-        this.player.move();
-      }
+      //   // Make him move towards his target.
+      //   this.player.move();
+      // }
     }.bind(this));
   }
 }

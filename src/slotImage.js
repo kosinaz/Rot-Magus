@@ -93,11 +93,8 @@ class SlotImage extends ActiveImage {
       }
     });
     this.scene.add.existing(this);
-    this.targetScene.events.on('playerReady', function () {
+    this.targetScene.events.on('GUIUpdate', function () {
       this.targetActor = this.targetScene[this.config.targetActor];
-      this.draw();
-    }.bind(this));
-    this.targetScene.events.on('attributesUpdated', function () {
       this.draw();
     }.bind(this));
     this.draw();

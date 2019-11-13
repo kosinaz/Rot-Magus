@@ -1,53 +1,85 @@
 class Player extends Actor {
   constructor(scene, x, y, texture, frame) {
     super(scene, x, y, texture, frame);
-    this.scene.events.on('orderGiven', this.setTarget, this);    
+    this.isSelected = false;
+    this.isWaitingForOrder = false;
+    this.scene.events.on('order', this.setTarget, this);    
+    this.scene.events.on('select', this.switchSelected, this);    
   }       
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
 
-    if (this !== this.scene.player) {
-      return;
-    }
+    console.log(this.name, 'act', 'selected', this.isSelected);
     
     // The first step is to lock the engine before it calls the next actor, so the screen can be updated and the player can have plenty of time to perform his next action. The engine needs to be locked even if the player's actor has a target and does not need additional orders, because every action takes time and no one should move in the meantime.
     this.scene.engine.lock();
-    
-    // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible, and to hide.
-    this.scene.computeFOV();
-    
-    // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
-    this.scene.updateFOV();
 
     // Update the list of items on the ground based on the player's current position.
     this.getGround();
 
     this.updateEffects();
 
+    // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible, and to hide.
+    this.scene.computeFOV();
+    
+    if (!this.isAtXY(this.target.x, this.target.y)) {
+      this.move();
+      return;
+    }
+
+    // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
+    this.scene.updateFOV();
+
     // Every other character will follow his already given order when their turn has come, but this character needs to be notified once the waiting should be over and an order is ready to be executed. This will be the way to identify that is is the actor waiting for that notification.
     this.isWaitingForOrder = true;
 
+    // Automatically select the character that is waiting or orders.
+    this.setSelected();
+
     // Emit an event that notifies the GUI that the player is now ready act and it should see the current state of the ground.
-    this.scene.events.emit('playerReady', this);    
+    this.scene.events.emit('playerReady', this);
   }
 
   setTarget(x, y) {
+    if (!this.isSelected) {
+      console.log(this.name, 'selected:', this.isSelected);
+      return;
+    }
+    console.log(this.name, 'new target:', x, y, 'selected:', this.isSelected);
     this.target = {
       x: x,
       y: y
     }
-
     this.updateTargetBasedOnEffects();
 
     // If this was the actor waiting for orders.
     if (this.isWaitingForOrder) {
+      console.log(this.name, 'waiting');
 
       // Make sure that he won't execute new orders even if he was selected and ordered when another actor is waiting for orders. This way he can note the order but won't execute it until his time has come. This needs to be changed before executing the order because that would end with an engine unlock that leads to another act before this change is made.
       this.isWaitingForOrder = false;
 
       // Make him start executing it.
       this.order();     
+    }
+  }
+
+  setSelected() {
+    this.isSelected = true;
+    this.scene.lastSelected = this;
+    this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
+    this.scene.events.emit('GUIUpdate');
+  }
+
+  switchSelected(i) {
+    if (this.scene.heroes[i] === this) {
+      if (!this.isSelected) {
+        this.setSelected();
+      } else {
+        this.isSelected = false;
+        this.scene.events.emit('GUIUpdate');
+      }
     }
   }
 
