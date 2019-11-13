@@ -35,6 +35,43 @@
     "wisdom": 0,
     "xp": 1
   },
+  "druidMale": {
+    "agility": 10,
+    "health": 80,
+    "inventory": [
+      "air",
+      "cloak", 
+      "club",
+      "earth",
+      "fire",
+      "water"
+    ],
+    "mana": 60,
+    "name": "Lodmour",
+    "speed": 4,
+    "strength": 14,
+    "wisdom": 10
+  },
+  "duckMageMale": {
+    "agility": 9,
+    "health": 40,
+    "inventory": [
+      "chaos",
+      "cloak", 
+      "confusion",
+      "dagger",
+      "delay"
+    ],
+    "mana": 60,
+    "name": "Cucqack",
+    "speed": 5,
+    "strength": 10,
+    "walksOn": [
+      "marsh",
+      "waterTile"
+    ],
+    "wisdom": 12
+  },
   "elfMale": {
     "agility": 15,
     "health": 90,
@@ -42,10 +79,9 @@
       "arrows",
       "bow",
       "dagger",
-      "elvenCloak",
-      "water"
+      "elvenCloak"
     ],
-    "mana": 100,
+    "mana": 0,
     "name": "Atlian",
     "speed": 6,
     "strength": 14,
@@ -53,7 +89,7 @@
       "bush",
       "marsh"
     ],
-    "wisdom": 20
+    "wisdom": 0
   },
   "fenix": {
     "agility": 17,
@@ -115,6 +151,21 @@
     ],
     "wisdom": 0,
     "xp": 1
+  },
+  "knightMale": {
+    "agility": 11,
+    "health": 90,
+    "inventory": [
+      "chainmail",
+      "helmet",
+      "shield",
+      "sword"
+    ],
+    "mana": 0,
+    "name": "Lambard",
+    "speed": 4,
+    "strength": 24,
+    "wisdom": 0
   },
   "lightning": {
     "agility": 0,
