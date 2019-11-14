@@ -76,22 +76,10 @@ class SimplexMap {
       // Set the tile to show in the current update.
       this.tiles[x + ',' + y].toShow = true;
 
-      this.scene.input.on('pointerup', function () {
-
-        // // Set the current position of the actor as his current target to prevent him attacking the enemy automatically as his next actions.
-        // this.scene.player.target = {
-        //   x: this.scene.player.tileX,
-        //   y: this.scene.player.tileY
-        // };
-
-        // // Reset his path and let him decide about his next action.
-        // this.scene.player.path = [];
-      });
-
       this.tiles[x + ',' + y].image.on('click', function () {
 
         // If the tile is walkable by the player.
-        if (this.scene.player.walksOnXY(this.config.tileX, this.config.tileY)) {
+        if (this.scene.lastSelected.walksOnXY(this.config.tileX, this.config.tileY)) {
 
           this.scene.targetTile = this.scene.add.graphics();
           this.scene.targetTile.fillStyle(0xffff00, 0.2);
@@ -99,7 +87,9 @@ class SimplexMap {
           this.scene.targetTile.depth = 5;
 
           // Notify the player about the successful command.
-          this.scene.events.emit('order', x , y);
+          this.scene.time.delayedCall(50, function () { 
+            this.scene.events.emit('order', x , y);
+          }.bind(this));
         }
       });
 
@@ -107,7 +97,7 @@ class SimplexMap {
       this.tiles[x + ',' + y].image.on('pointerover', function () {
 
         // If the tile is walkable by the player.
-        if (this.scene.player.walksOnXY(this.config.tileX, this.config.tileY)) {
+        if (this.scene.lastSelected.walksOnXY(this.config.tileX, this.config.tileY)) {
 
           // Move the marker over the tile.
           this.scene.tweens.add({
@@ -128,7 +118,7 @@ class SimplexMap {
     let actor = this.scene.getActorAt(x, y);
 
     // If there is an actor and he is not the player, it means that he is an enemy.
-    if (actor && actor !== this.scene.player) {
+    if (actor && !this.scene.heroes.includes(actor)) {
       
       // If the enemy is not visible in result of an earlier hide animation that reduced his alpha to 0.
       if (actor.alpha === 0) {

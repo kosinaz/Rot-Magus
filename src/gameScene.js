@@ -25,14 +25,14 @@ class GameScene extends Phaser.Scene {
       // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its transparency.
       let tile = this.map.getTileNameAt(x, y);
 
-      if (this.player.activeEffects.some(function (effect) {
+      if (this.lastSelected.activeEffects.some(function (effect) {
         return effect.seeing;
       })) {
         return true;
       }
 
       // Return true if it is the player's position or if it is not opaque.
-      return this.player.isAtXY(x, y) ||
+      return this.lastSelected.isAtXY(x, y) ||
         (tile !== 'bush' && 
         tile !== 'tree' &&
         tile !== 'palmTree' && 
@@ -47,7 +47,7 @@ class GameScene extends Phaser.Scene {
       let tile = this.map.getTileNameAt(x, y);
 
       // Return true if it is the player's position or if it is not opaque.
-      return this.player.isAtXY(x, y) ||
+      return this.lastSelected.isAtXY(x, y) ||
         (tile !== 'bush' &&
           tile !== 'tree' &&
           tile !== 'palmTree' &&
@@ -63,18 +63,14 @@ class GameScene extends Phaser.Scene {
     this.engine = new ROT.Engine(this.scheduler);
 
     // Create the special actor that will be controlled by the player. Unique to the game scene and referred to by several functions of the scene and the enemies.
-    // this.player = new Player(this, 0, 0, 'tiles', 'elfMale');
-    // this.player.name = game.username || this.player.name;
-    // this.cameras.main.startFollow(this.player, true, 1, 1, 0, 0);
-
     this.heroes = [
       new Player(this, 0, 0, 'tiles', 'elfMale'),
       new Player(this, 1, 0, 'tiles', 'duckMageMale'),
       new Player(this, 2, 0, 'tiles', 'knightMale')
     ];
-    this.player = this.heroes[0];
-    this.cameras.main.startFollow(this.player, true, 1, 1, 0, 0);
+    this.cameras.main.startFollow(this.heroes[0], true, 1, 1, 0, 0);
     this.lastSelected = this.heroes[0];
+    this.heroes[0].setSelected(true);
 
     // Create a list for the enemies to track their activity.
     this.enemies = [];
@@ -102,12 +98,6 @@ class GameScene extends Phaser.Scene {
 
     // Start the engine, start the game.
     this.engine.start();
-
-    this.input.on('pointerup', function () {
-      if (this.scene.targetTile) {
-        this.scene.targetTile.destroy();
-      }
-    });
 
     // If the player died.
     this.events.on('playerDied', function () {
@@ -140,10 +130,14 @@ class GameScene extends Phaser.Scene {
   getActorAt(x, y) {
 
     // If the player is at the given position.
-    if (this.player.isAtXY(x, y)) {
+    for (let i = 0; i < this.heroes.length; i += 1) {
 
-      // Return the player.
-      return this.player;
+      // If an enemy is at the given position.
+      if (this.heroes[i].isAtXY(x, y)) {
+
+        // Return that enemy.
+        return this.heroes[i];
+      }
     }
 
     // Else iterate through all the enemies.
@@ -159,7 +153,7 @@ class GameScene extends Phaser.Scene {
   }
 
   // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible and to hide. Make the visible enemies notice the player.
-  computeFOV() {
+  computeFOV(player) {
 
     // Reset the list of tiles, items and actors to show in the current update. It needs to be set here even if the tiles to show are only added in the update FOV section, because the actors and items will be added here.
     this.objectsToShow = [];
@@ -182,7 +176,7 @@ class GameScene extends Phaser.Scene {
     this.enemies.forEach(enemy => enemy.toHide = true);
 
     // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
-    this.fov.compute(this.player.tileX, this.player.tileY, 13, function (x, y) {
+    this.fov.compute(player.tileX, player.tileY, 13, function (x, y) {
 
       // Keep the visible tile or add the tile that become visible to the scene. Tiles that became visible just now will be set to show as part of the add tile function. As the first step of the scene update all the already visible tiles were set to hide, but if a tile is still in the current field of view of the player, that tile will be set to not to hide. These also don't need to be set to show because they are already visible.
       this.map.addTile(x, y);
@@ -190,24 +184,24 @@ class GameScene extends Phaser.Scene {
   }
 
   // Make the currently visible enemies notice the player.
-  updateEnemyTargets() {
+  updateEnemyTargets(player) {
 
     // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
-    this.enemyFOV.compute(this.player.tileX, this.player.tileY, 13, function (x, y) {
+    this.enemyFOV.compute(player.tileX, player.tileY, 13, function (x, y) {
 
       // Get the actor at the given position.
       let actor = this.getActorAt(x, y);
 
       // If there is an actor and he is not the player, it means that he is an enemy.
-      if (actor && actor !== this.player) {
+      if (actor && !this.heroes.includes(actor)) {
 
         // If the player stands on a tile that is walkable by the enemy.
-        if (actor.walksOnXY(this.player.tileX, this.player.tileY)) {
+        if (actor.walksOnXY(player.tileX, player.tileY)) {
 
           // Make the enemy target the player.
           actor.target = {
-            x: this.player.tileX,
-            y: this.player.tileY
+            x: player.tileX,
+            y: player.tileY
           };
 
           // Reset the path of the enemy to let him start moving towards the player's new position.
@@ -327,16 +321,7 @@ class GameScene extends Phaser.Scene {
             this.map.tiles[i].image.setInteractive();
           }
         }
-      }      
-
-      // If the player hasn't reached his target yet because that's further than one step away and additional actions are needed to be performed automatically.
-      // if (!this.player.isAtXY(this.player.target.x, this.player.target.y)) {   
-        
-      //   this.player.updateTargetBasedOnEffects();
-
-      //   // Make him move towards his target.
-      //   this.player.move();
-      // }
+      }
     }.bind(this));
   }
 }

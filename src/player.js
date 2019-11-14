@@ -9,8 +9,6 @@ class Player extends Actor {
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
-
-    console.log(this.name, 'act', 'selected', this.isSelected);
     
     // The first step is to lock the engine before it calls the next actor, so the screen can be updated and the player can have plenty of time to perform his next action. The engine needs to be locked even if the player's actor has a target and does not need additional orders, because every action takes time and no one should move in the meantime.
     this.scene.engine.lock();
@@ -21,32 +19,36 @@ class Player extends Actor {
     this.updateEffects();
 
     // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible, and to hide.
-    this.scene.computeFOV();
+    this.scene.computeFOV(this);
+
+    // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
+    this.scene.updateFOV();
     
     if (!this.isAtXY(this.target.x, this.target.y)) {
       this.move();
       return;
-    }
+    }    
 
-    // Update the FOV in a speed-based amount of time to show the player what happened since his last action.
-    this.scene.updateFOV();
+    this.scene.time.delayedCall(50, function () {
 
-    // Every other character will follow his already given order when their turn has come, but this character needs to be notified once the waiting should be over and an order is ready to be executed. This will be the way to identify that is is the actor waiting for that notification.
-    this.isWaitingForOrder = true;
+      // Every other character will follow his already given order when their turn has come, but this character needs to be notified once the waiting should be over and an order is ready to be executed. This will be the way to identify that is is the actor waiting for that notification.
+      this.isWaitingForOrder = true;
 
-    // Automatically select the character that is waiting or orders.
-    this.setSelected();
+      // Automatically select the character that is waiting or orders and deselect all the others because they are on their way anyways.    
+      this.scene.heroes.forEach(function (hero) {
+        hero.setSelected(false);
+      });
+      this.setSelected(true);
 
-    // Emit an event that notifies the GUI that the player is now ready act and it should see the current state of the ground.
-    this.scene.events.emit('playerReady', this);
+      // Emit an event that notifies the GUI that the player is now ready act and it should see the current state of the ground.
+      this.scene.events.emit('playerReady', this);
+    }.bind(this));
   }
 
   setTarget(x, y) {
     if (!this.isSelected) {
-      console.log(this.name, 'selected:', this.isSelected);
       return;
     }
-    console.log(this.name, 'new target:', x, y, 'selected:', this.isSelected);
     this.target = {
       x: x,
       y: y
@@ -55,31 +57,27 @@ class Player extends Actor {
 
     // If this was the actor waiting for orders.
     if (this.isWaitingForOrder) {
-      console.log(this.name, 'waiting');
-
+      
       // Make sure that he won't execute new orders even if he was selected and ordered when another actor is waiting for orders. This way he can note the order but won't execute it until his time has come. This needs to be changed before executing the order because that would end with an engine unlock that leads to another act before this change is made.
       this.isWaitingForOrder = false;
-
+      
       // Make him start executing it.
       this.order();     
     }
   }
 
-  setSelected() {
-    this.isSelected = true;
-    this.scene.lastSelected = this;
-    this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
+  setSelected(selected) {
+    this.isSelected = selected;
+    if (selected) {
+      this.scene.lastSelected = this;
+      this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
+    }
     this.scene.events.emit('GUIUpdate');
   }
 
-  switchSelected(i) {
+  switchSelected(i) {    
     if (this.scene.heroes[i] === this) {
-      if (!this.isSelected) {
-        this.setSelected();
-      } else {
-        this.isSelected = false;
-        this.scene.events.emit('GUIUpdate');
-      }
+      this.setSelected(!this.isSelected);
     }
   }
 
@@ -93,7 +91,7 @@ class Player extends Actor {
     this.scene.events.emit('playerMoved', this);
 
     // Make the currently visible enemies notice the player.
-    this.scene.updateEnemyTargets();
+    this.scene.updateEnemyTargets(this);
 
     // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
     this.scene.engine.unlock();
@@ -104,7 +102,7 @@ class Player extends Actor {
     super.rangedAttack(actor);
 
     // Make the currently visible enemies notice the player.
-    this.scene.updateEnemyTargets();
+    this.scene.updateEnemyTargets(this);
 
     // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
     this.scene.engine.unlock();
@@ -115,7 +113,7 @@ class Player extends Actor {
     super.castSpellOn(spell, actor);
 
     // Make the currently visible enemies notice the player.
-    this.scene.updateEnemyTargets();
+    this.scene.updateEnemyTargets(this);
 
     // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
     this.scene.engine.unlock();
@@ -144,7 +142,7 @@ class Player extends Actor {
     }
 
     // Make the currently visible enemies notice the player.
-    this.scene.updateEnemyTargets();
+    this.scene.updateEnemyTargets(this);
 
     // Since this counts as a valid action, there is nothing left to do for the player as part of his current action, so the engine should be unlocked, and the scheduler should continue with the next actor.
     this.scene.engine.unlock();

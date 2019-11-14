@@ -456,6 +456,7 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   order() {
+    this.path = [];
     let actor = this.scene.getActorAt(this.target.x, this.target.y);
     let spell = this.equipped.leftHand || this.equipped.rightHand;
     if (spell && spell.manaCost && this.mana >= spell.manaCost) {
@@ -959,11 +960,11 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     // If the actor has been ordered to a different position and just started to move towards that position there can't be an already calculated path for him. Or if the actor just arrived to its destination during his last action, the last step will be still there as the last remaining element of the path, and that will be the actor's current position. That path can be ignored and no further automatic action should be performed. So in both cases this part of the code has been reached because the actor has been given a new order.
-    if (!this.path || this.path.length < 2) {
+    //if (!this.path || this.path.length < 2) {
 
       // Calculate a new path for the actor towards his new target.
       this.addPath(this.target.x, this.target.y);
-    }
+    //}
 
     // Remove the first element of the path because that's the actor's current position.
     this.path.shift();
