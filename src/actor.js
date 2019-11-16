@@ -136,7 +136,7 @@ class Actor extends Phaser.GameObjects.Image {
 
     this.updateTargetBasedOnEffects();
     
-    this.getGround();
+    this.updateGround();
 
     this.autoEquip();
 
@@ -178,7 +178,7 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
-  getGround() {
+  updateGround() {
 
     if (!this.scene.map.tiles[this.tileX + ',' + this.tileY]) {
       return [];

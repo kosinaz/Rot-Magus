@@ -61,6 +61,9 @@ class GameScene extends Phaser.Scene {
 
     // Create an engine using the previously created scheduler that will keep calling all the actors to perform their next action in a sequence based on their current speed.
     this.engine = new ROT.Engine(this.scheduler);
+    
+    // Create a list for the enemies to track their activity.
+    this.enemies = [];
 
     // Create the special actor that will be controlled by the player. Unique to the game scene and referred to by several functions of the scene and the enemies.
     this.heroes = [
@@ -71,9 +74,6 @@ class GameScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.heroes[0], true, 1, 1, 0, 0);
     this.lastSelected = this.heroes[0];
     this.heroes[0].setSelected(true);
-
-    // Create a list for the enemies to track their activity.
-    this.enemies = [];
 
     // Create a list for the items to track their position.
     this.items = []

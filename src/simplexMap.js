@@ -87,9 +87,9 @@ class SimplexMap {
           this.scene.targetTile.depth = 5;
 
           // Notify the player about the successful command.
-          this.scene.time.delayedCall(50, function () { 
+          //this.scene.time.delayedCall(50, function () { 
             this.scene.events.emit('order', x , y);
-          }.bind(this));
+          //}.bind(this));
         }
       });
 
