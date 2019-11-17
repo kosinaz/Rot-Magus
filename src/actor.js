@@ -52,65 +52,7 @@ class Actor extends Phaser.GameObjects.Image {
     this.actions = [];
     this.teammates = [];
     this.teammates.push(this);
-    this.scene.events.on('playerReady', function () {
-      if (this.dead || !this.scene) {
-        return;
-      }
-      let timeline = this.scene.tweens.createTimeline();
-      let actionDuration = (1000 / game.speed) / this.actions.length;
-      this.actions.forEach(function (action) {
-        if (action.type === 'move') {
-          timeline.add({
-            targets: this,
-            props: {
-              x: {
-                ease: 'Quad.easeInOut',
-                duration: actionDuration,
-                value: action.x * 24 + 12,
-              },
-              y: {
-                ease: 'Quad.easeInOut',
-                duration: actionDuration,
-                value: action.y * 21 + 11
-              },
-              scaleX: {
-                ease: 'Quad.easeOut',
-                duration: actionDuration / 3,
-                yoyo: true,
-                value: 1.2
-              },
-              scaleY: {
-                ease: 'Quad.easeOut',
-                duration: actionDuration / 3,
-                yoyo: true,
-                value: 1.2
-              },
-            }
-          });
-        } else if (action.type === 'attack') {
-          timeline.add({
-            targets: this,
-            x: action.x * 24 + 12,
-            y: action.y * 21 + 11,
-            scaleX: 1.2,
-            scaleY: 1.2,
-            ease: 'Quad.easeOut',
-            duration: actionDuration / 3,
-            yoyo: true
-          });
-        } else if (action.type === 'teleport') {
-          timeline.add({
-            targets: this,
-            x: action.x * 24 + 12,
-            y: action.y * 21 + 11,
-            ease: 'none',
-            duration: 1
-          });
-        }
-      }.bind(this));
-      timeline.play();
-      this.actions = [];
-    }.bind(this));
+    this.scene.events.on('act', this.showActions, this); 
   }
 
   initInventory() {
@@ -135,8 +77,6 @@ class Actor extends Phaser.GameObjects.Image {
     }
 
     this.updateTargetBasedOnEffects();
-    
-    this.updateGround();
 
     this.autoEquip();
 
@@ -148,6 +88,72 @@ class Actor extends Phaser.GameObjects.Image {
       // Make him move towards his target or attack from afar if possible.
       this.order();
     }
+  }
+
+  /**
+   * Animate all the actions that have been executed since the last animation. After that, allow the player to order the hero or automatically execute the order given to him in one of the previous turns. Either way after the hero performed the action, unlock the engine and let the next hero take his turn. If the hero is not selected, the action will be displayed in the turn of next hero. When this character will be the next to act with his previous order already completed, only the result of his action will be displayed, and only those enemies will be animated, whose turn came after the next hero's turn. If the hero is selected even if it is executing a previous order, the current action needs to be animated and the result needs to be displayed for the player before switching to the next hero. So the actions should be animated for the player from the perspective of the last hero. For the current one it will be enough to show the current state.
+   *
+   * @memberof Hero
+   */
+  showActions() {
+    if (this.dead || !this.scene) {
+      return;
+    }
+    let timeline = this.scene.tweens.createTimeline();
+    let actionDuration = (1000 / game.speed) / this.actions.length;
+    this.actions.forEach(function (action) {
+      if (action.type === 'move') {
+        timeline.add({
+          targets: this,
+          props: {
+            x: {
+              ease: 'Quad.easeInOut',
+              duration: actionDuration,
+              value: action.x * 24 + 12,
+            },
+            y: {
+              ease: 'Quad.easeInOut',
+              duration: actionDuration,
+              value: action.y * 21 + 11
+            },
+            scaleX: {
+              ease: 'Quad.easeOut',
+              duration: actionDuration / 3,
+              yoyo: true,
+              value: 1.2
+            },
+            scaleY: {
+              ease: 'Quad.easeOut',
+              duration: actionDuration / 3,
+              yoyo: true,
+              value: 1.2
+            },
+          }
+        });
+      } else if (action.type === 'attack') {
+        timeline.add({
+          targets: this,
+          x: action.x * 24 + 12,
+          y: action.y * 21 + 11,
+          scaleX: 1.2,
+          scaleY: 1.2,
+          ease: 'Quad.easeOut',
+          duration: actionDuration / 3,
+          yoyo: true
+        });
+      } else if (action.type === 'teleport') {
+        timeline.add({
+          targets: this,
+          x: action.x * 24 + 12,
+          y: action.y * 21 + 11,
+          ease: 'none',
+          duration: 1
+        });
+      }
+    }.bind(this));
+    timeline.on('complete', this.scene.lastSelected.showFOV); 
+    timeline.play();
+    this.actions = [];
   }
 
   updateTargetBasedOnEffects() {
@@ -178,16 +184,7 @@ class Actor extends Phaser.GameObjects.Image {
     }
   }
 
-  updateGround() {
-
-    if (!this.scene.map.tiles[this.tileX + ',' + this.tileY]) {
-      return [];
-    }
-
-    // If the there are already items on the ground at the player's current position, set their list as the ground to be displayed on the UI.
-    this.ground = this.scene.map.tiles[this.tileX + ',' + this.tileY].itemList 
-      || [];
-  }
+  
 
   autoEquip() {
     Phaser.Utils.Array.Shuffle(this.inventory);
@@ -212,6 +209,11 @@ class Actor extends Phaser.GameObjects.Image {
     this.updateAttributes();
   }
 
+  /**
+   * Update the effects currently affecting the actor by reducing the number of remaining turns they will be active. If there are no more turns left, remove the effect.
+   *
+   * @memberof Actor
+   */
   updateEffects() {
     for (let i = 0; i < this.activeEffects.length; i += 1) {
       if (this.activeEffects[i].timeLeft-- === 0) {
@@ -621,7 +623,7 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   // Check if the actor is at the given position.
-  isAtXY(x, y) {
+  isAt(x, y) {
 
     // Return true if the actor's tileX and tileY attributes are matching with the given x and y values.
     return this.tileX === x && this.tileY === y;

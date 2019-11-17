@@ -20,26 +20,7 @@ class GameScene extends Phaser.Scene {
     this.levels = this.cache.json.get('levels');
 
     // Create an FOV calculator used during the calculate FOV action of the player.
-    this.fov = new ROT.FOV.PreciseShadowcasting(function (x, y) {
-
-      // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its transparency.
-      let tile = this.map.getTileNameAt(x, y);
-
-      if (this.lastSelected.activeEffects.some(function (effect) {
-        return effect.seeing;
-      })) {
-        return true;
-      }
-
-      // Return true if it is the player's position or if it is not opaque.
-      return this.lastSelected.isAtXY(x, y) ||
-        (tile !== 'bush' && 
-        tile !== 'tree' &&
-        tile !== 'palmTree' && 
-        tile !== 'mountain' && 
-        tile !== 'stoneWall' && 
-        tile !== 'gate');
-    }.bind(this));  
+    this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
     
     this.enemyFOV = new ROT.FOV.PreciseShadowcasting(function (x, y) {
 
@@ -126,6 +107,27 @@ class GameScene extends Phaser.Scene {
     }.bind(this));
   }
 
+  isTransparent(x, y) {
+
+    // Get the tile name at the given position. The name of the tile is unique hence enough to determine its attributes including its transparency.
+    let tile = this.map.getTile(x, y);
+
+    if (this.lastSelected.activeEffects.some(function (effect) {
+        return effect.seeing;
+      })) {
+      return true;
+    }
+
+    // Return true if it is the player's position or if it is not opaque.
+    return this.lastSelected.isAt(x, y) ||
+      (tile !== 'bush' &&
+        tile !== 'tree' &&
+        tile !== 'palmTree' &&
+        tile !== 'mountain' &&
+        tile !== 'stoneWall' &&
+        tile !== 'gate');
+  };
+
   // Returns the actor who is at the given position of the map.
   getActorAt(x, y) {
 
@@ -152,36 +154,36 @@ class GameScene extends Phaser.Scene {
     }
   }
 
-  // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible and to hide. Make the visible enemies notice the player.
-  computeFOV(player) {
+  // // Determine what is visible for the player. Collect the tiles, actors and items to show, to keep as visible and to hide. Make the visible enemies notice the player.
+  // computeFOV(player) {
 
-    // Reset the list of tiles, items and actors to show in the current update. It needs to be set here even if the tiles to show are only added in the update FOV section, because the actors and items will be added here.
-    this.objectsToShow = [];
+  //   // Reset the list of tiles, items and actors to show in the current update. It needs to be set here even if the tiles to show are only added in the update FOV section, because the actors and items will be added here.
+  //   this.objectsToShow = [];
 
-    // Reset the list of tiles, items and actors to hide in the current update.
-    this.objectsToHide = [];
+  //   // Reset the list of tiles, items and actors to hide in the current update.
+  //   this.objectsToHide = [];
 
-    // As the show and hide animations of the objects are already played during the previous FOV update, it is safe to remove them and start collecting the objects to show and hide in the next FOV update. All the objects that were displayed in the last update are possible tiles to be hidden during the current update, so we set all of those to hide. If any of those should be displayed in the current update, it will be set not to hide during the FOV calculation. In the very first update, when there is no objects to show from previous updates, the list of objects to hide will be also empty. To set all tiles to be hide, iterate through all the tiles of the map.
-    for (let i in this.map.tiles) {
+  //   // As the show and hide animations of the objects are already played during the previous FOV update, it is safe to remove them and start collecting the objects to show and hide in the next FOV update. All the objects that were displayed in the last update are possible tiles to be hidden during the current update, so we set all of those to hide. If any of those should be displayed in the current update, it will be set not to hide during the FOV calculation. In the very first update, when there is no objects to show from previous updates, the list of objects to hide will be also empty. To set all tiles to be hide, iterate through all the tiles of the map.
+  //   for (let i in this.map.tiles) {
 
-      // If the current tile has an image it means it is currently displayed.
-      if (this.map.tiles[i].image !== undefined) {
+  //     // If the current tile has an image it means it is currently displayed.
+  //     if (this.map.tiles[i].image !== undefined) {
 
-        // Set the previously displayed tile to hide, but don't hide the tile yet because it might still be visible after the current FOV update. The tiles to hide will be collected and will be hidden after the FOV calculation. In the other hand the tiles that were set to show in the last update were set back to not to show right after their animation to prevent them having the show animation again.
-        this.map.tiles[i].toHide = true;
-      }
-    }
+  //       // Set the previously displayed tile to hide, but don't hide the tile yet because it might still be visible after the current FOV update. The tiles to hide will be collected and will be hidden after the FOV calculation. In the other hand the tiles that were set to show in the last update were set back to not to show right after their animation to prevent them having the show animation again.
+  //       this.map.tiles[i].toHide = true;
+  //     }
+  //   }
 
-    // Iterate through all the visible enemies and set them to hide.
-    this.enemies.forEach(enemy => enemy.toHide = true);
+  //   // Iterate through all the visible enemies and set them to hide.
+  //   this.enemies.forEach(enemy => enemy.toHide = true);
 
-    // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
-    this.fov.compute(player.tileX, player.tileY, 13, function (x, y) {
+  //   // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
+  //   this.fov.compute(player.tileX, player.tileY, 13, function (x, y) {
 
-      // Keep the visible tile or add the tile that become visible to the scene. Tiles that became visible just now will be set to show as part of the add tile function. As the first step of the scene update all the already visible tiles were set to hide, but if a tile is still in the current field of view of the player, that tile will be set to not to hide. These also don't need to be set to show because they are already visible.
-      this.map.addTile(x, y);
-    }.bind(this));
-  }
+  //     // Keep the visible tile or add the tile that become visible to the scene. Tiles that became visible just now will be set to show as part of the add tile function. As the first step of the scene update all the already visible tiles were set to hide, but if a tile is still in the current field of view of the player, that tile will be set to not to hide. These also don't need to be set to show because they are already visible.
+  //     this.map.addTile(x, y);
+  //   }.bind(this));
+  // }
 
   // Make the currently visible enemies notice the player.
   updateEnemyTargets(player) {

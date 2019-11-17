@@ -1,4 +1,4 @@
-class Player extends Actor {
+class Hero extends Actor {
   constructor(scene, x, y, texture, frame) {
     super(scene, x, y, texture, frame);
     this.isSelected = false;
@@ -7,14 +7,26 @@ class Player extends Actor {
     this.scene.events.on('select', this.switchSelected, this);    
   }       
 
-  // The act is getting called by the scheduler every time when the player character is the next to act based on his speed. The act will be played out in two different ways based on his current state. If he received an order from the player that still needs multiple turns to complete, he will be in an ordered state. If he is in that state and not selected by the player currently, his internal properties still need to be updated and the next step of the order needs to be executed, but there is no need to stop the game and show what he can see awaiting for the player's reaction.
+  /**
+   * The act is getting called by the scheduler every time when the hero is the next to act based on his speed. The act will be played out in two different ways based on his current state. 
+   * 
+   * If he received an order from the player that still needs multiple turns to complete, he will be in an ordered state.
+   * 
+   * If he is in that state and not selected by the player currently, his internal properties still need to be updated and the next step of the order needs to be executed, but there is no need to stop the game and show what he can see awaiting for the player's reaction. 
+   * 
+   * If he is in that state and selected, the player should see the current state, should see the animations about what happened so far, and finally should see how the hero executes the next step of the order. If there is no enemy around, there is no need at all to lock the engine, and the hero should continue to execute the remaining steps of his order.
+   * 
+   * In the other hand, if the hero completed his order and it is his turn to act, the game should be locked, the hero should be selected if he wasn't selected initially, and the player should see the current state, should see the animations about what happened so far, and should be able to react by giving an order to the hero.
+   *
+   * @memberof Hero
+   */
   act() {
 
-    // Update the effects currently affecting the player by reducing the number of remaining turns they will be active.
+    // Update the effects currently affecting the hero by reducing the number of remaining turns they will be active. Update the hero just like an actor.
     // always
     this.updateEffects();
 
-    // Update the list of tiles currently visible for the player and if there is an enemy, stop him to let the player decide what to do with them. In the meanwhile make all the visible enemies also notice the player. 
+    // Update the list of tiles currently visible for the hero and if there is an enemy, stop him to let the player decide what to do with them. In the meanwhile make all the visible enemies also notice the hero. 
     // always
     this.updateFOV();
 
@@ -36,20 +48,84 @@ class Player extends Actor {
       // When the player's character is selected, even if he is currently executing an order, the first step is to lock the engine before it calls the next actor, so the screen can be updated and the player can have plenty of time to perform his next action. If the actor is not selected and currently executing an order, there is no need to wait for the player's input, so there is no need to stop the game.
       // selected
       this.lock();
-
-      // Animate all the actions that have been executed since the last animation. After that, allow the player to order the actor or automatically execute the order given to him in one of the previous turns. Either way after the actor performed the action, unlock the engine and let the next actor take his turn. If the actor is not selected, the action will be displayed in the turn of next player character. When this character will be the next to act with his previous order already completed, only the result of his action will be displayed, and only those enemies will be animated, whose turn came after the next player character's turn. If the actor is selected even if it is executing a previous order, the current action needs to be animated and the result needs to be displayed for the player before switching to the next player character. So the actions should be animated for the player from the perspective of the last player character. For the current one it will be enough to show the current state. 
-      // selected
-      this.showActions();
-
-      // Move the camera to this character only after the actions have been animated from the previous character's perspective. Then collect all the currently displayed tiles, gradually hide those that are not visible for the player anymore and start to display the newly visible tiles.
-      // selected
-      this.showFOV();
     }
   }
 
+  /**
+   * Locks the engine to show the player what happened so far and to let him give an order.
+   *
+   * @memberof Hero
+   */
   lock() {
+
+    // Lock the engine of the scene.
     this.scene.engine.lock();
+
+    // Notify the scene and by that all the actors that the hero ready to act is selected so the animations about what happened before should be played.
+    this.scene.events.emit('act');
   }
+  
+  /**
+   * Make this hero selected and all the others deselected. Notify the scene about the selection.
+   *
+   * @memberof Hero
+   */
+  select() {
+
+    // Deselect all heroes of the scene.
+    this.scene.heroes.forEach(hero => hero.isSelected = false);
+
+    // Select this hero.
+    this.isSelected = true;
+
+    // Update the last selected hero of the scene.
+    this.scene.lastSelected = this;
+  }
+
+  /**
+   * Move the camera to this character only after the actions have been animated from the previous character 's perspective. Then collect all the currently displayed tiles, gradually hide those that are not visible for the player anymore and start to display those that just became visible.
+   *
+   * @memberof Hero
+   */
+  showFOV() {
+
+  }
+
+  /**
+   * Update the list of tiles currently visible for the hero and if there is an enemy, stop him to let the player decide what to do with them. In the meanwhile make all the visible enemies also notice the hero.
+   *
+   * @memberof Hero
+   */
+  updateFOV() {
+
+    // Reset the list of tiles that were visible for the hero in the previous turn.
+    let visibleTiles = [];
+
+    // Iterate through all the tiles around the player and determine if they are in the line of sight of the player or not.
+    this.scene.fov.compute(this.tileX, this.tileY, 13, function (x, y) {
+
+      // Add the position of tile to list of positions visible by the player.
+      visibleTiles.push({
+        x: x, 
+        y: y
+      });
+    });
+
+    // Update the list of visible tiles.
+    this.visibleTiles = visibleTiles;
+  }
+
+  /**
+   * Update the list of items found at the current position of the hero. These are the only items on the ground that he can pick up currently, and this is the list in which the dropped items will be added to.
+   *
+   * @memberof Hero
+   */
+  updateGround() {
+
+    // If there are already items on the ground at the hero's current position, set their list as the ground that the hero can interact with. If there is no item at the current position, just return an empty list.
+    this.ground = this.scene.map.getItem(this.tileX, this.tileY);
+  }
+
 
   setTarget(x, y) {
     if (!this.isSelected) {
