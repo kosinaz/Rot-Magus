@@ -7,6 +7,7 @@ class ActiveImage extends Phaser.GameObjects.Image {
       config.texture,
       config.frame
     );
+    this.alpha = config.alpha;
     this.config = config;
     this.event = config.event;
     this.fill = config.fill;

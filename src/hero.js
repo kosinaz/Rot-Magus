@@ -83,12 +83,100 @@ class Hero extends Actor {
   }
 
   /**
-   * Move the camera to this character only after the actions have been animated from the previous character 's perspective. Then collect all the currently displayed tiles, gradually hide those that are not visible for the player anymore and start to display those that just became visible.
+   * Move the camera to this character only after the actions have been animated from the previous character's perspective. Then collect all the currently displayed tiles, gradually hide those that are not visible for the player anymore and start to display those that just became visible.
    *
    * @memberof Hero
    */
   showFOV() {
 
+    // Move the camera to the this hero.
+    this.scene.cameras.main.startFollow(this, true, 1, 1, 0, 0);
+
+    // Gradually hide then destroy those currently visible tiles that are not visible for this hero.
+    this.tweens.add({
+      targets: this.scene.visibleTileImages.filter(
+        image => !this.visibleTiles.find(
+          tile => tile.x === image.tileX && tile.y === image.tileY
+        )
+      ),
+      alpha: 0,
+      duration: 1000 / game.speed,
+      onComplete: function () {
+        Phaser.Utils.Array.Remove(this.scene.visibleTileImages, this.targets);
+        this.targets.forEach(tile => tile.destroy())
+      }
+    });
+
+    // Create a list for the new tile images.
+    let newlyVisibleTileImages = [];
+    let newlyVisibleActorImages = [];
+    let newlyVisibleItemImages = [];
+
+    // Find those tiles, items and actors that just became visible for the hero, create an image for them and add them to the list of new images to let them gradually show right away.
+    this.visibleTiles.filter(
+      tile => !this.scene.visibleTileImages.find(
+        image => tile.x === image.tileX && tile.y === image.tileY
+      )
+    ).forEach(function (tile) {
+      newlyVisibleTileImages.push(new ActiveImage({
+        alpha: 0,
+        scene: this.scene,
+        frame: this.scene.map.getTile(x, y),
+        texture: 'tiles',
+        tileX: tile.x,
+        tileY: tile.y,
+        x: tile.x * 24 + 12,
+        y: tile.y * 21 + 11
+      }));
+      let item = this.scene.map.getItem(x, y);
+      if (item) {
+        newlyVisibleItemImages.push(new ActiveImage({
+          alpha: 0,
+          scene: this.scene,
+          frame: item,
+          texture: 'tiles',
+          tileX: tile.x,
+          tileY: tile.y,
+          x: tile.x * 24 + 12,
+          y: tile.y * 21 + 11
+        }));
+      }
+      let actor = this.scene.map.getActor(x, y);
+      if (actor) {
+        newlyVisibleActorImages.push(new ActiveImage({
+        alpha: 0,
+        scene: this.scene,
+        frame: actor,
+        texture: 'tiles',
+        tileX: tile.x,
+        tileY: tile.y,
+        x: tile.x * 24 + 12,
+        y: tile.y * 21 + 11
+        }));
+      }
+      
+    }, this);
+
+    // Gradually show those currently invisible tiles, items, and actors that are now visible for this hero.
+    this.tweens.add({
+      targets: newlyVisibleTileImages
+      .concat(newlyVisibleActorImages)
+      .concat(newlyVisibleItemImages),
+      alpha: 1,
+      duration: 1000 / game.speed
+    });
+
+    // Add the new list to the remaining list of visible tile images.
+    this.scene.visibleTileImages = 
+      this.scene.visibleTileImages.concat(newlyVisibleTileImages);    
+
+    // Add the new list to the remaining list of visible item images.
+    this.scene.visibleItemImages = 
+      this.scene.visibleItemImages.concat(newlyVisibleItemImages);
+
+    // Add the new list to the remaining list of visible actor images.
+    this.scene.visibleActorImages =
+      this.scene.visibleActorImages.concat(newlyVisibleActorImages);
   }
 
   /**
@@ -125,7 +213,6 @@ class Hero extends Actor {
     // If there are already items on the ground at the hero's current position, set their list as the ground that the hero can interact with. If there is no item at the current position, just return an empty list.
     this.ground = this.scene.map.getItem(this.tileX, this.tileY);
   }
-
 
   setTarget(x, y) {
     if (!this.isSelected) {
