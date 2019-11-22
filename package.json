@@ -1,0 +1,22 @@
+{
+  "name": "rot-magus",
+  "version": "0.7.0",
+  "description": "An extended, browser-based remake of Ronny Wester's Magus built with rot.js and Phaser.",
+  "main": "game.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kosinaz/Rot-Magus.git"
+  },
+  "author": "Kosina Zoltan",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/kosinaz/Rot-Magus/issues"
+  },
+  "homepage": "https://github.com/kosinaz/Rot-Magus#readme"
+}

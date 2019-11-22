@@ -1,6 +1,21 @@
-class Actor extends Phaser.GameObjects.Image {
+import {Effect} from './effect';
+
+/**
+ * Represents an active game character.
+ * @class Actor
+ */
+export class Actor {
+  /**
+   * Creates an instance of Actor.
+   * @param {*} scene
+   * @param {*} x
+   * @param {*} y
+   * @param {*} texture
+   * @param {*} frame
+   * @memberof Actor
+   */
   constructor(scene, x, y, texture, frame) {
-    super(scene, x * 24 + 12, y * 21 + 11, texture, frame);
+    this.events = new Phaser.Events.EventEmitter();
     this.config = this.scene.actorTypes[frame];
     this.name = this.config.name;
     this.tileX = x;
@@ -8,9 +23,9 @@ class Actor extends Phaser.GameObjects.Image {
     this.tileName = frame;
     this.target = {
       x: this.tileX,
-      y: this.tileY
-    }
-    this.path = null;      
+      y: this.tileY,
+    };
+    this.path = null;
     this.xp = this.config.xp || 0;
     this.xpMax = 50;
     this.level = 0;
@@ -68,6 +83,10 @@ class Actor extends Phaser.GameObjects.Image {
 
   // The act is getting called by the scheduler every time when this actor is the next to act.
   act() {
+    // Notify the listeners that this actor's turn to act has come by emitting
+    // the act event. This will update the effects currently affecting the hero
+    // by reducing the number of remaining turns they will be active.
+    this.events.emit('act');
 
     if (this.lifespan !== undefined) {
       if (this.lifespan-- === 0) {
@@ -91,9 +110,39 @@ class Actor extends Phaser.GameObjects.Image {
   }
 
   /**
+   * Adds the specified effect to the actor or updates it to reset the
+   * remaining time.
+   * @param {string} type - The typename of the effect.
+   * @memberof Actor
+   */
+  addEffect(type) {
+    this.effects[type] = new Effect(this, type);
+  }
+
+  /**
+   * Returns true if the actor currently has the specified effect.
+   * @param {string} type - The typename of the effect.
+   * @return {boolean} - True if the actor has the effect.
+   * @memberof Actor
+   */
+  hasEffect(type) {
+    // Return true if the specified effect is part of the current effects.
+    return type in this.effects;
+  }
+
+  /**
+   * Removes the specified effect from the actor.
+   * @param {string} type - The typename of the effect.
+   * @memberof Actor
+   */
+  removeEffect(type) {
+    this.effects[type] = null;
+  }
+
+  /**
    * Animate all the actions that have been executed since the last animation. After that, allow the player to order the hero or automatically execute the order given to him in one of the previous turns. Either way after the hero performed the action, unlock the engine and let the next hero take his turn. If the hero is not selected, the action will be displayed in the turn of next hero. When this character will be the next to act with his previous order already completed, only the result of his action will be displayed, and only those enemies will be animated, whose turn came after the next hero's turn. If the hero is selected even if it is executing a previous order, the current action needs to be animated and the result needs to be displayed for the player before switching to the next hero. So the actions should be animated for the player from the perspective of the last hero. For the current one it will be enough to show the current state.
    *
-   * @memberof Hero
+   * @memberof Actor
    */
   showActions() {
     if (this.dead || !this.scene) {
@@ -151,7 +200,6 @@ class Actor extends Phaser.GameObjects.Image {
         });
       }
     }.bind(this));
-    timeline.on('complete', this.scene.lastSelected.showFOV); 
     timeline.play();
     this.actions = [];
   }

@@ -7,7 +7,7 @@
     "weight": 8
   },
   "air": {
-    "effect": "bam",
+    "effect": "airEffect",
     "equips": "hands",
     "manaCost": 7,
     "name": "air",
@@ -34,8 +34,7 @@
     "weight": 5
   },
   "berzerk": {
-    "damageMod": 8,
-    "effect": "uh",
+    "effect": "berzerkEffect",
     "equips": "hands",
     "manaCost": 3,
     "name": "berzerk"
@@ -115,16 +114,15 @@
     "weight": 5
   },
   "chaos": {
-    "effect": "nhg",
+    "effect": "chaosEffect",
     "equips": "hands",
     "manaCost": 20,
     "name": "chaos",
     "note": "Empties out the target's inventory!"
   },
   "chock": {
-    "effect": "zap",
+    "effect": "lightningBoltEffect",
     "equips": "hand",
-    "health": -24,
     "name": "chock",
     "price": 150,
     "ranged": true,
@@ -145,7 +143,7 @@
     "weight": 5
   },
   "confusion": {
-    "effect": "nhg",
+    "effect": "confusionEffect",
     "equips": "hands",
     "manaCost": 5,
     "name": "confusion",
@@ -170,21 +168,20 @@
     "weight": 1
   },
   "darkness": {
-    "effect": "bam",
+    "effect": "darknessEffect",
     "equips": "hands",
     "manaCost": 10,
     "name": "darkness",
     "summons": "shadowbeast"
   },
   "delay": {
-    "effect": "eh",
+    "effect": "delayEffect",
     "equips": "hands",
     "manaCost": 2,
-    "name": "delay",
-    "speedMod": -2
+    "name": "delay"
   },
   "demonSpell": {
-    "effect": "bam",
+    "effect": "demonEffect",
     "equips": "hands",
     "manaCost": 25,
     "name": "demon",
@@ -198,7 +195,7 @@
     "weight": 4
   },
   "earth": {
-    "effect": "bam",
+    "effect": "earthEffect",
     "equips": "hands",
     "manaCost": 8,
     "name": "earth",
@@ -236,30 +233,27 @@
     "returns": true
   },
   "fastFeet": {
-    "effect": "uh",
+    "effect": "fastFeetEffect",
     "equips": "hands",
     "manaCost": 8,
-    "name": "fast feet",
-    "speedMod": 3
+    "name": "fast feet"
   },
   "fire": {
-    "effect": "bam",
+    "effect": "fireEffect",
     "equips": "hands",
     "manaCost": 10,
     "name": "fire",
     "summons": "fenix"
   },
   "fireBall": {
-    "effect": "paf",
+    "effect": "fireBallEffect",
     "equips": "hands",
-    "health": -17,
     "manaCost": 5,
     "name": "fireball"
   },
   "fireblade": {
-    "effect": "paf",
+    "effect": "fireBallEffect",
     "equips": "hand",
-    "health": -17,
     "name": "fireblade",
     "price": 150,
     "ranged": true,
@@ -305,9 +299,8 @@
     "xp": 100
   },
   "heal": {
-    "effect": "uh",
+    "effect": "healEffect",
     "equips": "hands",
-    "health": 25,
     "manaCost": 5,
     "name": "heal",
     "price": 20
@@ -320,16 +313,15 @@
     "weight": 3
   },
   "hyperspace": {
-    "effect": "bom",
+    "effect": "hyperspaceEffect",
     "equips": "hands",
     "manaCost": 20,
     "name": "hyperspace",
     "note": "Teleports the target to a random place!"
   },
   "inferno": {
-    "effect": "paf",
+    "effect": "fireBallEffect",
     "equips": "hands",
-    "health": -24,
     "manaCost": 12,
     "name": "inferno",
     "note": "Casts a line of fire towards the target and explodes around it!"
@@ -351,14 +343,13 @@
     "weight": 3
   },
   "lightningBolt": {
-    "effect": "zap",
+    "effect": "lightningBoltEffect",
     "equips": "hands",
-    "health": -24,
     "manaCost": 10,
     "name": "lightning bolt"
   },
   "lightningSpell": {
-    "effect": "bam",
+    "effect": "lightningEffect",
     "equips": "hands",
     "manaCost": 15,
     "name": "lightning",
@@ -383,7 +374,7 @@
     "price": 150
   },
   "panic": {
-    "effect": "eh",
+    "effect": "terrorEffect",
     "equips": "hands",
     "manaCost": 20,
     "name": "panic",
@@ -391,28 +382,28 @@
     "range": 6
   },
   "phantom": {
-    "effect": "uh",
+    "effect": "phantomEffect",
     "equips": "hands",
     "manaCost": 3,
     "name": "phantom",
     "walksOn": "everything"
   },
   "portal": {
-    "effect": "bom",
+    "effect": "portalEffect",
     "equips": "hands",
     "manaCost": 7,
     "name": "portal",
     "note": "Teleports the target to the selected place!"
   },
   "protection": {
-    "effect": "uh",
+    "effect": "protectionEffect",
     "equips": "hands",
     "manaCost": 2,
     "name": "protection",
     "note": "Halves the damage!"
   },
   "purify": {
-    "effect": "bam",
+    "effect": "purifyEffect",
     "equips": "hands",
     "manaCost": 20,
     "name": "purify",
@@ -469,7 +460,7 @@
     "weight": 3
   },
   "skeletonSpell": {
-    "effect": "bam",
+    "effect": "skeletonEffect",
     "equips": "hands",
     "manaCost": 15,
     "name": "skeleton",
@@ -483,7 +474,7 @@
     "weight": 8
   },
   "sleep": {
-    "effect": "eh",
+    "effect": "sleepEffect",
     "equips": "hands",
     "manaCost": 8,
     "name": "sleep",
@@ -502,7 +493,7 @@
     "weight": 10
   },
   "stonefoot": {
-    "effect": "eh",
+    "effect": "stonefootEffect",
     "equips": "hands",
     "manaCost": 6,
     "name": "stone foot",
@@ -567,7 +558,7 @@
     "weight": 4
   },
   "terror": {
-    "effect": "eh",
+    "effect": "terrorEffect",
     "equips": "hands",
     "manaCost": 7,
     "name": "terror",
@@ -584,9 +575,8 @@
   },
   "thunderStorm": {
     "amount": 20,
-    "effect": "zap",
+    "effect": "lightningBoltEffect",
     "equips": "hands",
-    "health": -24,
     "manaCost": 25,
     "name": "thunder storm",
     "note": "Casts a group of lightning bolts randomly around and above the target!"
@@ -612,7 +602,7 @@
     "weight": 2
   },
   "water": {
-    "effect": "bam",
+    "effect": "waterEffect",
     "equips": "hands",
     "manaCost": 8,
     "name": "water",
@@ -643,7 +633,7 @@
     "weight": 1
   },
   "zombieSpell": {
-    "effect": "bam",
+    "effect": "zombieEffect",
     "equips": "hands",
     "manaCost": 15,
     "name": "zombie",

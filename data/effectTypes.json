@@ -1,0 +1,128 @@
+{
+  "airEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 112
+  },
+  "berzerkEffect": {
+    "damageMod": 8,
+    "frame": "uh",
+    "note": "Increases damage.",
+    "time": 4
+  },
+  "chaosEffect": {
+    "frame": "nhg",
+    "time": 1
+  },
+  "confusionEffect": {
+    "frame": "nhg",
+    "note": "Acts randomly.",
+    "time": 4
+  },
+  "darknessEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 15
+  },
+  "delayEffect": {
+    "frame": "eh",
+    "note": "Decreases speed.",
+    "speedMod": -2,
+    "time": 4
+  },
+  "demonEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 54
+  },
+  "earthEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 15
+  },
+  "fastFeetEffect": {
+    "frame": "uh",
+    "note": "Increases speed.",
+    "speedMod": 3,
+    "time": 4
+  },
+  "fireBallEffect": {
+    "frame": "paf",
+    "health": -17,
+    "time": 1
+  },
+  "fireEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 10
+  },
+  "healEffect": {
+    "frame": "uh",
+    "health": 25,
+    "time": 1
+  },
+  "hyperspaceEffect": {
+    "frame": "bom",
+    "time": 1
+  },
+  "lightningBoltEffect": {
+    "frame": "zap",
+    "health": -24,
+    "time": 1
+  },
+  "lightningEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 8
+  },
+  "phantomEffect": {
+    "effect": "uh",
+    "note": "Walks on everything.",
+    "time": 4
+  },
+  "portalEffect": {
+    "effect": "bom",
+    "note": "Teleports to target",
+    "time": 1
+  },
+  "protectionEffect": {
+    "effect": "uh",
+    "note": "Halves the damage",
+    "time": 4
+  },
+  "purifyEffect": {
+    "effect": "bam",
+    "time": 1
+  },
+  "skeletonEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 12
+  },
+  "sleepEffect": {
+    "frame": "eh",
+    "note": "Decreases the speed.",
+    "speedFix": 1,
+    "time": 4
+  },
+  "stonefootEffect": {
+    "effect": "eh",
+    "note": "Walks on nothing.",
+    "time": 4
+  },
+  "terrorEffect": {
+    "frame": "eh",
+    "note": "Runs away.",
+    "time": 4
+  },
+  "waterEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 36
+  },
+  "zombieEffect": {
+    "frame": "bam",
+    "note": "Unsummons after awhile.",
+    "time": 12
+  }
+}

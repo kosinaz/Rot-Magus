@@ -235,6 +235,57 @@ class SimplexMap {
   }
 
   /**
+   * Return the name of the actor that can be found at the given position.
+   *
+   * @param {*} x The x coordinate of the tile.
+   * @param {*} y The y coordinate of the tile.
+   * @returns The name of the actor found at the tile.
+   * @memberof SimplexMap
+   */
+  getActorFrame(x, y) {
+
+    // Return the frame name of the actor.
+    return this.actors.find(actor => actor.x === x && actor.y === y).frame;
+  }
+
+  /**
+   * Return the frame name of the tile, item, and actor that can be found at the given position.
+   *
+   * @param {*} x The x coordinate of the tile.
+   * @param {*} y The y coordinate of the tile.
+   * @returns The array of the tile, item and actor frame name.
+   * @memberof SimplexMap
+   */
+  getFrames(x, y) {
+    return [
+      this.getTileFrame(x, y),
+      this.getItemFrame(x, y),
+      this.getActorFrame(x, y)
+    ];
+  }
+
+  /**
+   * Return the name of the top item that can be found at the given position.
+   *
+   * @param {*} x The x coordinate of the tile.
+   * @param {*} y The y coordinate of the tile.
+   * @returns The name of top item found at the tile.
+   * @memberof SimplexMap
+   */
+  getItemFrame(x, y) {
+
+    // Get the items at the given position.
+    let items = this.getItems(x, y);
+
+    // If there are items.
+    if (items) {
+
+      // Return the frame name of the first item that has one.
+      return items.find(item => item.frame !== undefined).frame;
+    }
+  }
+
+  /**
    * Return the items that can be found at the given position.
    *
    * @param {*} x The x coordinate of the tile.
@@ -242,13 +293,13 @@ class SimplexMap {
    * @returns The list of items found at the tile or an empty list.
    * @memberof SimplexMap
    */
-  getItem(x, y) {
+  getItems(x, y) {
 
     // Return the list of items based on the given position.
-    return this.scene.map.tiles[x + ',' + y].itemList || [];
-  }
+    return this.items[x + ',' + y] || [];
+  } 
 
-  getTile(x, y) {
+  getTileFrame(x, y) {
     if (-4 < x && x < 6 && -4 < y && y < 6) {
       if (-3 < x && x < 5 && -3 < y && y < 5) {
         if (-2 < x && x < 4 && -2 < y && y < 4) {

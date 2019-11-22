@@ -6,7 +6,6 @@
       "fireBall",
       "fireblade"
     ],
-    "lifespan": 54,
     "mana": 20,
     "name": "demon",
     "speed": 6,
@@ -22,7 +21,6 @@
   "djinn": {
     "agility": 0,
     "health": 1,
-    "lifespan": 112,
     "mana": 0,
     "name": "djinn",
     "speed": 14,
@@ -97,7 +95,6 @@
     "inventory": [
       "fireblade"
     ],
-    "lifespan": 10,
     "mana": 5,
     "name": "fenix",
     "speed": 5,
@@ -125,7 +122,6 @@
     "inventory": [
       "stoneAxe"
     ],
-    "lifespan": 15,
     "mana": 0,
     "name": "golem",
     "speed": 3,
@@ -173,7 +169,6 @@
     "inventory": [
       "chock"
     ],
-    "lifespan": 8,
     "mana": 10,
     "name": "lightning",
     "speed": 8,
@@ -255,7 +250,6 @@
     "inventory": [
       "club"
     ],
-    "lifespan": 15,
     "mana": 0,
     "name": "shadowbeast",
     "speed": 5,
