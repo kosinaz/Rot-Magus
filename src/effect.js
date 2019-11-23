@@ -1,6 +1,6 @@
 /**
- * Represents the temporary impact of an actor's action upon the same or a
- * different actor. It can modify his stats, his behavior, or the way how the
+ * Represents the temporary impact of an Actor's action upon the same or a
+ * different Actor. It can modify his stats, his behavior, or the way how the
  * the engine will handle him during his next action.
  * @export
  * @class Effect
@@ -8,19 +8,28 @@
 export class Effect {
   /**
    * Creates an instance of Effect.
-   * @param {Actor} actor - The effected actor.
-   * @param {string} type - The typename of the effect.
+   * @param {Actor} bearer - The Actor under the Effect.
+   * @param {string} type - The effectTypes.json typename of the Effect.
    * @memberof Effect
    */
-  constructor(actor, type) {
-    this.actor = actor;
+  constructor(bearer, type) {
+    // Set the bearer.
+    this.bearer = bearer;
+
+    // Get the configuration of the Effect from the preloaded effectTypes.json.
     this.config = this.cache.json.get('effectTypes')[type];
+
+    // Set the expiration time based on the configuration of the Effect.
     this.time = this.config.time;
-    this.actor.events.on('act', this.decreaseTime);
+
+    // Every time when it is the bearer's turn to act, decrease the remaining
+    // time of the Effect.
+    this.bearer.events.on('act', this.decreaseTime, this);
   }
+
   /**
-   * Decreases the remaining time while the effect is active with one and
-   * destroys it if no time left.
+   * Decreases the remaining time while the Effect is active with one and
+   * removes it if no time left.
    * @memberof Effect
    */
   decreaseTime() {
@@ -29,11 +38,11 @@ export class Effect {
 
     // If no time left.
     if (this.time < 0) {
-      // Stop reacting to the actions of the actor.
-      this.actor.events.off('act');
+      // Stop reacting to the actions of the bearer.
+      this.bearer.events.off('act', this.decreaseTime, this);
 
-      // Delete this effect from the active effect list of the actor.
-      this.actor.removeEffect(this.type);
+      // Delete this Effect from the Effects of the bearer.
+      this.bearer.effects.remove(this.type);
     }
   }
 }

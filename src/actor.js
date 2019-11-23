@@ -1,4 +1,4 @@
-import {Effect} from './effect';
+import {EffectManager} from './effectManager';
 
 /**
  * Represents an active game character.
@@ -7,15 +7,21 @@ import {Effect} from './effect';
 export class Actor {
   /**
    * Creates an instance of Actor.
-   * @param {*} scene
-   * @param {*} x
-   * @param {*} y
-   * @param {*} texture
-   * @param {*} frame
+   * @param {string} type - The actorTypes.json typename of the Actor.
+   * @param {number} [x=0] - The x coordinate of the Actor's position.
+   * @param {number} [y=0] - The y coordinate of the Actor's position.
    * @memberof Actor
    */
-  constructor(scene, x, y, texture, frame) {
+  constructor(type, x = 0, y = 0) {
+    // Manually add an Phaser event emitter because the Actor is not a Phaser
+    // class that would already have one. This will be used to notify listeners
+    // about the act event of the Actor.
     this.events = new Phaser.Events.EventEmitter();
+
+    // Add an EffectManager to the Actor to handle his Effects.
+    this.effects = new EffectManager(this);
+
+
     this.config = this.scene.actorTypes[frame];
     this.name = this.config.name;
     this.tileX = x;
@@ -109,35 +115,7 @@ export class Actor {
     }
   }
 
-  /**
-   * Adds the specified effect to the actor or updates it to reset the
-   * remaining time.
-   * @param {string} type - The typename of the effect.
-   * @memberof Actor
-   */
-  addEffect(type) {
-    this.effects[type] = new Effect(this, type);
-  }
 
-  /**
-   * Returns true if the actor currently has the specified effect.
-   * @param {string} type - The typename of the effect.
-   * @return {boolean} - True if the actor has the effect.
-   * @memberof Actor
-   */
-  hasEffect(type) {
-    // Return true if the specified effect is part of the current effects.
-    return type in this.effects;
-  }
-
-  /**
-   * Removes the specified effect from the actor.
-   * @param {string} type - The typename of the effect.
-   * @memberof Actor
-   */
-  removeEffect(type) {
-    this.effects[type] = null;
-  }
 
   /**
    * Animate all the actions that have been executed since the last animation. After that, allow the player to order the hero or automatically execute the order given to him in one of the previous turns. Either way after the hero performed the action, unlock the engine and let the next hero take his turn. If the hero is not selected, the action will be displayed in the turn of next hero. When this character will be the next to act with his previous order already completed, only the result of his action will be displayed, and only those enemies will be animated, whose turn came after the next hero's turn. If the hero is selected even if it is executing a previous order, the current action needs to be animated and the result needs to be displayed for the player before switching to the next hero. So the actions should be animated for the player from the perspective of the last hero. For the current one it will be enough to show the current state.
