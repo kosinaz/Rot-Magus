@@ -1,5 +1,16 @@
-class SimplexMap {
-  constructor(scene, tilesetImage, config) {
+/**
+ * Represents the game world where the gameplay itself happens.
+ *
+ * @export
+ * @class WorldMap
+ */
+export class WorldMap {
+  /**
+   * Creates an instance of WorldMap.
+   * @param {*} scene
+   * @memberof WorldMap
+   */
+  constructor(scene) {
 
     this.config = config;
 

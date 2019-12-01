@@ -7,16 +7,15 @@
  */
 export class Hero extends Actor {
   /**
-   * Creates an instance of Hero.
-   * @param {Phaser.Scene} scene
-   * @param {Number} x
-   * @param {Number} y
-   * @param {String} texture
-   * @param {String} frame
-   * @memberof Hero
+   * Creates an instance of Actor.
+   * @param {Phaser.Scene} scene - The scene the Actor belongs to.
+   * @param {string} type - The actorTypes.json typename of the Actor.
+   * @param {number} [x=0] - The x coordinate of the Actor's position.
+   * @param {number} [y=0] - The y coordinate of the Actor's position.
+   * @memberof Actor
    */
-  constructor(scene, x, y, texture, frame) {
-    super(scene, x, y, texture, frame);
+  constructor(scene, type, x = 0, y = 0) {
+    super(scene, type, x, y);
     this.isSelected = false;
     this.isWaitingForOrder = false;
     this.scene.events.on('order', this.setTarget, this);
@@ -52,16 +51,11 @@ export class Hero extends Actor {
    */
   act() {
     // Notify the listeners that this actor's turn to act has come by emitting
-    // the act event. This will update the effects currently affecting the hero
-    // by reducing the number of remaining turns they will be active. Update the
-    // hero just like an actor.
+    // the act event.
+    // Listeners:
+    // - Effect: decreaseTime
+    //
     this.events.emit('act');
-
-    // Update the list of tiles currently visible for the hero and if there is
-    // an enemy, stop him to let the player decide what to do with them. In the
-    // meanwhile make all the visible enemies also notice the hero.
-    // always
-    this.updateFOV();
 
     // If the actor is not selected and not ordered by the player.
     if (!this.isSelected && !this.isOrdered) {
@@ -104,11 +98,6 @@ export class Hero extends Actor {
   lock() {
     // Lock the engine of the scene.
     this.scene.engine.lock();
-
-    // Notify the scene and by that all the actors that the hero ready to act
-    // is selected so the animations about what happened before should be
-    // played.
-    this.scene.events.emit('act');
   }
 
   /**

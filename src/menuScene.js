@@ -1,24 +1,43 @@
-class MenuScene extends Phaser.Scene {
+/**
+ * Represents the scene of the main menu.
+ *
+ * @export
+ * @class MenuScene
+ * @extends {Phaser.Scene}
+ */
+export default class MenuScene extends Phaser.Scene {
+  /**
+   * Creates an instance of MenuScene.
+   * @memberof MenuScene
+   */
   constructor() {
+    // Create the MenuScene just like any Phaser scene.
     super('MenuScene');
   }
+
+  /**
+   * Creates the dynamic background and the menu points.
+   *
+   * @memberof MenuScene
+   */
   create() {
-    game.seed = ROT.RNG.getUniformInt(0, 1000000);
-    ROT.RNG.setSeed(game.seed);
+    const seed = ROT.RNG.getUniformInt(0, Number.MAX_SAFE_INTEGER);
+    console.log(seed);
+    ROT.RNG.setSeed(seed);
     this.cameras.main.setBackgroundColor('#616161');
-    this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
-    for (let x = 0; x < 44; x += 1) {
-      for (let y = 0; y < 28; y += 1) {
-        this.add.image(x * 24 - 12, y * 21, 'tiles', this.map.getTileNameAt(x - 21, y - 13));
-      }
-    }
-    this.add.text(512, 100, 'ROT MAGUS', {
-      fontFamily: 'title',
-      fontSize: '64px',
-      fill: '#ff0000',
-      stroke: '000000',
-      strokeThickness: 8
-    }).setOrigin(0.5);
+    // this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
+    // for (let x = 0; x < 44; x += 1) {
+    //   for (let y = 0; y < 28; y += 1) {
+    //     this.add.image(x * 24 - 12, y * 21, 'tiles', this.map.getTileNameAt(x - 21, y - 13));
+    //   }
+    // }
+    // this.add.text(512, 100, 'ROT MAGUS', {
+    //   fontFamily: 'title',
+    //   fontSize: '64px',
+    //   fill: '#ff0000',
+    //   stroke: '000000',
+    //   strokeThickness: 8
+    // }).setOrigin(0.5);
     new TextButton({
       onPointerUp: function () {
         this.scene.start('GameScene');

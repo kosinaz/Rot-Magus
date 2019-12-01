@@ -7,12 +7,25 @@ import {EffectManager} from './effectManager';
 export class Actor {
   /**
    * Creates an instance of Actor.
+   * @param {Phaser.Scene} scene - The scene the Actor belongs to.
    * @param {string} type - The actorTypes.json typename of the Actor.
    * @param {number} [x=0] - The x coordinate of the Actor's position.
    * @param {number} [y=0] - The y coordinate of the Actor's position.
    * @memberof Actor
    */
-  constructor(type, x = 0, y = 0) {
+  constructor(scene, type, x = 0, y = 0) {
+    // Set the scene.
+    this.scene = scene;
+
+    // Set the generic propererties of the Actor based on the actorTypes.json.
+    this.type = this.cache.json.get('actorTypes')[type];
+
+    // Set the x coordinate of the Actor's position.
+    this.x = x;
+
+    // Set the y coordinate of the Actor's position.
+    this.y = y;
+
     // Manually add an Phaser event emitter because the Actor is not a Phaser
     // class that would already have one. This will be used to notify listeners
     // about the act event of the Actor.
@@ -21,12 +34,7 @@ export class Actor {
     // Add an EffectManager to the Actor to handle his Effects.
     this.effects = new EffectManager(this);
 
-
-    this.config = this.scene.actorTypes[frame];
-    this.name = this.config.name;
-    this.tileX = x;
-    this.tileY = y;
-    this.tileName = frame;
+    this.frame = frame;
     this.target = {
       x: this.tileX,
       y: this.tileY,

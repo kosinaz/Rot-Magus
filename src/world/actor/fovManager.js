@@ -13,5 +13,10 @@ export class FOVManager {
   constructor(viewer) {
     // Set the viewer.
     this.viewer = viewer;
+
+    // Set the tool to compute the FOV of the viewer based on what is
+    // transparent for him.
+    this.fovcomputer =
+      new ROT.FOV.PreciseShadowcasting(viewer.isTransparent.bind(this));
   }
 }
