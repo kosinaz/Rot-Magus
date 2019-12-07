@@ -9,6 +9,7 @@ export default class Settings {
    * Increase the speed on ingame animations by one, return to one when
    * speed level five is reached.
    *
+   * @static
    * @memberof Settings
    */
   static changeSpeed() {
