@@ -27,7 +27,6 @@ export default class MenuScene extends Phaser.Scene {
     const seed = RNG.getUniformInt(0, Number.MAX_SAFE_INTEGER);
     RNG.setSeed(seed);
     this.cameras.main.setBackgroundColor('#616161');
-    this.settings = new Settings();
     // this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
     // for (let x = 0; x < 44; x += 1) {
     //   for (let y = 0; y < 28; y += 1) {

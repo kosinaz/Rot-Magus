@@ -2,6 +2,7 @@ import LoadScene from './loadScene.js';
 import MenuScene from './menuScene.js';
 import SettingScene from './settingScene.js';
 import SeedBrowserScene from './seedBrowserScene.js';
+import ScoreScene from './scoreScene.js';
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -18,11 +19,11 @@ const game = new Phaser.Game({
     MenuScene,
     SettingScene,
     SeedBrowserScene,
+    ScoreScene,
     // GameScene,
     // GUIScene,
     // DeathScene,
     // LoseScene,
-    // ScoreScene,
   ],
 });
 game.speed = 3;
