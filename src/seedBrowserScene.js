@@ -1,13 +1,31 @@
-class SeedBrowserScene extends Phaser.Scene {
+import {color} from './consts.js';
+import TextButton from './gui/textButton.js';
+/**
+ * Represents a scene that allows the player to browse and play random seeds.
+ *
+ * @class SeedBrowserScene
+ * @extends {Phaser.Scene}
+ */
+export default class SeedBrowserScene extends Phaser.Scene {
+  /**
+   * Creates an instance of SeedBrowserScene.
+   * @memberof SeedBrowserScene
+   */
   constructor() {
     super('SeedBrowserScene');
   }
 
+  /**
+   * Creates the content of the scene.
+   *
+   * @memberof SeedBrowserScene
+   */
   create() {
     game.seed = ROT.RNG.getUniformInt(0, 1000000);
     ROT.RNG.setSeed(game.seed);
 
-    // Create a map based on Simplex noise. Unique to the game scene and referred to by several functions of the scene.
+    // Create a map based on Simplex noise. Unique to the game scene and
+    // referred to by several functions of the scene.
     this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
     this.graphics = this.add.graphics();
     for (let x = 0; x < 1024; x += 1) {
@@ -29,33 +47,33 @@ class SeedBrowserScene extends Phaser.Scene {
           stoneWall: color.gray,
           dirt: color.brown,
           sand: color.yellow,
-          palmTree: color.green
+          palmTree: color.green,
         }[this.map.getTileNameAt(x - 512, y - 288)]);
         this.graphics.fillPoint(x, y);
       }
     }
     new TextButton({
-      onPointerUp: function () {
+      onPointerUp: () => {
         this.scene.start('GameScene');
-      }.bind(this),
+      },
       origin: 0.5,
       scene: this,
       text: 'Start new game with seed: ' + ROT.RNG.getSeed(),
       x: 512,
-      y: 440
+      y: 440,
     });
     new TextButton({
-      onPointerUp: function () {
+      onPointerUp: () => {
         this.scene.restart();
-      }.bind(this),
+      },
       origin: 0.5,
       scene: this,
       text: 'Change seed',
       x: 512,
-      y: 490
+      y: 490,
     });
     new TextButton({
-      onPointerUp: function () {
+      onPointerUp: () => {
         this.scene.scene.start('MenuScene');
         this.scene.scale.off('leavefullscreen');
       },
@@ -63,7 +81,7 @@ class SeedBrowserScene extends Phaser.Scene {
       scene: this,
       text: 'Back to main menu',
       x: 512,
-      y: 540
+      y: 540,
     });
   }
 }

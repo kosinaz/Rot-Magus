@@ -1,3 +1,6 @@
+import TextButton from './gui/textButton.js';
+import RNG from '../lib/rot/rng.js';
+import Settings from './settings/settings.js';
 /**
  * Represents the scene of the main menu.
  *
@@ -21,10 +24,10 @@ export default class MenuScene extends Phaser.Scene {
    * @memberof MenuScene
    */
   create() {
-    const seed = ROT.RNG.getUniformInt(0, Number.MAX_SAFE_INTEGER);
-    console.log(seed);
-    ROT.RNG.setSeed(seed);
+    const seed = RNG.getUniformInt(0, Number.MAX_SAFE_INTEGER);
+    RNG.setSeed(seed);
     this.cameras.main.setBackgroundColor('#616161');
+    this.settings = new Settings();
     // this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
     // for (let x = 0; x < 44; x += 1) {
     //   for (let y = 0; y < 28; y += 1) {
@@ -39,44 +42,44 @@ export default class MenuScene extends Phaser.Scene {
     //   strokeThickness: 8
     // }).setOrigin(0.5);
     new TextButton({
-      onPointerUp: function () {
+      onPointerUp: () => {
         this.scene.start('GameScene');
-      }.bind(this),
+      },
       origin: 0.5,
       scene: this,
       text: 'New game',
       x: 512,
-      y: 220
+      y: 220,
     });
     new TextButton({
-      onPointerUp: function () {
+      onPointerUp: () => {
         this.scene.start('SeedBrowserScene');
-      }.bind(this),
+      },
       origin: 0.5,
       scene: this,
       text: 'Map browser',
       x: 512,
-      y: 270
+      y: 270,
     });
     new TextButton({
-      onPointerUp: function () {
+      onPointerUp: () => {
         this.scene.start('ScoreScene');
-      }.bind(this),
+      },
       origin: 0.5,
       scene: this,
       text: 'Hall of fame',
       x: 512,
-      y: 320
+      y: 320,
     });
     new TextButton({
-      onPointerUp: function () {
+      onPointerUp: () => {
         this.scene.start('SettingScene');
-      }.bind(this),
+      },
       origin: 0.5,
       scene: this,
       text: 'Settings',
       x: 512,
-      y: 370
+      y: 370,
     });
   }
 }
