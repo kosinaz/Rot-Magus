@@ -24,9 +24,9 @@ export default class ScoreScene extends Phaser.Scene {
     this.cameras.main.fadeIn(2000);
     this.cameras.main.setBackgroundColor('#606060');
     this.add.image(400, 40, 'gui', 'heroes').setOrigin(0.5);
-    this.add.text(470, 45, 'Brave heroes', {
+    this.add.text(485, 43, 'Brave heroes', {
       fontFamily: 'font',
-      fontSize: '16px',
+      fontSize: '24px',
       fill: '#000000',
     }).setOrigin(0.5);
     // eslint-disable-next-line new-cap
