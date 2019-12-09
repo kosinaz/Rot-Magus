@@ -1,3 +1,4 @@
+import Simplex from '.../lib/rot/noise/simplex.js'
 /**
  * Represents the game world where the gameplay itself happens.
  *
@@ -5,24 +6,6 @@
  * @class WorldMap
  */
 export default class WorldMap {
-
-  get noise() {
-    n
-  }
-
-    // The Simplex noise that serve as the base of the map.
-    this.noises = [];
-
-    this.objectNoise = new ROT.Noise.Simplex();
-    
-    this.config.layers.forEach(function () {
-      this.noises.push(new ROT.Noise.Simplex());
-    }.bind(this));
-
-    // The collection of positions containing a tile image and a unique key that determines the attributes of that tile and the image to be displayed in case the previously used image object of this tile has been reused elsewhere while this tile was hidden.
-    this.tiles = {}; 
-  }
-
   // Tiles are added from the pool or created on the fly.
   addTile(x, y) {
 
@@ -299,9 +282,6 @@ export default class WorldMap {
     // Return the list of items based on the given position.
     return this.items[x + ',' + y] || [];
   } 
-
-  getTileFrame(x, y) {
-  }
   
   createTile(x, y) {
     if (-4 < x && x < 6 && -4 < y && y < 6) {
@@ -321,8 +301,23 @@ export default class WorldMap {
         return 'dirt';
       }
     }
-    createTileFromLayer(x, y);
-  }
+    const noiseLevels = WorldMap.config.layers.map(
+      (layer, i) =>
+        layer.levels.findIndex(
+          (level) =>
+            layer.octaves.reduce(
+              (value, { amplitude, frequency }) =>
+                value + Math.pow(2, amplitude) * WorldMap.noises[i].get(
+                  x * Math.pow(2, frequency),
+                  y * Math.pow(2, frequency)
+                ),
+              0
+            ) / layer.octaves.reduce(
+              (value, { amplitude }) =>
+                value + Math.pow(2, amplitude),
+              0
+            ) < level)
+    );
 
   /**
    * Creates the frame name of the tile at the given position on the given
@@ -412,4 +407,6 @@ export default class WorldMap {
   }
 }
 WorldMap.config = this.cache.json.get('mapConfig');
+WorldMap.noises = WorldMap.config.layers.map(() => new Simplex());
+WorldMap.terrain = new Map();
 
