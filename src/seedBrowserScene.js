@@ -21,11 +21,8 @@ export default class SeedBrowserScene extends Phaser.Scene {
    * @memberof SeedBrowserScene
    */
   create() {
-    game.seed = ROT.RNG.getUniformInt(0, 1000000);
-    ROT.RNG.setSeed(game.seed);
-
-    // Create a map based on Simplex noise. Unique to the game scene and
-    // referred to by several functions of the scene.
+    const seed = ROT.RNG.getUniformInt(0, Number.MAX_SAFE_INTEGER);
+    ROT.RNG.setSeed(seed);
     this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
     this.graphics = this.add.graphics();
     for (let x = 0; x < 1024; x += 1) {
@@ -48,7 +45,7 @@ export default class SeedBrowserScene extends Phaser.Scene {
           dirt: color.brown,
           sand: color.yellow,
           palmTree: color.green,
-        }[this.map.getTileNameAt(x - 512, y - 288)]);
+        }[this.map.getTileFrame(x - 512, y - 288)]);
         this.graphics.fillPoint(x, y);
       }
     }

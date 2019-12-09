@@ -4,21 +4,11 @@
  * @export
  * @class WorldMap
  */
-export class WorldMap {
-  /**
-   * Creates an instance of WorldMap.
-   * @param {*} scene
-   * @memberof WorldMap
-   */
-  constructor(scene) {
+export default class WorldMap {
 
-    this.config = config;
-
-    // The scene where the map is displayed.
-    this.scene = scene;
-
-    // The key of the image this map will use to render its tiles.
-    this.tilesetImage = tilesetImage;
+  get noise() {
+    n
+  }
 
     // The Simplex noise that serve as the base of the map.
     this.noises = [];
@@ -311,6 +301,9 @@ export class WorldMap {
   } 
 
   getTileFrame(x, y) {
+  }
+  
+  createTile(x, y) {
     if (-4 < x && x < 6 && -4 < y && y < 6) {
       if (-3 < x && x < 5 && -3 < y && y < 5) {
         if (-2 < x && x < 4 && -2 < y && y < 4) {
@@ -328,11 +321,40 @@ export class WorldMap {
         return 'dirt';
       }
     }
-    let nx = x / this.config.layers[0].frequency;
-    let ny = y / this.config.layers[0].frequency;
+    createTileFromLayer(x, y);
+  }
+
+  /**
+   * Creates the frame name of the tile at the given position on the given
+   * layer. First, it generates the noise values on the given frequencies.
+   *
+   * @param {number} x The x coordinate of the tile's position.
+   * @param {number} y The y coordinate of the tile's position.
+   * @param {number} [layer=0] The layer where the tile is.
+   * @return {string} The frame name of the tile.
+   * @memberof WorldMap
+   */
+  createTileOfLayer(x, y, layer = 0) {
+    const frequencies = 
+      WorldMap.config.layers[layer].frequencyExponents.map(x => Math.pow(2, x));
+    // Decrease the frequency of the noise to make every random formation span
+    // across a number of tiles equal to the given frequency value. This way
+    // the area of high and low elevations will be bigger than a single tile.
+    // Set the x coordinate as if it was on a much more detailed map based on
+    // the current layer's frequency.
+    const nx = x / WorldMap.config.layers[layer].frequency;
+
+    // Set the y coordinate as if it was on a much more detailed map based on
+    // the current layer's frequency.
+    const ny = y / WorldMap.config.layers[layer].frequency;
     let v = 0;
     let iv = 0;
-    for (let o = 1; o < this.config.layers[0].octaves + 1; o += 1) {
+
+    // The octaves value of the layer shows how many times the engine will
+    // apply an exponentially less frequent noise on top of the current map.
+    // This way the high frequency formations spanning across several tiles
+    // will have medium and low frequency formations on them.
+    for (let o = 1; o < this.config.layers[layer].octaves + 1; o += 1) {
       v += 1 / Math.pow(o, 1.1) * this.noises[0].get(o * nx, o * ny);
       iv += 1 / Math.pow(o, 1.1);
     }
@@ -389,3 +411,5 @@ export class WorldMap {
     }
   }
 }
+WorldMap.config = this.cache.json.get('mapConfig');
+
