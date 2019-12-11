@@ -6,6 +6,17 @@ import Simplex from '.../lib/rot/noise/simplex.js'
  * @class WorldMap
  */
 export default class WorldMap {
+  /**
+   * Configures the world map based on an external map configuration object.
+   *
+   * @static
+   * @param {*} config The map config object.
+   * @memberof WorldMap
+   */
+  static setConfig(config) {
+    WorldMap.config = config;
+    WorldMap.noises = WorldMap.config.layers.map(() => new Simplex());
+  }
   // Tiles are added from the pool or created on the fly.
   addTile(x, y) {
 
@@ -281,132 +292,60 @@ export default class WorldMap {
 
     // Return the list of items based on the given position.
     return this.items[x + ',' + y] || [];
-  } 
-  
-  createTile(x, y) {
-    if (-4 < x && x < 6 && -4 < y && y < 6) {
-      if (-3 < x && x < 5 && -3 < y && y < 5) {
-        if (-2 < x && x < 4 && -2 < y && y < 4) {
-          if (x === 1 && y === 1) {
-            return 'portalTile';
-          }
-          return 'stoneFloor';
-        }
-        if (x === 1 || y === 1) {
-          return 'gate';
-        }
-        return 'stoneWall';
-      }
-      if (x === 1 || y === 1) {
-        return 'dirt';
-      }
-    }
-    const noiseLevels = WorldMap.config.layers.map(
-      (layer, i) =>
-        layer.levels.findIndex(
-          (level) =>
-            layer.octaves.reduce(
-              (value, { amplitude, frequency }) =>
-                value + Math.pow(2, amplitude) * WorldMap.noises[i].get(
-                  x * Math.pow(2, frequency),
-                  y * Math.pow(2, frequency)
-                ),
-              0
-            ) / layer.octaves.reduce(
-              (value, { amplitude }) =>
-                value + Math.pow(2, amplitude),
-              0
-            ) < level)
-    );
+  }
 
   /**
-   * Creates the frame name of the tile at the given position on the given
-   * layer. First, it generates the noise values on the given frequencies.
+   * Creates the tile at the given position and optionally a set of items or a
+   * moster.
    *
-   * @param {number} x The x coordinate of the tile's position.
-   * @param {number} y The y coordinate of the tile's position.
-   * @param {number} [layer=0] The layer where the tile is.
-   * @return {string} The frame name of the tile.
+   * @static
+   * @param {number} x The x coordinate of the tile.
+   * @param {number} y The y coordinate of the tile.
    * @memberof WorldMap
    */
-  createTileOfLayer(x, y, layer = 0) {
-    const frequencies = 
-      WorldMap.config.layers[layer].frequencyExponents.map(x => Math.pow(2, x));
-    // Decrease the frequency of the noise to make every random formation span
-    // across a number of tiles equal to the given frequency value. This way
-    // the area of high and low elevations will be bigger than a single tile.
-    // Set the x coordinate as if it was on a much more detailed map based on
-    // the current layer's frequency.
-    const nx = x / WorldMap.config.layers[layer].frequency;
+  static createTerrain(x, y) {
+    const noiseValues = WorldMap.config.layers.map(
+        ({octaves}) =>
+          octaves.reduce((value, {amplitude, frequency}) =>
+            value + Math.pow(2, amplitude) * WorldMap.noises[i].get(
+                x * Math.pow(2, frequency),
+                y * Math.pow(2, frequency),
+            ),
+          0,
+          ) / octaves.reduce((value, {amplitude}) =>
+            value + Math.pow(2, amplitude),
+          0,
+          ),
+    );
+    noiseValues.push(new Simplex().get(x * 4, y * 4));
+    WorldMap.terrain.set(`${x},${y}`, WorldMap.getTerrain(noiseValues));
+    WorldMap.items.set(`${x},${y}`, WorldMap.getItems());
+    WorldMap.actors.push(new Monster(x, y));
+  }
 
-    // Set the y coordinate as if it was on a much more detailed map based on
-    // the current layer's frequency.
-    const ny = y / WorldMap.config.layers[layer].frequency;
-    let v = 0;
-    let iv = 0;
-
-    // The octaves value of the layer shows how many times the engine will
-    // apply an exponentially less frequent noise on top of the current map.
-    // This way the high frequency formations spanning across several tiles
-    // will have medium and low frequency formations on them.
-    for (let o = 1; o < this.config.layers[layer].octaves + 1; o += 1) {
-      v += 1 / Math.pow(o, 1.1) * this.noises[0].get(o * nx, o * ny);
-      iv += 1 / Math.pow(o, 1.1);
+  /**
+   * Returns the name of a terrain or a biome of the parent biome on the given
+   * layer based on the related value of the list of noise values.
+   *
+   * @static
+   * @param {array} noiseValues A list made of noise values for each layer.
+   * @param {string} [biome='world'] A name of the parent biome.
+   * @param {number} [layerIndex=0] The index of the parent biome's layer.
+   * @return {string} The name of the terrain or biome.
+   * @memberof WorldMap
+   */
+  static getTerrain(noiseValues, biome = 'world', layerIndex = 0) {
+    const biomeObject = WorldMap.config.biomes[biome];
+    let terrain = biomeObject[Object.keys(biomeObject).find(
+        (limit) => limit > noiseValues[layerIndex],
+    )];
+    if (WorldMap.config.biomes.hasOwnProperty(terrain)) {
+      terrain = WorldMap.getTerrain(noiseValues, terrain, layerIndex + 1);
     }
-    v /= iv;
-    v = (1 + v) * 50;
-    let nx2 = 0;
-    let ny2 = 0;
-    let v2 = 0;
-    let iv2 = 0;
-    if (this.config.layers[1]) {
-      nx2 = x / this.config.layers[1].frequency;
-      ny2 = y / this.config.layers[1].frequency;
-      for (let o2 = 1; o2 < this.config.layers[1].octaves + 1; o2 += 1) {
-        v2 += 1 / Math.pow(o2, 1.1) * this.noises[1].get(o2 * nx2, o2 * ny2);
-        iv2 += 1 / Math.pow(o2, 1.1);
-      }
-      v2 /= iv2;
-      v2 = (1 + v2) * 50;
-    }
-    let nx3 = 0;
-    let ny3 = 0;
-    let v3 = 0;
-    let iv3 = 0;
-    if (this.config.layers[2]) {
-      nx3 = x / this.config.layers[2].frequency;
-      ny3 = y / this.config.layers[2].frequency;
-      for (let o3 = 1; o3 < this.config.layers[2].octaves + 1; o3 += 1) {
-        v3 += 1 / Math.pow(o3, 1.1) * this.noises[2].get(o3 * nx3, o3 * ny3);
-        iv3 += 1 / Math.pow(o3, 1.1);
-      }
-      v3 /= iv3;
-      v3 = (1 + v3) * 50;
-    }
-    for (let r = 0; r < this.config.rules.length; r+= 1) {
-      if (v < this.config.rules[r].limit) {
-        if (this.config.rules[r].tileName) {
-          return this.config.rules[r].tileName;
-        }
-        for (let r2 = 0; r2 < this.config.rules[r].rules.length; r2 += 1) {
-          if (v2 < this.config.rules[r].rules[r2].limit) {
-            if (this.config.rules[r].rules[r2].tileName) {
-              return this.config.rules[r].rules[r2].tileName;
-            }
-            for (let r3 = 0; r3 < this.config.rules[r].rules[r2].rules.length; r3 += 1) {
-              if (v3 < this.config.rules[r].rules[r2].rules[r3].limit) {
-                if (this.config.rules[r].rules[r2].rules[r3].tileName) {
-                  return this.config.rules[r].rules[r2].rules[r3].tileName;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    return terrain;
   }
 }
-WorldMap.config = this.cache.json.get('mapConfig');
-WorldMap.noises = WorldMap.config.layers.map(() => new Simplex());
 WorldMap.terrain = new Map();
+WorldMap.items = new Map();
+WorldMap.actors = [];
 

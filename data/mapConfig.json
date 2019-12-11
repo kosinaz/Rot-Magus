@@ -1,42 +1,5 @@
 {
-  "biomes": [
-    [
-      "wasteland",
-      "forest border",
-      "swamp"
-    ],
-    [
-      "wasteland border",
-      "forest border",
-      "swamp border"
-    ],
-    [
-      "forest border",
-      "forest",
-      "forest border"
-    ],
-    [
-      "mountain",
-      "mountain border",
-      "mountain"
-    ],
-    [
-      "plains border",
-      "plains",
-      "plains border"
-    ],
-    [
-      "desert border",
-      "plains border",
-      "lake border"
-    ],
-    [
-      "desert",
-      "plains border",
-      "lake"
-    ]
-  ],
-  "features": {
+  "biomes": {
     "desert": {
       "3": "waterTile",
       "10": "palmTree",
@@ -46,6 +9,15 @@
       "20": "palmTree",
       "30": "sand",
       "100": "dirt"
+    },
+    "world": {
+      "30": "low",
+      "33": "low border",
+      "45": "mid low",
+      "55": "mid",
+      "67": "mid high",
+      "70": "high border",
+      "100": "high"
     },
     "forest": {
       "40": "tree",
@@ -59,6 +31,16 @@
       "25": "redFlower",
       "100": "grass"
     },
+    "high": {
+      "40": "desert",
+      "60": "plains border",
+      "100": "lake"
+    },
+    "high border": {
+      "40": "desert border",
+      "60": "plains border",
+      "100": "lake border"
+    },
     "lake": {
       "3": "tree",
       "5": "grass",
@@ -68,6 +50,31 @@
     "lake border": {
       "50": "ford",
       "100": "waterTile"
+    },
+    "low": {
+      "40": "wasteland",
+      "60": "forest border",
+      "100": "swamp"
+    },
+    "low border": {
+      "40": "wasteland border",
+      "60": "forest border",
+      "100": "swamp border"
+    },
+    "mid": {
+      "40": "mountain",
+      "60": "mountain border",
+      "100": "mountain"
+    },
+    "mid high": {
+      "40": "plains border",
+      "60": "plains",
+      "100": "plains border"
+    },
+    "mid low": {
+      "40": "forest border",
+      "60": "forest",
+      "100": "forest border"
     },
     "mountain": {
       "15": "gravel",
@@ -113,18 +120,11 @@
       "100": "dirt"
     }
   },
-  "layers": [{
-      "levels": [
-        30,
-        33,
-        45,
-        55,
-        67,
-        70,
-        100
-      ],
+  "layers": [
+    {
       "name": "elevation",
-      "octaves": [{
+      "octaves": [
+        {
           "amplitude": 0,
           "frequency": 6
         },
@@ -139,13 +139,9 @@
       ]
     },
     {
-      "levels": [
-        40,
-        60,
-        100
-      ],
       "name": "moisture",
-      "octaves": [{
+      "octaves": [
+        {
           "amplitude": 0,
           "frequency": 8
         },
