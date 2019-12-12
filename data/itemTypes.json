@@ -11,6 +11,7 @@
     "equips": "hands",
     "manaCost": 7,
     "name": "air",
+    "price": 10,
     "summons": "djinn"
   },
   "armour": {
@@ -37,7 +38,8 @@
     "effect": "berzerkEffect",
     "equips": "hands",
     "manaCost": 3,
-    "name": "berzerk"
+    "name": "berzerk",
+    "price": 40
   },
   "bigHelmet": {
     "defense": 3,
@@ -111,6 +113,7 @@
     "damage": 10,
     "equips": "hands",
     "name": "chain 'n' ball",
+    "price": 10,
     "weight": 5
   },
   "chaos": {
@@ -118,7 +121,8 @@
     "equips": "hands",
     "manaCost": 20,
     "name": "chaos",
-    "note": "Empties out the target's inventory!"
+    "note": "Empties out the target's inventory!",
+    "price": 70
   },
   "chock": {
     "effect": "lightningBoltEffect",
@@ -147,7 +151,8 @@
     "equips": "hands",
     "manaCost": 5,
     "name": "confusion",
-    "note": "Makes the target's next actions random!"
+    "note": "Makes the target's next actions random!",
+    "price": 160
   },
   "crossbow": {
     "damage": 1,
@@ -172,19 +177,22 @@
     "equips": "hands",
     "manaCost": 10,
     "name": "darkness",
-    "summons": "shadowbeast"
+    "summons": "shadowbeast",
+    "price": 100
   },
   "delay": {
     "effect": "delayEffect",
     "equips": "hands",
     "manaCost": 2,
-    "name": "delay"
+    "name": "delay",
+    "price": 20
   },
   "demonSpell": {
     "effect": "demonEffect",
     "equips": "hands",
     "manaCost": 25,
     "name": "demon",
+    "price": 200,
     "summons": "demon"
   },
   "dragonTooth": {
@@ -199,6 +207,7 @@
     "equips": "hands",
     "manaCost": 8,
     "name": "earth",
+    "price": 80,
     "summons": "golem"
   },
   "elvenCloak": {
@@ -236,20 +245,23 @@
     "effect": "fastFeetEffect",
     "equips": "hands",
     "manaCost": 8,
-    "name": "fast feet"
+    "name": "fast feet",
+    "price": 60
   },
   "fire": {
     "effect": "fireEffect",
     "equips": "hands",
     "manaCost": 10,
     "name": "fire",
+    "price": 40,
     "summons": "fenix"
   },
   "fireBall": {
     "effect": "fireBallEffect",
     "equips": "hands",
     "manaCost": 5,
-    "name": "fireball"
+    "name": "fireball",
+    "price": 85
   },
   "fireblade": {
     "effect": "fireBallEffect",
@@ -317,14 +329,16 @@
     "equips": "hands",
     "manaCost": 20,
     "name": "hyperspace",
-    "note": "Teleports the target to a random place!"
+    "note": "Teleports the target to a random place!",
+    "price": 100
   },
   "inferno": {
     "effect": "fireBallEffect",
     "equips": "hands",
     "manaCost": 12,
     "name": "inferno",
-    "note": "Casts a line of fire towards the target and explodes around it!"
+    "note": "Casts a line of fire towards the target and explodes around it!",
+    "price": 300
   },
   "leadball": {
     "damage": 8,
@@ -346,13 +360,15 @@
     "effect": "lightningBoltEffect",
     "equips": "hands",
     "manaCost": 10,
-    "name": "lightning bolt"
+    "name": "lightning bolt",
+    "price": 120
   },
   "lightningSpell": {
     "effect": "lightningEffect",
     "equips": "hands",
     "manaCost": 15,
     "name": "lightning",
+    "price": 10,
     "summons": "lightning"
   },
   "negator": {
@@ -379,6 +395,7 @@
     "manaCost": 20,
     "name": "panic",
     "note": "Makes every monster near the target run away from the caster!",
+    "price": 300,
     "range": 6
   },
   "phantom": {
@@ -386,6 +403,7 @@
     "equips": "hands",
     "manaCost": 3,
     "name": "phantom",
+    "price": 90,
     "walksOn": "everything"
   },
   "portal": {
@@ -393,21 +411,24 @@
     "equips": "hands",
     "manaCost": 7,
     "name": "portal",
-    "note": "Teleports the target to the selected place!"
+    "note": "Teleports the target to the selected place!",
+    "price": 65
   },
   "protection": {
     "effect": "protectionEffect",
     "equips": "hands",
     "manaCost": 2,
     "name": "protection",
-    "note": "Halves the damage!"
+    "note": "Halves the damage!",
+    "price": 100
   },
   "purify": {
     "effect": "purifyEffect",
     "equips": "hands",
     "manaCost": 20,
     "name": "purify",
-    "note": "Unsummons the summoned!"
+    "note": "Unsummons the summoned!",
+    "price": 50
   },
   "purple": {
     "consumable": true,
@@ -429,6 +450,7 @@
     "damage": 10,
     "equips": "hand",
     "name": "sabre",
+    "price": 15,
     "weight": 7
   },
   "shadowCloak": {
@@ -464,6 +486,7 @@
     "equips": "hands",
     "manaCost": 15,
     "name": "skeleton",
+    "price": 10,
     "summons": "skeleton"
   },
   "slayer": {
@@ -478,18 +501,21 @@
     "equips": "hands",
     "manaCost": 8,
     "name": "sleep",
+    "price": 60,
     "speedFix": 1
   },
   "staff": {
     "damage": 10,
     "equips": "hands",
     "name": "staff",
+    "price": 10,
     "weight": 3
   },
   "stoneAxe": {
     "damage": 15,
     "equips": "hands",
     "name": "stone axe",
+    "price": 15,
     "weight": 10
   },
   "stonefoot": {
@@ -497,6 +523,7 @@
     "equips": "hands",
     "manaCost": 6,
     "name": "stone foot",
+    "price": 80,
     "walksOn": "nothing"
   },
   "studdedLeather": {
@@ -562,7 +589,8 @@
     "equips": "hands",
     "manaCost": 7,
     "name": "terror",
-    "note": "Makes the target run away from the caster!"
+    "note": "Makes the target run away from the caster!",
+    "price": 100
   },
   "throwingStar": {
     "damage": 9,
@@ -579,7 +607,8 @@
     "equips": "hands",
     "manaCost": 25,
     "name": "thunder storm",
-    "note": "Casts a group of lightning bolts randomly around and above the target!"
+    "note": "Casts a group of lightning bolts randomly around and above the target!",
+    "price": 300
   },
   "topaz": {
     "equips": "neck",
@@ -592,7 +621,8 @@
     "equips": "hand",
     "manaCost": 2,
     "name": "vision",
-    "note": "Reveals the map around the target!"
+    "note": "Reveals the map around the target!",
+    "price": 40
   },
   "wakizashi": {
     "damage": 9,
@@ -606,6 +636,7 @@
     "equips": "hands",
     "manaCost": 8,
     "name": "water",
+    "price": 30,
     "summons": "undine"
   },
   "white": {
@@ -637,6 +668,7 @@
     "equips": "hands",
     "manaCost": 15,
     "name": "zombie",
+    "price": 10,
     "summons": "zombie"
   }
 }
