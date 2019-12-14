@@ -1,6 +1,5 @@
 import TextButton from './gui/textButton.js';
 import RNG from '../lib/rot/rng.js';
-import Settings from './settings/settings.js';
 /**
  * Represents the scene of the main menu.
  *
@@ -62,13 +61,23 @@ export default class MenuScene extends Phaser.Scene {
     });
     new TextButton({
       onPointerUp: () => {
+        this.scene.start('NoiseScene');
+      },
+      origin: 0.5,
+      scene: this,
+      text: 'Noise browser',
+      x: 512,
+      y: 320,
+    });
+    new TextButton({
+      onPointerUp: () => {
         this.scene.start('ScoreScene');
       },
       origin: 0.5,
       scene: this,
       text: 'Hall of fame',
       x: 512,
-      y: 320,
+      y: 370,
     });
     new TextButton({
       onPointerUp: () => {
@@ -78,7 +87,7 @@ export default class MenuScene extends Phaser.Scene {
       scene: this,
       text: 'Settings',
       x: 512,
-      y: 370,
+      y: 420,
     });
   }
 }

@@ -1,125 +1,4 @@
 {
-  "biomes": {
-    "desert": {
-      "3": "waterTile",
-      "10": "palmTree",
-      "100": "sand"
-    },
-    "desert border": {
-      "20": "palmTree",
-      "30": "sand",
-      "100": "dirt"
-    },
-    "world": {
-      "30": "low",
-      "33": "low border",
-      "45": "mid low",
-      "55": "mid",
-      "67": "mid high",
-      "70": "high border",
-      "100": "high"
-    },
-    "forest": {
-      "40": "tree",
-      "43": "yellowFlower",
-      "45": "redFlower",
-      "100": "grass"
-    },
-    "forest border": {
-      "20": "tree",
-      "23": "yellowFlower",
-      "25": "redFlower",
-      "100": "grass"
-    },
-    "high": {
-      "40": "desert",
-      "60": "plains border",
-      "100": "lake"
-    },
-    "high border": {
-      "40": "desert border",
-      "60": "plains border",
-      "100": "lake border"
-    },
-    "lake": {
-      "3": "tree",
-      "5": "grass",
-      "20": "marsh",
-      "100": "waterTile"
-    },
-    "lake border": {
-      "50": "ford",
-      "100": "waterTile"
-    },
-    "low": {
-      "40": "wasteland",
-      "60": "forest border",
-      "100": "swamp"
-    },
-    "low border": {
-      "40": "wasteland border",
-      "60": "forest border",
-      "100": "swamp border"
-    },
-    "mid": {
-      "40": "mountain",
-      "60": "mountain border",
-      "100": "mountain"
-    },
-    "mid high": {
-      "40": "plains border",
-      "60": "plains",
-      "100": "plains border"
-    },
-    "mid low": {
-      "40": "forest border",
-      "60": "forest",
-      "100": "forest border"
-    },
-    "mountain": {
-      "15": "gravel",
-      "100": "mountain"
-    },
-    "mountain border": {
-      "85": "gravel",
-      "100": "mountain"
-    },
-    "plains": {
-      "10": "tree",
-      "20": "bush",
-      "21": "yellowFlower",
-      "22": "redFlower",
-      "100": "grass"
-    },
-    "plains border": {
-      "3": "tree",
-      "10": "bush",
-      "11": "yellowFlower",
-      "12": "redFlower",
-      "100": "grass"
-    },
-    "swamp": {
-      "20": "tree",
-      "50": "dirt",
-      "60": "marsh",
-      "70": "ford",
-      "100": "waterTile"
-    },
-    "swamp border": {
-      "20": "tree",
-      "100": "dirt"
-    },
-    "wasteland": {
-      "10": "tree",
-      "25": "mountain",
-      "30": "gravel",
-      "100": "dirt"
-    },
-    "wasteland border": {
-      "50": "grass",
-      "100": "dirt"
-    }
-  },
   "layers": [
     {
       "name": "elevation",
@@ -136,7 +15,18 @@
           "amplitude": -4,
           "frequency": 2
         }
-      ]
+      ],
+      "terrains": {
+        "world": {
+          "30": "low",
+          "33": "low border",
+          "45": "mid low",
+          "55": "mid",
+          "67": "mid high",
+          "70": "high border",
+          "100": "high"
+        }
+      }
     },
     {
       "name": "moisture",
@@ -153,7 +43,130 @@
           "amplitude": -4,
           "frequency": 2
         }
-      ]
+      ],
+      "terrains": {
+        "high": {
+          "40": "desert",
+          "60": "plains border",
+          "100": "lake"
+        },
+        "high border": {
+          "40": "desert border",
+          "60": "plains border",
+          "100": "lake border"
+        },
+        "low": {
+          "40": "wasteland",
+          "60": "forest border",
+          "100": "swamp"
+        },
+        "low border": {
+          "40": "wasteland border",
+          "60": "forest border",
+          "100": "swamp border"
+        },
+        "mid": {
+          "40": "mountain",
+          "60": "mountain border",
+          "100": "mountain"
+        },
+        "mid high": {
+          "40": "plains border",
+          "60": "plains",
+          "100": "plains border"
+        },
+        "mid low": {
+          "40": "forest border",
+          "60": "forest",
+          "100": "forest border"
+        }
+      }
+    },
+    {
+      "name": "feature",
+      "octaves": [
+        {
+          "amplitude": 0,
+          "frequency": 0
+        }
+      ],
+      "terrains": {
+        "desert": {
+          "3": "waterTile",
+          "10": "palmTree",
+          "100": "sand"
+        },
+        "desert border": {
+          "20": "palmTree",
+          "30": "sand",
+          "100": "dirt"
+        },
+        "forest": {
+          "40": "tree",
+          "43": "yellowFlower",
+          "45": "redFlower",
+          "100": "grass"
+        },
+        "forest border": {
+          "20": "tree",
+          "23": "yellowFlower",
+          "25": "redFlower",
+          "100": "grass"
+        },
+        "lake": {
+          "3": "tree",
+          "5": "grass",
+          "20": "marsh",
+          "100": "waterTile"
+        },
+        "lake border": {
+          "50": "ford",
+          "100": "waterTile"
+        },
+        "mountain": {
+          "15": "gravel",
+          "100": "mountain"
+        },
+        "mountain border": {
+          "85": "gravel",
+          "100": "mountain"
+        },
+        "plains": {
+          "10": "tree",
+          "20": "bush",
+          "21": "yellowFlower",
+          "22": "redFlower",
+          "100": "grass"
+        },
+        "plains border": {
+          "3": "tree",
+          "10": "bush",
+          "11": "yellowFlower",
+          "12": "redFlower",
+          "100": "grass"
+        },
+        "swamp": {
+          "20": "tree",
+          "50": "dirt",
+          "60": "marsh",
+          "70": "ford",
+          "100": "waterTile"
+        },
+        "swamp border": {
+          "20": "tree",
+          "100": "dirt"
+        },
+        "wasteland": {
+          "10": "tree",
+          "25": "mountain",
+          "30": "gravel",
+          "100": "dirt"
+        },
+        "wasteland border": {
+          "50": "grass",
+          "100": "dirt"
+        }
+      }
     }
   ]
 }

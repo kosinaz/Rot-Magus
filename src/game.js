@@ -3,6 +3,7 @@ import MenuScene from './menuScene.js';
 import SettingScene from './settingScene.js';
 import SeedBrowserScene from './seedBrowserScene.js';
 import ScoreScene from './scoreScene.js';
+import NoiseScene from './noiseScene.js';
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -20,6 +21,7 @@ const game = new Phaser.Game({
     SettingScene,
     SeedBrowserScene,
     ScoreScene,
+    NoiseScene,
     // GameScene,
     // GUIScene,
     // DeathScene,
