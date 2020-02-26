@@ -1,5 +1,4 @@
 import {color} from './consts.js';
-import WorldMap from './world/worldMap.js';
 /**
  * Represents the scene that loads all the resources that the game uses.
  *
@@ -101,13 +100,6 @@ export default class LoadScene extends Phaser.Scene {
    * @memberof LoadScene
    */
   create() {
-    // Configure the world map generator.
-    WorldMap.setConfig(
-        this.cache.json.get('mapConfig'),
-        this.cache.json.get('itemTypes'),
-        this.cache.json.get('actorTypes'),
-    );
-
     // Start the Menu.
     this.scene.start('MenuScene');
   }

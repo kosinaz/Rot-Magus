@@ -1,5 +1,6 @@
 import TextButton from './gui/textButton.js';
 import RNG from '../lib/rot/rng.js';
+import { Actor } from './world/actor/actor.js';
 /**
  * Represents the scene of the main menu.
  *
@@ -41,7 +42,10 @@ export default class MenuScene extends Phaser.Scene {
     // }).setOrigin(0.5);
     new TextButton({
       onPointerUp: () => {
-        this.scene.start('GameScene');
+        this.scene.start(
+            'GameScene',
+            new Actor(this.cache.json.get('actorTypes')['druidMale'], 2, 3),
+        );
       },
       origin: 0.5,
       scene: this,

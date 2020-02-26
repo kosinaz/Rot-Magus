@@ -1,28 +1,88 @@
-import Simplex from '../../lib/rot/noise/simplex.js'
 /**
- * Represents the game world where the gameplay itself happens.
+ * Represents the game world.
  *
  * @export
- * @class WorldMap
+ * @class World
  */
-export default class WorldMap {
+export default class World {
   /**
-   * Configures the world map based on external map configuration objects.
-   *
-   * @static
-   * @param {*} mapConfig The map config object.
-   * @param {*} itemTypes The item types object.
-   * @param {*} actorTypes The actor types object.
-   * @memberof WorldMap
+   * Creates an instance of World.
+   * @memberof World
    */
-  static setConfig(mapConfig, itemTypes, actorTypes) {
-    WorldMap.config = mapConfig;
-    WorldMap.config.layers.forEach(({name}) =>
-      WorldMap.terrainNoises.set(name, new Simplex()));
-    WorldMap.itemTypes = Object.values(itemTypes).sort((a, b) =>
-      a.price - b.price);
-    WorldMap.actorTypes = actorTypes;
+  constructor() {
+    this.terrain = new Map();
+    this.items = new Map();
+    this.actors = new Map();
+    this.scheduler = new Speed();
+    this.fovcomputer = new PreciseShadowcasting(this.isTransparent);
+    this.events = new Phaser.Events.EventEmitter();
   }
+
+  setActor(actor) {
+    this.actors.set(`${actor.x},${actor.y}`, actor);
+    this.scheduler.add(actor);
+    actor.events.on('end', this.nextActor);
+  }
+
+  nextActor() {
+    const actor = this.scheduler.next();
+    if (!actor) {
+      return;
+    }
+    if (!actor.isPC) {
+      actor.act();
+    } else {
+      this.updateFOV(actor);
+    }
+  }
+
+  isTransparent(x, y) {
+    const terrain = this.terrain.get(`${x},${y}`);
+    if (!terrain) {
+      return false;
+    }
+    return terrain.transparent;
+  }
+
+  updateFOV(hero) {
+
+    // Reset the list of tiles that were visible for the hero in the previous
+    // turn.
+    hero.fov = [];
+
+    // Iterate through all the tiles around the hero and determine if they
+    // are in the line of sight of the hero or not.
+    this.fovcomputer.compute(hero.x, hero.y, 13, (x, y) => {
+      // Add the position of tile to list of positions visible by the hero.
+      hero.fov.push({
+        x: x,
+        y: y,
+      });
+    });
+
+    // Update the list of visible tiles.
+    this.tiles = tiles;
+
+    this.events.emit('update', hero.fov);
+  }
+
+  // /**
+  //  * Configures the world map based on external map configuration objects.
+  //  *
+  //  * @static
+  //  * @param {*} mapConfig The map config object.
+  //  * @param {*} itemTypes The item types object.
+  //  * @param {*} actorTypes The actor types object.
+  //  * @memberof World
+  //  */
+  // static setConfig(mapConfig, itemTypes, actorTypes) {
+  //   WorldMap.config = mapConfig;
+  //   WorldMap.config.layers.forEach(({name}) =>
+  //     WorldMap.terrainNoises.set(name, new Simplex()));
+  //   WorldMap.itemTypes = Object.values(itemTypes).sort((a, b) =>
+  //     a.price - b.price);
+  //   WorldMap.actorTypes = actorTypes;
+  // }
   // // Tiles are added from the pool or created on the fly.
   // addTile(x, y) {
 
@@ -302,121 +362,120 @@ export default class WorldMap {
   //   return this.items[x + ',' + y] || [];
   // }
 
-  /**
-   * Creates the tile at the given position and optionally a set of items or a
-   * moster.
-   *
-   * @static
-   * @param {number} x The x coordinate of the tile.
-   * @param {number} y The y coordinate of the tile.
-   * @memberof WorldMap
-   */
-  static createTerrain(x, y) {
-    const terrainNoiseValues = WorldMap.config.layers.map(
-        ({name, octaves}) =>
-          octaves.reduce((value, {amplitude, frequency}) =>
-            value + Math.pow(2, amplitude) * WorldMap.terrainNoises.get(
-                name,
-            ).get(
-                x * Math.pow(2, frequency),
-                y * Math.pow(2, frequency),
-            ),
-          0,
-          ) / octaves.reduce((value, {amplitude}) =>
-            value + Math.pow(2, amplitude),
-          0,
-          ),
-    );
-    WorldMap.terrain.set(
-        `${x},${y}`,
-        WorldMap.getTerrainName(terrainNoiseValues),
-    );
-    const items = WorldMap.getItems(x, y);
-    if (items) {
-      WorldMap.items.set(`${x},${y}`, items);
-    }
-    const actorNoiseValue = WorldMap.actorNoise.get(x, y);
-    if (actorNoiseValue > 0.9) {
-      WorldMap.actors.push(WorldMap.getActor(x, y));
-    }
-  }
+//   /**
+//    * Creates the tile at the given position and optionally a set of items or a
+//    * moster.
+//    *
+//    * @static
+//    * @param {number} x The x coordinate of the tile.
+//    * @param {number} y The y coordinate of the tile.
+//    * @memberof WorldMap
+//    */
+//   static createTerrain(x, y) {
+//     const terrainNoiseValues = WorldMap.config.layers.map(
+//         ({name, octaves}) =>
+//           octaves.reduce((value, {amplitude, frequency}) =>
+//             value + Math.pow(2, amplitude) * WorldMap.terrainNoises.get(
+//                 name,
+//             ).get(
+//                 x * Math.pow(2, frequency),
+//                 y * Math.pow(2, frequency),
+//             ),
+//           0,
+//           ) / octaves.reduce((value, {amplitude}) =>
+//             value + Math.pow(2, amplitude),
+//           0,
+//           ),
+//     );
+//     WorldMap.terrain.set(
+//         `${x},${y}`,
+//         WorldMap.getTerrainName(terrainNoiseValues),
+//     );
+//     const items = WorldMap.getItems(x, y);
+//     if (items) {
+//       WorldMap.items.set(`${x},${y}`, items);
+//     }
+//     const actorNoiseValue = WorldMap.actorNoise.get(x, y);
+//     if (actorNoiseValue > 0.9) {
+//       WorldMap.actors.push(WorldMap.getActor(x, y));
+//     }
+//   }
 
-  /**
-   * Returns the name of a terrain on the given layer based on the related
-   * value of the list of noise values.
-   *
-   * @static
-   * @param {array} terrainNoiseValues A list of noise values for each layer.
-   * @param {string} [parentTerrainName] The name of the parent terrain.
-   * @param {number} [layerIndex=0] The index of the parent terrain's layer.
-   * @return {string} The name of the terrain.
-   * @memberof WorldMap
-   */
-  static getTerrainName(terrainNoiseValues, parentTerrainName, layerIndex = 0) {
-    const parentTerrains = WorldMap.config.layers[layerIndex].terrains;
-    parentTerrainName = parentTerrainName || Object.values(parentTerrains)[0];
-    const parentTerrain = parentTerrains[parentTerrainName];
-    let terrainName = parentTerrain[Object.keys(parentTerrain).find(
-        (limit) => limit > terrainNoiseValues[layerIndex],
-    )];
-    const terrains = WorldMap.config.layers[layerIndex + 1].terrains;
-    if (terrains.hasOwnProperty(terrainName)) {
-      terrainName = WorldMap.getTerrainName(
-          terrainNoiseValues,
-          terrainName,
-          layerIndex + 1,
-      );
-    }
-    return terrainName;
-  }
+//   /**
+//    * Returns the name of a terrain on the given layer based on the related
+//    * value of the list of noise values.
+//    *
+//    * @static
+//    * @param {array} terrainNoiseValues A list of noise values for each layer.
+//    * @param {string} [parentTerrainName] The name of the parent terrain.
+//    * @param {number} [layerIndex=0] The index of the parent terrain's layer.
+//    * @return {string} The name of the terrain.
+//    * @memberof WorldMap
+//    */
+//   static getTerrainName(terrainNoiseValues, parentTerrainName, layerIndex = 0) {
+//     const parentTerrains = WorldMap.config.layers[layerIndex].terrains;
+//     parentTerrainName = parentTerrainName || Object.values(parentTerrains)[0];
+//     const parentTerrain = parentTerrains[parentTerrainName];
+//     let terrainName = parentTerrain[Object.keys(parentTerrain).find(
+//         (limit) => limit > terrainNoiseValues[layerIndex],
+//     )];
+//     const terrains = WorldMap.config.layers[layerIndex + 1].terrains;
+//     if (terrains.hasOwnProperty(terrainName)) {
+//       terrainName = WorldMap.getTerrainName(
+//           terrainNoiseValues,
+//           terrainName,
+//           layerIndex + 1,
+//       );
+//     }
+//     return terrainName;
+//   }
 
-  /**
-   *
-   *
-   * @static
-   * @param {*} x
-   * @param {*} y
-   * @return {*}
-   * @memberof WorldMap
-   */
-  static getItems(x, y) {
-    const itemNoiseValue = WorldMap.itemNoise.get(x, y);
-    // if (itemNoiseValue < 0.997) {
-    //   return null;
-    // }
-    const itemTypeIndex = WorldMap.itemNoise.get(x, y);
+//   /**
+//    *
+//    *
+//    * @static
+//    * @param {*} x
+//    * @param {*} y
+//    * @return {*}
+//    * @memberof WorldMap
+//    */
+//   static getItems(x, y) {
+//     const itemNoiseValue = WorldMap.itemNoise.get(x, y);
+//     // if (itemNoiseValue < 0.997) {
+//     //   return null;
+//     // }
+//     const itemTypeIndex = WorldMap.itemNoise.get(x, y);
 
-  //   let itemName = items[ROT.RNG.getUniformInt(0, items.length - 1)];
+//   //   let itemName = items[ROT.RNG.getUniformInt(0, items.length - 1)];
 
-  //   if (n > 0.997) {
-  //     if (
-  //       tileName === 'sand' || 
-  //       tileName === 'stoneFloor' || 
-  //       tileName === 'grass' || 
-  //       tileName === 'redFlower' || 
-  //       tileName === 'yellowFlower' ||
-  //       tileName === 'dirt' ||
-  //       tileName === 'gravel' ||
-  //       tileName === 'ford') {
-  //         let item = this.scene.itemTypes[itemName];
-  //         item.frame = itemName;
-  //         this.putItem(x, y, [item]);
-  //         return;
-  //     }
-  //   }
-  //   let enemies = {
-  //     redFlower: n > 0 ? 'zombie' :  '',
-  //     yellowFlower: n > 0 ? 'skeleton' : '',
-  //     bush: n > 0.5 ? 'hobgoblin' : '',
-  //     gravel: n > 0.7 ? 'troll' : (n > 0.5 ? 'goblin' : ''),
-  //     ford: n > 0.7 ? 'orchArcher' : (n > 0.5 ? 'orch' : ''),
-  //     sand: n > 0.9 ? 'magician' : (n > 0.85 ? 'monk' : (n > 0.8 ? 'warrior' : '')),
-  }
-}
-WorldMap.terrain = new Map();
-WorldMap.terrainNoises = new Map();
-WorldMap.items = new Map();
-WorldMap.itemNoise = new Simplex;
-WorldMap.actors = [];
-WorldMap.actorNoise = new Simplex;
-
+//   //   if (n > 0.997) {
+//   //     if (
+//   //       tileName === 'sand' || 
+//   //       tileName === 'stoneFloor' || 
+//   //       tileName === 'grass' || 
+//   //       tileName === 'redFlower' || 
+//   //       tileName === 'yellowFlower' ||
+//   //       tileName === 'dirt' ||
+//   //       tileName === 'gravel' ||
+//   //       tileName === 'ford') {
+//   //         let item = this.scene.itemTypes[itemName];
+//   //         item.frame = itemName;
+//   //         this.putItem(x, y, [item]);
+//   //         return;
+//   //     }
+//   //   }
+//   //   let enemies = {
+//   //     redFlower: n > 0 ? 'zombie' :  '',
+//   //     yellowFlower: n > 0 ? 'skeleton' : '',
+//   //     bush: n > 0.5 ? 'hobgoblin' : '',
+//   //     gravel: n > 0.7 ? 'troll' : (n > 0.5 ? 'goblin' : ''),
+//   //     ford: n > 0.7 ? 'orchArcher' : (n > 0.5 ? 'orch' : ''),
+//   //     sand: n > 0.9 ? 'magician' : (n > 0.85 ? 'monk' : (n > 0.8 ? 'warrior' : '')),
+//   }
+// }
+// WorldMap.terrain = new Map();
+// WorldMap.terrainNoises = new Map();
+// WorldMap.items = new Map();
+// WorldMap.itemNoise = new Simplex;
+// WorldMap.actors = [];
+// WorldMap.actorNoise = new Simplex;
