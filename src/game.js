@@ -1,11 +1,7 @@
 import LoadScene from './loadScene.js';
-import MenuScene from './menuScene.js';
-import SettingScene from './settingScene.js';
-import SeedBrowserScene from './seedBrowserScene.js';
-import ScoreScene from './scoreScene.js';
-import NoiseScene from './noiseScene.js';
+import WorldScene from './worldScene.js';
 
-const game = new Phaser.Game({
+new Phaser.Game({
   type: Phaser.AUTO,
   backgroundColor: '#ffffff',
   roundPixels: true,
@@ -17,15 +13,6 @@ const game = new Phaser.Game({
   },
   scene: [
     LoadScene,
-    MenuScene,
-    SettingScene,
-    SeedBrowserScene,
-    ScoreScene,
-    NoiseScene,
-    // GameScene,
-    // GUIScene,
-    // DeathScene,
-    // LoseScene,
+    WorldScene,
   ],
 });
-game.speed = 3;
