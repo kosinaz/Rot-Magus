@@ -1,6 +1,6 @@
 import TextButton from './gui/textButton.js';
 import RNG from '../lib/rot/rng.js';
-import { Actor } from './world/actor/actor.js';
+import Actor from './world/actor/actor.js';
 /**
  * Represents the scene of the main menu.
  *

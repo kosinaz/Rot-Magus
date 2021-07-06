@@ -1,4 +1,5 @@
-import {World} from './world/world';
+import World from './world/world.js';
+import WorldController from './world/worldController.js';
 
 /**
  * Represents the scene where the gameplay itself happens.
@@ -6,7 +7,7 @@ import {World} from './world/world';
  * @class WorldScene
  * @extends {Phaser.Scene}
  */
-export class WorldScene extends Phaser.Scene {
+export default class WorldScene extends Phaser.Scene {
   /**
    * Creates an instance of WorldScene.
    * @memberof WorldScene
@@ -19,40 +20,16 @@ export class WorldScene extends Phaser.Scene {
   /**
    * Creates the content of the world.
    *
-   * @param {*} heroes
    * @memberof WorldScene
    */
-  create(heroes) {
-    this.world = new World();
-    this.world.on('update', this.show);
-    heroes.forEach((hero) => {
-      this.world.setActor(hero);
+  create() {
+    this.world = new World({
+      actorTypes: this.cache.json.get('actorTypes'),
     });
+    this.controller = new WorldController(this.world);
+    const tile = this.add.image(100, 100, 'tiles', 'demon');
+    tile.data = this.world.map.get('actor2,2');
+    tile.setInteractive();
+    tile.on('pointerdown', () => this.controller.onPointerDown(tile));
   }
-
-  // // If the player died.
-  // this.events.on('playerDied', function() {
-  //   game.score = this.player.xp;
-  //   for (let i = 0; i < this.player.level; i += 1) {
-  //     game.score += this.levels[i].xp;
-  //   }
-  //   game.rank = this.levels[this.player.level].name;
-
-  //   this.events.off('attributesUpdated');
-  //   this.events.off('playerReady');
-
-  //   // Load the death scene.
-  //   this.scene.setVisible(false, 'GUIScene');
-  //   this.scene.start('DeathScene');
-  // }.bind(this));
-
-  // this.events.on('gameTerminated', function() {
-  //   this.events.off('attributesUpdated');
-  //   this.events.off('playerReady');
-
-  //   // Load the death scene.
-  //   this.scene.setVisible(false, 'GUIScene');
-  //   this.scene.start('MenuScene');
-  // }.bind(this));
-  
 }

@@ -2,7 +2,7 @@
  * Represents an active game character.
  * @class Actor
  */
-export class Actor {
+export default class Actor {
   /**
    * Creates an instance of Actor.
    * @param {string} type - The actorTypes.json typename of the Actor.
@@ -83,6 +83,26 @@ export class Actor {
   /**
    *
    *
+   * @readonly
+   * @memberof Actor
+   */
+  get xy() {
+    return this.x + ',' + this.y;
+  }
+
+  /**
+   *
+   *
+   * @return {number}
+   * @memberof Actor
+   */
+  getSpeed() {
+    return this.speed;
+  }
+
+  /**
+   *
+   *
    * @return
    * @memberof Actor
    */
@@ -109,6 +129,12 @@ export class Actor {
     // the act event. This will update the effects currently affecting the hero
     // by reducing the number of remaining turns they will be active.
     this.events.emit('act');
+
+    if (this.isPC) {
+      this.events.emit('pause');
+    } else {
+      this.events.emit('complete');
+    }
 
     // if (this.lifespan !== undefined) {
     //   if (this.lifespan-- === 0) {
