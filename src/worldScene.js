@@ -27,9 +27,12 @@ export default class WorldScene extends Phaser.Scene {
       actorTypes: this.cache.json.get('actorTypes'),
     });
     this.controller = new WorldController(this.world);
-    const tile = this.add.image(100, 100, 'tiles', 'demon');
-    tile.data = this.world.map.get('actor2,2');
-    tile.setInteractive();
-    tile.on('pointerdown', () => this.controller.onPointerDown(tile));
+    this.add.image(100, 50, 'tiles', 'elfMale')
+        .setData('data', this.world.map.get('actor0,0'))
+        .setInteractive();
+    this.add.image(100, 100, 'tiles', 'demon')
+        .setData('data', this.world.map.get('actor2,2'))
+        .setInteractive();
+    this.input.on('gameobjectup', this.controller.onClick);
   }
 }
