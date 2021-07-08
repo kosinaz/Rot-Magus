@@ -18,6 +18,11 @@ export default class World {
     this.scheduler = new Speed();
     this.fovcomputer = new PreciseShadowcasting(this.isTransparent);
     this.events = new Phaser.Events.EventEmitter();
+    for (let x = -10; x < 10; x += 1) {
+      for (let y = -10; y < 10; y += 1) {
+        this.map.set(`terrain,${x},${y}`, 'grass');
+      }
+    }
     this.createActor(config.actorTypes.elfMale).isPC = true;
     this.createActor(config.actorTypes.djinn, 0, 2).isPC = true;
     this.createActor(config.actorTypes.demon, 2, 2);
@@ -36,7 +41,7 @@ export default class World {
    */
   createActor(actorType, x, y) {
     const actor = new Actor(actorType, x, y);
-    this.map.set(`actor${actor.xy}`, actor);
+    this.map.set(`actor,${actor.xy}`, actor);
     this.scheduler.add(actor, true);
     actor.events.on('pause', () => {
       this.paused = true;

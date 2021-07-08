@@ -45,7 +45,7 @@
       "water"
     ],
     "mana": 60,
-    "name": "Lodmour",
+    "name": "druidMale",
     "speed": 4,
     "strength": 14,
     "wisdom": 10
@@ -61,7 +61,7 @@
       "delay"
     ],
     "mana": 60,
-    "name": "Cucqack",
+    "name": "duckMageMale",
     "speed": 5,
     "strength": 10,
     "walksOn": [
@@ -80,7 +80,7 @@
       "elvenCloak"
     ],
     "mana": 0,
-    "name": "Atlian",
+    "name": "elfMale",
     "speed": 6,
     "strength": 14,
     "walksOn": [
@@ -158,7 +158,7 @@
       "sword"
     ],
     "mana": 0,
-    "name": "Lambard",
+    "name": "knightMale",
     "speed": 4,
     "strength": 24,
     "wisdom": 0
