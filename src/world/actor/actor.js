@@ -77,6 +77,7 @@ export default class Actor {
     this.actions = [];
     this.teammates = [];
     this.teammates.push(this);
+    this.layer = 'actor';
     // this.scene.events.on('act', this.showActions, this);
   }
 

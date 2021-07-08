@@ -20,7 +20,10 @@ export default class World {
     this.events = new Phaser.Events.EventEmitter();
     for (let x = -10; x < 10; x += 1) {
       for (let y = -10; y < 10; y += 1) {
-        this.map.set(`terrain,${x},${y}`, 'grass');
+        this.map.set(`terrain,${x},${y}`, {
+          layer: 'terrain',
+          type: 'grass',
+        });
       }
     }
     this.createActor(config.actorTypes.elfMale).isPC = true;

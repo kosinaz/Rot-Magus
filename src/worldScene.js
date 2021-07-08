@@ -31,7 +31,7 @@ export default class WorldScene extends Phaser.Scene {
       const x = (~~keyParts[1] + 15) * 24;
       const y = (~~keyParts[2] + 15) * 21;
       if (keyParts[0] === 'terrain') {
-        this.add.image(x, y, 'tiles', value)
+        this.add.image(x, y, 'tiles', value.type)
             .setData('data', value).setInteractive();
       } else {
         console.log(value);
