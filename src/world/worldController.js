@@ -33,10 +33,22 @@ export default class WorldController {
     if (pointer.button === 2 && this.selected && this.selected.isPC) {
       if (data.layer === 'actor') {
         console.log('right clicked', data.type.name);
-        console.log(this.selected.type.name, 'acted on',
-            data.type.name);
+        console.log('selected', this.selected, 'paused', this.world.pausedFor);
+        if (this.selected === this.world.pausedFor) {
+          console.log(this.selected.type.name, 'acted on',
+              data.type.name);
+        } else {
+          console.log(this.selected.type.name, 'will act on',
+              data.type.name);
+        }
       } else {
-        console.log(this.selected.type.name, 'moved');
+        console.log('right clicked', data.type);
+        console.log('selected', this.selected, 'paused', this.world.pausedFor);
+        if (this.selected === this.world.pausedFor) {
+          console.log(this.selected.type.name, 'moved');
+        } else {
+          console.log(this.selected.type.name, 'will move');
+        }
       }
     }
   }

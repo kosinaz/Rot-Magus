@@ -34,12 +34,11 @@ export default class WorldScene extends Phaser.Scene {
         this.add.image(x, y, 'tiles', value.type)
             .setData('data', value).setInteractive();
       } else {
-        console.log(value);
         this.add.image(x, y, 'tiles', value.type.name)
             .setData('data', value).setInteractive();
       }
     });
     this.controller = new WorldController(this.world);
-    this.input.on('gameobjectup', this.controller.onClick);
+    this.input.on('gameobjectup', this.controller.onClick, this);
   }
 }

@@ -132,7 +132,7 @@ export default class Actor {
     this.events.emit('act');
 
     if (this.isPC) {
-      this.events.emit('pause');
+      this.events.emit('pause', this);
     } else {
       this.events.emit('complete');
     }

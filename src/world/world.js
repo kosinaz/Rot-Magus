@@ -46,8 +46,8 @@ export default class World {
     const actor = new Actor(actorType, x, y);
     this.map.set(`actor,${actor.xy}`, actor);
     this.scheduler.add(actor, true);
-    actor.events.on('pause', () => {
-      this.paused = true;
+    actor.events.on('pause', (actor) => {
+      this.pausedFor = actor;
     });
     actor.events.on('complete', this.nextActor, this);
     return actor;
