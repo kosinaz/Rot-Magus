@@ -48,6 +48,7 @@ export default class World {
     this.scheduler.add(actor, true);
     actor.events.on('pause', (actor) => {
       this.pausedFor = actor;
+      this.selected = actor;
     });
     actor.events.on('complete', this.nextActor, this);
     return actor;
