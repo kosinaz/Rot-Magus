@@ -29,7 +29,9 @@ export default class WorldController {
       selected = targeted;
       console.log('selected', targeted.type.name);
     }
-    if (pointer.button === 2 && selected && selected.isPC) {
+    if (pointer.button === 2 &&
+      selected &&
+      this.world.actors.includes(selected)) {
       if (targeted.layer === 'actor') {
         console.log('right clicked', targeted.type.name);
         if (selected === this.world.pausedFor) {

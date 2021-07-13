@@ -5,16 +5,14 @@
 export default class Actor {
   /**
    * Creates an instance of Actor.
-   * @param {string} type - The actorTypes.json typename of the Actor.
-   * @param {number} [x=0] - The x coordinate of the Actor's position.
-   * @param {number} [y=0] - The y coordinate of the Actor's position.
+   * @param {Object} type - The actorType config object of the actor.
+   * @param {number} [x=0] - The x coordinate of the actor's position.
+   * @param {number} [y=0] - The y coordinate of the actor's position.
+   * @param {boolean} isPC - True if the player controls the actor.
    * @memberof Actor
    */
-  constructor(type, x = 0, y = 0) {
-    // Set the scene.
-    // this.scene = scene;
-
-    // Set the generic propererties of the Actor based on the actorTypes.json.
+  constructor(type, x = 0, y = 0, isPC) {
+    // Set the generic properties of the Actor based on the actorTypes config.
     this.type = type;
 
     // Set the x coordinate of the Actor's position.
@@ -23,18 +21,19 @@ export default class Actor {
     // Set the y coordinate of the Actor's position.
     this.y = y;
 
+    this.isPC = isPC;
+
     // Manually add an Phaser event emitter because the Actor is not a Phaser
     // class that would already have one. This will be used to notify listeners
     // about the act event of the Actor.
+    // Event: complete
+    // Listener: World
     this.events = new Phaser.Events.EventEmitter();
 
     // Add an EffectManager to the Actor to handle his Effects.
     // this.effects = new EffectManager(this);
 
-    this.target = {
-      x: this.tileX,
-      y: this.tileY,
-    };
+    this.target = null;
     this.path = null;
     this.xp = this.type.xp || 0;
     this.xpMax = 50;
@@ -55,30 +54,13 @@ export default class Actor {
     this.wisdom = this.type.wisdom;
     this.wisdomBase = this.wisdom;
     this.wisdomMod = 0;
-    this.walksOn = this.type.walksOn || [];
-    this.damage = 1 + (this.strength >> 2);
-    this.damageMax = this.damage + 19;
-    this.rangedDamage = 1 + (this.strength >> 2);
-    this.rangedDamageMax = this.rangedDamage + 19;
+    this.walksOn = this.type.walksOn;
     this.lifespan = this.type.lifespan;
-    this.chanceToHit = 0;
-    this.usedWeapons = 0;
-    this.defense = 0;
-    this.inventory = [];
-    // this.initInventory();
+    this.inventory = this.type.inventory;
     this.equipped = {};
-    this.ground = [];
-    this.load = 0;
-    this.activeEffects = [];
-    // this.updateAttributes();
-    // this.scene.add.existing(this);
-    // this.scene.scheduler.add(this, true);
-    this.depth = 3;
-    this.actions = [];
-    this.teammates = [];
-    this.teammates.push(this);
     this.layer = 'actor';
-    // this.scene.events.on('act', this.showActions, this);
+    this.visible = false;
+    this.fov = new Set();
   }
 
   /**
@@ -94,6 +76,30 @@ export default class Actor {
   /**
    *
    *
+   * @memberof Actor
+   */
+  show() {
+    if (!this.visible) {
+      this.visible = true;
+      this.events.emit('show');
+    }
+  }
+
+  /**
+   *
+   *
+   * @memberof Actor
+   */
+  hide() {
+    if (this.visible) {
+      this.visible = false;
+      this.events.emit('hide');
+    }
+  }
+
+  /**
+   *
+   *
    * @return {number}
    * @memberof Actor
    */
@@ -102,34 +108,16 @@ export default class Actor {
   }
 
   /**
+   * The act is getting called by the scheduler every time when this actor is
+   * ready to act.
    *
-   *
-   * @return
-   * @memberof Actor
-   */
-  initInventory() {
-    if (!this.type.inventory) {
-      return;
-    }
-    this.type.inventory.forEach(function(itemName) {
-      const item = Object.assign({}, this.scene.itemTypes[itemName]);
-      item.frame = itemName;
-      this.inventory.push(item);
-    }.bind(this));
-  }
-
-  // The act is getting called by the scheduler every time when this actor is the next to act.
-  /**
-   *
-   *
-   * @return
    * @memberof Actor
    */
   act() {
     // Notify the listeners that this actor's turn to act has come by emitting
     // the act event. This will update the effects currently affecting the hero
     // by reducing the number of remaining turns they will be active.
-    this.events.emit('act');
+    // this.events.emit('act');
 
     if (this.isPC) {
       this.events.emit('pause', this);
