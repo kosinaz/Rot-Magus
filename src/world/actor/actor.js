@@ -33,8 +33,6 @@ export default class Actor {
     // Add an EffectManager to the Actor to handle his Effects.
     // this.effects = new EffectManager(this);
 
-    this.target = null;
-    this.path = null;
     this.xp = this.type.xp || 0;
     this.xpMax = 50;
     this.level = 0;
@@ -61,6 +59,8 @@ export default class Actor {
     this.layer = 'actor';
     this.visible = false;
     this.fov = new Set();
+    this.orders = [];
+    this.timeline = null;
   }
 
   /**
@@ -79,9 +79,10 @@ export default class Actor {
    * @memberof Actor
    */
   show() {
+    this.events.emit('show');
     if (!this.visible) {
       this.visible = true;
-      this.events.emit('show');
+      this.events.emit('reveal');
     }
   }
 
@@ -114,16 +115,19 @@ export default class Actor {
    * @memberof Actor
    */
   act() {
-    // Notify the listeners that this actor's turn to act has come by emitting
-    // the act event. This will update the effects currently affecting the hero
-    // by reducing the number of remaining turns they will be active.
-    // this.events.emit('act');
-
-    if (this.isPC) {
-      this.events.emit('pause', this);
-    } else {
+    if (!this.orders.length) {
+      console.log('no order');
       this.events.emit('complete');
+      return;
     }
+    const order = this.orders.shift();
+    console.log(order);
+    if (order.name === 'move') {
+      this.x = order.x;
+      this.y = order.y;
+      this.events.emit('move');
+    }
+    this.events.emit('complete');
 
     // if (this.lifespan !== undefined) {
     //   if (this.lifespan-- === 0) {

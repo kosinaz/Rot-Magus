@@ -27,9 +27,7 @@ export default class WorldScene extends Phaser.Scene {
       actorTypes: this.cache.json.get('actorTypes'),
     });
     this.controller = new WorldController(this.world);
-    this.map = new Map();
-    this.actors = [];
-    this.input.on('gameobjectup', this.controller.onClick, this);
+    this.input.on('gameobjectup', this.controller.onClick, this.controller);
     this.world.events.on('add', this.addEntity, this);
     this.world.create();
   }
@@ -47,8 +45,27 @@ export default class WorldScene extends Phaser.Scene {
         'tiles',
         entity.type.name,
     ).setData('data', entity).setInteractive().setAlpha(0);
-    entity.events.on('show', () => {
+    entity.events.on('reveal', () => {
       entityImage.setAlpha(1);
     });
+    entity.events.on('hide', () => {
+      entityImage.setAlpha(entity.layer === 'actor' ? 0 : 0.5);
+    });
+    entity.events.on('move', () => {
+      console.log('added', entity.x, entity.y);
+      entity.timeline.add({
+        targets: entityImage,
+        x: 512 + entity.x * 24,
+        y: 288 + entity.y * 21,
+        duration: 1000 / entity.speed,
+      });
+    });
+    entity.events.on('show', () => {
+      entity.timeline.play();
+      console.log(entity.timeline);
+      console.log('played', entity.type.name);
+      entity.timeline = this.tweens.createTimeline();
+    });
+    entity.timeline = this.tweens.createTimeline();
   }
 }

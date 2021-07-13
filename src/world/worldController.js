@@ -11,6 +11,7 @@ export default class WorldController {
    * @memberof WorldController
    */
   constructor(world) {
+    this.world = world;
     addEventListener('contextmenu', (event) => event.preventDefault());
   }
 
@@ -41,10 +42,11 @@ export default class WorldController {
           console.log(selected.type.name, 'will act on', targeted.type.name);
         }
       } else {
-        console.log('right clicked', targeted.type);
+        console.log('right clicked', targeted.x, targeted.y);
         if (selected === this.world.pausedFor) {
           console.log(selected.type.name, 'moved');
-          selected.events.emit('complete');
+          this.world.giveOrder(selected, 'move', targeted.x, targeted.y);
+          selected.act();
         } else {
           console.log(selected.type.name, 'will move');
         }

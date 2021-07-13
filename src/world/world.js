@@ -17,6 +17,7 @@ export default class World {
    */
   constructor(config) {
     this.config = config;
+    this.selected = null;
     this.map = new Map();
     this.visibleTiles = new Set();
     this.scheduler = new Speed();
@@ -35,6 +36,7 @@ export default class World {
         this.createTerrain({
           layer: 'terrain',
           name: 'grass',
+          walkable: true,
           transparent: true,
         }, x, y);
       }
@@ -87,7 +89,6 @@ export default class World {
   nextActor() {
     const actor = this.scheduler.next();
     console.log(actor.type.name);
-    this.updateVisibleTiles();
 
     // The world will stop - even if the player character has a target - to let
     // the scene animate the last action. When the animation is complete, the
@@ -96,6 +97,7 @@ export default class World {
     // player can also interrupt the movement of the character with a left
     // click that cancels any orders.
     if (actor.isPC) {
+      this.updateVisibleTiles();
       this.pausedFor = actor;
       this.selected = actor;
     } else {
@@ -159,7 +161,7 @@ export default class World {
               // If there is something.
               if (terrain) {
                 // Then show it.
-                terrain.events.emit('show');
+                terrain.events.emit('reveal');
               }
             }
           }
@@ -169,7 +171,10 @@ export default class World {
 
     // Get all the tiles that were visible before but not anymore.
     previouslyVisibleTiles.forEach((tile) => {
-      this.map.get(`terrain,${tile}`).events.emit('hide');
+      const terrain = this.map.get(`terrain,${tile}`);
+      if (terrain) {
+        terrain.events.emit('hide');
+      }
     });
 
     // Show visible actors and hide the rest.
@@ -180,5 +185,54 @@ export default class World {
         actor.hide();
       }
     });
+  }
+
+  /**
+   * Give the actor an order.
+   *
+   * @param {*} actor
+   * @param {*} name
+   * @param {*} x
+   * @param {*} y
+   * @memberof Actor
+   */
+  giveOrder(actor, name, x, y) {
+
+    // Initialize a new astar pathmap based on the given target.
+    const a = new ROT.Path.AStar(x, y, this.walksOnXY.bind(this));
+
+    // After generated the pathmap create a new path for the actor.
+    actor.orders = [];
+
+    // Compute the shortest path between the actor's current position and the
+    // given target position based on the astar map.
+    a.compute(actor.x, actor.y, (x, y) => {
+      // Add the next position of the shortest path to the actor's path.
+      actor.orders.push({
+        name: 'move',
+        x: x,
+        y: y,
+      });
+    });
+
+    // Remove the first order, because that's current position of the actor.
+    actor.orders.shift();
+  }
+
+  /**
+   * Returns true if the selected actor can walk on the tile at the given
+   * coordinates.
+   *
+   * @param {*} x
+   * @param {*} y
+   * @return {boolean}
+   * @memberof WorldScene
+   */
+  walksOnXY(x, y) {
+    const terrain = this.map.get(`terrain,${x},${y}`);
+    if (terrain.type.walkable) {
+      return true;
+    }
+    return false;
   }
 }
