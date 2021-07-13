@@ -101,6 +101,7 @@ export default class World {
       this.pausedFor = actor;
       this.selected = actor;
     } else {
+      this.updateTarget(actor);
       actor.act();
     }
   }
@@ -188,6 +189,28 @@ export default class World {
   }
 
   /**
+   *
+   *
+   * @param {*} actor
+   * @memberof World
+   */
+  updateTarget(actor) {
+
+    // Iterate through all the tiles around the actor and determine if they
+    // are in the line of sight of the actor or not.
+    this.fovcomputer.compute(actor.x, actor.y, 3, (x, y) => {
+      // Add the position of tile to list of positions visible for the
+      // actor to help it determine if it can be ranged attacked by the
+      // actor.
+      this.actors.forEach((otherActor) => {
+        if (otherActor.isPC && otherActor.x === x && otherActor.y === y) {
+          this.giveOrder(actor, 'move', x, y);
+        }
+      });
+    });
+  }
+
+  /**
    * Give the actor an order.
    *
    * @param {*} actor
@@ -197,7 +220,6 @@ export default class World {
    * @memberof Actor
    */
   giveOrder(actor, name, x, y) {
-
     // Initialize a new astar pathmap based on the given target.
     const a = new ROT.Path.AStar(x, y, this.walksOnXY.bind(this));
 
@@ -209,7 +231,7 @@ export default class World {
     a.compute(actor.x, actor.y, (x, y) => {
       // Add the next position of the shortest path to the actor's path.
       actor.orders.push({
-        name: 'move',
+        name: name,
         x: x,
         y: y,
       });
