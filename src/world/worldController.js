@@ -28,6 +28,7 @@ export default class WorldController {
     if (pointer.button === 0 && targeted.layer === 'actor') {
       console.log('left clicked', targeted.type.name);
       selected = targeted;
+      this.world.select(targeted);
       console.log('selected', targeted.type.name);
     }
     if (pointer.button === 2 &&
@@ -43,12 +44,15 @@ export default class WorldController {
         }
       } else {
         console.log('right clicked', targeted.x, targeted.y);
+        console.log('selected', selected.type.name);
+        console.log('pausedFor', this.world.pausedFor.type.name);
         if (selected === this.world.pausedFor) {
           console.log(selected.type.name, 'moved');
           this.world.giveOrder(selected, 'move', targeted.x, targeted.y);
           selected.act();
         } else {
           console.log(selected.type.name, 'will move');
+          this.world.giveOrder(selected, 'move', targeted.x, targeted.y);
         }
       }
     }

@@ -2,7 +2,7 @@
 
 {
 	"filename": "agility",
-	"frame": {"x":96,"y":21,"w":24,"h":21},
+	"frame": {"x":11,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -10,7 +10,7 @@
 },
 {
 	"filename": "back",
-	"frame": {"x":48,"y":42,"w":24,"h":21},
+	"frame": {"x":35,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -18,7 +18,15 @@
 },
 {
 	"filename": "body",
-	"frame": {"x":0,"y":42,"w":24,"h":21},
+	"frame": {"x":59,"y":0,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
+	"filename": "cursor",
+	"frame": {"x":83,"y":0,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -34,7 +42,7 @@
 },
 {
 	"filename": "finger",
-	"frame": {"x":24,"y":42,"w":24,"h":21},
+	"frame": {"x":0,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -42,7 +50,7 @@
 },
 {
 	"filename": "funeral",
-	"frame": {"x":0,"y":186,"w":98,"h":51},
+	"frame": {"x":0,"y":231,"w":98,"h":51},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":51},
@@ -50,7 +58,7 @@
 },
 {
 	"filename": "head",
-	"frame": {"x":96,"y":42,"w":24,"h":21},
+	"frame": {"x":24,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -58,7 +66,7 @@
 },
 {
 	"filename": "heroes",
-	"frame": {"x":0,"y":63,"w":25,"h":22},
+	"frame": {"x":48,"y":63,"w":25,"h":22},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":25,"h":22},
@@ -66,7 +74,7 @@
 },
 {
 	"filename": "leftHand",
-	"frame": {"x":72,"y":42,"w":24,"h":21},
+	"frame": {"x":48,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -74,7 +82,7 @@
 },
 {
 	"filename": "level",
-	"frame": {"x":83,"y":0,"w":24,"h":21},
+	"frame": {"x":72,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -82,7 +90,7 @@
 },
 {
 	"filename": "loseHehehe",
-	"frame": {"x":40,"y":97,"w":40,"h":34},
+	"frame": {"x":73,"y":63,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
@@ -90,7 +98,7 @@
 },
 {
 	"filename": "neck",
-	"frame": {"x":11,"y":0,"w":24,"h":21},
+	"frame": {"x":96,"y":21,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -98,7 +106,7 @@
 },
 {
 	"filename": "palm",
-	"frame": {"x":72,"y":21,"w":24,"h":21},
+	"frame": {"x":0,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -114,7 +122,7 @@
 },
 {
 	"filename": "rightHand",
-	"frame": {"x":59,"y":0,"w":24,"h":21},
+	"frame": {"x":24,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -122,15 +130,23 @@
 },
 {
 	"filename": "ronny",
-	"frame": {"x":46,"y":131,"w":75,"h":45},
+	"frame": {"x":0,"y":186,"w":75,"h":45},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":45},
 	"sourceSize": {"w":75,"h":45}
 },
 {
+	"filename": "select",
+	"frame": {"x":48,"y":42,"w":24,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
+	"sourceSize": {"w":24,"h":21}
+},
+{
 	"filename": "slot",
-	"frame": {"x":24,"y":21,"w":24,"h":21},
+	"frame": {"x":72,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -138,7 +154,7 @@
 },
 {
 	"filename": "speed",
-	"frame": {"x":48,"y":21,"w":24,"h":21},
+	"frame": {"x":96,"y":42,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -146,7 +162,7 @@
 },
 {
 	"filename": "strength",
-	"frame": {"x":0,"y":21,"w":24,"h":21},
+	"frame": {"x":0,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -154,7 +170,7 @@
 },
 {
 	"filename": "title",
-	"frame": {"x":0,"y":131,"w":46,"h":55},
+	"frame": {"x":40,"y":131,"w":46,"h":55},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":55},
@@ -162,14 +178,6 @@
 },
 {
 	"filename": "winAaargh",
-	"frame": {"x":25,"y":63,"w":40,"h":34},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
-	"sourceSize": {"w":40,"h":34}
-},
-{
-	"filename": "winBlah",
 	"frame": {"x":0,"y":97,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
@@ -177,15 +185,15 @@
 	"sourceSize": {"w":40,"h":34}
 },
 {
-	"filename": "winHorray",
-	"frame": {"x":65,"y":63,"w":40,"h":34},
+	"filename": "winBlah",
+	"frame": {"x":40,"y":97,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
 	"sourceSize": {"w":40,"h":34}
 },
 {
-	"filename": "winPlease",
+	"filename": "winHorray",
 	"frame": {"x":80,"y":97,"w":40,"h":34},
 	"rotated": false,
 	"trimmed": false,
@@ -193,8 +201,16 @@
 	"sourceSize": {"w":40,"h":34}
 },
 {
+	"filename": "winPlease",
+	"frame": {"x":0,"y":131,"w":40,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
+	"sourceSize": {"w":40,"h":34}
+},
+{
 	"filename": "wisdom",
-	"frame": {"x":35,"y":0,"w":24,"h":21},
+	"frame": {"x":24,"y":63,"w":24,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":21},
@@ -205,8 +221,8 @@
 	"version": "1.0",
 	"image": "gui.png",
 	"format": "RGBA8888",
-	"size": {"w":121,"h":237},
+	"size": {"w":120,"h":282},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a7c63109b8d8bc2d954a8b4d00dd1480:644ae016b1c952a1289e1e33575747da:788b34ed4e778d63c84b2c3df4d44949$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a5e0431aba4cbe3bc59753a8c4ceb033:8ad3c2e012044276e501273dfd2e1c67:788b34ed4e778d63c84b2c3df4d44949$"
 }
 }

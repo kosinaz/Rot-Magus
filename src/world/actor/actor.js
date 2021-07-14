@@ -109,8 +109,8 @@ export default class Actor {
   }
 
   /**
-   * The act is getting called by the scheduler every time when this actor is
-   * ready to act.
+   * The act is getting called by the world or by the controller every time
+   * when this actor is ready to act.
    *
    * @memberof Actor
    */

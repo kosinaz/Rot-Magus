@@ -42,10 +42,10 @@ export default class World {
       }
     }
     this.actors = [];
-    this.createActor(this.config.actorTypes.elfMale, 0, 0, true);
-    this.createActor(this.config.actorTypes.djinn, 0, -9, true);
+    this.createActor(this.config.actorTypes.druidMale, 0, 0, true);
+    this.createActor(this.config.actorTypes.djinn, 0, -9);
     this.createActor(this.config.actorTypes.demon, 2, 2);
-    this.createActor(this.config.actorTypes.orch, 9, 9);
+    this.createActor(this.config.actorTypes.orch, 9, 9, true);
     this.nextActor();
   }
 
@@ -97,13 +97,23 @@ export default class World {
     // player can also interrupt the movement of the character with a left
     // click that cancels any orders.
     if (actor.isPC) {
-      this.updateVisibleTiles();
       this.pausedFor = actor;
-      this.selected = actor;
+      this.select(actor);
+      this.updateVisibleTiles();
     } else {
       this.updateTarget(actor);
-      actor.act();
     }
+  }
+
+
+  /**
+   *
+   * @param {*} actor
+   * @memberof World
+   */
+  select(actor) {
+    this.selected = actor;
+    this.events.emit('select', actor);
   }
 
   /**
@@ -140,7 +150,7 @@ export default class World {
 
         // Iterate through all the tiles around the actor and determine if they
         // are in the line of sight of the actor or not.
-        this.fovcomputer.compute(actor.x, actor.y, 3, (x, y) => {
+        this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
           // Add the position of tile to list of positions visible for the
           // actor to help it determine if it can be ranged attacked by the
           // actor.
@@ -195,19 +205,16 @@ export default class World {
    * @memberof World
    */
   updateTarget(actor) {
-
     // Iterate through all the tiles around the actor and determine if they
     // are in the line of sight of the actor or not.
-    this.fovcomputer.compute(actor.x, actor.y, 3, (x, y) => {
-      // Add the position of tile to list of positions visible for the
-      // actor to help it determine if it can be ranged attacked by the
-      // actor.
+    this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
       this.actors.forEach((otherActor) => {
         if (otherActor.isPC && otherActor.x === x && otherActor.y === y) {
           this.giveOrder(actor, 'move', x, y);
         }
       });
     });
+    actor.act();
   }
 
   /**
@@ -252,7 +259,7 @@ export default class World {
    */
   walksOnXY(x, y) {
     const terrain = this.map.get(`terrain,${x},${y}`);
-    if (terrain.type.walkable) {
+    if (terrain && terrain.type.walkable) {
       return true;
     }
     return false;

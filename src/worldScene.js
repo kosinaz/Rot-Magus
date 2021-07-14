@@ -29,7 +29,15 @@ export default class WorldScene extends Phaser.Scene {
     this.controller = new WorldController(this.world);
     this.input.on('gameobjectup', this.controller.onClick, this.controller);
     this.world.events.on('add', this.addEntity, this);
+    const select = this.add.image(512, 288, 'gui', 'select');
+    select.setDepth(1);
+    this.world.events.on('select', (actor) => {
+      select.x = 512 + actor.x * 24;
+      select.y = 288 + actor.y * 21;
+    });
     this.world.create();
+    this.cursor = this.add.image(512, 309, 'gui', 'cursor');
+    this.cursor.setDepth(1);
   }
 
   /**
@@ -45,6 +53,10 @@ export default class WorldScene extends Phaser.Scene {
         'tiles',
         entity.type.name,
     ).setData('data', entity).setInteractive().setAlpha(0);
+    entityImage.on('pointerover', () => {
+      this.cursor.x = entityImage.x;
+      this.cursor.y = entityImage.y;
+    });
     entity.events.on('reveal', () => {
       entityImage.setAlpha(1);
     });
@@ -52,7 +64,6 @@ export default class WorldScene extends Phaser.Scene {
       entityImage.setAlpha(entity.layer === 'actor' ? 0 : 0.5);
     });
     entity.events.on('move', () => {
-      console.log('added', entity.x, entity.y);
       entity.timeline.add({
         targets: entityImage,
         x: 512 + entity.x * 24,
@@ -62,8 +73,6 @@ export default class WorldScene extends Phaser.Scene {
     });
     entity.events.on('show', () => {
       entity.timeline.play();
-      console.log(entity.timeline);
-      console.log('played', entity.type.name);
       entity.timeline = this.tweens.createTimeline();
     });
     entity.timeline = this.tweens.createTimeline();
