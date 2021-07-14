@@ -39,14 +39,14 @@ export default class WorldScene extends Phaser.Scene {
     this.controller = new WorldController(this.world);
     this.input.on('gameobjectup', this.controller.onClick, this.controller);
     this.world.events.on('add', this.addEntity, this);
-    const select = this.add.image(512, 288, 'gui', 'select');
+    const select = this.add.image(0, 0, 'gui', 'select');
     select.setDepth(1);
     this.world.events.on('select', (actor) => {
-      select.x = 512 + actor.x * 24;
-      select.y = 288 + actor.y * 21;
+      select.x = actor.x * 24;
+      select.y = actor.y * 21;
     });
     this.world.create();
-    this.cursor = this.add.image(512, 309, 'gui', 'cursor');
+    this.cursor = this.add.image(0, 0, 'gui', 'cursor');
     this.cursor.setDepth(1);
   }
 
@@ -59,6 +59,18 @@ export default class WorldScene extends Phaser.Scene {
    */
   update(time, delta) {
     this.controls.update(delta);
+    if (this.input.activePointer.x < 24) {
+      this.cameras.main.scrollX -= 8;
+    };
+    if (this.input.activePointer.x > 1000) {
+      this.cameras.main.scrollX += 8;
+    };
+    if (this.input.activePointer.y < 21) {
+      this.cameras.main.scrollY -= 8;
+    };
+    if (this.input.activePointer.y > 555) {
+      this.cameras.main.scrollY += 8;
+    };
   }
 
   /**
@@ -69,8 +81,8 @@ export default class WorldScene extends Phaser.Scene {
    */
   addEntity(entity) {
     const entityImage = this.add.image(
-        512 + entity.x * 24,
-        288 + entity.y * 21,
+        entity.x * 24,
+        entity.y * 21,
         'tiles',
         entity.type.name,
     ).setData('data', entity).setInteractive().setAlpha(0);
@@ -87,8 +99,8 @@ export default class WorldScene extends Phaser.Scene {
     entity.events.on('move', () => {
       entity.timeline.add({
         targets: entityImage,
-        x: 512 + entity.x * 24,
-        y: 288 + entity.y * 21,
+        x: entity.x * 24,
+        y: entity.y * 21,
         duration: 1000 / entity.speed,
       });
     });
