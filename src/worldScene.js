@@ -33,6 +33,12 @@ export default class WorldScene extends Phaser.Scene {
       down: cursors.down,
       speed: 0.5,
     });
+    document.addEventListener('mouseenter', () => {
+      this.mouseover = true;
+    });
+    document.addEventListener('mouseleave', () => {
+      this.mouseover = false;
+    });
     this.world = new World({
       actorTypes: this.cache.json.get('actorTypes'),
     });
@@ -59,18 +65,20 @@ export default class WorldScene extends Phaser.Scene {
    */
   update(time, delta) {
     this.controls.update(delta);
-    if (this.input.activePointer.x < 24) {
-      this.cameras.main.scrollX -= 8;
-    };
-    if (this.input.activePointer.x > 1000) {
-      this.cameras.main.scrollX += 8;
-    };
-    if (this.input.activePointer.y < 21) {
-      this.cameras.main.scrollY -= 8;
-    };
-    if (this.input.activePointer.y > 555) {
-      this.cameras.main.scrollY += 8;
-    };
+    if (this.mouseover) {
+      if (this.input.activePointer.x < 24) {
+        this.cameras.main.scrollX -= 8;
+      };
+      if (1000 < this.input.activePointer.x) {
+        this.cameras.main.scrollX += 8;
+      };
+      if (this.input.activePointer.y < 21) {
+        this.cameras.main.scrollY -= 8;
+      };
+      if (555 < this.input.activePointer.y) {
+        this.cameras.main.scrollY += 8;
+      };
+    }
   }
 
   /**
