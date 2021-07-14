@@ -25,7 +25,7 @@ export default class WorldController {
   onClick(pointer, target) {
     let selected = this.world.selected;
     const targeted = target.getData('data');
-    if (pointer.button === 0 && targeted.layer === 'actor') {
+    if (pointer.button === 0 && targeted && targeted.layer === 'actor') {
       console.log('left clicked', targeted.type.name);
       selected = targeted;
       this.world.select(targeted);

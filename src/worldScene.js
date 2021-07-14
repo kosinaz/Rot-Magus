@@ -42,6 +42,7 @@ export default class WorldScene extends Phaser.Scene {
     this.world = new World({
       actorTypes: this.cache.json.get('actorTypes'),
     });
+    this.icons = new Set();
     this.controller = new WorldController(this.world);
     this.input.on('gameobjectup', this.controller.onClick, this.controller);
     this.world.events.on('add', this.addEntity, this);
@@ -98,6 +99,21 @@ export default class WorldScene extends Phaser.Scene {
       this.cursor.x = entityImage.x;
       this.cursor.y = entityImage.y;
     });
+    if (entity.isPC) {
+      const entityIcon = this.add.image(0, 0, 'tiles', entity.type.name)
+          .setInteractive().setScrollFactor(0).setDepth(2);
+      entityIcon.on('pointerup', () => {
+        this.cameras.main.scrollX = entityImage.x - 512;
+        this.cameras.main.scrollY = entityImage.y - 288;
+      });
+      this.icons.add(entityIcon);
+      // eslint-disable-next-line new-cap
+      Phaser.Actions.PlaceOnLine(
+          [...this.icons],
+          new Phaser.Geom.Line(36, 31, 36 + [...this.icons].length * 24, 31),
+      );
+      console.log([...this.icons].length);
+    }
     entity.events.on('reveal', () => {
       entityImage.setAlpha(1);
     });
