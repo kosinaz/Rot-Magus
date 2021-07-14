@@ -33,7 +33,7 @@ export default class World {
   create() {
     for (let x = -50; x < 50; x += 1) {
       for (let y = -50; y < 50; y += 1) {
-        const tile = Math.random() > 0.3 ? 'grass' : 'tree';
+        const tile = Math.random() > 0.1 ? 'grass' : 'tree';
         this.createTerrain({
           layer: 'terrain',
           name: tile,
@@ -98,7 +98,7 @@ export default class World {
     // player can also interrupt the movement of the character with a left
     // click that cancels any orders.
     if (actor.isPC) {
-      this.pausedFor = actor;
+      this.pause(actor);
       this.select(actor);
       this.updateVisibleTiles();
     } else {
@@ -115,6 +115,16 @@ export default class World {
   select(actor) {
     this.selected = actor;
     this.events.emit('select', actor);
+  }
+
+  /**
+   *
+   * @param {*} actor
+   * @memberof World
+   */
+  pause(actor) {
+    this.pausedFor = actor;
+    this.events.emit('pause', actor);
   }
 
   /**

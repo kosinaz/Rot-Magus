@@ -52,6 +52,16 @@ export default class WorldScene extends Phaser.Scene {
       select.x = actor.x * 24;
       select.y = actor.y * 21;
     });
+    const question = this.add.image(0, 0, 'gui', 'question');
+    question.setDepth(1);
+    this.world.events.on('pause', (actor) => {
+      question.x = actor.x * 24 + 7;
+      question.y = actor.y * 21 - 6;
+    });
+    this.selectIcon = this.add.image(0, 0, 'gui', 'select');
+    this.selectIcon.setScrollFactor(0).setDepth(3);
+    this.questionIcon = this.add.image(0, 0, 'gui', 'question');
+    this.questionIcon.setScrollFactor(0).setDepth(3);
     this.world.create();
     this.cursor = this.add.image(0, 0, 'gui', 'cursor');
     this.cursor.setDepth(1);
@@ -105,6 +115,7 @@ export default class WorldScene extends Phaser.Scene {
       entityIcon.on('pointerup', () => {
         this.cameras.main.scrollX = entityImage.x - 512;
         this.cameras.main.scrollY = entityImage.y - 288;
+        this.world.select(entity);
       });
       this.icons.add(entityIcon);
       // eslint-disable-next-line new-cap
@@ -112,7 +123,18 @@ export default class WorldScene extends Phaser.Scene {
           [...this.icons],
           new Phaser.Geom.Line(36, 31, 36 + [...this.icons].length * 24, 31),
       );
-      console.log([...this.icons].length);
+      this.world.events.on('select', (actor) => {
+        if (actor === entity) {
+          this.selectIcon.x = entityIcon.x;
+          this.selectIcon.y = entityIcon.y;
+        }
+      });
+      this.world.events.on('pause', (actor) => {
+        if (actor === entity) {
+          this.questionIcon.x = entityIcon.x + 7;
+          this.questionIcon.y = entityIcon.y - 6;
+        }
+      });
     }
     entity.events.on('reveal', () => {
       entityImage.setAlpha(1);
