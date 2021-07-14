@@ -31,8 +31,8 @@ export default class World {
    * @memberof World
    */
   create() {
-    for (let x = -30; x < 30; x += 1) {
-      for (let y = -30; y < 30; y += 1) {
+    for (let x = -50; x < 50; x += 1) {
+      for (let y = -50; y < 50; y += 1) {
         const tile = Math.random() > 0.3 ? 'grass' : 'tree';
         this.createTerrain({
           layer: 'terrain',

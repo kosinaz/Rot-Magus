@@ -24,6 +24,15 @@ export default class WorldScene extends Phaser.Scene {
    */
   create() {
     this.cameras.main.setBackgroundColor('#000000');
+    const cursors = this.input.keyboard.createCursorKeys();
+    this.controls = new Phaser.Cameras.Controls.FixedKeyControl({
+      camera: this.cameras.main,
+      left: cursors.left,
+      right: cursors.right,
+      up: cursors.up,
+      down: cursors.down,
+      speed: 0.5,
+    });
     this.world = new World({
       actorTypes: this.cache.json.get('actorTypes'),
     });
@@ -39,6 +48,17 @@ export default class WorldScene extends Phaser.Scene {
     this.world.create();
     this.cursor = this.add.image(512, 309, 'gui', 'cursor');
     this.cursor.setDepth(1);
+  }
+
+  /**
+   *
+   *
+   * @param {*} time
+   * @param {*} delta
+   * @memberof WorldScene
+   */
+  update(time, delta) {
+    this.controls.update(delta);
   }
 
   /**
