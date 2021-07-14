@@ -31,13 +31,14 @@ export default class World {
    * @memberof World
    */
   create() {
-    for (let x = -10; x < 10; x += 1) {
-      for (let y = -10; y < 10; y += 1) {
+    for (let x = -30; x < 30; x += 1) {
+      for (let y = -30; y < 30; y += 1) {
+        const tile = Math.random() > 0.3 ? 'grass' : 'tree';
         this.createTerrain({
           layer: 'terrain',
-          name: 'grass',
-          walkable: true,
-          transparent: true,
+          name: tile,
+          walkable: tile === 'grass',
+          transparent: tile === 'grass',
         }, x, y);
       }
     }

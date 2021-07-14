@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>5.2.0</string>
+        <string>5.5.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -184,6 +184,7 @@
             <key type="filename">gui/agility.png</key>
             <key type="filename">gui/back.png</key>
             <key type="filename">gui/body.png</key>
+            <key type="filename">gui/cursor.png</key>
             <key type="filename">gui/finger.png</key>
             <key type="filename">gui/head.png</key>
             <key type="filename">gui/leftHand.png</key>
@@ -191,6 +192,7 @@
             <key type="filename">gui/neck.png</key>
             <key type="filename">gui/palm.png</key>
             <key type="filename">gui/rightHand.png</key>
+            <key type="filename">gui/select.png</key>
             <key type="filename">gui/slot.png</key>
             <key type="filename">gui/strength.png</key>
             <key type="filename">gui/wisdom.png</key>

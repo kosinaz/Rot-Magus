@@ -23,6 +23,7 @@ export default class WorldScene extends Phaser.Scene {
    * @memberof WorldScene
    */
   create() {
+    this.cameras.main.setBackgroundColor('#000000');
     this.world = new World({
       actorTypes: this.cache.json.get('actorTypes'),
     });
