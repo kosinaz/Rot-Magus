@@ -24,6 +24,7 @@ export default class LoadScene extends Phaser.Scene {
     this.add.text(400, 250, 'Traversing Hyperspace...');
     this.load.atlas('tiles', 'images/tiles.png', 'images/tiles.json');
     this.load.atlas('gui', 'images/gui.png', 'images/gui.json');
+    this.load.bitmapFont('font', 'images/font.png', 'images/font.xml');
     this.load.json('actorTypes', 'data/actorTypes.json');
     this.load.json('itemTypes', 'data/itemTypes.json');
     this.load.json('guiElements', 'data/guiElements.json');

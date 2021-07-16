@@ -26,8 +26,11 @@ export default class Actor {
     // Manually add an Phaser event emitter because the Actor is not a Phaser
     // class that would already have one. This will be used to notify listeners
     // about the act event of the Actor.
-    // Event: complete
-    // Listener: World
+    // Event: complete Listener: World
+    // Event: show Listener: WorldScene
+    // Event: hide Listener: WorldScene
+    // Event: reveal Listener: WorldScene
+    // Event: move Listener: WorldScene
     this.events = new Phaser.Events.EventEmitter();
 
     // Add an EffectManager to the Actor to handle his Effects.

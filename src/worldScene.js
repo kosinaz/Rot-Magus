@@ -24,6 +24,8 @@ export default class WorldScene extends Phaser.Scene {
    */
   create() {
     this.cameras.main.setBackgroundColor('#000000');
+    this.cameras.main.scrollX = -512;
+    this.cameras.main.scrollY = -288;
     const cursors = this.input.keyboard.createCursorKeys();
     this.controls = new Phaser.Cameras.Controls.FixedKeyControl({
       camera: this.cameras.main,
@@ -65,6 +67,8 @@ export default class WorldScene extends Phaser.Scene {
     this.world.create();
     this.cursor = this.add.image(0, 0, 'gui', 'cursor');
     this.cursor.setDepth(1);
+    this.hint = this.add.bitmapText(1000, 42, 'font', '');
+    this.hint.setOrigin(1).setRightAlign().setScrollFactor(0).setDepth(3);
   }
 
   /**
@@ -108,6 +112,7 @@ export default class WorldScene extends Phaser.Scene {
     entityImage.on('pointerover', () => {
       this.cursor.x = entityImage.x;
       this.cursor.y = entityImage.y;
+      this.hint.setText(entity.type.name);
     });
     if (entity.isPC) {
       const entityIcon = this.add.image(0, 0, 'tiles', entity.type.name)
