@@ -36,6 +36,7 @@ export default class World {
         const tile = Math.random() > 0.1 ? 'grass' : 'tree';
         this.createTerrain({
           layer: 'terrain',
+          image: tile,
           name: tile,
           walkable: tile === 'grass',
           transparent: tile === 'grass',

@@ -107,7 +107,7 @@ export default class WorldScene extends Phaser.Scene {
         entity.x * 24,
         entity.y * 21,
         'tiles',
-        entity.type.name,
+        entity.type.image,
     ).setData('data', entity).setInteractive().setAlpha(0);
     entityImage.on('pointerover', () => {
       this.cursor.x = entityImage.x;
@@ -115,7 +115,7 @@ export default class WorldScene extends Phaser.Scene {
       this.hint.setText(entity.type.name);
     });
     if (entity.isPC) {
-      const entityIcon = this.add.image(0, 0, 'tiles', entity.type.name)
+      const entityIcon = this.add.image(0, 0, 'tiles', entity.type.image)
           .setInteractive().setScrollFactor(0).setDepth(2);
       entityIcon.on('pointerup', () => {
         this.cameras.main.scrollX = entityImage.x - 512;

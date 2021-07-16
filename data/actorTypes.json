@@ -2,6 +2,7 @@
   "demon": {
     "agility": 17,
     "health": 200,
+    "image": "demon",
     "inventory": [
       "fireBall",
       "fireblade"
@@ -21,6 +22,7 @@
   "djinn": {
     "agility": 0,
     "health": 1,
+    "image": "djinn",
     "mana": 0,
     "name": "djinn",
     "speed": 14,
@@ -36,6 +38,7 @@
   "druidMale": {
     "agility": 10,
     "health": 80,
+    "image": "druidMale",
     "inventory": [
       "air",
       "cloak", 
@@ -45,7 +48,7 @@
       "water"
     ],
     "mana": 60,
-    "name": "druidMale",
+    "name": "druid",
     "speed": 4,
     "strength": 14,
     "wisdom": 10
@@ -219,6 +222,7 @@
   "orch": {
     "agility": 9,
     "health": 50,
+    "image": "orch",
     "inventory": [
       "leather",
       "sabre"
