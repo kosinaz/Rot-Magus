@@ -41,7 +41,7 @@
     "image": "druidMale",
     "inventory": [
       "air",
-      "cloak", 
+      "cloak",
       "club",
       "earth",
       "fire",
@@ -56,15 +56,16 @@
   "duckMageMale": {
     "agility": 9,
     "health": 40,
+    "image": "duckMageMale",
     "inventory": [
       "chaos",
-      "cloak", 
+      "cloak",
       "confusion",
       "dagger",
       "delay"
     ],
     "mana": 60,
-    "name": "duckMageMale",
+    "name": "duck mage",
     "speed": 5,
     "strength": 10,
     "walksOn": [
@@ -76,6 +77,7 @@
   "elfMale": {
     "agility": 15,
     "health": 90,
+    "image": "elfMale",
     "inventory": [
       "arrows",
       "bow",
@@ -83,7 +85,7 @@
       "elvenCloak"
     ],
     "mana": 0,
-    "name": "elfMale",
+    "name": "elf",
     "speed": 6,
     "strength": 14,
     "walksOn": [
@@ -95,6 +97,7 @@
   "fenix": {
     "agility": 17,
     "health": 40,
+    "image": "fenix",
     "inventory": [
       "fireblade"
     ],
@@ -108,6 +111,7 @@
   "goblin": {
     "agility": 12,
     "health": 30,
+    "image": "goblin",
     "inventory": [
       "leather",
       "sword"
@@ -122,6 +126,7 @@
   "golem": {
     "agility": 15,
     "health": 80,
+    "image": "golem",
     "inventory": [
       "stoneAxe"
     ],
@@ -135,6 +140,7 @@
   "hobgoblin": {
     "agility": 15,
     "health": 10,
+    "image": "hobgoblin",
     "inventory": [
       "dagger",
       "dagger",
@@ -154,6 +160,7 @@
   "knightMale": {
     "agility": 11,
     "health": 90,
+    "image": "knightMale",
     "inventory": [
       "chainmail",
       "helmet",
@@ -161,7 +168,7 @@
       "sword"
     ],
     "mana": 0,
-    "name": "knightMale",
+    "name": "knight",
     "speed": 4,
     "strength": 24,
     "wisdom": 0
@@ -169,6 +176,7 @@
   "lightning": {
     "agility": 0,
     "health": 1,
+    "image": "lightning",
     "inventory": [
       "chock"
     ],
@@ -187,6 +195,7 @@
   "magician": {
     "agility": 10,
     "health": 50,
+    "image": "magician",
     "inventory": [
       "arrows",
       "cloak",
@@ -204,6 +213,7 @@
   "monk": {
     "agility": 16,
     "health": 60,
+    "image": "monk",
     "inventory": [
       "delay",
       "earth",
@@ -237,6 +247,7 @@
   "orchArcher": {
     "agility": 10,
     "health": 50,
+    "image": "orchArcher",
     "inventory": [
       "arrows",
       "bow"
@@ -251,6 +262,7 @@
   "shadowbeast": {
     "agility": 10,
     "health": 200,
+    "image": "shadowbeast",
     "inventory": [
       "club"
     ],
@@ -264,6 +276,7 @@
   "skeleton": {
     "agility": 7,
     "health": 30,
+    "image": "skeleton",
     "inventory": [
       "chainNBall"
     ],
@@ -277,6 +290,7 @@
   "troll": {
     "agility": 7,
     "health": 100,
+    "image": "troll",
     "inventory": [
       "stoneAxe"
     ],
@@ -290,6 +304,7 @@
   "undine": {
     "agility": 15,
     "health": 30,
+    "image": "undine",
     "inventory": [
       "sabre"
     ],
@@ -308,6 +323,7 @@
   "warrior": {
     "agility": 14,
     "health": 80,
+    "image": "warrior",
     "inventory": [
       "chainmail",
       "club",
@@ -325,6 +341,7 @@
   "zombie": {
     "agility": 10,
     "health": 10,
+    "image": "zombie",
     "inventory": [
       "sabre"
     ],

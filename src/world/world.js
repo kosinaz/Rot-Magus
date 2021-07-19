@@ -47,6 +47,8 @@ export default class World {
     this.createActor(this.config.actorTypes.druidMale, 0, 0, true);
     this.createActor(this.config.actorTypes.djinn, 0, -9);
     this.createActor(this.config.actorTypes.demon, 2, 2);
+    this.createActor(this.config.actorTypes.orchArcher, -2, 2);
+    this.createActor(this.config.actorTypes.duckMageMale, -2, -2);
     this.createActor(this.config.actorTypes.orch, 9, 9, true);
     this.nextActor();
   }
