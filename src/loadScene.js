@@ -1,3 +1,4 @@
+import Actor from './world/actor/actor.js';
 /**
  * Represents the scene that loads all the resources that the game uses.
  *
@@ -39,6 +40,13 @@ export default class LoadScene extends Phaser.Scene {
    */
   create() {
     // Start the next scene.
-    this.scene.start('WorldScene');
+    const actorTypes = this.cache.json.get('actorTypes');
+    const config = {
+      pcs: [
+        new Actor(actorTypes.druidMale, 0, 0, true),
+        new Actor(actorTypes.orch, 9, 9, true),
+      ],
+    };
+    this.scene.start('WorldScene', config);
   }
 }

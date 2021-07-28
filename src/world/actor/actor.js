@@ -125,11 +125,9 @@ export default class Actor {
     }
     const order = this.orders.shift();
     console.log(order);
-    if (order.name === 'move') {
-      this.x = order.x;
-      this.y = order.y;
-      this.events.emit('move');
-    }
+    this.x = order.x;
+    this.y = order.y;
+    this.events.emit('move');
     this.events.emit('complete');
 
     // if (this.lifespan !== undefined) {

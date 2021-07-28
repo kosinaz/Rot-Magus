@@ -28,6 +28,7 @@ export default class World {
   /**
    *
    *
+   * @param {*} config
    * @memberof World
    */
   create() {
@@ -44,12 +45,11 @@ export default class World {
       }
     }
     this.actors = [];
-    this.createActor(this.config.actorTypes.druidMale, 0, 0, true);
-    this.createActor(this.config.actorTypes.djinn, 0, -9);
-    this.createActor(this.config.actorTypes.demon, 2, 2);
-    this.createActor(this.config.actorTypes.orchArcher, -2, 2);
-    this.createActor(this.config.actorTypes.duckMageMale, -2, -2);
-    this.createActor(this.config.actorTypes.orch, 9, 9, true);
+    this.config.pcs.forEach((pc) => this.addActor(pc));
+    this.addActor(new Actor(this.config.actorTypes.djinn, 0, -9));
+    this.addActor(new Actor(this.config.actorTypes.demon, 2, 2));
+    this.addActor(new Actor(this.config.actorTypes.orchArcher, -2, 2));
+    this.addActor(new Actor(this.config.actorTypes.duckMageMale, -2, -2));
     this.nextActor();
   }
 
@@ -71,14 +71,10 @@ export default class World {
   /**
    *
    *
-   * @param {*} actorType
-   * @param {*} x
-   * @param {*} y
-   * @param {*} isPC
+   * @param {*} actor
    * @memberof World
    */
-  createActor(actorType, x, y, isPC) {
-    const actor = new Actor(actorType, x, y, isPC);
+  addActor(actor) {
     this.actors.push(actor);
     this.scheduler.add(actor, true);
     actor.events.on('complete', this.nextActor, this);
@@ -140,6 +136,15 @@ export default class World {
    */
   isTransparent(x, y) {
     const terrain = this.map.get(`terrain,${x},${y}`);
+    let transparent = false;
+    this.actors.forEach((actor) => {
+      if (actor.isPC && actor.x === x && actor.y === y) {
+        transparent = true;
+      }
+    });
+    if (transparent) {
+      return true;
+    }
     if (!terrain) {
       return false;
     }
@@ -224,7 +229,7 @@ export default class World {
     this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
       this.actors.forEach((otherActor) => {
         if (otherActor.isPC && otherActor.x === x && otherActor.y === y) {
-          this.giveOrder(actor, 'move', x, y);
+          this.giveOrder(actor, x, y);
         }
       });
     });
@@ -235,14 +240,22 @@ export default class World {
    * Give the actor an order.
    *
    * @param {*} actor
-   * @param {*} name
    * @param {*} x
    * @param {*} y
    * @memberof Actor
    */
-  giveOrder(actor, name, x, y) {
+  giveOrder(actor, x, y) {
     // Initialize a new astar pathmap based on the given target.
-    const a = new ROT.Path.AStar(x, y, this.walksOnXY.bind(this));
+    const a = new ROT.Path.AStar(x, y, (x, y) => {
+      const terrain = this.map.get(`terrain,${x},${y}`);
+      if (actor.x === x && actor.y === y) {
+        return true;
+      }
+      if (terrain && terrain.type.walkable) {
+        return true;
+      }
+      return false;
+    });
 
     // After generated the pathmap create a new path for the actor.
     actor.orders = [];
@@ -252,7 +265,6 @@ export default class World {
     a.compute(actor.x, actor.y, (x, y) => {
       // Add the next position of the shortest path to the actor's path.
       actor.orders.push({
-        name: name,
         x: x,
         y: y,
       });
@@ -260,22 +272,5 @@ export default class World {
 
     // Remove the first order, because that's current position of the actor.
     actor.orders.shift();
-  }
-
-  /**
-   * Returns true if the selected actor can walk on the tile at the given
-   * coordinates.
-   *
-   * @param {*} x
-   * @param {*} y
-   * @return {boolean}
-   * @memberof WorldScene
-   */
-  walksOnXY(x, y) {
-    const terrain = this.map.get(`terrain,${x},${y}`);
-    if (terrain && terrain.type.walkable) {
-      return true;
-    }
-    return false;
   }
 }

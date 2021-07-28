@@ -18,11 +18,12 @@ export default class WorldScene extends Phaser.Scene {
   }
 
   /**
-   * Creates the content of the world.
    *
+   *
+   * @param {*} config
    * @memberof WorldScene
    */
-  create() {
+  create(config) {
     this.cameras.main.setBackgroundColor('#000000');
     this.cameras.main.scrollX = -512;
     this.cameras.main.scrollY = -288;
@@ -43,6 +44,7 @@ export default class WorldScene extends Phaser.Scene {
     });
     this.world = new World({
       actorTypes: this.cache.json.get('actorTypes'),
+      pcs: config.pcs,
     });
     this.icons = new Set();
     this.controller = new WorldController(this.world);

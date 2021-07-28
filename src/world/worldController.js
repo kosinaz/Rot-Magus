@@ -48,11 +48,11 @@ export default class WorldController {
         console.log('pausedFor', this.world.pausedFor.type.name);
         if (selected === this.world.pausedFor) {
           console.log(selected.type.name, 'moved');
-          this.world.giveOrder(selected, 'move', targeted.x, targeted.y);
+          this.world.giveOrder(selected, targeted.x, targeted.y);
           selected.act();
         } else {
           console.log(selected.type.name, 'will move');
-          this.world.giveOrder(selected, 'move', targeted.x, targeted.y);
+          this.world.giveOrder(selected, targeted.x, targeted.y);
         }
       }
     }
