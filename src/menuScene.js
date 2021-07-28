@@ -18,7 +18,7 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   /**
-   * Creates the dynamic background and the menu points.
+   *
    *
    * @memberof MenuScene
    */

@@ -1,5 +1,7 @@
 /**
- * Represents the game world controller.
+ * Represents the collection of methods responsible for listening to the events
+ * of the world scene emitted by the interactions of the user, processing them,
+ * and sending them to the world model.
  *
  * @export
  * @class WorldController

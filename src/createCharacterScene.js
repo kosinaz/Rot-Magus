@@ -19,7 +19,7 @@ export default class CreateCharacterScene extends Phaser.Scene {
   }
 
   /**
-   * Creates the dynamic background and the menu points.
+   *
    *
    * @memberof CreateCharacterScene
    */
