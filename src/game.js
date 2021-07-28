@@ -1,9 +1,8 @@
 import LoadScene from './loadScene.js';
-import WorldScene from './worldScene.js';
 
 new Phaser.Game({
   type: Phaser.AUTO,
-  backgroundColor: '#ffffff',
+  backgroundColor: '#000000',
   roundPixels: true,
   scale: {
     parent: 'game-container',
@@ -11,8 +10,5 @@ new Phaser.Game({
     width: 1024,
     height: 576,
   },
-  scene: [
-    LoadScene,
-    WorldScene,
-  ],
+  scene: [LoadScene],
 });

@@ -24,7 +24,6 @@ export default class WorldScene extends Phaser.Scene {
    * @memberof WorldScene
    */
   create(config) {
-    this.cameras.main.setBackgroundColor('#000000');
     this.cameras.main.scrollX = -512;
     this.cameras.main.scrollY = -288;
     const cursors = this.input.keyboard.createCursorKeys();

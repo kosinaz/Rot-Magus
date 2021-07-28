@@ -1,6 +1,5 @@
-import TextButton from './gui/textButton.js';
-import RNG from '../lib/rot/rng.js';
-import Actor from './world/actor/actor.js';
+import CreateCharacterScene from './createCharacterScene.js';
+
 /**
  * Represents the scene of the main menu.
  *
@@ -24,74 +23,10 @@ export default class MenuScene extends Phaser.Scene {
    * @memberof MenuScene
    */
   create() {
-    const seed = RNG.getUniformInt(0, Number.MAX_SAFE_INTEGER);
-    RNG.setSeed(seed);
-    this.cameras.main.setBackgroundColor('#616161');
-    // this.map = new SimplexMap(this, 'tiles', this.cache.json.get('mapConfig'));
-    // for (let x = 0; x < 44; x += 1) {
-    //   for (let y = 0; y < 28; y += 1) {
-    //     this.add.image(x * 24 - 12, y * 21, 'tiles', this.map.getTileNameAt(x - 21, y - 13));
-    //   }
-    // }
-    // this.add.text(512, 100, 'ROT MAGUS', {
-    //   fontFamily: 'title',
-    //   fontSize: '64px',
-    //   fill: '#ff0000',
-    //   stroke: '000000',
-    //   strokeThickness: 8
-    // }).setOrigin(0.5);
-    new TextButton({
-      onPointerUp: () => {
-        this.scene.start(
-            'GameScene',
-            new Actor(this.cache.json.get('actorTypes')['druidMale'], 2, 3),
-        );
-      },
-      origin: 0.5,
-      scene: this,
-      text: 'New game',
-      x: 512,
-      y: 220,
-    });
-    new TextButton({
-      onPointerUp: () => {
-        this.scene.start('SeedBrowserScene');
-      },
-      origin: 0.5,
-      scene: this,
-      text: 'Map browser',
-      x: 512,
-      y: 270,
-    });
-    new TextButton({
-      onPointerUp: () => {
-        this.scene.start('NoiseScene');
-      },
-      origin: 0.5,
-      scene: this,
-      text: 'Noise browser',
-      x: 512,
-      y: 320,
-    });
-    new TextButton({
-      onPointerUp: () => {
-        this.scene.start('ScoreScene');
-      },
-      origin: 0.5,
-      scene: this,
-      text: 'Hall of fame',
-      x: 512,
-      y: 370,
-    });
-    new TextButton({
-      onPointerUp: () => {
-        this.scene.start('SettingScene');
-      },
-      origin: 0.5,
-      scene: this,
-      text: 'Settings',
-      x: 512,
-      y: 420,
-    });
+    // Add the character creation scene.
+    this.scene.add('CreateCharacterScene', CreateCharacterScene);
+
+    // Start the character creation scene and stop this scene.
+    this.scene.start('CreateCharacterScene');
   }
 }

@@ -1,4 +1,5 @@
-import Actor from './world/actor/actor.js';
+import MenuScene from './menuScene.js';
+
 /**
  * Represents the scene that loads all the resources that the game uses.
  *
@@ -39,14 +40,10 @@ export default class LoadScene extends Phaser.Scene {
    * @memberof LoadScene
    */
   create() {
-    // Start the next scene.
-    const actorTypes = this.cache.json.get('actorTypes');
-    const config = {
-      pcs: [
-        new Actor(actorTypes.druidMale, 0, 0, true),
-        new Actor(actorTypes.orch, 9, 9, true),
-      ],
-    };
-    this.scene.start('WorldScene', config);
+    // Add the menu scene but don't autostart it as it won't stop this scene.
+    this.scene.add('MenuScene', MenuScene);
+
+    // Start the menu scene and stop this scene.
+    this.scene.start('MenuScene');
   }
 }
