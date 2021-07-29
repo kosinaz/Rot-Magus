@@ -12,17 +12,9 @@ export default class WorldSceneCameraManager {
   constructor(scene) {
     // Set the scene.
     this.scene = scene;
-  }
-
-  /**
-   *
-   *
-   * @memberof WorldSceneCameraManager
-   */
-  create() {
     this.scene.cameras.main.scrollX = -512;
     this.scene.cameras.main.scrollY = -288;
-    const keys = 
+    const keys =
       this.scene.input.keyboard.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT');
     this.cursorControls = new Phaser.Cameras.Controls.FixedKeyControl({
       camera: this.scene.cameras.main,

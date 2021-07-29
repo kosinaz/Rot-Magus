@@ -1,3 +1,4 @@
+import SelectImage from './selectImage.js';
 import World from './world/world.js';
 import WorldController from './world/worldController.js';
 import WorldSceneCameraManager from './worldSceneCameraManager.js';
@@ -11,6 +12,7 @@ import WorldSceneCameraManager from './worldSceneCameraManager.js';
 export default class WorldScene extends Phaser.Scene {
   /**
    * Creates an instance of WorldScene.
+   *
    * @memberof WorldScene
    */
   constructor() {
@@ -25,22 +27,17 @@ export default class WorldScene extends Phaser.Scene {
    * @memberof WorldScene
    */
   create(config) {
-    this.camera = new WorldSceneCameraManager(this);
-    this.camera.create();
     this.world = new World({
       actorTypes: this.cache.json.get('actorTypes'),
       pcs: config.pcs,
     });
-    this.icons = new Set();
+    this.world.events.on('add', this.addEntity, this);
     this.controller = new WorldController(this.world);
     this.input.on('gameobjectup', this.controller.onClick, this.controller);
-    this.world.events.on('add', this.addEntity, this);
-    const select = this.add.image(0, 0, 'gui', 'select');
-    select.setDepth(1);
-    this.world.events.on('select', (actor) => {
-      select.x = actor.x * 24;
-      select.y = actor.y * 21;
-    });
+    this.camera = new WorldSceneCameraManager(this);
+    this.icons = new Set();
+    const select = new SelectImage(this);
+    this.world.events.on('select', (actor) => select.moveTo(actor));
     const question = this.add.image(0, 0, 'gui', 'question');
     question.setDepth(1);
     this.world.events.on('pause', (actor) => {
