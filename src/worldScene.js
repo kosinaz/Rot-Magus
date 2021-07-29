@@ -41,14 +41,14 @@ export default class WorldScene extends Phaser.Scene {
     this.input.on('gameobjectup', this.controller.onClick, this.controller);
     this.camera = new WorldSceneCameraManager(this);
     this.icons = new Set();
-    const select = new SelectImage(this, 1);
+    const select = this.add.existing(new SelectImage(this, 1));
     this.world.events.on('select', (actor) => select.moveToEntity(actor));
-    const question = new QuestionImage(this, 1);
+    const question = this.add.existing(new QuestionImage(this, 1));
     this.world.events.on('pause', (actor) => question.moveToEntity(actor));
-    this.selectIcon = new SelectImage(this, 3, 0);
-    this.questionIcon = new QuestionImage(this, 3, 0);
-    this.cursor = new CursorImage(this);
-    this.hint = new HintText(this);
+    this.selectIcon = this.add.existing(new SelectImage(this, 3, 0));
+    this.questionIcon = this.add.existing(new QuestionImage(this, 3, 0));
+    this.cursor = this.add.existing(new CursorImage(this));
+    this.hint = this.add.existing(new HintText(this));
     this.world.create();
   }
 
@@ -70,9 +70,9 @@ export default class WorldScene extends Phaser.Scene {
    * @memberof WorldScene
    */
   addEntity(entity) {
-    const entityImage = new EntityImage(this, entity);
+    const entityImage = this.add.existing(new EntityImage(this, entity));
     if (entity.isPC) {
-      new EntityIconImage(this, entity);
+      this.add.existing(new EntityIconImage(this, entity));
     }
     entity.events.on('reveal', () => {
       entityImage.setAlpha(1);

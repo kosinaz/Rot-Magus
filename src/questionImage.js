@@ -16,7 +16,6 @@ export default class QuestionImage extends Phaser.GameObjects.Image {
   constructor(scene, depth, scroll) {
     // Create the QuestionImage.
     super(scene, 0, 0, 'gui', 'question');
-    scene.add.existing(this);
     this.setDepth(depth);
     if (scroll !== undefined) {
       this.setScrollFactor(scroll);

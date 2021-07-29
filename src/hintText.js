@@ -14,7 +14,6 @@ export default class HintText extends Phaser.GameObjects.BitmapText {
   constructor(scene) {
     // Create the HintText.
     super(scene, 1000, 42, 'font', '');
-    scene.add.existing(this);
     this.setOrigin(1);
     this.setRightAlign();
     this.setScrollFactor(0);

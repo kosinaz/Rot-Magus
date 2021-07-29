@@ -16,7 +16,6 @@ export default class SelectImage extends Phaser.GameObjects.Image {
   constructor(scene, depth, scroll) {
     // Create the SelectImage.
     super(scene, 0, 0, 'gui', 'select');
-    scene.add.existing(this);
     this.setDepth(depth);
     if (scroll !== undefined) {
       this.setScrollFactor(scroll);

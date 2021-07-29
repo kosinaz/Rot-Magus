@@ -15,7 +15,6 @@ export default class EntityIconImage extends Phaser.GameObjects.Image {
   constructor(scene, entity) {
     // Create the EntityIconImage.
     super(scene, 0, 0, 'tiles', entity.type.image);
-    scene.add.existing(this);
     scene.icons.add(this);
     this.setInteractive();
     this.setScrollFactor(0);

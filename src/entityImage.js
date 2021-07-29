@@ -15,12 +15,11 @@ export default class EntityImage extends Phaser.GameObjects.Image {
   constructor(scene, entity) {
     // Create the EntityImage.
     super(scene, entity.x * 24, entity.y * 21, 'tiles', entity.type.image);
-    scene.add.existing(this);
     this.setData('data', entity);
     this.setInteractive();
     this.setAlpha(0);
     this.on('pointerover', () => {
-      scene.cursor.moveTo(this.x, this.y);
+      scene.cursor.moveToImage(this);
       scene.hint.setText(entity.type.name);
     });
   }
