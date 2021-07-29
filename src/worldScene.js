@@ -1,4 +1,5 @@
 import CursorImage from './cursorImage.js';
+import EntityImage from './entityImage.js';
 import HintText from './hintText.js';
 import QuestionImage from './questionImage.js';
 import SelectImage from './selectImage.js';
@@ -68,16 +69,7 @@ export default class WorldScene extends Phaser.Scene {
    * @memberof WorldScene
    */
   addEntity(entity) {
-    const entityImage = this.add.image(
-        entity.x * 24,
-        entity.y * 21,
-        'tiles',
-        entity.type.image,
-    ).setData('data', entity).setInteractive().setAlpha(0);
-    entityImage.on('pointerover', () => {
-      this.cursor.moveTo(entityImage.x, entityImage.y);
-      this.hint.setText(entity.type.name);
-    });
+    const entityImage = new EntityImage(this, entity);
     if (entity.isPC) {
       const entityIcon = this.add.image(0, 0, 'tiles', entity.type.image)
           .setInteractive().setScrollFactor(0).setDepth(2);
