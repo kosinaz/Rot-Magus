@@ -38,18 +38,16 @@ export default class WorldScene extends Phaser.Scene {
     this.input.on('gameobjectup', this.controller.onClick, this.controller);
     this.camera = new WorldSceneCameraManager(this);
     this.icons = new Set();
-    const select = new SelectImage(this);
+    const select = new SelectImage(this, 1);
     this.world.events.on('select', (actor) => select.moveTo(actor.x, actor.y));
-    const question = new QuestionImage(this);
+    const question = new QuestionImage(this, 1);
     this.world.events.on('pause', (actor) => question.moveTo(actor.x, actor.y));
-    this.selectIcon = new SelectImage(this);
-    this.selectIcon.setScrollFactor(0);
-    this.questionIcon = new QuestionImage(this);
-    this.questionIcon.setScrollFactor(0);
-    this.world.create();
+    this.selectIcon = new SelectImage(this, 3, 0);
+    this.questionIcon = new QuestionImage(this, 3, 0);
     this.cursor = new CursorImage(this);
     this.hint = this.add.bitmapText(1000, 42, 'font', '');
     this.hint.setOrigin(1).setRightAlign().setScrollFactor(0).setDepth(3);
+    this.world.create();
   }
 
   /**
