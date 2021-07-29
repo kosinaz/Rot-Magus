@@ -8,8 +8,9 @@
  */
 export default class WorldController {
   /**
-   *Creates an instance of World.
-   * @param {*} world
+   * Creates an instance of WorldController.
+   *
+   * @param {World} world
    * @memberof WorldController
    */
   constructor(world) {

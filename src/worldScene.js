@@ -26,13 +26,21 @@ export default class WorldScene extends Phaser.Scene {
   create(config) {
     this.cameras.main.scrollX = -512;
     this.cameras.main.scrollY = -288;
-    const cursors = this.input.keyboard.createCursorKeys();
-    this.controls = new Phaser.Cameras.Controls.FixedKeyControl({
+    const keys = this.input.keyboard.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT');
+    this.cursorControls = new Phaser.Cameras.Controls.FixedKeyControl({
       camera: this.cameras.main,
-      left: cursors.left,
-      right: cursors.right,
-      up: cursors.up,
-      down: cursors.down,
+      left: keys.LEFT,
+      right: keys.RIGHT,
+      up: keys.UP,
+      down: keys.DOWN,
+      speed: 0.5,
+    });
+    this.wasdControls = new Phaser.Cameras.Controls.FixedKeyControl({
+      camera: this.cameras.main,
+      left: keys.A,
+      right: keys.D,
+      up: keys.W,
+      down: keys.S,
       speed: 0.5,
     });
     document.addEventListener('mouseenter', () => {
@@ -80,7 +88,8 @@ export default class WorldScene extends Phaser.Scene {
    * @memberof WorldScene
    */
   update(time, delta) {
-    this.controls.update(delta);
+    this.cursorControls.update(delta);
+    this.wasdControls.update(delta);
     if (this.mouseover) {
       if (this.input.activePointer.x < 24) {
         this.cameras.main.scrollX -= 8;

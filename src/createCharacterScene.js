@@ -11,6 +11,7 @@ import WorldScene from './worldScene.js';
 export default class CreateCharacterScene extends Phaser.Scene {
   /**
    * Creates an instance of CreateCharacterScene.
+   *
    * @memberof CreateCharacterScene
    */
   constructor() {
