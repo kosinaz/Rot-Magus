@@ -39,7 +39,26 @@ export default class WorldScene extends Phaser.Scene {
       this.add.existing(new EntityImage(this, entity));
     });
     this.controller = new WorldController(this.world);
-    this.input.on('gameobjectup', this.controller.onClick, this.controller);
+    this.downOn = null;
+    this.input.on('gameobjectdown', (pointer, target) => {
+      this.downOn = {
+        pointer: pointer,
+        target: target,
+      };
+      this.controller.onClick(this.downOn.pointer, this.downOn.target);
+    });
+    this.input.on('gameobjectup', (entity) => {
+      this.downOn = null;
+    });
+    this.time.addEvent({
+      delay: 250,
+      loop: true,
+      callback: () => {
+        if (this.downOn !== null) {
+          this.controller.onClick(this.downOn.pointer, this.downOn.target);
+        }
+      },
+    });
     this.camera = new WorldSceneCameraManager(this);
     this.add.existing(new SelectImage(this, 1));
     this.add.existing(new QuestionImage(this, 1));
