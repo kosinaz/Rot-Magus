@@ -34,7 +34,7 @@ export default class CreateCharacterScene extends Phaser.Scene {
     };
 
     // Add the world scene with the already created PC's.
-    this.scene.add('WorldScene', WorldScene, true, config);
+    this.scene.add('WorldScene', WorldScene, false, config);
 
     // Start the world scene.
     this.scene.start('WorldScene');
