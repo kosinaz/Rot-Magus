@@ -1,3 +1,4 @@
+import QuestionImage from './questionImage.js';
 import SelectImage from './selectImage.js';
 import World from './world/world.js';
 import WorldController from './world/worldController.js';
@@ -38,12 +39,8 @@ export default class WorldScene extends Phaser.Scene {
     this.icons = new Set();
     const select = new SelectImage(this);
     this.world.events.on('select', (actor) => select.moveTo(actor));
-    const question = this.add.image(0, 0, 'gui', 'question');
-    question.setDepth(1);
-    this.world.events.on('pause', (actor) => {
-      question.x = actor.x * 24 + 7;
-      question.y = actor.y * 21 - 6;
-    });
+    const question = new QuestionImage(this);
+    this.world.events.on('pause', (actor) => question.moveTo(actor));
     this.selectIcon = this.add.image(0, 0, 'gui', 'select');
     this.selectIcon.setScrollFactor(0).setDepth(3);
     this.questionIcon = this.add.image(0, 0, 'gui', 'question');
