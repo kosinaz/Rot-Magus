@@ -1,5 +1,6 @@
 import World from './world/world.js';
 import WorldController from './world/worldController.js';
+import WorldSceneCameraManager from './worldSceneCameraManager.js';
 
 /**
  * Represents the scene where the gameplay itself happens.
@@ -24,31 +25,8 @@ export default class WorldScene extends Phaser.Scene {
    * @memberof WorldScene
    */
   create(config) {
-    this.cameras.main.scrollX = -512;
-    this.cameras.main.scrollY = -288;
-    const keys = this.input.keyboard.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT');
-    this.cursorControls = new Phaser.Cameras.Controls.FixedKeyControl({
-      camera: this.cameras.main,
-      left: keys.LEFT,
-      right: keys.RIGHT,
-      up: keys.UP,
-      down: keys.DOWN,
-      speed: 0.5,
-    });
-    this.wasdControls = new Phaser.Cameras.Controls.FixedKeyControl({
-      camera: this.cameras.main,
-      left: keys.A,
-      right: keys.D,
-      up: keys.W,
-      down: keys.S,
-      speed: 0.5,
-    });
-    document.addEventListener('mouseenter', () => {
-      this.mouseover = true;
-    });
-    document.addEventListener('mouseleave', () => {
-      this.mouseover = false;
-    });
+    this.camera = new WorldSceneCameraManager(this);
+    this.camera.create();
     this.world = new World({
       actorTypes: this.cache.json.get('actorTypes'),
       pcs: config.pcs,
@@ -88,22 +66,7 @@ export default class WorldScene extends Phaser.Scene {
    * @memberof WorldScene
    */
   update(time, delta) {
-    this.cursorControls.update(delta);
-    this.wasdControls.update(delta);
-    if (this.mouseover) {
-      if (this.input.activePointer.x < 24) {
-        this.cameras.main.scrollX -= 8;
-      };
-      if (1000 < this.input.activePointer.x) {
-        this.cameras.main.scrollX += 8;
-      };
-      if (this.input.activePointer.y < 21) {
-        this.cameras.main.scrollY -= 8;
-      };
-      if (555 < this.input.activePointer.y) {
-        this.cameras.main.scrollY += 8;
-      };
-    }
+    this.camera.update(delta);
   }
 
   /**
