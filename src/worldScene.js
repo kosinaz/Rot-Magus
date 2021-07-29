@@ -1,4 +1,5 @@
 import CursorImage from './cursorImage.js';
+import HintText from './hintText.js';
 import QuestionImage from './questionImage.js';
 import SelectImage from './selectImage.js';
 import World from './world/world.js';
@@ -45,8 +46,7 @@ export default class WorldScene extends Phaser.Scene {
     this.selectIcon = new SelectImage(this, 3, 0);
     this.questionIcon = new QuestionImage(this, 3, 0);
     this.cursor = new CursorImage(this);
-    this.hint = this.add.bitmapText(1000, 42, 'font', '');
-    this.hint.setOrigin(1).setRightAlign().setScrollFactor(0).setDepth(3);
+    this.hint = new HintText(this);
     this.world.create();
   }
 
