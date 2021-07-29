@@ -26,12 +26,22 @@ export default class SelectImage extends Phaser.GameObjects.Image {
   /**
    *
    *
-   * @param {*} x
-   * @param {*} y
+   * @param {*} image
    * @memberof SelectImage
    */
-  moveTo(x, y) {
-    this.x = x * 24;
-    this.y = y * 21;
+  moveToImage(image) {
+    this.x = image.x;
+    this.y = image.y;
+  }
+
+  /**
+   *
+   *
+   * @param {*} entity
+   * @memberof SelectImage
+   */
+  moveToEntity(entity) {
+    this.x = entity.x * 24;
+    this.y = entity.y * 21;
   }
 }

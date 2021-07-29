@@ -24,16 +24,4 @@ export default class EntityImage extends Phaser.GameObjects.Image {
       scene.hint.setText(entity.type.name);
     });
   }
-
-  /**
-   *
-   *
-   * @param {*} x
-   * @param {*} y
-   * @memberof EntityImage
-   */
-  moveTo(x, y) {
-    this.x = x * 24;
-    this.y = y * 21;
-  }
 }

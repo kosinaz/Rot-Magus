@@ -1,4 +1,5 @@
 import CursorImage from './cursorImage.js';
+import EntityIconImage from './entityIconImage.js';
 import EntityImage from './entityImage.js';
 import HintText from './hintText.js';
 import QuestionImage from './questionImage.js';
@@ -41,9 +42,9 @@ export default class WorldScene extends Phaser.Scene {
     this.camera = new WorldSceneCameraManager(this);
     this.icons = new Set();
     const select = new SelectImage(this, 1);
-    this.world.events.on('select', (actor) => select.moveTo(actor.x, actor.y));
+    this.world.events.on('select', (actor) => select.moveToEntity(actor));
     const question = new QuestionImage(this, 1);
-    this.world.events.on('pause', (actor) => question.moveTo(actor.x, actor.y));
+    this.world.events.on('pause', (actor) => question.moveToEntity(actor));
     this.selectIcon = new SelectImage(this, 3, 0);
     this.questionIcon = new QuestionImage(this, 3, 0);
     this.cursor = new CursorImage(this);
@@ -71,31 +72,7 @@ export default class WorldScene extends Phaser.Scene {
   addEntity(entity) {
     const entityImage = new EntityImage(this, entity);
     if (entity.isPC) {
-      const entityIcon = this.add.image(0, 0, 'tiles', entity.type.image)
-          .setInteractive().setScrollFactor(0).setDepth(2);
-      entityIcon.on('pointerup', () => {
-        this.cameras.main.scrollX = entityImage.x - 512;
-        this.cameras.main.scrollY = entityImage.y - 288;
-        this.world.select(entity);
-      });
-      this.icons.add(entityIcon);
-      // eslint-disable-next-line new-cap
-      Phaser.Actions.PlaceOnLine(
-          [...this.icons],
-          new Phaser.Geom.Line(36, 31, 36 + [...this.icons].length * 24, 31),
-      );
-      this.world.events.on('select', (actor) => {
-        if (actor === entity) {
-          this.selectIcon.x = entityIcon.x;
-          this.selectIcon.y = entityIcon.y;
-        }
-      });
-      this.world.events.on('pause', (actor) => {
-        if (actor === entity) {
-          this.questionIcon.x = entityIcon.x + 7;
-          this.questionIcon.y = entityIcon.y - 6;
-        }
-      });
+      new EntityIconImage(this, entity);
     }
     entity.events.on('reveal', () => {
       entityImage.setAlpha(1);

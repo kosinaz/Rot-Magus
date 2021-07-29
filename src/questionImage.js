@@ -26,12 +26,22 @@ export default class QuestionImage extends Phaser.GameObjects.Image {
   /**
    *
    *
-   * @param {*} x
-   * @param {*} y
-   * @memberof QuestionImage
+   * @param {*} image
+   * @memberof SelectImage
    */
-  moveTo(x, y) {
-    this.x = x * 24 + 7;
-    this.y = y * 21 - 6;
+  moveToImage(image) {
+    this.x = image.x + 7;
+    this.y = image.y - 6;
+  }
+
+  /**
+   *
+   *
+   * @param {*} entity
+   * @memberof SelectImage
+   */
+  moveToEntity(entity) {
+    this.x = entity.x * 24 + 7;
+    this.y = entity.y * 21 - 6;
   }
 }
