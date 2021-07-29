@@ -19,6 +19,8 @@ export default class QuestionImage extends Phaser.GameObjects.Image {
     this.setDepth(depth);
     if (scroll !== undefined) {
       this.setScrollFactor(scroll);
+    } else {
+      scene.world.events.on('pause', (actor) => this.moveToEntity(actor));
     }
   }
 

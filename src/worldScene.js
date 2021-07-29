@@ -1,5 +1,4 @@
 import CursorImage from './cursorImage.js';
-import EntityIconImage from './entityIconImage.js';
 import EntityImage from './entityImage.js';
 import HintText from './hintText.js';
 import QuestionImage from './questionImage.js';
@@ -36,15 +35,15 @@ export default class WorldScene extends Phaser.Scene {
       actorTypes: this.cache.json.get('actorTypes'),
       pcs: config.pcs,
     });
-    this.world.events.on('add', this.addEntity, this);
+    this.world.events.on('add', (entity) => {
+      this.add.existing(new EntityImage(this, entity));
+    });
     this.controller = new WorldController(this.world);
     this.input.on('gameobjectup', this.controller.onClick, this.controller);
     this.camera = new WorldSceneCameraManager(this);
+    this.add.existing(new SelectImage(this, 1));
+    this.add.existing(new QuestionImage(this, 1));
     this.icons = new Set();
-    const select = this.add.existing(new SelectImage(this, 1));
-    this.world.events.on('select', (actor) => select.moveToEntity(actor));
-    const question = this.add.existing(new QuestionImage(this, 1));
-    this.world.events.on('pause', (actor) => question.moveToEntity(actor));
     this.selectIcon = this.add.existing(new SelectImage(this, 3, 0));
     this.questionIcon = this.add.existing(new QuestionImage(this, 3, 0));
     this.cursor = this.add.existing(new CursorImage(this));
@@ -61,37 +60,5 @@ export default class WorldScene extends Phaser.Scene {
    */
   update(time, delta) {
     this.camera.update(delta);
-  }
-
-  /**
-   *
-   *
-   * @param {*} entity
-   * @memberof WorldScene
-   */
-  addEntity(entity) {
-    const entityImage = this.add.existing(new EntityImage(this, entity));
-    if (entity.isPC) {
-      this.add.existing(new EntityIconImage(this, entity));
-    }
-    entity.events.on('reveal', () => {
-      entityImage.setAlpha(1);
-    });
-    entity.events.on('hide', () => {
-      entityImage.setAlpha(entity.layer === 'actor' ? 0 : 0.5);
-    });
-    entity.events.on('move', () => {
-      entity.timeline.add({
-        targets: entityImage,
-        x: entity.x * 24,
-        y: entity.y * 21,
-        duration: 1000 / entity.speed,
-      });
-    });
-    entity.events.on('show', () => {
-      entity.timeline.play();
-      entity.timeline = this.tweens.createTimeline();
-    });
-    entity.timeline = this.tweens.createTimeline();
   }
 }

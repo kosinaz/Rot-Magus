@@ -19,6 +19,8 @@ export default class SelectImage extends Phaser.GameObjects.Image {
     this.setDepth(depth);
     if (scroll !== undefined) {
       this.setScrollFactor(scroll);
+    } else {
+      scene.world.events.on('select', (actor) => this.moveToEntity(actor));
     }
   }
 
