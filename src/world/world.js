@@ -88,7 +88,6 @@ export default class World {
    */
   nextActor() {
     const actor = this.scheduler.next();
-    console.log(actor.type.name);
 
     // The world will stop - even if the player character has a target - to let
     // the scene animate the last action. When the animation is complete, the

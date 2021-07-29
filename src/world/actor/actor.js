@@ -119,12 +119,10 @@ export default class Actor {
    */
   act() {
     if (!this.orders.length) {
-      console.log('no order');
       this.events.emit('complete');
       return;
     }
     const order = this.orders.shift();
-    console.log(order);
     this.x = order.x;
     this.y = order.y;
     this.events.emit('move');
