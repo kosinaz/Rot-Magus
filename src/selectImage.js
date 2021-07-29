@@ -15,17 +15,18 @@ export default class SelectImage extends Phaser.GameObjects.Image {
     // Create the SelectImage.
     super(scene, 0, 0, 'gui', 'select');
     scene.add.existing(this);
-    this.setDepth(1);
+    this.setDepth(3);
   }
 
   /**
    *
    *
-   * @param {*} actor
+   * @param {*} x
+   * @param {*} y
    * @memberof SelectImage
    */
-  moveTo(actor) {
-    this.x = actor.x * 24;
-    this.y = actor.y * 21;
+  moveTo(x, y) {
+    this.x = x * 24;
+    this.y = y * 21;
   }
 }

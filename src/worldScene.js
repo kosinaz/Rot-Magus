@@ -1,3 +1,4 @@
+import CursorImage from './cursorImage.js';
 import QuestionImage from './questionImage.js';
 import SelectImage from './selectImage.js';
 import World from './world/world.js';
@@ -38,16 +39,15 @@ export default class WorldScene extends Phaser.Scene {
     this.camera = new WorldSceneCameraManager(this);
     this.icons = new Set();
     const select = new SelectImage(this);
-    this.world.events.on('select', (actor) => select.moveTo(actor));
+    this.world.events.on('select', (actor) => select.moveTo(actor.x, actor.y));
     const question = new QuestionImage(this);
-    this.world.events.on('pause', (actor) => question.moveTo(actor));
-    this.selectIcon = this.add.image(0, 0, 'gui', 'select');
-    this.selectIcon.setScrollFactor(0).setDepth(3);
-    this.questionIcon = this.add.image(0, 0, 'gui', 'question');
-    this.questionIcon.setScrollFactor(0).setDepth(3);
+    this.world.events.on('pause', (actor) => question.moveTo(actor.x, actor.y));
+    this.selectIcon = new SelectImage(this);
+    this.selectIcon.setScrollFactor(0);
+    this.questionIcon = new QuestionImage(this);
+    this.questionIcon.setScrollFactor(0);
     this.world.create();
-    this.cursor = this.add.image(0, 0, 'gui', 'cursor');
-    this.cursor.setDepth(1);
+    this.cursor = new CursorImage(this);
     this.hint = this.add.bitmapText(1000, 42, 'font', '');
     this.hint.setOrigin(1).setRightAlign().setScrollFactor(0).setDepth(3);
   }
@@ -77,8 +77,7 @@ export default class WorldScene extends Phaser.Scene {
         entity.type.image,
     ).setData('data', entity).setInteractive().setAlpha(0);
     entityImage.on('pointerover', () => {
-      this.cursor.x = entityImage.x;
-      this.cursor.y = entityImage.y;
+      this.cursor.moveTo(entityImage.x, entityImage.y);
       this.hint.setText(entity.type.name);
     });
     if (entity.isPC) {
