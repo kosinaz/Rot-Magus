@@ -34,10 +34,5 @@ export default class EntityIconImage extends Phaser.GameObjects.Image {
         scene.selectIcon.moveToImage(this);
       }
     });
-    scene.world.events.on('pause', (actor) => {
-      if (actor === entity) {
-        scene.questionIcon.moveToImage(this);
-      }
-    });
   }
 }

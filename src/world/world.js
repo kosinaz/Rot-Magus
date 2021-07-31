@@ -46,10 +46,10 @@ export default class World {
     }
     this.actors = [];
     this.config.pcs.forEach((pc) => this.addActor(pc));
-    this.addActor(new Actor(this.config.actorTypes.djinn, 0, -9));
-    this.addActor(new Actor(this.config.actorTypes.demon, 2, 2));
-    this.addActor(new Actor(this.config.actorTypes.orchArcher, -2, 2));
-    this.addActor(new Actor(this.config.actorTypes.duckMageMale, -2, -2));
+    this.addActor(new Actor(this.config.actorTypes.djinn, 0, 25));
+    this.addActor(new Actor(this.config.actorTypes.demon, 1, 25));
+    this.addActor(new Actor(this.config.actorTypes.orchArcher, 2, 25));
+    this.addActor(new Actor(this.config.actorTypes.duckMageMale, 3, 25));
     this.nextActor();
   }
 

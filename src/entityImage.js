@@ -44,6 +44,11 @@ export default class EntityImage extends Phaser.GameObjects.Image {
       entity.timeline.play();
       entity.timeline = scene.tweens.createTimeline();
     });
+    scene.world.events.on('select', (actor) => {
+      if (entity === actor) {
+        scene.selectedImage = this;
+      }
+    });
     entity.timeline = scene.tweens.createTimeline();
   }
 }

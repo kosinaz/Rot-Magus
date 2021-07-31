@@ -29,7 +29,7 @@ export default class CreateCharacterScene extends Phaser.Scene {
     const config = {
       pcs: [
         new Actor(actorTypes.druidMale, 0, 0, true),
-        new Actor(actorTypes.orch, 9, 9, true),
+        new Actor(actorTypes.elfMale, 0, 1, true),
       ],
     };
 

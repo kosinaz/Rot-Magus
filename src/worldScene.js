@@ -1,7 +1,6 @@
 import CursorImage from './cursorImage.js';
 import EntityImage from './entityImage.js';
 import HintText from './hintText.js';
-import QuestionImage from './questionImage.js';
 import SelectImage from './selectImage.js';
 import World from './world/world.js';
 import WorldController from './world/worldController.js';
@@ -38,33 +37,14 @@ export default class WorldScene extends Phaser.Scene {
     this.world.events.on('add', (entity) => {
       this.add.existing(new EntityImage(this, entity));
     });
-    this.controller = new WorldController(this.world);
-    this.downOn = null;
-    this.input.on('gameobjectdown', (pointer, target) => {
-      this.downOn = {
-        pointer: pointer,
-        target: target,
-      };
-      this.controller.onClick(this.downOn.pointer, this.downOn.target);
-    });
-    this.input.on('gameobjectup', (entity) => {
-      this.downOn = null;
-    });
-    this.time.addEvent({
-      delay: 250,
-      loop: true,
-      callback: () => {
-        if (this.downOn !== null) {
-          this.controller.onClick(this.downOn.pointer, this.downOn.target);
-        }
-      },
+    const controller = new WorldController(this.world);
+    this.input.on('gameobjectup', (pointer, target) => {
+      controller.onClick(pointer, target);
     });
     this.camera = new WorldSceneCameraManager(this);
-    this.add.existing(new SelectImage(this, 1));
-    this.add.existing(new QuestionImage(this, 1));
+    this.select = this.add.existing(new SelectImage(this, 1));
     this.icons = new Set();
     this.selectIcon = this.add.existing(new SelectImage(this, 3, 0));
-    this.questionIcon = this.add.existing(new QuestionImage(this, 3, 0));
     this.cursor = this.add.existing(new CursorImage(this));
     this.hint = this.add.existing(new HintText(this));
     this.world.create();
@@ -79,5 +59,8 @@ export default class WorldScene extends Phaser.Scene {
    */
   update(time, delta) {
     this.camera.update(delta);
+    if (this.selectedImage) {
+      this.select.moveToImage(this.selectedImage);
+    }
   }
 }
