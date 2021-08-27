@@ -90,7 +90,7 @@ export default class World {
    */
   nextActor() {
     const actor = this.scheduler.next();
-
+    let targets = this.possibleTargets(actor);
     // The world will stop if the player character doesn't have a target to let
     // the player choose one. All that happened since the player's last action, 
     // will be revealed now. Otherwise the player character will scan their 
@@ -100,15 +100,16 @@ export default class World {
     // their target, so the game won't stop and won't reveal anything until any
     // of the above conditions are true again.
     if (actor.isPC) {
-      if (!actor.orders.length) {
+      targets = targets.filter(target => !target.isPC);
+      if (!actor.orders.length || targets[0]) {
+        this.updateVisibleTiles();
         this.pause(actor);
         this.select(actor);
-        this.updateVisibleTiles();
       } else {
         actor.act();
       }
     } else {
-      const targets = this.possibleTargets(actor);
+      targets = targets.filter(target => target.isPC);
       if (targets[0]) {
         this.giveOrder(actor, targets[0].x, targets[0].y);
       }
@@ -240,11 +241,8 @@ export default class World {
     // are in the line of sight of the actor or not.
     this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
       this.actors.forEach((otherActor) => {
-        if (otherActor.isPC && otherActor.x === x && otherActor.y === y) {
-          targets.push({
-            x: x,
-            y: y,
-          });
+        if (otherActor.x === x && otherActor.y === y) {
+          targets.push(otherActor);
         }
       });
     });
