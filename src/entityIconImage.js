@@ -27,8 +27,8 @@ export default class EntityIconImage extends Phaser.GameObjects.Image {
     });
     // eslint-disable-next-line new-cap
     Phaser.Actions.PlaceOnLine(
-        [...scene.icons],
-        new Phaser.Geom.Line(36, 31, 36 + [...scene.icons].length * 24, 31),
+      [...scene.icons],
+      new Phaser.Geom.Line(36, 31, 36 + [...scene.icons].length * 24, 31),
     );
     scene.world.events.on('select', (actor) => {
       if (actor === entity) {
