@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/kosinaz/Rot-Magus/issues"
   },
-  "homepage": "https://github.com/kosinaz/Rot-Magus#readme"
+  "homepage": "https://github.com/kosinaz/Rot-Magus#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
 }

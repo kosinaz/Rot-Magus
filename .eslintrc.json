@@ -1,20 +1,36 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es2021": true
     },
-    "extends": [
-        "google"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
+    "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2018,
+        "ecmaVersion": 12,
         "sourceType": "module"
     },
     "rules": {
-        "linebreak-style": ["error", "windows"]
+        "max-len": [
+            "error",
+            {
+                "comments": 80,
+                "code": 80
+            }
+        ],
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
     }
 }
