@@ -108,7 +108,11 @@ export default class World {
         actor.act();
       }
     } else {
-      this.updateTarget(actor);
+      const targets = this.possibleTargets(actor);
+      if (targets[0]) {
+        this.giveOrder(actor, targets[0].x, targets[0].y);
+      }
+      actor.act();
     }
   }
 
@@ -230,17 +234,21 @@ export default class World {
    * @param {*} actor
    * @memberof World
    */
-  updateTarget(actor) {
+  possibleTargets(actor) {
+    const targets = [];
     // Iterate through all the tiles around the actor and determine if they
     // are in the line of sight of the actor or not.
     this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
       this.actors.forEach((otherActor) => {
         if (otherActor.isPC && otherActor.x === x && otherActor.y === y) {
-          this.giveOrder(actor, x, y);
+          targets.push({
+            x: x,
+            y: y,
+          });
         }
       });
     });
-    actor.act();
+    return targets;
   }
 
   /**
