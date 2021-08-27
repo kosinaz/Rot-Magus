@@ -1,3 +1,4 @@
+/* global Phaser */
 import CreateCharacterScene from './createCharacterScene.js';
 
 /**

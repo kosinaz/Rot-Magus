@@ -1,3 +1,4 @@
+/* global Phaser */
 /**
  * Represents the hint about the tile currently under the cursor.
  *

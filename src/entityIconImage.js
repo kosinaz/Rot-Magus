@@ -1,3 +1,4 @@
+/* global Phaser */
 /**
  * Represents the entity icon.
  *

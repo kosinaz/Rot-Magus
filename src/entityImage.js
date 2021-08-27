@@ -1,3 +1,4 @@
+/* global Phaser */
 import EntityIconImage from './entityIconImage.js';
 /**
  * Represents the selection frame around the selected character.

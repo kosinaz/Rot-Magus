@@ -1,3 +1,4 @@
+/* global Phaser */
 import MenuScene from './menuScene.js';
 
 /**

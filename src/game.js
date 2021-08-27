@@ -1,3 +1,4 @@
+/* global Phaser */
 import LoadScene from './loadScene.js';
 
 new Phaser.Game({

@@ -1,3 +1,4 @@
+/* global Phaser */
 /**
  * Represents the selection frame around the selected character.
  *

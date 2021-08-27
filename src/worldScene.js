@@ -1,3 +1,4 @@
+/* global Phaser */
 import CursorImage from './cursorImage.js';
 import EntityImage from './entityImage.js';
 import HintText from './hintText.js';

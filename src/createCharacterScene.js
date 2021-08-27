@@ -1,3 +1,4 @@
+/* global Phaser */
 import Actor from './world/actor/actor.js';
 import WorldScene from './worldScene.js';
 

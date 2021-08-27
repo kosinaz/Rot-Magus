@@ -1,3 +1,4 @@
+/* global Phaser */
 /**
  * Represents a tool to handle the camera of the world scene.
  * @export
@@ -52,16 +53,16 @@ export default class WorldSceneCameraManager {
     if (this.mouseover) {
       if (this.scene.input.activePointer.x < 24) {
         this.scene.cameras.main.scrollX -= 8;
-      };
+      }
       if (1000 < this.scene.input.activePointer.x) {
         this.scene.cameras.main.scrollX += 8;
-      };
+      }
       if (this.scene.input.activePointer.y < 21) {
         this.scene.cameras.main.scrollY -= 8;
-      };
+      }
       if (555 < this.scene.input.activePointer.y) {
         this.scene.cameras.main.scrollY += 8;
-      };
+      }
     }
   }
 }
