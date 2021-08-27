@@ -40,7 +40,8 @@ export default class WorldController {
           selected.events.emit('complete');
         }
       } else {
-        if (selected === this.world.pausedFor) {
+        if (selected === this.world.pausedFor &&
+          !this.tweens.getAllTweens().length) {
           this.world.giveOrder(selected, targeted.x, targeted.y);
           selected.act();
         } else {

@@ -1,3 +1,4 @@
+/* global Phaser */
 /**
  * Represents an active game character.
  * @class Actor
@@ -27,10 +28,10 @@ export default class Actor {
     // class that would already have one. This will be used to notify listeners
     // about the act event of the Actor.
     // Event: complete Listener: World
-    // Event: show Listener: WorldScene
-    // Event: hide Listener: WorldScene
-    // Event: reveal Listener: WorldScene
-    // Event: move Listener: WorldScene
+    // Event: show Listener: EntityImage
+    // Event: hide Listener: EntityImage
+    // Event: reveal Listener: EntityImage
+    // Event: move Listener: EntityImage
     this.events = new Phaser.Events.EventEmitter();
 
     // Add an EffectManager to the Actor to handle his Effects.
