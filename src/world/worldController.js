@@ -38,7 +38,6 @@ export default class WorldController {
       if (targeted.layer === 'actor') {
         if (selected === this.world.pausedFor) {
           selected.events.emit('complete');
-        } else {
         }
       } else {
         if (selected === this.world.pausedFor) {

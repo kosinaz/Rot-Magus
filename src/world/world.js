@@ -1,5 +1,7 @@
+/* global Phaser */
 import Speed from '../../lib/rot/scheduler/speed.js';
 import PreciseShadowcasting from '../../lib/rot/fov/precise-shadowcasting.js';
+import AStar from '../../lib/rot/path/astar.js';
 import Actor from './actor/actor.js';
 import Terrain from './terrain.js';
 
@@ -251,7 +253,7 @@ export default class World {
    */
   giveOrder(actor, x, y) {
     // Initialize a new astar pathmap based on the given target.
-    const a = new ROT.Path.AStar(x, y, (x, y) => {
+    const a = new AStar(x, y, (x, y) => {
       const terrain = this.map.get(`terrain,${x},${y}`);
       if (actor.x === x && actor.y === y) {
         return true;
