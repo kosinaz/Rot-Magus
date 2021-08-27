@@ -89,16 +89,22 @@ export default class World {
   nextActor() {
     const actor = this.scheduler.next();
 
-    // The world will stop - even if the player character has a target - to let
-    // the scene animate the last action. When the animation is complete, the
-    // controller will be notified by the scene, it will check if the actor has
-    // a target and automatically resumes the world in that case. This way the
-    // player can also interrupt the movement of the character with a left
-    // click that cancels any orders.
+    // The world will stop if the player character doesn't have a target to let
+    // the player choose one. All that happened since the player's last action, 
+    // will be revealed now. Otherwise the player character will scan their 
+    // surroundings for enemies or newly discovered items, and the world will
+    // stop just like in the other case, if there is any. However, if there is
+    // none, there is no reason for the player character not to continue towards
+    // their target, so the game won't stop and won't reveal anything until any
+    // of the above conditions are true again.
     if (actor.isPC) {
-      this.pause(actor);
-      this.select(actor);
-      this.updateVisibleTiles();
+      if (!actor.orders.length) {
+        this.pause(actor);
+        this.select(actor);
+        this.updateVisibleTiles();
+      } else {
+        actor.act();
+      }
     } else {
       this.updateTarget(actor);
     }
