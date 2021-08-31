@@ -34,8 +34,14 @@ export default class World {
    * @memberof World
    */
   create() {
-    for (let x = -50; x < 50; x += 1) {
-      for (let y = -50; y < 50; y += 1) {
+    this.actors = [];
+    this.config.pcs.forEach((pc) => this.addActor(pc));
+    this.nextActor();
+  }
+
+  addChunk(chunkX, chunkY) {
+    for (let x = chunkX * 50; x < chunkX * 50 + 50; x += 1) {
+      for (let y = chunkY * 50; y < chunkY * 50 + 50; y += 1) {
         const tile = Math.random() > 0.1 ? 'grass' : 'tree';
         this.createTerrain({
           layer: 'terrain',
@@ -46,13 +52,6 @@ export default class World {
         }, x, y);
       }
     }
-    this.actors = [];
-    this.config.pcs.forEach((pc) => this.addActor(pc));
-    this.addActor(new Actor(this.config.actorTypes.djinn, 0, 25));
-    this.addActor(new Actor(this.config.actorTypes.demon, 1, 25));
-    this.addActor(new Actor(this.config.actorTypes.orchArcher, 2, 25));
-    this.addActor(new Actor(this.config.actorTypes.duckMageMale, 3, 25));
-    this.nextActor();
   }
 
   /**
@@ -198,13 +197,18 @@ export default class World {
             if (!previouslyVisibleTiles.delete(`${x},${y}`)) {
               // But if nothing to remove, because the tile was not visible
               // before, then check what's there.
-              const terrain = this.map.get(`terrain,${x},${y}`);
+              let terrain = this.map.get(`terrain,${x},${y}`);
 
-              // If there is something.
-              if (terrain) {
-                // Then show it.
-                terrain.events.emit('reveal');
-              }
+              // If there is nothing.
+              if (!terrain) {
+                // Then create it.
+                this.addChunk(Math.floor(x / 50), Math.floor(y / 50));
+
+                // Check what's there.
+                terrain = this.map.get(`terrain,${x},${y}`);
+              }              
+              // Then show it.
+              terrain.events.emit('reveal');
             }
           }
         });

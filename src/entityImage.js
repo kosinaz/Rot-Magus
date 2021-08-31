@@ -20,6 +20,7 @@ export default class EntityImage extends Phaser.GameObjects.Image {
     this.setData('data', entity);
     this.setInteractive();
     this.setAlpha(0);
+    this.setDepth(entity.layer === 'actor' ? 1 : 0);
     if (entity.isPC) {
       scene.add.existing(new EntityIconImage(scene, entity));
     }

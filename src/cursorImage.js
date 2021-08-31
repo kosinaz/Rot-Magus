@@ -15,7 +15,7 @@ export default class CursorImage extends Phaser.GameObjects.Image {
   constructor(scene) {
     // Create the CursorImage.
     super(scene, 0, 0, 'gui', 'cursor');
-    this.setDepth(1);
+    this.setDepth(2);
   }
 
   /**
