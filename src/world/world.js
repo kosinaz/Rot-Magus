@@ -1,9 +1,8 @@
 /* global Phaser */
-import Speed from '../../lib/rot/scheduler/speed.js';
 import PreciseShadowcasting from '../../lib/rot/fov/precise-shadowcasting.js';
 import AStar from '../../lib/rot/path/astar.js';
-import Actor from './actor/actor.js';
 import Terrain from './terrain.js';
+import ActorGroup from './actorGroup.js';
 
 /**
  * Represents the game world.
@@ -22,7 +21,6 @@ export default class World {
     this.selected = null;
     this.map = new Map();
     this.visibleTiles = new Set();
-    this.scheduler = new Speed();
     this.fovcomputer = new PreciseShadowcasting(this.isTransparent.bind(this));
     this.events = new Phaser.Events.EventEmitter();
   }
@@ -34,21 +32,29 @@ export default class World {
    * @memberof World
    */
   create() {
-    this.actors = [];
-    this.config.pcs.forEach((pc) => this.addActor(pc));
-    this.nextActor();
+    this.actors = new ActorGroup();
+    this.actors.events.on('add', (actor) => this.events.emit('add', actor));
+    this.config.pcs.forEach((pc) => this.actors.add(pc));
+    this.actors.events.on('next', this.controlActor, this);
+    this.actors.next();
   }
 
   addChunk(chunkX, chunkY) {
     for (let x = chunkX * 50; x < chunkX * 50 + 50; x += 1) {
       for (let y = chunkY * 50; y < chunkY * 50 + 50; y += 1) {
-        const tile = Math.random() > 0.1 ? 'grass' : 'tree';
+        const floor = chunkX % 2 ? 
+          chunkY % 2 ? 'dirt' : 'gravel' :
+          chunkY % 2 ? 'grass' : 'sand';
+        const wall = chunkX % 2 ?
+          chunkY % 2 ? 'mountain' : 'mountain' :
+          chunkY % 2 ? 'tree' : 'palmTree';
+        const tile = Math.random() > 0.1 ? floor : wall;
         this.createTerrain({
           layer: 'terrain',
           image: tile,
           name: tile,
-          walkable: tile === 'grass',
-          transparent: tile === 'grass',
+          walkable: !['mountain', 'tree', 'palmTree'].includes(tile),
+          transparent: !['mountain', 'tree', 'palmTree'].includes(tile),
         }, x, y);
       }
     }
@@ -72,50 +78,41 @@ export default class World {
   /**
    *
    *
-   * @param {*} actor
    * @memberof World
    */
-  addActor(actor) {
-    this.actors.push(actor);
-    this.scheduler.add(actor, true);
-    actor.events.on('complete', this.nextActor, this);
-    this.events.emit('add', actor);
-  }
-
-  /**
-   *
-   *
-   * @memberof World
-   */
-  nextActor() {
-    const actor = this.scheduler.next();
+  controlActor(actor) {
     let targets = this.possibleTargets(actor);
-    // The world will stop if the player character doesn't have a target to let
-    // the player choose one. All that happened since the player's last action, 
-    // will be revealed now. Otherwise the player character will scan their 
-    // surroundings for enemies or newly discovered items, and the world will
-    // stop just like in the other case, if there is any. However, if there is
-    // none, there is no reason for the player character not to continue towards
-    // their target, so the game won't stop and won't reveal anything until any
-    // of the above conditions are true again.
-    if (actor.isPC) {
-      targets = targets.filter(target => !target.isPC);
-      if (!actor.orders.length || targets[0]) {
-        this.updateVisibleTiles();
-        this.pause(actor);
-        this.select(actor);
-      } else {
-        actor.act();
-      }
-    } else {
-      targets = targets.filter(target => target.isPC);
-      if (targets[0]) {
-        this.giveOrder(actor, targets[0].x, targets[0].y);
-      }
-      actor.act();
-    }
+    if (actor.isPC) this.controlPC(actor, targets);
+    else this.controlNPC(actor, targets);
   }
 
+  controlPC(actor, targets) {
+    // The world will stop if the player character doesn't have any actions 
+    // left from their last order to let the player give another order. 
+    // Otherwise the player character will scan their surroundings for enemies
+    // or newly discovered items, and the world will stop just like in the 
+    // other case, if there is any. 
+    // All that happened since the player's last action, will be revealed now. 
+    // However, if there is none, there is no reason for the player character 
+    // not to continue towards their target, so the game won't stop and won't 
+    // reveal anything until any of the above conditions are true again. 
+    const targetInSight = !!(targets.filter(target => !target.isPC)[0]);
+    if (!actor.orders.length || targetInSight) this.revealAndWait(actor);
+    else actor.act();
+  }
+
+  controlNPC(actor, targets) {
+    const target = targets.filter(target => target.isPC)[0];
+    if (target) this.giveOrder(actor, target.x, target.y);
+    actor.act();
+  }
+
+  revealAndWait(actor) {
+    console.log('reveal', actor.type.name);
+    this.updateVisibleTiles();
+    this.pause(actor);
+    this.select(actor);
+  }
 
   /**
    *
@@ -173,7 +170,7 @@ export default class World {
     // Add the newly visible tiles.
     const previouslyVisibleTiles = new Set(this.visibleTiles);
     this.visibleTiles.clear();
-    this.actors.forEach((actor) => {
+    this.actors.forEachPC((actor) => {
       if (actor.isPC) {
         // Reset the list of tiles that are visible for the actor.
         actor.fov.clear();

@@ -31,6 +31,7 @@ export default class CreateCharacterScene extends Phaser.Scene {
       pcs: [
         new Actor(actorTypes.druidMale, 0, 0, true),
         new Actor(actorTypes.elfMale, 0, 1, true),
+        new Actor(actorTypes.demon, 0, 21),
       ],
     };
 
