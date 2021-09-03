@@ -30,12 +30,12 @@ export default class ActorGroup {
     this.events.emit('next', this.scheduler.next());
   }
 
-  forEach(callback) {
-    this.actors.forEach(callback);
+  forEach(callbackFn, thisArg) {
+    this.actors.forEach(callbackFn, thisArg);
   }
 
-  forEachPC(callback) {
-    this.actors.filter(actor => actor.isPC).forEach(callback);
+  forEachPC(callbackFn, thisArg) {
+    this.actors.filter(actor => actor.isPC).forEach(callbackFn, thisArg);
   }
 
   includes(actor) {

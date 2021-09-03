@@ -39,7 +39,9 @@ export default class World {
     this.actors.next();
   }
 
-  addChunk(chunkX, chunkY) {
+  addChunkFor(x, y) {
+    const chunkX = Math.floor(x / 50);
+    const chunkY = Math.floor(y / 50);
     for (let x = chunkX * 50; x < chunkX * 50 + 50; x += 1) {
       for (let y = chunkY * 50; y < chunkY * 50 + 50; y += 1) {
         const floor = chunkX % 2 ? 
@@ -157,64 +159,61 @@ export default class World {
    */
   updateVisibleTiles() {
     // Add the newly visible tiles.
-    const previouslyVisibleTiles = new Set(this.visibleTiles);
+    this.tilesToHide = new Set(this.visibleTiles);
     this.visibleTiles.clear();
-    this.actors.forEachPC((actor) => {
-      // Reset the list of tiles that are visible for the actor.
-      actor.fov.clear();
+    this.actors.forEachPC(this.updateFov, this);
 
-      // Iterate through all the tiles around the actor and determine if they
-      // are in the line of sight of the actor or not.
-      this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
-        // Add the position of tile to list of positions visible for the
-        // actor to help it determine if it can be ranged attacked by the
-        // actor.
-        actor.fov.add(`${x},${y}`);
-
-        // If the tile is not already visible for any other PC.
-        if (!this.visibleTiles.has(`${x},${y}`)) {
-          // Then add it.
-          this.visibleTiles.add(`${x},${y}`);
-
-          // And remove it from the list of previously visible tiles, to only
-          // keep those tiles that are not visible now and will need to be
-          // hidden.
-          if (!previouslyVisibleTiles.delete(`${x},${y}`)) {
-            // But if nothing to remove, because the tile was not visible
-            // before, then check what's there.
-            let terrain = this.map.get(`terrain,${x},${y}`);
-
-            // If there is nothing.
-            if (!terrain) {
-              // Then create it.
-              this.addChunk(Math.floor(x / 50), Math.floor(y / 50));
-
-              // Check what's there.
-              terrain = this.map.get(`terrain,${x},${y}`);
-            }              
-            // Then show it.
-            terrain.events.emit('reveal');
-          }
-        }
-      });
-    });
-
-    // Get all the tiles that were visible before but not anymore.
-    previouslyVisibleTiles.forEach((tile) => {
-      const terrain = this.map.get(`terrain,${tile}`);
-      if (terrain) {
-        terrain.events.emit('hide');
-      }
-    });
+    // Hide all the tiles that were visible before but not anymore.
+    this.tilesToHide.forEach(this.hideTile, this);
 
     // Show visible actors and hide the rest.
-    this.actors.forEach((actor) => {
-      if (this.visibleTiles.has(`${actor.xy}`)) {
-        actor.show();
-      } else {
-        actor.hide();
-      }
-    });
+    this.actors.forEach(this.updateActorVisibility, this);
+  }
+
+  hideTile(tile) {
+    this.map.get(`terrain,${tile}`).events.emit('hide');
+  }
+
+  updateActorVisibility(actor) {
+    if (this.visibleTiles.has(`${actor.xy}`)) actor.show();
+    else actor.hide();
+  }
+
+  updateFov(actor) {
+    this.currentActor = actor;
+
+    // Reset the list of tiles that are visible for the actor.
+    actor.fov.clear();
+
+    // Iterate through all the tiles around the actor and determine if they
+    // are in the line of sight of the actor or not.
+    this.fovcomputer.compute(actor.x, actor.y, 13, this.updateTile.bind(this));
+  }
+
+  updateTile(x, y) {
+    const xy = `${x},${y}`;
+    this.currentActor.fov.add(xy);
+
+    // If the tile is not already visible for any other PC then add it to the
+    // list of currently visible tiles.
+    this.visibleTiles.add(xy);
+
+    // And try to remove it from the list of previously visible tiles, to only
+    // keep those tiles there that are not visible now and will need to be
+    // hidden.
+    // If couldn't that means this tile is newly explored, so we need to check
+    // what's there and show it.
+    if (!this.tilesToHide.delete(xy)) this.revealTile(x, y);
+  }
+
+  revealTile(x, y) {
+    const tile = `terrain,${x},${y}`;
+
+    // If there is nothing at the given position, create it.
+    if (!this.map.has(tile)) this.addChunkFor(x, y);
+
+    // Then show what's there.
+    this.map.get(tile).events.emit('reveal');
   }
 
   /**
