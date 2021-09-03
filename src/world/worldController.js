@@ -41,7 +41,8 @@ export default class WorldController {
         }
       } else {
         if (selected === this.world.pausedFor &&
-          !this.tweens.getAllTweens().length) {
+          !this.tweens.getAllTweens().length &&
+          targeted.type.walkable) {
           this.world.giveOrder(selected, targeted.x, targeted.y);
           selected.act();
         } else {

@@ -82,10 +82,11 @@ export default class World {
    *
    * @memberof World
    */
-  controlActor(actor) {
-    let targets = this.possibleTargets(actor);
-    if (actor.isPC) this.controlPC(actor, targets);
-    else this.controlNPC(actor, targets);
+  controlActor(actor) {    
+    this.currentActor = actor;
+    this.updatePossibleTargets(actor);
+    if (actor.isPC) this.controlPC(actor, this.possibleTargets);
+    else this.controlNPC(actor, this.possibleTargets);
   }
 
   controlPC(actor, targets) {
@@ -180,8 +181,6 @@ export default class World {
   }
 
   updateFov(actor) {
-    this.currentActor = actor;
-
     // Reset the list of tiles that are visible for the actor.
     actor.fov.clear();
 
@@ -222,18 +221,16 @@ export default class World {
    * @param {*} actor
    * @memberof World
    */
-  possibleTargets(actor) {
-    const targets = [];
+  updatePossibleTargets(actor) {
+    this.possibleTargets = [];
     // Iterate through all the tiles around the actor and determine if they
     // are in the line of sight of the actor or not.
-    this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
-      this.actors.forEach((otherActor) => {
-        if (otherActor.x === x && otherActor.y === y) {
-          targets.push(otherActor);
-        }
-      });
-    });
-    return targets;
+    this.fovcomputer.compute(actor.x, actor.y, 13, this.addTarget.bind(this));
+  }
+
+  addTarget(x, y) {
+    const target = this.actors.getAt(`${x},${y}`);
+    if (target) this.possibleTargets.push(target);
   }
 
   /**
@@ -246,31 +243,27 @@ export default class World {
    */
   giveOrder(actor, x, y) {
     // Initialize a new astar pathmap based on the given target.
-    const a = new AStar(x, y, (x, y) => {
-      const terrain = this.map.get(`terrain,${x},${y}`);
-      if (actor.x === x && actor.y === y) {
-        return true;
-      }
-      if (terrain && terrain.type.walkable) {
-        return true;
-      }
-      return false;
-    });
+    const a = new AStar(x, y, this.isWalkable.bind(this));
 
     // After generated the pathmap create a new path for the actor.
     actor.orders = [];
 
     // Compute the shortest path between the actor's current position and the
     // given target position based on the astar map.
-    a.compute(actor.x, actor.y, (x, y) => {
-      // Add the next position of the shortest path to the actor's path.
-      actor.orders.push({
-        x: x,
-        y: y,
-      });
-    });
+    a.compute(actor.x, actor.y, this.addNextStep.bind(this));
 
     // Remove the first order, because that's current position of the actor.
     actor.orders.shift();
+  }
+
+  isWalkable(x, y) {
+    const xy = `${x},${y}`;
+    if (this.currentActor.isAt(xy)) return true;
+    if (this.map.get(`terrain,${xy}`).type.walkable) return true;
+    return false;
+  }
+
+  addNextStep(x, y) {
+    this.currentActor.orders.push({x: x, y: y});
   }
 }

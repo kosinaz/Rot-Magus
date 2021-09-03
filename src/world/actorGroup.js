@@ -42,6 +42,10 @@ export default class ActorGroup {
     return this.actors.includes(actor);
   }
 
+  getAt(xy) {
+    return this.actors.filter(actor => actor.xy === xy)[0];
+  }
+
   hasPCAt(xy) {
     return !!this.actors.filter(this.isPCAt, {xy: xy}).length;
   }
