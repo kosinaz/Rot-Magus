@@ -27,8 +27,7 @@ export default class ActorGroup {
   }
 
   next() {
-    const actor = this.scheduler.next();
-    this.events.emit('next', actor);
+    this.events.emit('next', this.scheduler.next());
   }
 
   forEach(callback) {
@@ -36,11 +35,18 @@ export default class ActorGroup {
   }
 
   forEachPC(callback) {
-    const pcs = this.actors.filter(actor => actor.isPC);
-    pcs.forEach(callback);
+    this.actors.filter(actor => actor.isPC).forEach(callback);
   }
 
   includes(actor) {
     return this.actors.includes(actor);
+  }
+
+  hasPCAt(xy) {
+    return !!this.actors.filter(this.isPCAt, {xy: xy}).length;
+  }
+
+  isPCAt(actor) {
+    return actor.isPC && actor.isAt(this.xy);
   }
 }

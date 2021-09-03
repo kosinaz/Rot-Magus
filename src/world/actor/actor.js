@@ -74,7 +74,11 @@ export default class Actor {
    * @memberof Actor
    */
   get xy() {
-    return this.x + ',' + this.y;
+    return `${this.x},${this.y}`;
+  }
+
+  isAt(xy) {
+    return xy === this.xy;
   }
 
   /**

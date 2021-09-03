@@ -108,7 +108,6 @@ export default class World {
   }
 
   revealAndWait(actor) {
-    console.log('reveal', actor.type.name);
     this.updateVisibleTiles();
     this.pause(actor);
     this.select(actor);
@@ -144,18 +143,8 @@ export default class World {
    */
   isTransparent(x, y) {
     const terrain = this.map.get(`terrain,${x},${y}`);
-    let transparent = false;
-    this.actors.forEach((actor) => {
-      if (actor.isPC && actor.x === x && actor.y === y) {
-        transparent = true;
-      }
-    });
-    if (transparent) {
-      return true;
-    }
-    if (!terrain) {
-      return false;
-    }
+    if (this.actors.hasPCAt(`${x},${y}`)) return true;
+    if (!terrain) return false;
     return terrain.type.transparent;
   }
 
@@ -171,45 +160,43 @@ export default class World {
     const previouslyVisibleTiles = new Set(this.visibleTiles);
     this.visibleTiles.clear();
     this.actors.forEachPC((actor) => {
-      if (actor.isPC) {
-        // Reset the list of tiles that are visible for the actor.
-        actor.fov.clear();
+      // Reset the list of tiles that are visible for the actor.
+      actor.fov.clear();
 
-        // Iterate through all the tiles around the actor and determine if they
-        // are in the line of sight of the actor or not.
-        this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
-          // Add the position of tile to list of positions visible for the
-          // actor to help it determine if it can be ranged attacked by the
-          // actor.
-          actor.fov.add(`${x},${y}`);
+      // Iterate through all the tiles around the actor and determine if they
+      // are in the line of sight of the actor or not.
+      this.fovcomputer.compute(actor.x, actor.y, 13, (x, y) => {
+        // Add the position of tile to list of positions visible for the
+        // actor to help it determine if it can be ranged attacked by the
+        // actor.
+        actor.fov.add(`${x},${y}`);
 
-          // If the tile is not already visible for any other PC.
-          if (!this.visibleTiles.has(`${x},${y}`)) {
-            // Then add it.
-            this.visibleTiles.add(`${x},${y}`);
+        // If the tile is not already visible for any other PC.
+        if (!this.visibleTiles.has(`${x},${y}`)) {
+          // Then add it.
+          this.visibleTiles.add(`${x},${y}`);
 
-            // And remove it from the list of previously visible tiles, to only
-            // keep those tiles that are not visible now and will need to be
-            // hidden.
-            if (!previouslyVisibleTiles.delete(`${x},${y}`)) {
-              // But if nothing to remove, because the tile was not visible
-              // before, then check what's there.
-              let terrain = this.map.get(`terrain,${x},${y}`);
+          // And remove it from the list of previously visible tiles, to only
+          // keep those tiles that are not visible now and will need to be
+          // hidden.
+          if (!previouslyVisibleTiles.delete(`${x},${y}`)) {
+            // But if nothing to remove, because the tile was not visible
+            // before, then check what's there.
+            let terrain = this.map.get(`terrain,${x},${y}`);
 
-              // If there is nothing.
-              if (!terrain) {
-                // Then create it.
-                this.addChunk(Math.floor(x / 50), Math.floor(y / 50));
+            // If there is nothing.
+            if (!terrain) {
+              // Then create it.
+              this.addChunk(Math.floor(x / 50), Math.floor(y / 50));
 
-                // Check what's there.
-                terrain = this.map.get(`terrain,${x},${y}`);
-              }              
-              // Then show it.
-              terrain.events.emit('reveal');
-            }
+              // Check what's there.
+              terrain = this.map.get(`terrain,${x},${y}`);
+            }              
+            // Then show it.
+            terrain.events.emit('reveal');
           }
-        });
-      }
+        }
+      });
     });
 
     // Get all the tiles that were visible before but not anymore.
