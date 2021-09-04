@@ -90,12 +90,14 @@ export default class World {
   }
 
   controlPC(actor, targets) {
+    // All that happened since the player's last action, will be revealed now. 
+    this.updateVisibleTiles();
+
     // The world will stop if the player character doesn't have any actions 
     // left from their last order to let the player give another order. 
     // Otherwise the player character will scan their surroundings for enemies
     // or newly discovered items, and the world will stop just like in the 
     // other case, if there is any. 
-    // All that happened since the player's last action, will be revealed now. 
     // However, if there is none, there is no reason for the player character 
     // not to continue towards their target, so the game won't stop and won't 
     // reveal anything until any of the above conditions are true again. 
@@ -111,7 +113,7 @@ export default class World {
   }
 
   revealAndWait(actor) {
-    this.updateVisibleTiles();
+    this.actors.forEach(this.updateActorVisibility, this);
     this.pause(actor);
     this.select(actor);
   }
@@ -166,9 +168,6 @@ export default class World {
 
     // Hide all the tiles that were visible before but not anymore.
     this.tilesToHide.forEach(this.hideTile, this);
-
-    // Show visible actors and hide the rest.
-    this.actors.forEach(this.updateActorVisibility, this);
   }
 
   hideTile(tile) {
