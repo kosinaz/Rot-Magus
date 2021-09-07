@@ -25,10 +25,8 @@ export default class Terrain {
    * @memberof Terrain
    */
   show() {
-    if (!this.visible) {
-      this.visible = true;
-      this.events.emit('show');
-    }
+    this.visible = true;
+    this.events.emit('show');
   }
 
   /**
@@ -37,9 +35,7 @@ export default class Terrain {
    * @memberof Terrain
    */
   hide() {
-    if (this.visible) {
-      this.visible = false;
-      this.events.emit('hide');
-    }
+    this.visible = false;
+    this.events.emit('hide');
   }
 }

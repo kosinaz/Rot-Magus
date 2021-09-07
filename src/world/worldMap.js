@@ -46,6 +46,11 @@ export default class WorldMap {
     this.events.emit('add', terrain);
   }  
 
+  updateVisibility(xys) {
+    this.map.forEach(terrain => terrain.hide());
+    xys.forEach(this.show, this);
+  }
+
   show(xy) {
     this.map.get(xy).show();
   }

@@ -95,11 +95,11 @@ export default class Actor {
     return !this.isPC && this.isAt(xy);
   }
 
-  blink() {
+  clearView() {
     this.view = [];
   }
 
-  see(x, y) {
+  addToView(x, y) {
     this.view.push(`${x},${y}`);
   }
 

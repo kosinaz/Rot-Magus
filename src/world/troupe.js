@@ -12,6 +12,7 @@ export default class Troupe {
     this.actors = [];
     this.scheduler = new Speed();
     this.next = null;
+    this.view = [];
     this.events = new Phaser.Events.EventEmitter();
   }
 
@@ -31,9 +32,7 @@ export default class Troupe {
 
   updateVisibility() {
     this.actors.forEach(actor => {
-      if (this.allPCView.includes(actor.xy)) {
-        actor.show();
-      }
+      if (this.view.includes(actor.xy)) actor.show();
       else actor.hide();
     });
   }
@@ -42,14 +41,14 @@ export default class Troupe {
     return this.actors.filter(actor => actor.isPC);
   }
 
-  get allPCView() {
+  updateView() {
     const view = new Set();
     this.pcs.forEach(pc => pc.view.forEach(xy => view.add(xy)));
-    return [...view];
+    this.view = [...view];
   }
 
   get hasVisibleNPC() {
-    return this.actors.some(actor => actor.isPC && actor.seesNPC(this.actors));
+    return this.actors.some(actor => !actor.isPC && actor.visible);
   }
 
   getAt(xy) {

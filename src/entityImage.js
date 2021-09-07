@@ -29,7 +29,6 @@ export default class EntityImage extends Phaser.GameObjects.Image {
       scene.hint.setText(entity.type.name);
     });
     entity.events.on('show', () => {
-      //console.log(entity.type.name, this.depth);
       if (entity.layer === 'actor') {
         entity.timeline.play();
         entity.timeline = scene.tweens.createTimeline();
@@ -37,6 +36,7 @@ export default class EntityImage extends Phaser.GameObjects.Image {
       this.setAlpha(1);
     });
     entity.events.on('hide', () => {
+      if (!entity.visible) return;
       this.setAlpha(entity.layer === 'actor' ? 0 : 0.5);
     });
     entity.events.on('move', () => {

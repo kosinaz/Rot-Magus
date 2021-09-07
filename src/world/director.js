@@ -22,14 +22,15 @@ export default class Director {
   }
 
   direct(actor) {
-    actor.blink();
-    this.viewUpdater.compute(actor.x, actor.y, 10, actor.see.bind(actor));
+    actor.clearView();
+    this.viewUpdater.compute(actor.x, actor.y, 10, actor.addToView.bind(actor));
+    this.actors.updateView();
     if (actor.isPC) this.directPC(actor);
     else this.directNPC(actor);
   }
 
   directPC(pc) {
-    this.actors.allPCView.forEach(xy => this.map.show(xy));
+    this.map.updateVisibility(this.actors.view);
 
     // The world will stop if the player character doesn't have any actions 
     // left from their last order to let the player give another order. 
@@ -51,8 +52,8 @@ export default class Director {
   }  
 
   directNPC(npc) {
-    const target = npc.view.filter(xy => this.actors.hasPCAt(xy))[0];
-    if (target) this.giveOrder(npc, target.x, target.y);
+    const pc = npc.view.filter(xy => this.actors.hasPCAt(xy))[0];
+    if (pc) this.giveOrder(npc, pc.x, pc.y);
     this.followOrder(npc);
   }
 
