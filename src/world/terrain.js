@@ -1,3 +1,4 @@
+/* global Phaser */
 /**
  * Represents a part of the world.
  * @class Terrain
@@ -14,7 +15,6 @@ export default class Terrain {
     this.type = type;
     this.x = x;
     this.y = y;
-    this.position = `terrain,${x},${y}`;
     this.visible = false;
     this.events = new Phaser.Events.EventEmitter();
   }

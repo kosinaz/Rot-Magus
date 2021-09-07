@@ -40,7 +40,7 @@ export default class WorldController {
           selected.events.emit('complete');
         }
       } else {
-        if (selected === this.world.pausedFor &&
+        if (selected.isNext &&
           !this.tweens.getAllTweens().length &&
           targeted.type.walkable) {
           this.world.giveOrder(selected, targeted.x, targeted.y);

@@ -62,56 +62,71 @@ export default class Actor {
     this.equipped = {};
     this.layer = 'actor';
     this.visible = false;
-    this.fov = new Set();
+    this.view = [];
     this.orders = [];
     this.timeline = null;
+    this.isNextState = false;
   }
 
-  /**
-   *
-   *
-   * @readonly
-   * @memberof Actor
-   */
   get xy() {
     return `${this.x},${this.y}`;
+  }
+
+  set xy(xy) {
+    xy = xy.split(',');
+    this.x = parseInt(xy[0], 10);
+    this.y = parseInt(xy[1], 10);
+  }
+
+  set isNext(value) {
+    this.isNextState = value;
+    if (value) this.events.emit('next');
   }
 
   isAt(xy) {
     return xy === this.xy;
   }
 
-  /**
-   *
-   *
-   * @memberof Actor
-   */
+  isPCAndAt(xy) {
+    return this.isPC && this.isAt(xy);
+  }
+
+  isNPCAndAt(xy) {
+    return !this.isPC && this.isAt(xy);
+  }
+
+  blink() {
+    this.view = [];
+  }
+
+  see(x, y) {
+    this.view.push(`${x},${y}`);
+  }
+
+  needsOrderAgainst(actors) {
+    return this.hasNoOrders || actors.hasVisibleNPC();
+  }
+  
+  get hasOrder() {
+    return this.orders.length;
+  }
+
+  seesNPC(actors) {
+    return this.view.some(xy => actors.some(actor => {
+      actor.isNPC && actor.isAt(xy);
+    }));
+  }
+
   show() {
     this.events.emit('show');
-    if (!this.visible) {
-      this.visible = true;
-      this.events.emit('reveal');
-    }
+    this.visible = true;
   }
 
-  /**
-   *
-   *
-   * @memberof Actor
-   */
   hide() {
-    if (this.visible) {
-      this.visible = false;
-      this.events.emit('hide');
-    }
+    this.events.emit('hide');
+    this.visible = false;
   }
 
-  /**
-   *
-   *
-   * @return {number}
-   * @memberof Actor
-   */
   getSpeed() {
     return this.speed;
   }
@@ -124,14 +139,12 @@ export default class Actor {
    */
   act() {
     if (!this.orders.length) {
-      this.events.emit('complete');
       return;
     }
     const order = this.orders.shift();
     this.x = order.x;
     this.y = order.y;
     this.events.emit('move');
-    this.events.emit('complete');
 
     // if (this.lifespan !== undefined) {
     //   if (this.lifespan-- === 0) {

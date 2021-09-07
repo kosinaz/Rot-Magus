@@ -28,7 +28,12 @@ export default class EntityImage extends Phaser.GameObjects.Image {
       scene.cursor.moveToImage(this);
       scene.hint.setText(entity.type.name);
     });
-    entity.events.on('reveal', () => {
+    entity.events.on('show', () => {
+      //console.log(entity.type.name, this.depth);
+      if (entity.layer === 'actor') {
+        entity.timeline.play();
+        entity.timeline = scene.tweens.createTimeline();
+      }
       this.setAlpha(1);
     });
     entity.events.on('hide', () => {
@@ -41,10 +46,6 @@ export default class EntityImage extends Phaser.GameObjects.Image {
         y: entity.y * 21,
         duration: 1000 / entity.speed,
       });
-    });
-    entity.events.on('show', () => {
-      entity.timeline.play();
-      entity.timeline = scene.tweens.createTimeline();
     });
     scene.world.events.on('select', (actor) => {
       if (entity === actor) {

@@ -46,7 +46,7 @@ export default class WorldScene extends Phaser.Scene {
     this.selectIcon = this.add.existing(new SelectImage(this, 3, 0));
     this.cursor = this.add.existing(new CursorImage(this));
     this.hint = this.add.existing(new HintText(this));
-    this.world.create();
+    this.world.start();
   }
 
   /**
