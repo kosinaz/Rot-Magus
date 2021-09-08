@@ -13,6 +13,7 @@ export default class Troupe {
     this.scheduler = new Speed();
     this.next = null;
     this.view = [];
+    this.selected = null;
     this.events = new Phaser.Events.EventEmitter();
   }
 
@@ -68,5 +69,10 @@ export default class Troupe {
     this.next = this.scheduler.next();
     this.next.isNext = true;
     return this.next;
+  }
+
+  select(actor) {
+    this.selected = actor;
+    this.events.emit('select', actor);
   }
 }

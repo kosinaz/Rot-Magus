@@ -65,7 +65,7 @@ export default class Actor {
     this.view = [];
     this.orders = [];
     this.timeline = null;
-    this.isNextState = false;
+    this.next = false;
   }
 
   get xy() {
@@ -73,13 +73,15 @@ export default class Actor {
   }
 
   set xy(xy) {
-    xy = xy.split(',');
-    this.x = parseInt(xy[0], 10);
-    this.y = parseInt(xy[1], 10);
+    this.x = xy.x;
+    this.y = xy.y;
   }
 
+  /**
+   * @param {boolean} value
+   */
   set isNext(value) {
-    this.isNextState = value;
+    this.next = value;
     if (value) this.events.emit('next');
   }
 
@@ -108,7 +110,7 @@ export default class Actor {
   }
   
   get hasOrder() {
-    return this.orders.length;
+    return !!this.orders.length;
   }
 
   seesNPC(actors) {
@@ -125,6 +127,11 @@ export default class Actor {
   hide() {
     this.events.emit('hide');
     this.visible = false;
+  }
+
+  wait() {
+    this.events.emit('wait');
+    this.waiting = true;
   }
 
   getSpeed() {

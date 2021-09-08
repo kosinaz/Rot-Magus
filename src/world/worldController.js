@@ -26,29 +26,23 @@ export default class WorldController {
    * @memberof World
    */
   onClick(pointer, target) {
-    let selected = this.world.selected;
+    const tweening = !!this.tweens.getAllTweens().length;
+    if (tweening) return;
     const targeted = target.getData('data');
-    if (pointer.button === 0 && targeted && targeted.layer === 'actor') {
-      selected = targeted;
-      this.world.select(targeted);
-    }
-    if (pointer.button === 2 &&
-      selected &&
-      this.world.actors.includes(selected)) {
-      if (targeted.layer === 'actor') {
-        if (selected === this.world.pausedFor) {
-          selected.events.emit('complete');
-        }
-      } else {
-        if (selected.isNext &&
-          !this.tweens.getAllTweens().length &&
-          targeted.type.walkable) {
-          this.world.giveOrder(selected, targeted.x, targeted.y);
-          selected.act();
-        } else {
-          this.world.giveOrder(selected, targeted.x, targeted.y);
-        }
-      }
-    }
+    if (!targeted) return;
+    if (pointer.button === 0) this.controller.handleLeftClick(targeted);
+    if (pointer.button === 2) this.controller.handleRightClick(targeted);
+  }
+
+  handleLeftClick(targeted) {
+    if (targeted.layer === 'actor') this.world.actors.select(targeted);
+  }
+
+  handleRightClick(targeted) {
+    const selected = this.world.actors.selected;
+    if (!selected) return;
+    if (targeted.layer !== 'actor' && !targeted.type.walkable) return;
+    this.world.director.giveOrder(selected, targeted.x, targeted.y);
+    if (selected.next) this.world.director.followOrder(selected);
   }
 }

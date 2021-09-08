@@ -22,6 +22,7 @@ export default class World {
     this.actors = new Troupe();
     this.events = new Phaser.Events.EventEmitter();
     this.actors.events.on('add', actor => this.events.emit('add', actor));
+    this.actors.events.on('select', pc => this.events.emit('select', pc));
     this.director = new Director(this.map, this.actors);
   }
 

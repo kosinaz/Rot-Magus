@@ -30,6 +30,7 @@ export default class Director {
   }
 
   directPC(pc) {
+    console.log('directPC', pc.type.name, pc.isPC);
     this.map.updateVisibility(this.actors.view);
 
     // The world will stop if the player character doesn't have any actions 
@@ -41,40 +42,28 @@ export default class Director {
     // not to continue towards their target, so the game won't stop and won't 
     // reveal anything until any of the above conditions are true again.
     if (pc.hasOrder || this.actors.hasVisibleNPC) this.followOrder(pc);
-    else this.actors.updateVisibility();
+    else this.waitForOrder(pc);
   }
 
   followOrder(actor) {
-    if (!actor.hasOrder) return;
-    actor.xy = actor.orders.shift();
+    if (!actor.hasOrder) return this.direct(this.actors.getNext());
+    const xy = actor.orders.shift();
+    actor.xy = xy;
     actor.events.emit('move');
+    actor.waiting = false;
     this.direct(this.actors.getNext());
-  }  
+  }
+
+  waitForOrder(pc) {
+    this.actors.updateVisibility();
+    pc.wait();
+    this.actors.select(pc);
+  }
 
   directNPC(npc) {
     const pc = npc.view.filter(xy => this.actors.hasPCAt(xy))[0];
     if (pc) this.giveOrder(npc, pc.x, pc.y);
     this.followOrder(npc);
-  }
-
-  /**
-   *
-   * @param {*} actor
-   * @memberof World
-   */
-  select(actor) {
-    this.selected = actor;
-    this.events.emit('select', actor);
-  }
-
-  /**
-   *
-   * @param {*} actor
-   * @memberof World
-   */
-  pause(actor) {
-    this.pausedFor = actor;
-    this.events.emit('pause', actor);
   }
 
   /**
@@ -87,27 +76,19 @@ export default class Director {
    */
   giveOrder(actor, x, y) {
     // Initialize a new astar pathmap based on the given target.
-    const a = new AStar(x, y, this.isWalkable.bind(this));
+    const a = new AStar(x, y, (x, y) => {
+      if (actor.isAt(`${x},${y}`)) return true;
+      return this.map.isWalkableAt(x, y);
+    });
 
     // After generated the pathmap create a new path for the actor.
     actor.orders = [];
 
     // Compute the shortest path between the actor's current position and the
     // given target position based on the astar map.
-    a.compute(actor.x, actor.y, this.addNextStep.bind(this));
+    a.compute(actor.x, actor.y, (x, y) => actor.orders.push({x, y}));
 
     // Remove the first order, because that's current position of the actor.
     actor.orders.shift();
-  }
-
-  isWalkable(x, y) {
-    const xy = `${x},${y}`;
-    if (this.currentActor.isAt(xy)) return true;
-    if (this.map.get(`terrain,${xy}`).type.walkable) return true;
-    return false;
-  }
-
-  addNextStep(x, y) {
-    this.currentActor.orders.push(`${x},${y}`);
   }
 }

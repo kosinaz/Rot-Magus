@@ -16,6 +16,11 @@ export default class WorldMap {
     if (!this.map.has(`${x},${y}`)) this.addChunkFor(x, y);
     return this.map.get(`${x},${y}`).type.transparent;
   } 
+
+  isWalkableAt(x, y) {
+    if (!this.map.has(`${x},${y}`)) this.addChunkFor(x, y);
+    return this.map.get(`${x},${y}`).type.transparent;
+  } 
   
   addChunkFor(x, y) {
     const chunkX = Math.floor(x / 50);
