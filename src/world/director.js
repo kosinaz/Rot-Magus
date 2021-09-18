@@ -61,8 +61,9 @@ export default class Director {
   }
 
   directNPC(npc) {
+    console.log('directNPC', npc.type.name, !!npc.isPC);
     const pc = npc.view.filter(xy => this.actors.hasPCAt(xy))[0];
-    if (pc) this.giveOrder(npc, pc.x, pc.y);
+    if (pc) this.giveOrder(npc, pc);
     this.followOrder(npc);
   }
 
@@ -74,7 +75,10 @@ export default class Director {
    * @param {*} y
    * @memberof Actor
    */
-  giveOrder(actor, x, y) {
+  giveOrder(actor, xy) {
+    xy = xy.split(',');
+    const x = parseInt(xy[0], 10);
+    const y = parseInt(xy[1], 10);
     // Initialize a new astar pathmap based on the given target.
     const a = new AStar(x, y, (x, y) => {
       if (actor.isAt(`${x},${y}`)) return true;

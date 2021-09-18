@@ -42,7 +42,7 @@ export default class WorldController {
     const selected = this.world.actors.selected;
     if (!selected) return;
     if (targeted.layer !== 'actor' && !targeted.type.walkable) return;
-    this.world.director.giveOrder(selected, targeted.x, targeted.y);
+    this.world.director.giveOrder(selected, targeted.xy);
     if (selected.next) this.world.director.followOrder(selected);
   }
 }

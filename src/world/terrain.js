@@ -19,6 +19,15 @@ export default class Terrain {
     this.events = new Phaser.Events.EventEmitter();
   }
 
+  get xy() {
+    return `${this.x},${this.y}`;
+  }
+
+  set xy(xy) {
+    this.x = xy.x;
+    this.y = xy.y;
+  }
+
   /**
    *
    *
