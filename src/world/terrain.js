@@ -34,8 +34,8 @@ export default class Terrain {
    * @memberof Terrain
    */
   show() {
-    this.visible = true;
     this.events.emit('show');
+    this.visible = true;
   }
 
   /**
@@ -44,7 +44,7 @@ export default class Terrain {
    * @memberof Terrain
    */
   hide() {
-    this.visible = false;
     this.events.emit('hide');
+    this.visible = false;
   }
 }

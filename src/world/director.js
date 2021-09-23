@@ -30,7 +30,6 @@ export default class Director {
   }
 
   directPC(pc) {
-    console.log('directPC', pc.type.name, pc.isPC);
     this.map.updateVisibility(this.actors.view);
 
     // The world will stop if the player character doesn't have any actions 
@@ -61,7 +60,6 @@ export default class Director {
   }
 
   directNPC(npc) {
-    console.log('directNPC', npc.type.name, !!npc.isPC);
     const pc = npc.view.filter(xy => this.actors.hasPCAt(xy))[0];
     if (pc) this.giveOrder(npc, pc);
     this.followOrder(npc);
