@@ -40,16 +40,17 @@ export default class Director {
     // However, if there is none, there is no reason for the player character 
     // not to continue towards their target, so the game won't stop and won't 
     // reveal anything until any of the above conditions are true again.
-    if (pc.hasOrder || this.actors.hasVisibleNPC) this.followOrder(pc);
+    if (pc.hasOrder && !this.actors.hasVisibleNPC) this.followOrder(pc);
     else this.waitForOrder(pc);
   }
 
   followOrder(actor) {
-    if (!actor.hasOrder) return this.direct(this.actors.getNext());
-    const xy = actor.orders.shift();
-    actor.xy = xy;
-    actor.events.emit('move');
-    actor.waiting = false;
+    if (actor.hasOrder) {
+      const xy = actor.orders.shift();
+      actor.xy = xy;
+      actor.events.emit('move');
+      actor.waiting = false;
+    }
     this.direct(this.actors.getNext());
   }
 
