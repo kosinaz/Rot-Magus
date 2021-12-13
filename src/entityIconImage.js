@@ -21,8 +21,8 @@ export default class EntityIconImage extends Phaser.GameObjects.Image {
     this.setScrollFactor(0);
     this.setDepth(2);
     this.on('pointerup', () => {
-      scene.cameras.main.scrollX = this.x - 512;
-      scene.cameras.main.scrollY = this.y - 288;
+      scene.cameras.main.scrollX = entity.x * 24 - 512;
+      scene.cameras.main.scrollY = entity.y * 21 - 288;
       scene.world.actors.select(entity);
     });
     // eslint-disable-next-line new-cap
