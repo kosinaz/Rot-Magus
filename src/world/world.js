@@ -30,4 +30,58 @@ export default class World {
     this.config.pcs.forEach(pc => this.actors.add(pc));
     this.director.direct(this.actors.getNext());
   }
+
+  /* async mainLoop() {
+    let actor = this.actors.getNext();
+    while (actor) {
+      await actor.act();
+      actor = this.actors.getNext();
+    }
+  }
+  
+  async function mainLoop() {
+    for (let i = 0; i < 10; i += 1) {
+      let actor = scheduler.next();
+      if (!actor) { break; }
+      await actor.act();
+      SHOW(output.join("<br>"));
+      output = [];
+    }
+  }
+  
+  let scheduler = new ROT.Scheduler.Simple();
+  let output = [];
+  
+  resolver = (resolve) => {
+    document.onclick = (e) => {
+      console.log(e.x, e.y);
+      resolve(e.x + "," + e.y);
+    } 
+  }
+  
+  let actor1 = { // sample actor: pauses the execution when dead
+    act: async () => {
+      let out = "1 moves to ";
+      out += await new Promise(resolver); // pause
+      output.push(out);
+    }       
+  }
+  
+  let actor2 = {
+    act: () => { 
+      output.push("2 is idle"); 
+    }
+  }
+  
+  let actor3 = {
+    act: () => { 
+      output.push("3 is idle"); 
+    }
+  }
+  
+  scheduler.add(actor1, true);
+  scheduler.add(actor2, true);
+  scheduler.add(actor3, true);
+  mainLoop(); */
+
 }
