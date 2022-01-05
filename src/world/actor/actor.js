@@ -145,6 +145,7 @@ export default class Actor {
    * @memberof Actor
    */
   act() {
+    console.log('act');
     if (!this.orders.length) {
       return;
     }
