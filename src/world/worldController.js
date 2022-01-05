@@ -19,10 +19,14 @@ export default class WorldController {
   }
 
   /**
+   * The Game Object Up Input Event is dispatched by the Input Plugin belonging
+   * to a Scene if a pointer is released while over any interactive Game Object.
+   * The Scene is listening to this event and propagates it to this function.
    *
-   *
-   * @param {*} pointer
-   * @param {*} target
+   * @param {Phaser.Input.Pointer} pointer 
+   * The Pointer responsible for triggering this event.
+   * @param {Phaser.GameObjects.GameObject} target 
+   * The Game Object the pointer was over when released.
    * @memberof World
    */
   onClick(pointer, target) {

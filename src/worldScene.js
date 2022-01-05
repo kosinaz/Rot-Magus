@@ -39,7 +39,7 @@ export default class WorldScene extends Phaser.Scene {
       this.add.existing(new EntityImage(this, entity));
     });
     this.controller = new WorldController(this.world);
-    this.input.on('gameobjectup', this.controller.onClick.bind(this));
+    this.input.on('gameobjectup', this.controller.onClick, this);
     this.camera = new WorldSceneCameraManager(this);
     this.select = this.add.existing(new SelectImage(this, 2));
     this.icons = new Set();
